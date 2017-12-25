@@ -25,6 +25,7 @@ export default {
     mutations: {
         [SET_USER](state, { user }) {
             state.loggedinUser = user;
+            console.log('state.loggedinUser', state.loggedinUser)
         },
         [SIGNOUT](state) {
             state.loggedinUser = null;
@@ -44,6 +45,7 @@ export default {
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
+            // console.log('Sign Up action', signupDetails)
             UserService
                 .signup(signupDetails)
                 .then(res => {

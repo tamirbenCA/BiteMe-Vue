@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { LOAD_TAGS } from '../modules/shop.module';
+import { LOAD_TAGS } from '../modules/ShopModule';
 export default {
     name: 'HeaderBar',
     data() {

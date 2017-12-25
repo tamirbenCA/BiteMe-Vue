@@ -1,7 +1,7 @@
 <template>
     <section class="header-bar">
         <div>
-            <img src="../assets/Byte-Me-Logo.png"/>
+            <img src="../assets/Byte-Me-Logo.png" />
         </div>
         <div>
             <input type="text" placeholder="What you want to byte?">
@@ -9,7 +9,9 @@
         </div>
         <div>
             <button class="login-button">Log In</button>
-            <button class="join-button">Join</button>
+            <router-link to="/join">
+                <button class="join-button">Join</button>
+            </router-link>
         </div>
     </section>
 </template>
@@ -19,23 +21,26 @@ import UserService from '../services/UserService.js';
 import { SIGNUP, SIGNIN } from '../modules/UserModule.js';
 
 export default {
-  name: 'HeaderBar',
-  data () {
-    return {
+    name: 'HeaderBar',
+    data() {
+        return {
+        }
     }
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+h1,
+h2 {
+    font-weight: normal;
 }
+
 a {
-  color: #42b983;
+    color: #42b983;
 }
-.header-bar{
+
+.header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,16 +48,16 @@ a {
 
 input {
     /* padding: 5px; */
-    padding:5px;
-    padding-left:55px;
-    max-width:300px;
-    border:1px solid #f5f5f5;
-    font-size:13px;
+    padding: 5px;
+    padding-left: 55px;
+    max-width: 300px;
+    border: 1px solid #f5f5f5;
+    font-size: 13px;
     /* color:gray; */
-    background-image:url('../assets/search logo.png');
-    background-repeat:no-repeat;
-    background-position:left center;
-    outline:0;
+    background-image: url('../assets/search logo.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    outline: 0;
 }
 
 button {
