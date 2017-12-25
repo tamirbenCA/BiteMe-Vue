@@ -1,6 +1,6 @@
 import Vuex from 'vuex';
-import usersModule from './modules/users.module';
-import shopModule from './modules/shop.module';
+import usersModule from './modules/UserModule';
+import shopModule from './modules/ShopModule';
 
 // const isProduction = process.env.NODE_ENV === 'production';
 
