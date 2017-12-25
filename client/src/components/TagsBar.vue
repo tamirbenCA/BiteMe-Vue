@@ -48,5 +48,10 @@ ul {
 
 li {
     padding: 10px;
+    border: 1px solid black;
+    border-right: none;
+}
+li:last-child {
+    border: 1px solid black;
 }
 </style>
