@@ -22,10 +22,12 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'HomePage',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      // msg: this.$store.getters.user
+      msg: this.$store.state.user.name
+      // msg: 'Welcome to Your Vue.js App'
     }
   }
 }
