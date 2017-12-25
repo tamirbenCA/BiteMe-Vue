@@ -1,11 +1,11 @@
 import Vuex from 'vuex';
-import usersModule from './modules/users.module';
+import userModule from './modules/userModule';
 
 // const isProduction = process.env.NODE_ENV === 'production';
 
 export default new Vuex.Store({
     modules: {
-      user : usersModule,
+      user : userModule,
     //   shop: shopModule,
     //   cart : cartModule
     },

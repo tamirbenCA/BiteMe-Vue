@@ -5,6 +5,7 @@
         </div>
         <div>
             <input type="text" placeholder="What you want to byte?">
+            <button>Show Map</button>
         </div>
         <div>
             <button class="login-button">Log In</button>
@@ -14,6 +15,9 @@
 </template>
 
 <script>
+import UserService from '../services/UserService.js';
+import { SIGNUP, SIGNIN } from '../modules/UserModule.js';
+
 export default {
   name: 'HeaderBar',
   data () {
