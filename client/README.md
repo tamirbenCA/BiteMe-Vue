@@ -1,4 +1,4 @@
-# sprint-4
+# sprint4
 
 > A Vue.js project
 
