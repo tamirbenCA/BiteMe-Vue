@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <header-bar/>
-    <!-- <tag-bar/> -->
+    <tags-bar/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
+import TagsBar from './components/TagsBar.vue';
 
 
 export default {
   name: 'app',
   components: {
-    HeaderBar
+    HeaderBar,
+    TagsBar
   }
 }
 </script>
