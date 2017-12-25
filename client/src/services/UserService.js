@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const URL = 'http://localhost:3003'
 
 function signup(userDetails) {
@@ -25,9 +27,42 @@ function toggleLike(userId, carId) {
         // .then(({ data }) => data)
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getEmptyUser() {
+    return {
+            name: '',
+            password: '',
+            email: '',
+            about: '',
+            avgResTime: null,
+            chefPic: '',
+            address: '',
+            itemsBought: null,
+            itemsSold : null,
+            itemsForSale: null,
+            commentsOnSellers: null,
+            payment: null,
+    }
+}
+
+
 export default {
     signup,
     login,
     logout,
     toggleLike,
+    getEmptyUser
 } 
