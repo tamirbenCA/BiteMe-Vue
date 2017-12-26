@@ -20,16 +20,15 @@ const mutations = {
     },
 }
 const getters = {
-    tags: state => state.tags,
-    
+    tags: state => state.tags,  
     items: state => state.items
 }
+
 const actions = {
     [LOAD_TAGS]({ commit, payload }) {
-        // console.log('loading in actions')
-        UserService.loadTags()
+        ShopService.loadTags()
             .then(tags => {
-                // console.log('tags in action', tags)
+                tags = tags.data
                 commit({ type: LOAD_TAGS, tags })
             })
 

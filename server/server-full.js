@@ -88,7 +88,7 @@ function getBasicQueryObj(req) {
 }
 
 app.get('/data/tags', function (req, res) {
-	console.log('inside tags')
+	// console.log('inside tags')
 		var tags = utilsService.getTags();
 		res.json(tags)
 })

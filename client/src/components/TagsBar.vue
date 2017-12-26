@@ -14,7 +14,7 @@
 <script>
 import { LOAD_TAGS } from '../modules/ShopModule';
 export default {
-    name: 'HeaderBar',
+    name: 'TagsBar',
     data() {
         return {
             // tags: this.$store.state.shop.tags
