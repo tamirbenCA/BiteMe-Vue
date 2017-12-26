@@ -6,7 +6,7 @@
             </router-link>
         </div>
         <div>
-            <input type="text" placeholder="What you want to byte?">
+            <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
             <!-- <button>Show Map</button> -->
             <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
         </div>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 
@@ -28,6 +30,7 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
+            keyUpInterval: null,
         }
     },
     computed: {
@@ -38,6 +41,16 @@ export default {
     methods: {
         logOut() {
             this.$store.dispatch({ type: SIGNOUT })
+        },
+        searchByte() {
+            clearTimeout(this.keyUpInterval)
+            this.keyUpInterval = setTimeout(function() {
+                console.log('searching for a byte')
+            }, 350);
+
+            // _.throttle(() => {
+            //     console.log('I get fired every two seconds!')
+            // }, 2000)
         }
     }
 }
