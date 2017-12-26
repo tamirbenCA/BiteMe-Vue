@@ -16,6 +16,7 @@
         </div>
         <div v-else>
             <button @click="logOut">Log Out</button>
+            <button >Manage Orders</button>
         </div>
     </section>
 </template>
