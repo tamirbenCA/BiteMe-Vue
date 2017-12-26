@@ -28,6 +28,7 @@ export default {
         submitNewUser() {
             console.log('submiting form', this.newUser)
             this.$store.dispatch({ type: SIGNUP, signupDetails: this.newUser })
+                .then(this.$router.push('/'))
         }
     },
     computed: {

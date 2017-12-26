@@ -4,6 +4,7 @@ import HomePage from '@/components/HomePage'
 import JoinIn from '@/components/JoinIn'
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
+import Map from '@/components/Map'
 
 Vue.use(Router)
 
@@ -28,6 +29,9 @@ export default new Router({
       path: '/itemdetails/:itemid',
       name: 'ItemDetails',
       component: ItemDetails,
+      path: '/map',
+      name: 'Map',
+      component: Map,
     }
   ]
 })

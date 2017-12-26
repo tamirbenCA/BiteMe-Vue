@@ -106,7 +106,6 @@ app.get('/data/:objType', function (req, res) {
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				console.log(utilsService);
 				var sortedObjs = utilsService.sortByRank(objs);
 				res.json(sortedObjs);
 			}

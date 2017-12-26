@@ -24,6 +24,8 @@ export default {
         logIn() {
            console.log('user is: ', this.user)
            this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
+                .then(this.$router.push('/'))
+
         }
     },
     created() {
