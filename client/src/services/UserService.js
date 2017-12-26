@@ -23,10 +23,22 @@ function logout() {
 }
 
 function toggleLike(userId, carId) {
-   return axios.post(`${URL}/data/${userId}/liked/${carId}`)
-        // .then(({ data }) => data)
+    return axios.post(`${URL}/data/${userId}/liked/${carId}`)
+    // .then(({ data }) => data)
 }
 
+
+function getItems() {
+    return axios
+        .get(`${URL}/data/user`)
+        .then(res =>
+            res.data
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
+}
 
 
 
@@ -43,18 +55,18 @@ function toggleLike(userId, carId) {
 
 function getEmptyUser() {
     return {
-            name: '',
-            password: '',
-            email: '',
-            about: '',
-            avgResTime: null,
-            chefPic: '',
-            address: '',
-            itemsBought: null,
-            itemsSold : null,
-            itemsForSale: null,
-            commentsOnSellers: null,
-            payment: null,
+        name: '',
+        password: '',
+        email: '',
+        about: '',
+        avgResTime: null,
+        chefPic: '',
+        address: '',
+        itemsBought: null,
+        itemsSold: null,
+        itemsForSale: null,
+        commentsOnSellers: null,
+        payment: null,
     }
 }
 
@@ -64,5 +76,6 @@ export default {
     login,
     logout,
     toggleLike,
-    getEmptyUser
+    getEmptyUser,
+    getItems
 } 

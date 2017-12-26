@@ -12,7 +12,7 @@ var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        loggedinUser: getUserFromStorage()
+        // loggedinUser: getUserFromStorage()
     },
     getters: {
         isUser(state) {
