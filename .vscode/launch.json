@@ -6,10 +6,23 @@
     "configurations": [
         {
             "type": "node",
+<<<<<<< HEAD
             "request": "launch",
             "name": "nodemon",
             "runtimeExecutable": "nodemon",
             "program": "${workspaceRoot}/server/server.js",
+=======
+            "request": "attach",
+            "name": "Attach",
+            "port": 5858
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "nodemon",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceRoot}/server/server-full.js",
+>>>>>>> bab9f1e912e44f0893e98755053a21f8b7dffea5
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"

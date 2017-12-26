@@ -1,29 +1,57 @@
 <template>
     <section class="header-bar">
         <div>
-            <img src="../assets/Byte-Me-Logo.png" />
-        </div>
-        <div>
-            <input type="text" placeholder="What you want to byte?">
-            <button>Show Map</button>
-        </div>
-        <div>
-            <button class="login-button">Log In</button>
-            <router-link to="/join">
-                <button class="join-button">Join</button>
+            <router-link to="/">
+                <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
+        </div>
+        <div>
+            <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
+            <!-- <button>Show Map</button> -->
+            <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
+        </div>
+        <div v-if="!loggedUser">
+            <router-link to="/login" tag="button" class="login-button">Log In</router-link>
+            <router-link to="/join" tag="button" class="join-button">Join</router-link>
+        </div>
+        <div v-else>
+            <button @click="logOut">Log Out</button>
+            <button >Manage Orders</button>
         </div>
     </section>
 </template>
 
 <script>
+import _ from 'lodash'
+
 import UserService from '../services/UserService.js';
-import { SIGNUP, SIGNIN } from '../modules/UserModule.js';
+import { SIGNOUT } from '../modules/UserModule.js';
 
 export default {
     name: 'HeaderBar',
     data() {
         return {
+            keyUpInterval: null,
+        }
+    },
+    computed: {
+        loggedUser() {
+            return this.$store.getters.isUser;
+        }
+    },
+    methods: {
+        logOut() {
+            this.$store.dispatch({ type: SIGNOUT })
+        },
+        searchByte() {
+            clearTimeout(this.keyUpInterval)
+            this.keyUpInterval = setTimeout(function() {
+                console.log('searching for a byte')
+            }, 350);
+
+            // _.throttle(() => {
+            //     console.log('I get fired every two seconds!')
+            // }, 2000)
         }
     }
 }

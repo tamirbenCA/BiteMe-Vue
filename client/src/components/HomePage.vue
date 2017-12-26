@@ -2,6 +2,7 @@
   <div class="items-container">
     <ul>
       <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+<<<<<<< HEAD
         <div class="item" >
           <div class="img-item"   v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}" >
             <!-- <img :src="item.item.img" /> -->
@@ -17,7 +18,18 @@
             </div>
           </div>
         </div>
+=======
+        <router-link :to="'/itemdetails/' + item.item.id">
+          <div>
+            <img :src="item.item.img" />
+            <h2>{{item.item.price}}$</h2>
+            <h3>
+              <span class="star">★</span> {{item.item.rank}}</h3>
+            <h2>{{item}}</h2>
+>>>>>>> bab9f1e912e44f0893e98755053a21f8b7dffea5
 
+          </div>
+        </router-link>
       </li>
     </ul>
   </div>

@@ -14,6 +14,7 @@ function signup(userDetails) {
 function login(userCreds) {
     return axios.post(`${URL}/login`, userCreds)
         .then(({ data }) => {
+            console.log('user service login', userCreds);
             return data
         })
 }
@@ -65,14 +66,14 @@ function getEmptyUser() {
         password: '',
         email: '',
         about: '',
-        avgResTime: null,
+        avgResTime: 0,
         chefPic: '',
         address: '',
-        itemsBought: null,
-        itemsSold: null,
-        itemsForSale: null,
-        commentsOnSellers: null,
-        payment: null,
+        itemsBought: [],
+        itemsSold: [],
+        itemsForSale: [],
+        commentsOnSellers: [],
+        payment: {},
     }
 }
 

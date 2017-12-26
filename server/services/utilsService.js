@@ -5,6 +5,7 @@ function getTags() {
 
 function sortByRank(items) {
     console.log('itemsitemsitemsitems',items.length)
+    
     var maxRank = 5;
     var sellersRanks = [];
 

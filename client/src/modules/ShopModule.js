@@ -1,6 +1,7 @@
 export const LOAD_TAGS = 'shop/loadTags'
 export const LOAD_ITEMS = 'shop/loadItems';
 export const LOAD_ITEMS_BY_TAG = 'shop/loadItemsByTag';
+export const LOAD_ITEM = 'shop/loadItem';
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
 
@@ -10,7 +11,9 @@ const state = {
     items: [],
     tags: [],
     currentItem:null,
-    tag:null
+    tag:null,
+    currItem: {},
+    tags: []
 }
 const mutations = {
     [LOAD_TAGS](state, payload) {
@@ -21,11 +24,15 @@ const mutations = {
         state.items = items;
         // console.log( state.items)
     },
-    
+    [LOAD_ITEM](state, item) {
+        console.log('mutation item: ', item)
+        state.currItem = item;
+    }
 }
 const getters = {
     tags: state => state.tags,  
-    items: state => state.items
+    items: state => state.items,
+    currItem: state => state.currItem
 }
 
 const actions = {
@@ -62,6 +69,13 @@ const actions = {
                 throw err;
             })
     },
+    [LOAD_ITEM]({commit}, {itemId}){
+        // console.log('action: LOAD_ITEM itemId', itemId)
+        return ShopService.getItemById(itemId)
+            .then(item => {
+                commit({type: LOAD_ITEM, item})
+            })
+    }
 }
 export default {
     state,
