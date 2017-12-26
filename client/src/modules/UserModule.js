@@ -12,7 +12,7 @@ var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        // loggedinUser: getUserFromStorage()
+        loggedinUser: getUserFromStorage()
     },
     getters: {
         isUser(state) {
@@ -60,7 +60,7 @@ export default {
             })
         },
         [SIGNIN]({ commit }, { signinDetails }) {
-            return new ProcessingInstruction((resolve, reject) => {
+            return new Promise ((resolve, reject) => {
                 UserService
                     .login(signinDetails)
                     .then(res => {

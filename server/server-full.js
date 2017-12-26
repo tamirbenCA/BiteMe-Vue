@@ -106,7 +106,6 @@ app.get('/data/:objType', function (req, res) {
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				console.log(utilsService);
 				var sortedObjs = utilsService.sortByRank(objs);
 				res.json(sortedObjs);
 			}
@@ -237,10 +236,11 @@ app.put('/data/:objType/:id', function (req, res) {
 // Basic Login/Logout/Protected assets
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {
-		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
+		console.log(req.body)
+		db.collection('user').findOne({ email: req.body.email, password: req.body.password }, function (err, user) {
 			if (user) {
 				cl('Login Succesful');
-				delete user.pass;
+				delete user.password;
 				req.session.user = user;
 				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
 			} else {

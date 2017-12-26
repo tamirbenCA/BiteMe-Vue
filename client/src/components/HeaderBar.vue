@@ -1,29 +1,48 @@
 <template>
     <section class="header-bar">
         <div>
-            <img src="../assets/Byte-Me-Logo.png" />
+            <router-link to="/">
+                <img src="../assets/Byte-Me-Logo.png" />
+            </router-link>
         </div>
         <div>
             <input type="text" placeholder="What you want to byte?">
             <button>Show Map</button>
         </div>
-        <div>
-            <button class="login-button">Log In</button>
+        <div v-if="!loggedUser">
+            <router-link to="/login">
+                <button class="login-button">Log In</button>
+            </router-link>
+
             <router-link to="/join">
                 <button class="join-button">Join</button>
             </router-link>
+        </div>
+        <div v-else>
+            <button @click="logOut">Log Out</button>
         </div>
     </section>
 </template>
 
 <script>
 import UserService from '../services/UserService.js';
-import { SIGNUP, SIGNIN } from '../modules/UserModule.js';
+import { SIGNOUT } from '../modules/UserModule.js';
 
 export default {
     name: 'HeaderBar',
     data() {
         return {
+        }
+    },
+    computed: {
+        loggedUser() {
+            console.log('*******logged user:************8', this.$store.getters.isUser)
+            return this.$store.getters.isUser;
+        }
+    },
+    methods: {
+        logOut() {
+            this.$store.dispatch({ type: SIGNOUT })
         }
     }
 }

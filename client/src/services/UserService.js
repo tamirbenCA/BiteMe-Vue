@@ -14,6 +14,7 @@ function signup(userDetails) {
 function login(userCreds) {
     return axios.post(`${URL}/login`, userCreds)
         .then(({ data }) => {
+            console.log('user service login', userCreds);
             return data
         })
 }
