@@ -29,7 +29,7 @@ export default {
       .then(items => {
         var x = this.$store.getters.items
        
-        // console.log(x[0].item.price)
+        console.log(x)
       })
       .catch(err => { console.log('err', err) })
   },

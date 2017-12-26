@@ -49,8 +49,9 @@ const io = require('socket.io')(http);
 function dbConnect() {
 
 	return new Promise((resolve, reject) => {
+
 		// Connection URL
-		var url = 'mongodb://localhost:27017/mayNer';
+		var url = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me';
 		// Use connect method to connect to the Server
 		mongodb.MongoClient.connect(url, function (err, db) {
 			if (err) {
@@ -106,8 +107,9 @@ app.get('/data/:objType', function (req, res) {
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				console.log(utilsService);
+				
 				var sortedObjs = utilsService.sortByRank(objs);
+				console.log(sortedObjs);
 				res.json(sortedObjs);
 			}
 			db.close();
