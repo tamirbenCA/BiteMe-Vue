@@ -47,7 +47,6 @@ const io = require('socket.io')(http);
 
 
 function dbConnect() {
-
 	return new Promise((resolve, reject) => {
 
 		// Connection URL
@@ -59,7 +58,7 @@ function dbConnect() {
 				reject(err);
 			}
 			else {
-				//cl('Connected to DB');
+				cl('Connected to DB');
 				resolve(db);
 			}
 		});
@@ -96,6 +95,7 @@ app.get('/data/tags', function (req, res) {
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
+	// console.log()
 	const objType = req.params.objType;
 	var query = getBasicQueryObj(req);
 	dbConnect().then(db => {

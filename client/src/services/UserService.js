@@ -29,10 +29,13 @@ function toggleLike(userId, carId) {
 
 
 function getItems() {
+    console.log('inside getitmes')
     return axios
         .get(`${URL}/data/user`)
-        .then(res => {return res.data}
-           
+        .then(res => {
+            // console.log('res:', res.data)
+            return res.data
+        }
         )
         .catch(e => {
             console.log('No Items', e);

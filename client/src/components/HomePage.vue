@@ -28,8 +28,7 @@ export default {
     this.$store.dispatch({ type: LOAD_ITEMS })
       .then(items => {
         var x = this.$store.getters.items
-       
-        console.log(x)
+        console.log('items:', x)
       })
       .catch(err => { console.log('err', err) })
   },
