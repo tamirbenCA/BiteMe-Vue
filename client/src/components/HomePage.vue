@@ -1,7 +1,7 @@
 <template>
   <div class="items-container">
     <ul>
-      <li v-for="item in itemsToDisplay">
+      <li v-for="(item, idx) in itemsToDisplay" :key="idx">
         <div>
           <img :src="item.item.img" />
           <h2>{{item.item.price}}$</h2>

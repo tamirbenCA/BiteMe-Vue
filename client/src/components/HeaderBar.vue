@@ -7,16 +7,12 @@
         </div>
         <div>
             <input type="text" placeholder="What you want to byte?">
-            <button>Show Map</button>
+            <!-- <button>Show Map</button> -->
+            <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
         </div>
         <div v-if="!loggedUser">
-            <router-link to="/login">
-                <button class="login-button">Log In</button>
-            </router-link>
-
-            <router-link to="/join">
-                <button class="join-button">Join</button>
-            </router-link>
+            <router-link to="/login" tag="button" class="login-button">Log In</router-link>
+            <router-link to="/join" tag="button" class="join-button">Join</router-link>
         </div>
         <div v-else>
             <button @click="logOut">Log Out</button>
@@ -36,7 +32,6 @@ export default {
     },
     computed: {
         loggedUser() {
-            console.log('*******logged user:************8', this.$store.getters.isUser)
             return this.$store.getters.isUser;
         }
     },
