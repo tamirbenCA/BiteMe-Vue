@@ -1,5 +1,6 @@
 export const LOAD_TAGS = 'shop/loadTags'
 export const LOAD_ITEMS = 'shop/loadItems';
+export const LOAD_ITEMS_BY_TAG = 'shop/loadItemsByTag';
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
 
@@ -7,7 +8,9 @@ const SET_ITEMS = 'shop/setItems';
 
 const state = {
     items: [],
-    tags: []
+    tags: [],
+    currentItem:null,
+    tag:null
 }
 const mutations = {
     [LOAD_TAGS](state, payload) {
@@ -18,6 +21,7 @@ const mutations = {
         state.items = items;
         // console.log( state.items)
     },
+    
 }
 const getters = {
     tags: state => state.tags,  
@@ -33,13 +37,25 @@ const actions = {
             })
 
     },
-    [LOAD_ITEMS]({ commit}) {
+    [LOAD_ITEMS]({commit}) {
         return UserService.getItems()
             .then(items => {
                 // console.log(items)
                 commit({ type: SET_ITEMS, items })
                
                 
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
+    [LOAD_ITEMS_BY_TAG]({commit},{tag}) {
+        console.log('54',tag)
+        return UserService.getItemsByTag(tag)
+            .then(items => {
+                // console.log(items)
+                commit({ type: SET_ITEMS, items })
             })
             .catch(err => {
                 commit(SET_ITEMS, [])

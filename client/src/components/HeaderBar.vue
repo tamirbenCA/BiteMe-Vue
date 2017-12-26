@@ -31,6 +31,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h1,
 h2 {
     font-weight: normal;
@@ -44,6 +45,8 @@ a {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: #09012d;
+    margin-top: none;
 }
 
 input {
@@ -68,5 +71,11 @@ button {
 .join-button {
     background-color: #00b22d;
     color: white;
+    width:100px;
+}
+
+.login-button{
+        width:100px;
+
 }
 </style>

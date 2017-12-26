@@ -4,7 +4,7 @@
 
         <nav>
             <ul class="container-tags">
-                <li v-for="tag in tags">
+                <li v-for="tag in tags" @click="showTagItems(tag)">
                     {{tag}}
                 </li>
             </ul>
@@ -20,6 +20,12 @@ export default {
     data() {
         return {
             // tags: this.$store.state.shop.tags
+        }
+    },
+      methods: {
+        showTagItems(tag) {
+            console.log('tag27',tag)
+            this.$router.push('/items/'+tag);
         }
     },
     computed: {
@@ -49,21 +55,20 @@ ul {
 }
 
 li {
-    padding:  10px  35px  10px 35px ;
-     /* padding-right: 35px; */
-    border: 1px solid black;
+    padding:  0  35px  0 35px ;
     border-right: none;
+    cursor: pointer;
 }
 
-li:last-child {
-    border: 1px solid black;
-}
 
 .tags-bar {
-width: 90%;
+    /* height: 50px; */
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 50px;
 }
 
 

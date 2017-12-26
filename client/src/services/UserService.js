@@ -31,7 +31,7 @@ function toggleLike(userId, carId) {
 function getItems() {
     console.log('inside getitmes')
     return axios
-        .get(`${URL}/data/user`)
+        .get(`${URL}/data/item`)
         .then(res => {
             // console.log('res:', res.data)
             return res.data
@@ -44,17 +44,20 @@ function getItems() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+function getItemsByTag(tag) {
+    console.log('tag48',tag);
+    return axios
+        .get(`${URL}/data/items/`+tag)
+        .then(res => {
+            console.log('res:', res.data)
+            return res.data
+        }
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
+}
 
 function getEmptyUser() {
     return {
@@ -80,5 +83,6 @@ export default {
     logout,
     toggleLike,
     getEmptyUser,
-    getItems
+    getItems,
+    getItemsByTag
 } 

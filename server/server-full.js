@@ -51,6 +51,7 @@ function dbConnect() {
 
 		// Connection URL
 		var url = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me';
+		
 		// Use connect method to connect to the Server
 		mongodb.MongoClient.connect(url, function (err, db) {
 			if (err) {
@@ -75,12 +76,18 @@ var objTypeRequiresUser = {
 function getBasicQueryObj(req) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
+	const tag = req.body.tag;
+
 	var query = {};
 
 	if (objId) {
 		try { query._id = new mongodb.ObjectID(objId); }
 		catch (e) { return query }
 	}
+
+	//tag
+	// if(tag) query.tag = tag;
+
 	if (!objTypeRequiresUser[objType]) return query;
 	query.userId = null;
 	if (req.session.user) query.userId = req.session.user._id
@@ -95,9 +102,9 @@ app.get('/data/tags', function (req, res) {
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
-	// console.log()
 	const objType = req.params.objType;
 	var query = getBasicQueryObj(req);
+
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
@@ -108,15 +115,38 @@ app.get('/data/:objType', function (req, res) {
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
 				
-				var sortedObjs = utilsService.sortByRank(objs);
-				console.log(sortedObjs);
-				res.json(sortedObjs);
+				// var sortedObjs = utilsService.sortByRank(objs);
+				// console.log(sortedObjs);
+				res.json(objs);
 			}
 			db.close();
 		});
 	});
 });
 
+
+app.get('/data/items/:tag', function (req, res) {
+	const objType = 'item';
+	const tag = req.params.tag;
+
+	dbConnect().then(db => {
+		const collection = db.collection(objType);
+
+		collection.find({ tag: [tag] } ).toArray((err, objs) => {
+			if (err) {
+				cl('Cannot get you a list of ', err)
+				res.json(404, { error: 'not found' })
+			} else {
+				cl('Returning list of ' + objs.length + ' ' + objType + 's');
+				
+				// var sortedObjs = utilsService.sortByRank(objs);
+				// console.log(sortedObjs);
+				res.json(objs);
+			}
+			db.close();
+		});
+	});
+});
 
 
 

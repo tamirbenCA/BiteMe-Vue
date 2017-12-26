@@ -24,37 +24,32 @@
 </template>
 
 <script>
-// @click="showDetails(item.sellerId,item.item.id)"
-
-import { LOAD_ITEMS } from '../modules/ShopModule.js';
-
+import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
 export default {
-  name: 'HomePage',
-  data() {
-    return {
-      items: [],
-      y: null
-    }
-  },
-  created() {
-    this.$store.dispatch({ type: LOAD_ITEMS })
-      .then(items => {
-        var x = this.$store.getters.items
-        console.log('items:', x[0].img)
-      })
-      .catch(err => { console.log('err', err) })
-  },
+
+    data() {
+        return {
+
+        }
+    }, //watch
+    created() {
+        var tag = this.$route.params.tag;
+        tag = tag.toLowerCase();
+        this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag:tag })
+            .then(items => {
+                var x = this.$store.getters.items
+                // console.log('items:', x)
+            })
+            .catch(err => { console.log('err', err) })
+    },
     methods: {
-        // showDetails(sellerId,itemId) {
-        //   this.$router.push(sellerId+'/'+itemId);
-        //   //  console.log(sellerId)
-        // }
+
     },
-  computed: {
-    itemsToDisplay() {
-      return this.$store.getters.items
+    computed: {
+        itemsToDisplay() {
+            return this.$store.getters.items
+        },
     },
-  },
 
 }
 </script>
