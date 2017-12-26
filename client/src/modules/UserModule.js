@@ -46,28 +46,32 @@ export default {
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
             // console.log('Sign Up action', signupDetails)
-            UserService
-                .signup(signupDetails)
-                .then(res => {
-                    commit({ type: SET_USER, user: res.user })
-                    saveToLocalStorage(res.user)
-                })
-                .catch(err => {
-                    console.log(err)
-                    throw err;
-                });
+            return new Promise((resolve, reject) => {
+                UserService
+                    .signup(signupDetails)
+                    .then(res => {
+                        commit({ type: SET_USER, user: res.user })
+                        saveToLocalStorage(res.user)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        throw err;
+                    });
+            })
         },
         [SIGNIN]({ commit }, { signinDetails }) {
-            UserService
-                .login(signinDetails)
-                .then(res => {
-                    commit({ type: SET_USER, user: res.user });
-                    saveToLocalStorage(res.user)
-                })
-                .catch(err => {
-                    console.log(err)
-                    throw err;
-                });
+            return new ProcessingInstruction((resolve, reject) => {
+                UserService
+                    .login(signinDetails)
+                    .then(res => {
+                        commit({ type: SET_USER, user: res.user });
+                        saveToLocalStorage(res.user)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        throw err;
+                    });
+            })
         },
         [SIGNOUT]({ commit }) {
             UserService
@@ -81,7 +85,7 @@ export default {
             UserService
                 .toggleLike(state.loggedinUser._id, carId)
                 .then(_ => {
-                    commit({type: TOGGLE_LIKED_BY_USER, carId})
+                    commit({ type: TOGGLE_LIKED_BY_USER, carId })
                     commit({ type: TOGGLE_LIKE, carId })
                     saveToLocalStorage(state.loggedinUser)
                 })
