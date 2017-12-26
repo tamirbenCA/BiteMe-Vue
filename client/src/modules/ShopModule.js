@@ -30,7 +30,6 @@ const actions = {
         UserService.loadTags()
             .then(tags => {
                 // console.log('tags in action', tags)
-<<<<<<< HEAD
                 commit({ type: LOAD_TAGS, tags })
             })
 
@@ -46,9 +45,6 @@ const actions = {
             .catch(err => {
                 commit(SET_ITEMS, [])
                 throw err;
-=======
-                commit({type: LOAD_TAGS, tags: tags.data})
->>>>>>> 3e0e19b8c4acf46639e26522ba74f8799582017c
             })
     },
 }

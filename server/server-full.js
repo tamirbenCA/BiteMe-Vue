@@ -91,7 +91,6 @@ app.get('/data/tags', function (req, res) {
 	console.log('inside tags')
 		var tags = utilsService.getTags();
 		res.json(tags)
-	// }
 })
 
 // GETs a list
@@ -108,7 +107,7 @@ app.get('/data/:objType', function (req, res) {
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
 				console.log(utilsService);
-				var sortedObjs = utilsService.default.sortByRank(objs);
+				var sortedObjs = utilsService.sortByRank(objs);
 				res.json(sortedObjs);
 			}
 			db.close();
