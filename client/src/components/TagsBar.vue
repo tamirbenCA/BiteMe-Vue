@@ -1,13 +1,15 @@
 <template>
     <section class="tags-bar">
         <!-- <h1>tags</h1> -->
+
         <nav>
-            <ul>
+            <ul class="container-tags">
                 <li v-for="tag in tags">
                     {{tag}}
                 </li>
             </ul>
         </nav>
+
     </section>
 </template>
 
@@ -21,7 +23,7 @@ export default {
         }
     },
     computed: {
-        tags () {
+        tags() {
             // console.log('computing tags', this.$store.getters.tags.tags)
             return this.$store.getters.tags.tags
         }
@@ -47,11 +49,22 @@ ul {
 }
 
 li {
-    padding: 10px;
+    padding:  10px  35px  10px 35px ;
+     /* padding-right: 35px; */
     border: 1px solid black;
     border-right: none;
 }
+
 li:last-child {
     border: 1px solid black;
 }
+
+.tags-bar {
+width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
 </style>

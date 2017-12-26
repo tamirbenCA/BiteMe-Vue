@@ -27,7 +27,7 @@ var corsOptions = {
 	credentials: true
 };
 
-const serverRoot = 'http://localhost:3003/';
+const serverRoot = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me';
 const baseUrl = serverRoot + 'data';
 
 // app.use(express.static('uploads'));

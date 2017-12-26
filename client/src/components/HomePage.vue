@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="items-container">
     <ul>
       <li v-for="item in itemsToDisplay">
         <div>
           <img :src="item.item.img" />
-
+          <h2>{{item.item.price}}$</h2>
+          <h3> <span class="star">★</span> {{item.item.rank}}</h3>
         </div>
 
       </li>
@@ -28,7 +29,7 @@ export default {
       .then(items => {
         var x = this.$store.getters.items
        
-        console.log(x[0].item.price)
+        // console.log(x[0].item.price)
       })
       .catch(err => { console.log('err', err) })
   },
@@ -49,6 +50,17 @@ h2 {
   font-weight: normal;
 }
 
+.items-container{
+  width:100%;
+  max-width:1000px;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; */
+  margin: 0 auto;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -61,5 +73,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.star{
+  color: gold;
 }
 </style>
