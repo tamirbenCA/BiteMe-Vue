@@ -2,12 +2,16 @@
   <div class="items-container">
     <ul>
       <li v-for="item in itemsToDisplay">
-        <div>
-          <img :src="item.item.img" />
-          <h2>{{item.item.price}}$</h2>
-          <h3> <span class="star">★</span> {{item.item.rank}}</h3>
-        </div>
+        <router-link :to="'/itemdetails/' + item.item.id">
+          <div>
+            <img :src="item.item.img" />
+            <h2>{{item.item.price}}$</h2>
+            <h3>
+              <span class="star">★</span> {{item.item.rank}}</h3>
+            <h2>{{item}}</h2>
 
+          </div>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -49,9 +53,9 @@ h2 {
   font-weight: normal;
 }
 
-.items-container{
-  width:100%;
-  max-width:1000px;
+.items-container {
+  width: 100%;
+  max-width: 1000px;
   /* display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -74,7 +78,7 @@ a {
   color: #42b983;
 }
 
-.star{
+.star {
   color: gold;
 }
 </style>

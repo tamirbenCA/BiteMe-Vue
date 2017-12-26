@@ -63,14 +63,14 @@ function getEmptyUser() {
         password: '',
         email: '',
         about: '',
-        avgResTime: null,
+        avgResTime: 0,
         chefPic: '',
         address: '',
-        itemsBought: null,
-        itemsSold: null,
-        itemsForSale: null,
-        commentsOnSellers: null,
-        payment: null,
+        itemsBought: [],
+        itemsSold: [],
+        itemsForSale: [],
+        commentsOnSellers: [],
+        payment: {},
     }
 }
 

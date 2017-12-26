@@ -4,6 +4,7 @@ function getTags() {
 
 
 function sortByRank(items) {
+    
     var maxRank = 5;
     var sellersRanks = [];
 
