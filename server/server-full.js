@@ -1,7 +1,7 @@
 
 'use strict';
 
-// import utilsService from '../services/utilsService.js'
+// import utilsService from './services/utilsService.js';
 
 var cl = console.log;
 
@@ -9,7 +9,11 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	cors = require('cors'),
 	mongodb = require('mongodb'),
-	utilsService = require('./services/utilsService.js')
+	utilsService = require('./services/utilsService')
+
+	cl("****************************")
+	console.log(utilsService)
+	cl("****************************")
 
 const clientSessions = require('client-sessions');
 const upload = require('./uploads');
@@ -83,27 +87,34 @@ function getBasicQueryObj(req) {
 	return query;
 }
 
-// GETs a list
-app.get('/data/:objType', function (req, res) {
-	const objType = req.params.objType;
-	var query = getBasicQueryObj(req);
-	dbConnect().then(db => {
-		const collection = db.collection(objType);
+app.get('/data/tags', function (req, res) {
+	console.log('inside tags')
+		var tags = utilsService.getTags();
+		res.json(tags)
+	// }
+})
 
-		collection.find(query).toArray((err, objs) => {
-			if (err) {
-				cl('Cannot get you a list of ', err)
-				res.json(404, { error: 'not found' })
-			} else {
-				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				console.log(utilsService);
-				var sortedObjs = utilsService.default.sortByRank(objs);
-				res.json(sortedObjs);
-			}
-			db.close();
-		});
-	});
-});
+// GETs a list
+// app.get('/data/:objType', function (req, res) {
+// 	const objType = req.params.objType;
+// 	var query = getBasicQueryObj(req);
+// 	dbConnect().then(db => {
+// 		const collection = db.collection(objType);
+
+// 		collection.find(query).toArray((err, objs) => {
+// 			if (err) {
+// 				cl('Cannot get you a list of ', err)
+// 				res.json(404, { error: 'not found' })
+// 			} else {
+// 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
+// 				console.log(utilsService);
+// 				var sortedObjs = utilsService.default.sortByRank(objs);
+// 				res.json(sortedObjs);
+// 			}
+// 			db.close();
+// 		});
+// 	});
+// });
 
 
 
@@ -273,15 +284,15 @@ http.listen(3003, function () {
 });
 
 
-io.on('connection', function (socket) {
-	console.log('a user connected');
-	socket.on('disconnect', function () {
-		console.log('user disconnected');
-	});
-	socket.on('chat msg', function (msg) {
-		// console.log('message: ' + msg);
-		io.emit('chat newMsg', msg);
-	});
-});
+// io.on('connection', function (socket) {
+// 	console.log('a user connected');
+// 	socket.on('disconnect', function () {
+// 		console.log('user disconnected');
+// 	});
+// 	socket.on('chat msg', function (msg) {
+// 		// console.log('message: ' + msg);
+// 		io.emit('chat newMsg', msg);
+// 	});
+// });
 
-cl('WebSocket is Ready');
+// cl('WebSocket is Ready');

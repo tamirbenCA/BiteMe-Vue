@@ -22,8 +22,11 @@ function sortByRank(items) {
 	return sellersRanks
 }
 
-exports.default = {
+module.exports = {
 	sortByRank,
 	getTags
-};
+}; 
 
+// export default {
+// 	getTags
+// }

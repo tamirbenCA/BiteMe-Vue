@@ -19,7 +19,7 @@ const actions = {
         ShopService.loadTags()
             .then(tags => {
                 // console.log('tags in action', tags)
-                commit({type: LOAD_TAGS, tags})
+                commit({type: LOAD_TAGS, tags: tags.data})
             })
         
     }
