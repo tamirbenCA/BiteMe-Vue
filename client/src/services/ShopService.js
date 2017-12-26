@@ -1,11 +1,7 @@
+import axios from 'axios'
+
 function loadTags() {
-    return new Promise ((resolve, reject) => {
-        var tags = [];
-        setTimeout(_ => {
-            // console.log('setting load tags timeout')
-            resolve(['a','b','c'])
-        }, 500)
-    })
+    return axios.get('http://127.0.0.1:3003/data/tags')
 }
 
 export default {
