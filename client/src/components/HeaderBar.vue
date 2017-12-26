@@ -8,7 +8,10 @@
             <button>Show Map</button>
         </div>
         <div>
-            <button class="login-button">Log In</button>
+            <router-link to="/login">
+                <button class="login-button">Log In</button>
+            </router-link>
+
             <router-link to="/join">
                 <button class="join-button">Join</button>
             </router-link>

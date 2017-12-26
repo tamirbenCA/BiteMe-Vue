@@ -58,6 +58,7 @@ export default {
                 });
         },
         [SIGNIN]({ commit }, { signinDetails }) {
+            console.log('signinDetails', signinDetails)
             UserService
                 .login(signinDetails)
                 .then(res => {
