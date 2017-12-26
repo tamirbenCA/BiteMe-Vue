@@ -95,26 +95,28 @@ app.get('/data/tags', function (req, res) {
 })
 
 // GETs a list
-// app.get('/data/:objType', function (req, res) {
-// 	const objType = req.params.objType;
-// 	var query = getBasicQueryObj(req);
-// 	dbConnect().then(db => {
-// 		const collection = db.collection(objType);
+app.get('/data/:objType', function (req, res) {
+	const objType = req.params.objType;
+	var query = getBasicQueryObj(req);
+	dbConnect().then(db => {
+		const collection = db.collection(objType);
 
-// 		collection.find(query).toArray((err, objs) => {
-// 			if (err) {
-// 				cl('Cannot get you a list of ', err)
-// 				res.json(404, { error: 'not found' })
-// 			} else {
-// 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-// 				console.log(utilsService);
-// 				var sortedObjs = utilsService.default.sortByRank(objs);
-// 				res.json(sortedObjs);
-// 			}
-// 			db.close();
-// 		});
-// 	});
-// });
+		collection.find(query).toArray((err, objs) => {
+			if (err) {
+				cl('Cannot get you a list of ', err)
+				res.json(404, { error: 'not found' })
+			} else {
+				cl('Returning list of ' + objs.length + ' ' + objType + 's');
+				console.log(utilsService);
+				var sortedObjs = utilsService.default.sortByRank(objs);
+				res.json(sortedObjs);
+			}
+			db.close();
+		});
+	});
+});
+
+
 
 
 
@@ -250,6 +252,25 @@ app.post('/login', function (req, res) {
 		});
 	});
 });
+
+// app.post('/signUp', function (req, res) {
+// 	const newObj = req.body;
+// 	dbConnect().then((db) => {
+// 		const collection = db.collection('user');
+// 		collection.insert(obj, (err, result) => {
+// 			if (err) {
+// 				cl(`Couldnt insert a new ${objType}`, err)
+// 				res.json(500, { error: 'Failed to add' })
+// 			} else {
+// 				cl(objType + ' added');
+// 				res.json(obj);
+// 			}
+// 			db.close();
+// 		});
+
+// 	});
+// });
+
 
 app.get('/logout', function (req, res) {
 	req.session.reset();

@@ -1,5 +1,17 @@
+
+{
+"name":"admin",
+"password":"admin",
+"email":"admin",
+"isAdmin" : true
+}
+
 {
 "name":"Ben",
+"password":"ben",
+"email":"ben",
+"isAdmin" : false,
+"payment"
 "about":"LOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEM",
 "avgResTime":'',
 "chefPic":"imgs/Ben.png"
@@ -18,6 +30,9 @@
 {
 
 "name":"May",
+"password":"may",
+"email":"may",
+"isAdmin" : false,
 "about":"LOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEM",
 "avgResTime":'',
 "chefPic":"imgs/May.jpg",
@@ -35,6 +50,9 @@
 
 {
 "name":"Moshiko",
+"password":"mosh",
+"email":"mosh",
+"isAdmin" : false,
 "about":"LOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEM",
 "avgResTime":'',
 "chefPic":"imgs/Moshiko.png",
@@ -53,6 +71,9 @@
 {
 
 "name":"Tal",
+"password":"tal",
+"email":"tal",
+"isAdmin" : false,
 "about":"LOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEM",
 "avgResTime":'',
 "chefPic":"imgs/Tal.jpg",
@@ -71,6 +92,9 @@
 {
 
 "name":"Ariel",
+"password":"ari",
+"email":"ari",
+"isAdmin" : false,
 "about":"LOREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEM",
 "avgResTime":'',
 "chefPic":"imgs/Ariel.png",
