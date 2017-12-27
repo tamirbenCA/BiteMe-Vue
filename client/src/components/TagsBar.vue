@@ -4,9 +4,11 @@
 
         <nav>
             <ul class="container-tags">
-                <li v-for="tag in tags" @click="showTagItems(tag)">
+                <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)">
                     {{tag}}
                 </li>
+                <li class="how-it-works">How it works</li>
+                 <li class="how-it-works">Our mission</li>
             </ul>
         </nav>
 
@@ -22,10 +24,10 @@ export default {
             // tags: this.$store.state.shop.tags
         }
     },
-      methods: {
+    methods: {
         showTagItems(tag) {
-            console.log('tag27',tag)
-            this.$router.push('/items/'+tag);
+            console.log('tag27', tag)
+            this.$router.push('/items/' + tag);
         }
     },
     computed: {
@@ -47,29 +49,34 @@ export default {
     list-style: none;
 }
 
+
 ul {
-    padding: 0;
+    margin-left:400px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    /* justify-content: center; */
 }
 
 li {
-    padding:  0  35px  0 35px ;
+    width:100px;
+    /* padding: 0 10px 0 10px; */
     border-right: none;
     cursor: pointer;
+    text-transform: capitalize
 }
 
 
 .tags-bar {
     /* height: 50px; */
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     margin-bottom: 50px;
 }
 
-
+.how-it-works{
+    padding-left: 50px;
+    }
 </style>

@@ -8,6 +8,8 @@ import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
 import Map from '@/components/Map'
 import ManageOrders from '@/components/ManageOrders'
+import AdminPage from '@/components/AdminPage'
+
 
 Vue.use(Router)
 
@@ -47,6 +49,11 @@ export default new Router({
       path: '/map',
       name: 'Map',
       component: Map,
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminPage,
     }
   ]
 })

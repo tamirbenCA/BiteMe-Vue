@@ -11,9 +11,9 @@ const express = require('express'),
 	mongodb = require('mongodb'),
 	utilsService = require('./services/utilsService')
 
-	cl("****************************")
-	console.log(utilsService)
-	cl("****************************")
+	// cl("****************************")
+	// console.log(utilsService)
+	// cl("****************************")
 
 const clientSessions = require('client-sessions');
 const upload = require('./uploads');
@@ -106,18 +106,24 @@ app.get('/data/tags', function (req, res) {
 app.get('/data/user/:id/orders/asseller', function (req, res) {
 	const objType = 'order';
 	const id = req.params.id;
+	// console.log('**********************')
+	// console.log('userid: ' , id)
+	// console.log('**********************')
 
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ id: seller.sellerId } ).toArray((err, objs) => {
+		
+	console.log('userid: ' , id)
+	collection.find({ "seller.sellerId": "5a420546734d1d5b9926638d"}).toArray((err, orders) => {
+			console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
-				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				console.log(objs);
-				res.json(objs);
+				cl('Returning list of ' + orders.length + ' ' + objType + 's');
+				console.log(orders);
+				res.json(orders);
 			}
 			db.close();
 		});
@@ -155,13 +161,13 @@ app.get('/data/items/:tag', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ tag: [tag] } ).toArray((err, objs) => {
+		collection.find({ tags: tag } ).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
-				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				
+				cl('Objecets:', objs)
+				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
 				var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
 				res.json(sortedObjs);

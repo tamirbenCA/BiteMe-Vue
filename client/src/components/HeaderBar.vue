@@ -1,19 +1,24 @@
 <template>
     <section class="header-bar">
-        <div>
-            <router-link to="/">
-                <img src="../assets/Byte-Me-Logo.png" />
-            </router-link>
-        </div>
+
         <div>
             <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
             <!-- <button>Show Map</button> -->
             <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
+            <router-link to="/admin" v-if="adminLogged" class="admin">
+                Admin
+            </router-link>
+        </div>
+        <div class="logo">
+            <router-link to="/">
+                <img src="../assets/Byte-Me-Logo.png" />
+            </router-link>
         </div>
         <div class="btns" v-if="!loggedUser">
-           <div class="cart">
-            <span class="balance">  0</span>  <i class="fa fa-shopping-cart" aria-hidden="true">  </i>
-            </div>
+            <!-- <div class="cart">
+                    <span class="balance"> 0</span>
+                    <i class="fa fa-shopping-cart" aria-hidden="true"> </i>
+                </div> -->
             <router-link to="/login" tag="button" class="login-button">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button">Join</router-link>
         </div>
@@ -36,12 +41,17 @@ export default {
         return {
             userId: this.$store.getters.userId, 
             keyUpInterval: null,
+            isAdmin: false,
         }
     },
     computed: {
         loggedUser() {
             return this.$store.getters.isUser;
-        }
+        },
+        adminLogged() {
+            return this.$store.getters.loggedinUser;
+        },
+
     },
     methods: {
         logOut() {
@@ -57,46 +67,71 @@ export default {
             //     console.log('I get fired every two seconds!')
             // }, 2000)
         }
-    }
+    },
+    //     computed: {
+
+    //     // ...mapGetters([
+    //     //   'cartLength',
+    //     //   'cart'
+    //     // ]),
+    //     ...mapGetters(['loggedinUser', 'user']),
+    //   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 h1,
 h2 {
     font-weight: normal;
 }
 
-.balance{
-    font-size:25px;
+.map-button{
+width:100px;
+}
+
+.logo{
+    margin-left: -150px;
+}
+
+.admin {
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.balance {
+    font-size: 25px;
     color: green;
 }
 
-.cart{
+.cart {
     display: flex;
     flex-direction: column;
     margin-top: -30px;
 }
-.btns{
+
+/* .btns {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width:280px;
-}
+    width: 280px;
+} */
 
 a {
     color: #42b983;
 }
 
 .header-bar {
-    height:120px;
+    height: 120px;
     display: flex;
+    justify-content: center;
     justify-content: space-around;
     align-items: center;
-    background-color: #09012d;
+    /* background-color: #4a4848; */
+    /* background-color: lightgray; */
     margin-top: none;
 }
 
@@ -122,15 +157,15 @@ button {
 .join-button {
     background-color: #00b22d;
     color: white;
-    width:100px;
+    width: 100px;
 }
 
-.login-button{
-        width:100px;
-
+.login-button {
+    width: 100px;
 }
-.fa-shopping-cart{
-    color:white;
+
+.fa-shopping-cart {
+    color: white;
     font-size: 40px;
 }
 </style>

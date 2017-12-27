@@ -1,6 +1,6 @@
 <template>
     <section class="">
-        <form @submit.prevent="logIn">
+        <form @submit.prevent="logIn(user)">
             <h1>Join Us</h1>
             <input v-model="user.email" type="text" placeholder="Email">
             <input v-model="user.password" type="password" placeholder="Password">
@@ -17,19 +17,26 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
-            user: {}
+            user: { email: '', password: '' }
         }
     },
     methods: {
-        logIn() {
-           console.log('user is: ', this.user)
-           this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
+        logIn(user) {
+
+            // authService.signin(user).then(res => {
+            //     this.$store.commit(SIGN_IN, res);
+            //     this.$router.go(-1);
+            // }).catch(err => {
+            //     err.json().then(res => this.error = res.error);
+            // })
+            console.log('user is: ', this.user)
+            this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
                 .then(this.$router.push('/'))
 
         }
     },
     created() {
-        
+
     }
 }
 </script>
@@ -41,12 +48,14 @@ form {
     display: flex;
     flex-direction: column;
     width: 50%;
-} 
-form > * {
+}
+
+form>* {
     padding: 5px;
     margin: 2.5px;
 }
+
 textarea {
-   resize: none;
+    resize: none;
 }
 </style>

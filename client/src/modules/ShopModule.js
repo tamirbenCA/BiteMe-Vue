@@ -94,18 +94,19 @@ const actions = {
                 commit({ type: LOAD_ITEM, item })
             })
     },
-    [LOAD_SELLERS_ITEMS] ({commit}) {
-        console.log('loading to approve items in ACTIONS')
-        return ShopService.loadSellersItems().then(items => {
-            // console.log('items: ', items)
-            commit({type: LOAD_SELLERS_ITEMS, items})
+    [LOAD_SELLERS_ITEMS] ({commit},  {userId}) {
+        console.log('loading to approve items in ACTIONS id:', userId)
+        return ShopService.loadSellersItems(userId).then(items => {
+            commit({type: LOAD_SELLERS_ITEMS, items: items.data})
+        }).catch(() => {
+            console.error('promise in actions NOT GOOD')
         })
     },
-    [LOAD_BUYERS_ITEMS] ({commit}) {
-        console.log('loading order status items in ACTIONS')
-        return ShopService.loadBuyersItems().then(items => {
-            commit({type: LOAD_BUYERS_ITEMS, items})
-        })        
+    [LOAD_BUYERS_ITEMS] ({commit}, {userId}) {
+        // console.log('loading order status items in ACTIONS')
+        // return ShopService.loadBuyersItems(sellerId).then(items => {
+        //     commit({type: LOAD_BUYERS_ITEMS, items})
+        // })        
     }
 }
 export default {

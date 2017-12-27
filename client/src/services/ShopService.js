@@ -1,12 +1,14 @@
 import axios from 'axios'
 
+const URL = 'http://127.0.0.1:3003'
+
 function loadTags() {
-    return axios.get('http://127.0.0.1:3003/data/tags')
+    return axios.get(`${URL}/data/tags`)
 }
 
 function getItemById(itemId) {
     return axios
-    .get('http://127.0.0.1:3003/data/item/'+itemId)
+    .get(`${URL}/data/item/${itemId}`)
     .then(res => {
         console.log('resdata:', res.data)
         return res.data
@@ -18,10 +20,12 @@ function getItemById(itemId) {
     // })
 }
 
-function loadSellersItems () {
-    return new Promise ((resolve, reject) => {
-        setTimeout(() => resolve([{name:'toApproveItems0',_id: 0},{name: 'toApproveItems1', _id: 1}])) 
-    })
+function loadSellersItems (sellerId) {
+    // console.log('sellers id in service.loadSellers(): ', sellerId)
+    return axios.get(`${URL}/data/user/${sellerId}/orders/asseller`)
+    // return new Promise ((resolve, reject) => {
+    //     setTimeout(() => resolve([{name:'toApproveItems0',_id: 0},{name: 'toApproveItems1', _id: 1}])) 
+    // })
 }
 
 function loadBuyersItems () {

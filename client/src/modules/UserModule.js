@@ -12,7 +12,8 @@ var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        loggedinUser: getUserFromStorage()
+        loggedinUser: getUserFromStorage(),
+        user:null,
     },
     getters: {
         isUser(state) {
@@ -67,6 +68,7 @@ export default {
                 UserService
                     .login(signinDetails)
                     .then(res => {
+                        console.log('res686868',res)
                         commit({ type: SET_USER, user: res.user });
                         saveToLocalStorage(res.user)
                     })
@@ -99,7 +101,7 @@ export default {
 
 function getUserFromStorage() {
     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
-    console.log('GETTING FROM STORAGE', loggedinUser);
+    // console.log('GETTING FROM STORAGE', loggedinUser);
     return loggedinUser;
 }
 

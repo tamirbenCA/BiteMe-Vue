@@ -5,7 +5,7 @@
         <h2>waiting for my approve</h2>
         <ul>
            <li v-for="order in sellersItems ">
-               <p style="display: inline;">{{order.name}} </p>
+               <p style="display: inline;">{{order.item.itemName}} </p>
                <button @click="approveOrder(order._id)">Approve</button>
                <button @click="declineOrder(order._id)">Decline</button>
                <button @click="deliverOrder(order._id)">Delivered</button>
@@ -29,18 +29,21 @@ import { APPROVE_ITEM } from '../modules/ShopModule';
 export default {
     data() {
         return {
+            userId: ''
         }
     },
     created() {
-        this.$store.dispatch({type: LOAD_SELLERS_ITEMS});
-        this.$store.dispatch({type: LOAD_BUYERS_ITEMS});
+        this.userId = this.$route.params.userid
+        this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});//
+        // this.$store.dispatch({type: LOAD_BUYERS_ITEMS});       
+        // console.log('manage orders user id: ', this.userId)
     },
     computed: { 
         sellersItems () {
             return this.$store.getters.sellersItems 
         },
         buyersItems() {
-            return this.$store.getters.buyersItems
+            // return this.$store.getters.buyersItems
         }
     },
     methods: {
