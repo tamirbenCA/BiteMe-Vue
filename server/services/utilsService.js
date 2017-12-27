@@ -1,28 +1,24 @@
 function getTags() {
-    return ['Vegan', 'Veggie', 'Meat', 'Patry', 'Fish', 'Dessert', 'Pasta', 'Appetizers', 'Soup']
+    return ['vegan', 'veggie', 'meat', 'pastry', 'fish', 'pasta' ]
 }
 
 
 function sortByRank(items) {
     console.log('itemsitemsitemsitems', items.length)
-    var maxRank = 5;
-    var sellersRanks = [];
+    // var maxRank = 5;
+    var itemsRank = [];
 
-    var sellersRanks = items.filter((item) => {
+    var itemsRank = items.filter((item) => {
         return (item.rank === 5 || item.rank === 4|| item.rank === 3) 
     })
-    if (sellersRanks.length > 9)   sellersRanks = sellersRanks.slice(0, 9);  
+    if (itemsRank.length > 9)   itemsRank = itemsRank.slice(0, 9);  
     
     
-    console.log(sellersRanks)
-    return sellersRanks
+    console.log(itemsRank)
+    return itemsRank
 }
 
 module.exports = {
     sortByRank,
     getTags
 };
-
-// export default {
-// 	getTags
-// }

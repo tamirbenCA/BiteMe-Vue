@@ -4,7 +4,7 @@
 
         <nav>
             <ul class="container-tags">
-                <li v-for="tag in tags" @click="showTagItems(tag)">
+                <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)">
                     {{tag}}
                 </li>
             </ul>
@@ -58,6 +58,7 @@ li {
     padding:  0  35px  0 35px ;
     border-right: none;
     cursor: pointer;
+    text-transform: capitalize
 }
 
 

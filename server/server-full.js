@@ -132,13 +132,13 @@ app.get('/data/items/:tag', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ tag: [tag] } ).toArray((err, objs) => {
+		collection.find({ tags: tag } ).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
-				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				
+				cl('Objecets:', objs)
+				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
 				var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
 				res.json(sortedObjs);

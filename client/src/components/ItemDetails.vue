@@ -1,11 +1,11 @@
 <template>
     <div class="details-container">
         <div class="left-side">
-            <div class="head-left">
+            <!-- <div class="head-left">
                 <img class="logo" src="../assets/Byte-Me-Logo.png" />
-            </div>
+            </div> -->
             <div class="middle">
-                <p class="title"> {{item.name}} with olives and cheese
+                <p class="title"> {{item.name}}
                     <span class="star">{{item.rank}} ★</span>
                 </p>
                 <!-- <p class="rank"> {{item.rank}}
@@ -18,7 +18,7 @@
                 <p> Price: {{item.price}}$ </p>
                 <select>
                     <option>0</option>
-                    <option v-for="n in 10">{{n}}</option>
+                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
                 </select>
                 <button class="checkout-btn">Add to cart</button>
             </div>
@@ -80,8 +80,8 @@ export default {
 }
 
 img {
-    height: 40%;
-    width: 40%;
+    height: 80%;
+    width: 80%;
 }
 
 .right-side {

@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item, idx) in itemsToDisplay" :key="idx">
         <div class="item">
-          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}">
+          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
             <!-- <img :src="item.item.img" /> -->
           </div>
           <div class="item-footer">
