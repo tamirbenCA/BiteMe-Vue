@@ -4,7 +4,7 @@
             <div class="head-left">
                 <img class="logo" src="../assets/Byte-Me-Logo.png" />
             </div>
-            <div class="middle">
+            <div class="middle" v-if="item">
                 <p class="title"> {{item.name}} with olives and cheese
                     <span class="star">{{item.rank}} ★</span>
                 </p>

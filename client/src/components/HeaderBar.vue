@@ -19,7 +19,7 @@
         </div>
         <div v-else>
             <button @click="logOut">Log Out</button>
-            <button >Manage Orders</button>
+            <router-link :to="'/manageorders/' + userId" tag="button">Manage Orders</router-link>
         </div>
     </section>
 </template>
@@ -34,6 +34,7 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
+            userId: this.$store.getters.userId, 
             keyUpInterval: null,
         }
     },

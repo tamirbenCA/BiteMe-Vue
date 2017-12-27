@@ -18,7 +18,21 @@ function getItemById(itemId) {
     // })
 }
 
+function loadSellersItems () {
+    return new Promise ((resolve, reject) => {
+        setTimeout(() => resolve([{name:'toApproveItems0',_id: 0},{name: 'toApproveItems1', _id: 1}])) 
+    })
+}
+
+function loadBuyersItems () {
+    return new Promise ((resolve, reject) => {
+        setTimeout(() => resolve([{name:'orderStatusItems0', _id: 0}, {name: 'orderStatusItems1', _id: 1}])) 
+    })
+}
+
 export default {
     loadTags,
-    getItemById
+    getItemById,
+    loadSellersItems,
+    loadBuyersItems
 }

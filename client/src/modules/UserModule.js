@@ -20,6 +20,9 @@ export default {
         },
         isAdmin(state) {
             return state.loggedinUser && state.loggedinUser.isAdmin
+        },
+        userId(state) {
+            return state.loggedinUser._id
         }
     },
     mutations: {
