@@ -101,7 +101,7 @@ ul {
   height: 350px;
   width: 320px;
   border: 1px solid black;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -116,7 +116,7 @@ ul {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid gray;
+  /* border-bottom: 1px solid gray; */
 }
 
 .left-icon {
@@ -130,8 +130,8 @@ ul {
 .img-item {
   background-size: cover;
   background-position: center;
-  width: 280px;
-  height: 200px;
+  width: 320px;
+  height: 300px;
 }
 
 li {

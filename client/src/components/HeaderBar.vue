@@ -4,7 +4,7 @@
         <div>
             <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
             <!-- <button>Show Map</button> -->
-            <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
+            <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
             <router-link to="/admin" v-if="adminLogged" class="admin">
                 Admin
             </router-link>
@@ -14,17 +14,15 @@
                 <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
         </div>
-        <div class="btns" v-if="!loggedUser">
-            <!-- <div class="cart">
-                    <span class="balance"> 0</span>
-                    <i class="fa fa-shopping-cart" aria-hidden="true"> </i>
-                </div> -->
-            <router-link to="/login" tag="button" class="login-button">Log In</router-link>
-            <router-link to="/join" tag="button" class="join-button">Join</router-link>
-        </div>
-        <div v-else>
-            <button @click="logOut">Log Out</button>
-            <router-link :to="'/manageorders/' + userId" tag="button">Manage Orders</router-link>
+        <!-- <div class="btns" v-if="!loggedUser"> -->
+        <div class="btns">
+            <router-link to="/" tag="button" class="header-button">How it works</router-link>
+            <router-link to="/" tag="button" class="header-button">Our mission</router-link>
+            <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
+            <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
+            <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
+            <button v-if="loggedUser" class="header-button">Manage Orders</button>
+            <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
         </div>
     </section>
 </template>
@@ -66,7 +64,7 @@ export default {
             // _.throttle(() => {
             //     console.log('I get fired every two seconds!')
             // }, 2000)
-        }
+        },
     },
     //     computed: {
 
@@ -86,12 +84,24 @@ h2 {
     font-weight: normal;
 }
 
-.map-button{
-width:100px;
+ul {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 245px;
+    padding: 0;
+    /* display: flex; */
+    justify-content: space-around;
+    
 }
 
-.logo{
-    margin-left: -150px;
+.map-button {
+    width: 100px;
+}
+
+.logo {
+    /* margin-left: -80px; */
 }
 
 .admin {
@@ -112,13 +122,16 @@ width:100px;
     margin-top: -30px;
 }
 
-/* .btns {
+
+
+
+.btns {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 280px;
-} */
+    width: 460px;
+}
 
 a {
     color: #42b983;
@@ -154,14 +167,16 @@ button {
     width: 10vw;
 }
 
+.header-button {
+    /* width: 100px; */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .join-button {
     background-color: #00b22d;
     color: white;
-    width: 100px;
-}
-
-.login-button {
-    width: 100px;
 }
 
 .fa-shopping-cart {
