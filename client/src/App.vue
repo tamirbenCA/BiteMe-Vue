@@ -10,8 +10,7 @@
       </div>
     </div> -->
     <router-view/>
-    <footer>
-      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May&Ben&Mosh</footer>
+    <footer><i class="fa fa-hand-peace-o" aria-hidden="true"></i> May&Ben&Mosh</footer>
   </div>
 </template>
 

@@ -39,8 +39,7 @@
 // @click="showDetails(item.sellerId,item.item.id)"
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
-import  TagsBar  from '../components/TagsBar.vue';
-
+import TagsBar from './TagsBar.vue';
 
 export default {
     name: 'Menu',
@@ -69,7 +68,7 @@ export default {
         },
     },
     components: {
-        TagsBar,
+        TagsBar
     }
 
 }

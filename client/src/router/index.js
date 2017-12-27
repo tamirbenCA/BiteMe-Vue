@@ -9,6 +9,7 @@ import itemsByTag from '@/components/itemsByTag'
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
 import Map from '@/components/Map'
+import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
 
 
@@ -45,6 +46,11 @@ export default new Router({
       path: '/itemdetails/:itemId',
       name: 'ItemDetails',
       component: ItemDetails,
+    },
+    {
+      path: '/manageorders/:userid',
+      name: 'ManageOrders',
+      component: ManageOrders,
     },
     {
       path: '/map',

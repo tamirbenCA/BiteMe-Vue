@@ -4,7 +4,7 @@
         <div>
             <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
             <!-- <button>Show Map</button> -->
-            <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
+            <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
             <router-link to="/admin" v-if="adminLogged" class="admin">
                 Admin
             </router-link>
@@ -14,23 +14,15 @@
                 <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
         </div>
-        <div class="right-side">
-            <div class="three-icons">
-                <ul>
-                    <li class="how-it-works">How it works</li>
-                    <li class="how-it-works">Our mission</li>
-                    <!-- <li class="Filter">Filter</li> -->
-                    <li class="Filter" @click="showMenu">Menu</li>
-                </ul>
-            </div>
-            <div class="btns" v-if="!loggedUser">
-                <router-link to="/login" tag="button" class="login-button">Log In</router-link>
-                <router-link to="/join" tag="button" class="join-button">Join</router-link>
-            </div>
-            <div v-else class="log-out">
-                <button @click="logOut" class="log-out-btn">Log Out</button>
-                <button  class="log-out-btn">Manage Orders</button>
-            </div>
+        <!-- <div class="btns" v-if="!loggedUser"> -->
+        <div class="btns">
+            <router-link to="/" tag="button" class="header-button">How it works</router-link>
+            <router-link to="/" tag="button" class="header-button">Our mission</router-link>
+            <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
+            <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
+            <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
+            <router-link v-if="loggedUser" :to="'/manageorders/' + userId" tag="button" class="header-button">Manage Orders</router-link>
+            <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
         </div>
     </section>
 </template>
@@ -45,6 +37,7 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
+            userId: this.$store.getters.userId, 
             keyUpInterval: null,
             // isAdmin: false,
             x: null
@@ -77,18 +70,8 @@ export default {
             //     console.log('I get fired every two seconds!')
             // }, 2000)
         },
-        showMenu() {
-            this.$router.push('/menu/');
-        }
     },
-    //     computed: {
 
-    //     // ...mapGetters([
-    //     //   'cartLength',
-    //     //   'cart'
-    //     // ]),
-    //     ...mapGetters(['loggedinUser', 'user']),
-    //   }
 }
 </script>
 
@@ -207,14 +190,16 @@ button {
     width: 10vw;
 }
 
+.header-button {
+    /* width: 100px; */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .join-button {
     background-color: #00b22d;
     color: white;
-    width: 100px;
-}
-
-.login-button {
-    width: 100px;
 }
 
 .fa-shopping-cart {

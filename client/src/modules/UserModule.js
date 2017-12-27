@@ -29,6 +29,11 @@ export default {
             // debugger;
             console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser && state.loggedinUser.isAdmin
+        // isAdmin(state) {
+        //     return state.loggedinUser && state.loggedinUser.isAdmin
+        },
+        userId(state) {
+            return state.loggedinUser._id
         }
     },
     mutations: {
@@ -107,7 +112,7 @@ export default {
 function getUserFromStorage() {
     // debugger;
     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
-    console.log('GETTING FROM STORAGE', loggedinUser);
+    // console.log('GETTING FROM STORAGE', loggedinUser);
     return loggedinUser;
 }
 
