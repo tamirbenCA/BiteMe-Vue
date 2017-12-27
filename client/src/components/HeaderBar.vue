@@ -15,10 +15,12 @@
             </router-link>
         </div>
         <div class="btns" v-if="!loggedUser">
-            <!-- <div class="cart">
-                    <span class="balance"> 0</span>
-                    <i class="fa fa-shopping-cart" aria-hidden="true"> </i>
-                </div> -->
+            <ul>
+                <li class="how-it-works">How it works</li>
+                <li class="how-it-works">Our mission</li>
+                <!-- <li class="Filter">Filter</li> -->
+                 <li class="Filter" @click="showMenu">Menu</li>
+            </ul>
             <router-link to="/login" tag="button" class="login-button">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button">Join</router-link>
         </div>
@@ -65,6 +67,9 @@ export default {
             // _.throttle(() => {
             //     console.log('I get fired every two seconds!')
             // }, 2000)
+        },
+        showMenu(){
+             this.$router.push('/menu/');
         }
     },
     //     computed: {
@@ -85,12 +90,24 @@ h2 {
     font-weight: normal;
 }
 
-.map-button{
-width:100px;
+ul {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 245px;
+    padding: 0;
+    /* display: flex; */
+    justify-content: space-around;
+    
 }
 
-.logo{
-    margin-left: -150px;
+.map-button {
+    width: 100px;
+}
+
+.logo {
+    /* margin-left: -80px; */
 }
 
 .admin {
@@ -111,13 +128,16 @@ width:100px;
     margin-top: -30px;
 }
 
-/* .btns {
+
+
+
+.btns {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 280px;
-} */
+    width: 460px;
+}
 
 a {
     color: #42b983;

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
+import Menu from '@/components/Menu'
+
 import JoinIn from '@/components/JoinIn'
 import itemsByTag from '@/components/itemsByTag'
 
@@ -18,6 +20,11 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
+    },
+    {
+      path: '/menu',
+      name: 'Menu',
+      component: Menu
     },
     {
       path: '/join',

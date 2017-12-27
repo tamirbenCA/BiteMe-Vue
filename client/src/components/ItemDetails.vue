@@ -11,7 +11,7 @@
                 <!-- <p class="rank"> {{item.rank}}
                                             <span class="star">★</span>
                                         </p> -->
-                <img :src="item.img" />
+                <img :src="item.imgUrl" />
 
             </div>
             <div class="buttom">
