@@ -110,7 +110,7 @@ app.get('/data/user/:id/orders/asseller', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ seller: id } ).toArray((err, objs) => {
+		collection.find({ id: seller.sellerId } ).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
