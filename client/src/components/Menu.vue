@@ -34,6 +34,7 @@
 // @click="showDetails(item.sellerId,item.item.id)"
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
+import TagsBar from './TagsBar.vue';
 
 export default {
     name: 'Menu',
@@ -61,6 +62,9 @@ export default {
             return this.$store.getters.items
         },
     },
+    components: {
+        TagsBar
+    }
 
 }
 </script>
