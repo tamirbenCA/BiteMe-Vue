@@ -3,8 +3,12 @@
     <header-bar/>
     <tags-bar/>
     <router-view/>
+<<<<<<< HEAD
     <footer>
       <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May&Ben&Mosh</footer>
+=======
+    <footer><i class="fa fa-hand-peace-o" aria-hidden="true"></i> May&Ben&Mosh</footer>
+>>>>>>> 6b36372c4d1c77d85f8b56f612ec56fd50eccfd6
   </div>
 </template>
 

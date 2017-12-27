@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <section>
     <div class="top-page">
       <img class="front-img" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_1000/v1514370410/freshly_press_release_photo3_99980_yvwi41.jpg" />
@@ -16,6 +17,21 @@
           <div class="item">
             <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}">
               <!-- <img :src="item.item.img" /> -->
+=======
+  <div class="items-container">
+    <ul>
+      <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+        <div class="item" >
+          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}" >
+            <!-- <img :src="item.item.img" /> -->
+          </div>
+          <div class="item-footer">
+            <div class="left-icon">
+              <h3>
+                <span class="star">★</span> {{item.rank}}</h3>
+              <h2>{{item.price}}$</h2> 
+              
+>>>>>>> 6b36372c4d1c77d85f8b56f612ec56fd50eccfd6
             </div>
             <div class="item-footer">
               <div class="left-icon">
