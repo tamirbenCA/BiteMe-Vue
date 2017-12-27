@@ -3,7 +3,8 @@
     <header-bar/>
     <tags-bar/>
     <router-view/>
-    <footer><i class="fa fa-hand-peace-o" aria-hidden="true"></i> may&Ben&Mosh</footer>
+    <footer>
+      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May&Ben&Mosh</footer>
   </div>
 </template>
 
@@ -23,12 +24,12 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+}
+
+body {
+  font-family: "Lato";
 }
 
 footer {

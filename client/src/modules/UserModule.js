@@ -12,15 +12,18 @@ var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        loggedinUser: getUserFromStorage()
+        loggedinUser: getUserFromStorage(),
+        user:null,
     },
     getters: {
         isUser(state) {
             return !!state.loggedinUser
         },
-        isAdmin(state) {
-            return state.loggedinUser && state.loggedinUser.isAdmin
-        }
+        loggedinUser: state => state.loggedinUser,
+        
+        // isAdmin(state) {
+        //     return state.loggedinUser 
+        // },
     },
     mutations: {
         [SET_USER](state, { user }) {
@@ -64,6 +67,7 @@ export default {
                 UserService
                     .login(signinDetails)
                     .then(res => {
+                        console.log('res686868',res)
                         commit({ type: SET_USER, user: res.user });
                         saveToLocalStorage(res.user)
                     })
