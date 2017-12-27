@@ -126,7 +126,7 @@ app.get('/data/user/:id/orders/asseller', function (req, res) {
 
 		
 	console.log('userid: ' , id)
-	collection.find({ "seller.sellerId": "5a420546734d1d5b9926638d"}).toArray((err, orders) => {
+	collection.find({ "seller.sellerId": id}).toArray((err, orders) => {
 			console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)
