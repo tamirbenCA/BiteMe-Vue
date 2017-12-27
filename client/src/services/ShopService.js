@@ -11,14 +11,21 @@ function getItemById(itemId) {
         console.log('resdata:', res.data)
         return res.data
     })
-    // return new Promise ((resolve, reject) => {
-    //     setTimeout(_ => {
-    //         resolve({id: itemId, isReal: 'not real'})
-    //     })
-    // })
+}
+
+function getChefById(chefId) {
+    console.log('chefId:', chefId)
+    return axios
+    .get('http://127.0.0.1:3003/data/user/'+chefId)
+    .then(res => {
+        console.log('resdata:', res.data)
+        return res.data
+    })
+
 }
 
 export default {
     loadTags,
-    getItemById
+    getItemById,
+    getChefById
 }

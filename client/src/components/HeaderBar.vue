@@ -14,19 +14,23 @@
                 <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
         </div>
-        <div class="btns" v-if="!loggedUser">
-            <ul>
-                <li class="how-it-works">How it works</li>
-                <li class="how-it-works">Our mission</li>
-                <!-- <li class="Filter">Filter</li> -->
-                 <li class="Filter" @click="showMenu">Menu</li>
-            </ul>
-            <router-link to="/login" tag="button" class="login-button">Log In</router-link>
-            <router-link to="/join" tag="button" class="join-button">Join</router-link>
-        </div>
-        <div v-else>
-            <button @click="logOut">Log Out</button>
-            <button>Manage Orders</button>
+        <div class="right-side">
+            <div class="three-icons">
+                <ul>
+                    <li class="how-it-works">How it works</li>
+                    <li class="how-it-works">Our mission</li>
+                    <!-- <li class="Filter">Filter</li> -->
+                    <li class="Filter" @click="showMenu">Menu</li>
+                </ul>
+            </div>
+            <div class="btns" v-if="!loggedUser">
+                <router-link to="/login" tag="button" class="login-button">Log In</router-link>
+                <router-link to="/join" tag="button" class="join-button">Join</router-link>
+            </div>
+            <div v-else class="log-out">
+                <button @click="logOut" class="log-out-btn">Log Out</button>
+                <button  class="log-out-btn">Manage Orders</button>
+            </div>
         </div>
     </section>
 </template>
@@ -42,15 +46,20 @@ export default {
     data() {
         return {
             keyUpInterval: null,
-            isAdmin: false,
+            // isAdmin: false,
+            x: null
         }
+    }, created() {
     },
+
     computed: {
         loggedUser() {
             return this.$store.getters.isUser;
         },
         adminLogged() {
-            return this.$store.getters.loggedinUser;
+            // console.log(this.$store.getters.loggedinUser.isAdmin)
+            // return this.$store.getters.loggedinUser;
+            return this.$store.getters.isAdmin;
         },
 
     },
@@ -68,8 +77,8 @@ export default {
             //     console.log('I get fired every two seconds!')
             // }, 2000)
         },
-        showMenu(){
-             this.$router.push('/menu/');
+        showMenu() {
+            this.$router.push('/menu/');
         }
     },
     //     computed: {
@@ -99,7 +108,17 @@ ul {
     padding: 0;
     /* display: flex; */
     justify-content: space-around;
-    
+}
+
+.log-out{
+    width:250px;
+    display: flex;
+    flex-direction: row;
+}
+
+.log-out-btn{
+    width:200px;
+    height:30px;
 }
 
 .map-button {
@@ -108,6 +127,13 @@ ul {
 
 .logo {
     /* margin-left: -80px; */
+}
+
+.right-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 500px;
 }
 
 .admin {
@@ -132,6 +158,14 @@ ul {
 
 
 .btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* width: 460px; */
+}
+
+.three-icons {
     display: flex;
     flex-direction: row;
     align-items: center;

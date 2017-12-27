@@ -13,17 +13,23 @@ var STORAGE_KEY = 'loggedinUser';
 export default {
     state: {
         loggedinUser: getUserFromStorage(),
-        user:null,
+        user: null,
     },
     getters: {
         isUser(state) {
             return !!state.loggedinUser
         },
-        loggedinUser: state => state.loggedinUser,
-        
-        // isAdmin(state) {
-        //     return state.loggedinUser 
-        // },
+
+        loggedinUser: (state) => {
+            // debugger;
+            console.log('state.loggedinUser',state.loggedinUser)
+            return state.loggedinUser 
+        },
+        isAdmin: (state) => {
+            // debugger;
+            console.log('state.loggedinUser',state.loggedinUser)
+            return state.loggedinUser && state.loggedinUser.isAdmin
+        }
     },
     mutations: {
         [SET_USER](state, { user }) {
@@ -63,11 +69,11 @@ export default {
             })
         },
         [SIGNIN]({ commit }, { signinDetails }) {
-            return new Promise ((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 UserService
                     .login(signinDetails)
                     .then(res => {
-                        console.log('res686868',res)
+                        console.log('res686868', res)
                         commit({ type: SET_USER, user: res.user });
                         saveToLocalStorage(res.user)
                     })
@@ -99,6 +105,7 @@ export default {
 
 
 function getUserFromStorage() {
+    // debugger;
     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
     console.log('GETTING FROM STORAGE', loggedinUser);
     return loggedinUser;

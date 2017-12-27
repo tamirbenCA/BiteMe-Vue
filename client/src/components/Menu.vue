@@ -1,6 +1,8 @@
 <template>
     <section>
-        <tags-bar/>
+        <tags-bar> </tags-bar>
+
+        <!-- <tags-bar/> -->
         <div class="items-container">
             <ul>
                 <li v-for="(item, idx) in itemsToDisplay" :key="idx">
@@ -15,13 +17,16 @@
                                 <h2>{{item.price}}$</h2>
 
                             </div>
-                            <div class="right-icon">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <select>
-                                    <option>0</option>
-                                    <option v-for="n in 10">{{n}}</option>
-                                </select>
+                            <div class="name">
+                                <h4>{{item.name}}</h4>
                             </div>
+                            <!-- <div class="right-icon">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            <select>
+                                                <option>0</option>
+                                                <option v-for="n in 10">{{n}}</option>
+                                            </select>
+                                        </div> -->
                         </div>
                     </div>
                 </li>
@@ -34,6 +39,8 @@
 // @click="showDetails(item.sellerId,item.item.id)"
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
+import  TagsBar  from '../components/TagsBar.vue';
+
 
 export default {
     name: 'Menu',
@@ -61,6 +68,9 @@ export default {
             return this.$store.getters.items
         },
     },
+    components: {
+        TagsBar,
+    }
 
 }
 </script>
@@ -71,6 +81,12 @@ h1,
 h2 {
     font-weight: normal;
 }
+
+.name {
+    width: 200px;
+}
+
+
 
 
 

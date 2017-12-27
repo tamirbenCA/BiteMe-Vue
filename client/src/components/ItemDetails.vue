@@ -2,15 +2,15 @@
     <div class="details-container">
         <div class="left-side">
             <!-- <div class="head-left">
-                <img class="logo" src="../assets/Byte-Me-Logo.png" />
-            </div> -->
+                                    <img class="logo" src="../assets/Byte-Me-Logo.png" />
+                                </div> -->
             <div class="middle">
                 <p class="title"> {{item.name}}
                     <span class="star">{{item.rank}} ★</span>
                 </p>
                 <!-- <p class="rank"> {{item.rank}}
-                                            <span class="star">★</span>
-                                        </p> -->
+                                                                <span class="star">★</span>
+                                                            </p> -->
                 <img :src="item.imgUrl" />
 
             </div>
@@ -23,22 +23,33 @@
                 <button class="checkout-btn">Add to cart</button>
             </div>
         </div>
-
-        <div class="right-side">
-            <div class="details">
-                <h1>About the byte</h1>
+        <div>
+            <div>
+                <h1> About chef</h1>
+                <!-- <p> Meet {{chef}} </p> -->
+                 <p> Meet {{chef}} </p>
+                <!-- <img :src="chef.imgUrl" /> -->
+                  <!-- <ul>
+                <li v-for="(item, idx) in chef.itemsForSale" :key="idx">
+                    {{item.name}}
+                </li>
+            </ul> -->
             </div>
-            <div class="comments">
-                <h1>Reviews</h1>
-            </div>
+            <div class="right-side">
+                <div class="details">
+                    <h1>About the byte</h1>
+                </div>
+                <div class="comments">
+                    <h1>Reviews</h1>
+                </div>
 
+            </div>
         </div>
 
     </div>
 </template>
 
 <script>
-// @click="showDetails(item.sellerId,item.item.id)"
 
 import { LOAD_ITEM } from '../modules/ShopModule.js';
 
@@ -46,22 +57,20 @@ export default {
 
     data() {
         return {
-
+          
         }
     },
     created() {
         var itemId = this.$route.params.itemId;
-        console.log('id: ', itemId);
         this.$store.dispatch({ type: LOAD_ITEM, itemId })
-            .then(item => {
-                var x = this.$store.getters.currItem.item
-                console.log('items:', x)
-            })
-            .catch(err => { console.log('err', err) })
+       
     },
     computed: {
         item() {
-            return this.$store.getters.currItem.item
+            return this.$store.getters.currItem
+        },
+        chef() {
+            return this.$store.getters.currSeller
         }
     },
 
@@ -93,7 +102,6 @@ img {
     justify-content: center;
     height: 300px;
     align-items: center;
-
 }
 
 
@@ -108,7 +116,7 @@ img {
     background-color: white;
     width: 90%;
     margin: 5px;
-     border-radius: 10px;
+    border-radius: 10px;
 }
 
 select {
