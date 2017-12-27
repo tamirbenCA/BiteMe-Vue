@@ -3,32 +3,30 @@
 // Plus support for file upload
 // Author: Yaron Biton misterBIT.co.il
 
-'use strict';
+"use strict";
 
 var cl = console.log;
 
 const express = require('express'),
 	bodyParser = require('body-parser'),
 	cors = require('cors'),
-	mongodb = require('mongodb'),
-	utilsService = require('./services/utilsService');
+	mongodb = require('mongodb')
 
-const clientSessions = require('client-sessions');
+const clientSessions = require("client-sessions");
 const upload = require('./uploads');
 const app = express();
-
-const addRoutes = require('./routes');
-addRoutes(app);
 
 var corsOptions = {
 	origin: /http:\/\/localhost:\d+/,
 	credentials: true
 };
 
-const serverRoot = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me';
-const baseUrl = serverRoot + 'data';
+const serverRoot = 'http://localhost:3003/';
+const baseUrl = serverRoot + 'data/:projName';
 
-// app.use(express.static('uploads'));
+
+app.use(express.static('uploads'));
+
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -43,11 +41,11 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 
-function dbConnect() {
+function dbConnect(projName = 'seed') {
 
 	return new Promise((resolve, reject) => {
 		// Connection URL
-		var url = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me';
+		var url = `mongodb://localhost:27017/${projName}`;
 		// Use connect method to connect to the Server
 		mongodb.MongoClient.connect(url, function (err, db) {
 			if (err) {
@@ -55,108 +53,27 @@ function dbConnect() {
 				reject(err);
 			}
 			else {
-				cl('Connected to DB');
+				//cl("Connected to DB");
 				resolve(db);
 			}
 		});
 	});
 }
 
-var objTypeRequiresUser = {
-	todo: true
-}
-// This function is called by all REST end-points to take care
-// setting the basic mongo query:
-// 1. _id if needed
-// 2. userId when needed
-function getBasicQueryObj(req) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
-	var query = {};
-	
-	if (objId) {
-		try { query._id = new mongodb.ObjectID(objId);}
-		catch(e) {return query}
-	}
-	if (!objTypeRequiresUser[objType]) return query;
-	query.userId = null;
-	if ( req.session.user ) query.userId = req.session.user._id
-	return query;
-}
-
-app.get('/data/tags', function (req, res) {
-	// console.log('inside tags')
-		var tags = utilsService.getTags();
-		res.json(tags)
-})
-
-app.get('/data/items/:tag', function (req, res) {
-	const objType = 'item';
-	const tag = req.params.tag;
-
-	dbConnect().then(db => {
-		const collection = db.collection(objType);
-
-		collection.find({ tags: tag } ).toArray((err, objs) => {
-			if (err) {
-				cl('Cannot get you a list of ', err)
-				res.json(404, { error: 'not found' })
-			} else {
-				cl('Objecets:', objs)
-				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
-				var sortedObjs = utilsService.sortByRank(objs);
-				// console.log(sortedObjs);
-				res.json(sortedObjs);
-			}
-			db.close();
-		});
-	});
-});
-
-// Get Orders as Seller:
-app.get('/data/user/:id/orders/asseller', function (req, res) {
-	const objType = 'order';
-	const id = req.params.id;
-	// console.log('**********************')
-	// console.log('userid: ' , id)
-	// console.log('**********************')
-
-	dbConnect().then(db => {
-		const collection = db.collection(objType);
-
-		
-	console.log('userid: ' , id)
-	collection.find({ "seller.sellerId": "5a420546734d1d5b9926638d"}).toArray((err, orders) => {
-			console.log('*****', orders, '******')
-			if (err) {
-				cl('Cannot get you a list of ', err)
-				res.json(404, { error: 'not found' })
-			} else {
-				cl('Returning list of ' + orders.length + ' ' + objType + 's');
-				console.log(orders);
-				res.json(orders);
-			}
-			db.close();
-		});
-	});
-});
-
 // GETs a list
-app.get('/data/:objType', function (req, res) {
+app.get('/data/:projName/:objType', function (req, res) {
+	const projName = req.params.projName;
 	const objType = req.params.objType;
-	var query = getBasicQueryObj(req);
-	dbConnect().then(db => {
+	dbConnect(projName).then(db => {
 		const collection = db.collection(objType);
 
-		collection.find(query).toArray((err, objs) => {
+		collection.find({}).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
-				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				var sortedObjs = utilsService.sortByRank(objs);
-				console.log(sortedObjs);
-				res.json(sortedObjs);
+				cl("Returning list of " + objs.length + " " + objType + "s");
+				res.json(objs);
 			}
 			db.close();
 		});
@@ -164,18 +81,24 @@ app.get('/data/:objType', function (req, res) {
 });
 
 // GETs a single
-app.get('/data/:objType/:id', function (req, res) {
+app.get('/data/:projName/:objType/:id', function (req, res) {
+	const projName = req.params.projName;
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	cl(`Getting you an ${objType} with id: ${objId}`);
-	var query = getBasicQueryObj(req)
-	dbConnect()
-		.then(db=> {
+	dbConnect(projName)
+		.then((db) => {
 			const collection = db.collection(objType);
-			
-			return collection.findOne(query)
-				.then(obj => {
-					cl('Returning a single ' + objType);
+			let _id;
+			try {
+				_id = new mongodb.ObjectID(objId);
+			}
+			catch (e) {
+				return Promise.reject(e);
+			}
+			return collection.findOne({ _id: _id })
+				.then((obj) => {
+					cl("Returning a single" + objType);
 					res.json(obj);
 					db.close();	
 				})
@@ -189,54 +112,45 @@ app.get('/data/:objType/:id', function (req, res) {
 });
 
 // DELETE
-app.delete('/data/:objType/:id', function (req, res) {
+app.delete('/data/:projName/:objType/:id', function (req, res) {
+	const projName = req.params.projName;
 	const objType 	= req.params.objType;
 	const objId 	= req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
-	var query = getBasicQueryObj(req);
-	
-	dbConnect().then((db) => {
+	dbConnect(projName).then((db) => {
 		const collection = db.collection(objType);
-		collection.deleteOne(query, (err, result) => {
+		collection.deleteOne({ _id: new mongodb.ObjectID(objId) }, (err, result) => {
 			if (err) {
 				cl('Cannot Delete', err)
 				res.json(500, { error: 'Delete failed' })
 			} else {
-				if (result.deletedCount)	res.json({});
-				else res.json(403, { error: 'Cannot delete' }) 
+				cl("Deleted", result);
+				res.json({});
 			}
 			db.close();
 		});
 
 	});
+
+
 });
 
 // POST - adds 
-app.post('/data/:objType', upload.single('file'), function (req, res) {
+app.post('/data/:projName/:objType', upload.single('file'), function (req, res) {
 	//console.log('req.file', req.file);
 	// console.log('req.body', req.body);
-
+	const projName = req.params.projName;
 	const objType = req.params.objType;
-	cl('POST for ' + objType);
+	cl("POST for " + objType);
 
 	const obj = req.body;
 	delete obj._id;
-	if (objTypeRequiresUser[objType]){
-		if (req.session.user) {
-			obj.userId = req.session.user._id;
-		} else {
-			res.json(403, { error: 'Please Login first' })
-			return;
-		}
-	} 
 	// If there is a file upload, add the url to the obj
-	// if (req.file) {
-	// 	obj.imgUrl = serverRoot + req.file.filename;
-	// }
+	if (req.file) {
+		obj.imgUrl = serverRoot + req.file.filename;
+	}
 
-
-
-	dbConnect().then((db) => {
+	dbConnect(projName).then((db) => {
 		const collection = db.collection(objType);
 
 		collection.insert(obj, (err, result) => {
@@ -244,7 +158,7 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 				cl(`Couldnt insert a new ${objType}`, err)
 				res.json(500, { error: 'Failed to add' })
 			} else {
-				cl(objType + ' added');
+				cl(objType + " added");
 				res.json(obj);
 			}
 			db.close();
@@ -254,24 +168,23 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 });
 
 // PUT - updates
-app.put('/data/:objType/:id', function (req, res) {
+app.put('/data/:projName/:objType/:id', function (req, res) {
+	const projName = req.params.projName;
 	const objType 	= req.params.objType;
 	const objId 	= req.params.id;
 	const newObj 	= req.body;
+	if (newObj._id && typeof newObj._id === 'string') newObj._id = new mongodb.ObjectID(newObj._id);
 
 	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);
-	var query = getBasicQueryObj(req)
-	
-	dbConnect().then((db) => {
+	dbConnect(projName).then((db) => {
 		const collection = db.collection(objType);
-		collection.updateOne(query, newObj,
+		collection.updateOne({ _id: new mongodb.ObjectID(objId) }, newObj,
 			(err, result) => {
 				if (err) {
 					cl('Cannot Update', err)
 					res.json(500, { error: 'Update failed' })
 				} else {
-					if (result.modifiedCount) res.json(newObj);
-					else res.json(403, { error: 'Cannot update' })
+					res.json(newObj);
 				}
 				db.close();
 			});
@@ -279,13 +192,14 @@ app.put('/data/:objType/:id', function (req, res) {
 });
 
 // Basic Login/Logout/Protected assets
-app.post('/login', function (req, res) {
-	dbConnect().then((db) => {
+app.post(':projName/login', function (req, res) {
+	const projName = req.params.projName;
+	dbConnect(projName).then((db) => {
 		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
 			if (user) {
 				cl('Login Succesful');
 				delete user.pass;
-				req.session.user = user;  
+				req.session.user = user;  //refresh the session value
 				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
 			} else {
 				cl('Login NOT Succesful');
@@ -308,8 +222,7 @@ function requireLogin(req, res, next) {
 	} else {
 		next();
 	}
-}
-
+};
 app.get('/protected', requireLogin, function (req, res) {
 	res.end('User is loggedin, return some data');
 });
@@ -334,10 +247,24 @@ io.on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		console.log('user disconnected');
 	});
-	socket.on('chat msg', function (msg) {
+	socket.on('chat message', function (msg) {
 		// console.log('message: ' + msg);
-		io.emit('chat newMsg', msg);
+		io.emit('chat message', msg);
 	});
 });
 
 cl('WebSocket is Ready');
+
+// Some small time utility functions
+
+
+
+
+// function cl(...params) {
+// 	console.log.apply(console, params);
+// }
+
+// Just for basic testing the socket
+// app.get('/', function(req, res){
+//   res.sendFile(__dirname + '/test-socket.html');
+// });
