@@ -70,7 +70,7 @@ const actions = {
             })
     },
     [LOAD_ITEM]({commit}, {itemId}){
-        // console.log('action: LOAD_ITEM itemId', itemId)
+        console.log('action: LOAD_ITEM itemId', itemId)
         return ShopService.getItemById(itemId)
             .then(item => {
                 commit({type: LOAD_ITEM, item})

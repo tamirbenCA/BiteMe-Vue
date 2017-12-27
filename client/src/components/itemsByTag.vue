@@ -2,8 +2,8 @@
   <div class="items-container">
     <ul>
       <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-        <div class="item" >
-          <div class="img-item"   v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}" >
+        <div class="item">
+          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}">
             <!-- <img :src="item.item.img" /> -->
           </div>
           <div class="item-footer">
@@ -27,29 +27,48 @@
 import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
 export default {
 
-    data() {
-        return {
+  data() {
+    return {
+      // tag: this.$route.params.tag
+    }
+  },
+  watch: {
+    '$route.params.tag'() {
+      var tag = this.$route.params.tag;
+      tag = tag.toLowerCase();
+      console.log(' this.tag 38', tag)
+      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+        .then(items => {
+          var x = this.$store.getters.items
+          console.log('items:', x)
+        })
+        .catch(err => { console.log('err', err) })
+    }
+  },
+  //watch
+  created() {
+    var tag = this.$route.params.tag;
+    tag = tag.toLowerCase();
+    console.log(' this.tag 50', tag)
 
-        }
-    }, //watch
-    created() {
-        var tag = this.$route.params.tag;
-        tag = tag.toLowerCase();
-        this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag:tag })
-            .then(items => {
-                var x = this.$store.getters.items
-                // console.log('items:', x)
-            })
-            .catch(err => { console.log('err', err) })
-    },
-    methods: {
+    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+      .then(items => {
+        var x = this.$store.getters.items
+        // console.log('items:', x)
+      })
+      .catch(err => { console.log('err', err) })
+  },
+  methods: {
+    showDetails(item) {
+      this.$router.push('/itemdetails/' + item._id);
+    }
+  },
 
+  computed: {
+    itemsToDisplay() {
+      return this.$store.getters.items
     },
-    computed: {
-        itemsToDisplay() {
-            return this.$store.getters.items
-        },
-    },
+  },
 
 }
 </script>
@@ -87,8 +106,8 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    margin-top:10px;
-   margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .item-footer {

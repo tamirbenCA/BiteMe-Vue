@@ -115,9 +115,9 @@ app.get('/data/:objType', function (req, res) {
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
 				
-				// var sortedObjs = utilsService.sortByRank(objs);
-				// console.log(sortedObjs);
-				res.json(objs);
+				var sortedObjs = utilsService.sortByRank(objs);
+				console.log(sortedObjs);
+				res.json(sortedObjs);
 			}
 			db.close();
 		});
@@ -139,9 +139,9 @@ app.get('/data/items/:tag', function (req, res) {
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
 				
-				// var sortedObjs = utilsService.sortByRank(objs);
+				var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
-				res.json(objs);
+				res.json(sortedObjs);
 			}
 			db.close();
 		});
@@ -160,7 +160,6 @@ app.get('/data/:objType/:id', function (req, res) {
 	dbConnect()
 		.then(db => {
 			const collection = db.collection(objType);
-
 			return collection.findOne(query)
 				.then(obj => {
 					cl('Returning a single ' + objType);

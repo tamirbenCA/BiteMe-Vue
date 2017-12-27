@@ -2,33 +2,26 @@
   <div class="items-container">
     <ul>
       <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-<<<<<<< HEAD
         <div class="item" >
-          <div class="img-item"   v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}" >
+          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.img + '\')'}" >
             <!-- <img :src="item.item.img" /> -->
           </div>
           <div class="item-footer">
             <div class="left-icon">
               <h3>
                 <span class="star">★</span> {{item.rank}}</h3>
-              <h2>{{item.price}}$</h2>
+              <h2>{{item.price}}$</h2> 
+              
             </div>
             <div class="right-icon">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <select >
+                <option>0</option>
+                <option v-for="n in 10">{{n}}</option>
+            </select>
             </div>
           </div>
         </div>
-=======
-        <router-link :to="'/itemdetails/' + item.item.id">
-          <div>
-            <img :src="item.item.img" />
-            <h2>{{item.item.price}}$</h2>
-            <h3>
-              <span class="star">★</span> {{item.item.rank}}</h3>
-            <h2>{{item}}</h2>
->>>>>>> bab9f1e912e44f0893e98755053a21f8b7dffea5
-
-          </div>
         </router-link>
       </li>
     </ul>
@@ -52,15 +45,14 @@ export default {
     this.$store.dispatch({ type: LOAD_ITEMS })
       .then(items => {
         var x = this.$store.getters.items
-        console.log('items:', x[0].img)
+        // console.log('items:', x)
       })
       .catch(err => { console.log('err', err) })
   },
     methods: {
-        // showDetails(sellerId,itemId) {
-        //   this.$router.push(sellerId+'/'+itemId);
-        //   //  console.log(sellerId)
-        // }
+        showDetails(item) {
+          this.$router.push('/itemdetails/'+item._id);
+        }
     },
   computed: {
     itemsToDisplay() {
@@ -76,6 +68,14 @@ export default {
 h1,
 h2 {
   font-weight: normal;
+}
+
+.right-icon{
+  width:80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .fa-shopping-cart {
@@ -122,6 +122,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 
@@ -143,5 +144,9 @@ a {
 
 h3 {
   color: gold;
+}
+
+select{
+  height: 30px;
 }
 </style>

@@ -10,7 +10,10 @@
             <!-- <button>Show Map</button> -->
             <router-link to="/map" tag="button" class="map-button">Show Map</router-link>
         </div>
-        <div v-if="!loggedUser">
+        <div class="btns" v-if="!loggedUser">
+           <div class="cart">
+            <span class="balance">  0</span>  <i class="fa fa-shopping-cart" aria-hidden="true">  </i>
+            </div>
             <router-link to="/login" tag="button" class="login-button">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button">Join</router-link>
         </div>
@@ -65,11 +68,30 @@ h2 {
     font-weight: normal;
 }
 
+.balance{
+    font-size:25px;
+    color: green;
+}
+
+.cart{
+    display: flex;
+    flex-direction: column;
+    margin-top: -30px;
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:280px;
+}
+
 a {
     color: #42b983;
 }
 
 .header-bar {
+    height:120px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -105,5 +127,9 @@ button {
 .login-button{
         width:100px;
 
+}
+.fa-shopping-cart{
+    color:white;
+    font-size: 40px;
 }
 </style>

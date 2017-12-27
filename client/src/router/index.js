@@ -33,9 +33,11 @@ export default new Router({
       component: LogIn,
     },
     {
-      path: '/itemdetails/:itemid',
+      path: '/itemdetails/:itemId',
       name: 'ItemDetails',
       component: ItemDetails,
+    },
+    {
       path: '/map',
       name: 'Map',
       component: Map,

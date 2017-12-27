@@ -3,7 +3,7 @@
     <header-bar/>
     <tags-bar/>
     <router-view/>
-    <footer>&copy may&Ben&Ben</footer>
+    <footer><i class="fa fa-hand-peace-o" aria-hidden="true"></i> may&Ben&Mosh</footer>
   </div>
 </template>
 

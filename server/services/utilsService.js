@@ -1,33 +1,27 @@
 function getTags() {
-	return ['Vegan', 'Veggie', 'Meat', 'Patry', 'Fish', 'Dessert', 'Pasta', 'Appetizers','Soup']
+    return ['Vegan', 'Veggie', 'Meat', 'Patry', 'Fish', 'Dessert', 'Pasta', 'Appetizers', 'Soup']
 }
 
 
 function sortByRank(items) {
-    console.log('itemsitemsitemsitems',items.length)
-    
+    console.log('itemsitemsitemsitems', items.length)
     var maxRank = 5;
     var sellersRanks = [];
 
-    for (var i = 0; i < items.length; i++) {
-        for (var j = 0; !items[i].isAdmin && j < items[i].itemsForSale.length ; j++) {
-            if ((items[i].itemsForSale[j].rank === maxRank) && (sellersRanks.length < 10)) 
-			sellersRanks.push({ sellerId: items[i]._id, item: items[i].itemsForSale[j] })
-            else {
-                if ((items[i].itemsForSale[j].rank === maxRank - 1) && (sellersRanks.length < 10)) 
-				sellersRanks.push({ sellerId: items[i]._id, item: items[i].itemsForSale[j] })
-            }
-
-        }
-    }
+    var sellersRanks = items.filter((item) => {
+        return (item.rank === 5 || item.rank === 4|| item.rank === 3) 
+    })
+    if (sellersRanks.length > 9)   sellersRanks = sellersRanks.slice(0, 9);  
+    
+    
     console.log(sellersRanks)
     return sellersRanks
 }
 
 module.exports = {
-	sortByRank,
-	getTags
-}; 
+    sortByRank,
+    getTags
+};
 
 // export default {
 // 	getTags
