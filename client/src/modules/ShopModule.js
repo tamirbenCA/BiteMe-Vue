@@ -84,7 +84,7 @@ const getters = {
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
     buyersItems: state => state.buyersItems,
-    chefs:state => state.chefs,
+    chefs: state => state.chefs,
     searchedItems: state => state.searchedItems,
 }
 

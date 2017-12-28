@@ -45,13 +45,6 @@ export default {
     '$route.params.tag'() {
       var tag = this.$route.params.tag;
       tag = tag.toLowerCase();
-<<<<<<< HEAD
-      // console.log(' this.tag 38', tag) 
-      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-        .then(items => {
-          var x = this.$store.getters.items
-          // console.log('items:', x)
-=======
       this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
         .then((items) => {
           items.forEach((item) =>
@@ -61,7 +54,6 @@ export default {
             .then((items) => {
               console.log(items)
             })
->>>>>>> 7c9bf41f3814fb812dbc3386e00634580b552b3f
         })
  .catch(err => { console.log('err', err) })
     }
