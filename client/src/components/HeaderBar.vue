@@ -13,7 +13,7 @@
             <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
             <router-link to="/admin" v-if="adminLogged" class="admin">Admin</router-link>
         </div>
-        {{userName}}
+        <!-- {{userName}} -->
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
             <router-link to="/menu" tag="button" class="header-button">Menu</router-link>

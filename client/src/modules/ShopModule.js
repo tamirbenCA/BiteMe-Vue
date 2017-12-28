@@ -84,11 +84,8 @@ const getters = {
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
     buyersItems: state => state.buyersItems,
-<<<<<<< HEAD
     chefs:state => state.chefs,
-=======
     searchedItems: state => state.searchedItems,
->>>>>>> 3ddf9a6de62959999f76d039a3b207f6b4872e8d
 }
 
 const actions = {
@@ -147,8 +144,9 @@ const actions = {
         // console.log('54', tag)
         return UserService.getItemsByTag({tag})
             .then(items => {
-                // console.log(items)
+                console.log(items)
                 commit({ type: SET_ITEMS, items })
+                return items
             })
             .catch(err => {
                 commit(SET_ITEMS, [])
