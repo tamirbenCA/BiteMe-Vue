@@ -1,6 +1,10 @@
 import axios from 'axios'
 
 const URL = 'http://localhost:3003'
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dl58rg6j8/image/upload'
+const CLOUDINARY_PRESET = 'rggusa2m'
+
+
 
 function signup(userDetails) {
     return axios.post(`${URL}/data/user`, userDetails)
@@ -74,6 +78,25 @@ function getEmptyUser() {
     }
 }
 
+function uploadImage(file) {
+    var formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', CLOUDINARY_PRESET)
+
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    }
+
+    return axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+    }).then(res => res.data.url)
+    .catch(err => console.log(err))
+}
 
 export default {
     signup,
@@ -82,5 +105,6 @@ export default {
     toggleLike,
     getEmptyUser,
     getItems,
-    getItemsByTag
+    getItemsByTag,
+    uploadImage
 } 

@@ -33,7 +33,9 @@ export default {
         //     return state.loggedinUser && state.loggedinUser.isAdmin
         },
         userId(state) {
-            return state.loggedinUser._id
+            if (state.loggedinUser) {
+                return state.loggedinUser._id
+            } else return null;
         }
     },
     mutations: {

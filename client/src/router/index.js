@@ -11,6 +11,7 @@ import ItemDetails from '@/components/ItemDetails'
 import Map from '@/components/Map'
 import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
+import AboutUs from '@/components/AboutUs'
 
 
 Vue.use(Router)
@@ -52,15 +53,21 @@ export default new Router({
       name: 'ManageOrders',
       component: ManageOrders,
     },
-    {
-      path: '/map',
-      name: 'Map',
-      component: Map,
-    },
+    // {
+    //   path: '/map',
+    //   name: 'Map',
+    //   component: Map,
+    // },
     {
       path: '/admin',
       name: 'Admin',
       component: AdminPage,
+    },
+    {
+      path: '/aboutus',
+      name: 'AboutUs',
+      component: AboutUs,
     }
-  ]
+  ],
+  mode: 'history'
 })

@@ -16,8 +16,8 @@
         </div>
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
-            <router-link to="/" tag="button" class="header-button">How it works</router-link>
-            <router-link to="/" tag="button" class="header-button">Our mission</router-link>
+            <router-link to="/aboutus" tag="button" class="header-button">How it works</router-link>
+            <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
             <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
             <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
@@ -107,10 +107,10 @@ ul {
 .map-button {
     width: 100px;
 }
-
+/* 
 .logo {
-    /* margin-left: -80px; */
-}
+    margin-left: -80px;
+} */
 
 .right-side {
     display: flex;
@@ -136,9 +136,6 @@ ul {
     flex-direction: column;
     margin-top: -30px;
 }
-
-
-
 
 .btns {
     display: flex;
@@ -195,6 +192,7 @@ button {
     background: none;
     border: none;
     cursor: pointer;
+    outline: none;
 }
 
 .join-button {

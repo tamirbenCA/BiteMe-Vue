@@ -7,7 +7,8 @@
             <input v-model="newUser.email" type="email" placeholder="Email">
             <input v-model="newUser.address" type="text" placeholder="Address">
             <textarea v-model="newUser.about" placeholder="About you"></textarea>
-            <input  v-model="newUser.chefPic" type="url" placeholder="picture url">
+            <input type="file" @change="pushPhoto" />
+            <img v-if="newUser.imgUrl" :src="newUser.imgUrl"/>
             <button>submit</button>
         </form>
     </section>
@@ -29,7 +30,17 @@ export default {
             console.log('submiting form', this.newUser)
             this.$store.dispatch({ type: SIGNUP, signupDetails: this.newUser })
                 .then(this.$router.push('/'))
-        }
+        },
+        pushPhoto({target}) {
+            var file = target.files
+            UserService.uploadImage(file[0])
+            .then(imgUrl => {
+                // console.log('photo uploaded')
+                this.newUser.imgUrl = imgUrl
+                }).catch(err => {
+                    console.error('error adding photo:', err)
+                })
+        },
     },
     computed: {
 
