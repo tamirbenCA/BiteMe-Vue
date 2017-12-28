@@ -1,30 +1,35 @@
 <template>
-  <div class="items-container">
-    <ul>
-      <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-        <div class="item">
-          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
-            <!-- <img :src="item.item.img" /> -->
-          </div>
-          <div class="item-footer">
-            <div class="left-icon">
-              <h3>
-                <span class="star">★</span> {{item.rank}}</h3>
-              <h2>{{item.price}}$</h2>
+  <section>
+    <tags-bar></tags-bar>
+    <div class="items-container">
+      <ul>
+        <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+          <div class="item">
+            <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
+              <!-- <img :src="item.item.img" /> -->
             </div>
-            <div class="right-icon">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <div class="item-footer">
+              <div class="left-icon">
+                <h3>
+                  <span class="star">★</span> {{item.rank}}</h3>
+                <h2>{{item.price}}$</h2>
+              </div>
+              <div class="right-icon">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              </div>
             </div>
           </div>
-        </div>
 
-      </li>
-    </ul>
-  </div>
+        </li>
+      </ul>
+    </div>
+  </section>
 </template>
 
 <script>
 import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
+import TagsBar from './TagsBar.vue';
+
 export default {
 
   data() {
@@ -63,13 +68,14 @@ export default {
       this.$router.push('/itemdetails/' + item._id);
     }
   },
-
   computed: {
     itemsToDisplay() {
       return this.$store.getters.items
     },
   },
-
+  components: {
+    TagsBar
+  }
 }
 </script>
 

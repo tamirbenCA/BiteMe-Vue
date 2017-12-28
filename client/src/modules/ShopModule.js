@@ -8,6 +8,7 @@ export const LOAD_SELLERS_ITEMS = 'shop/toApproveItems';
 export const LOAD_BUYERS_ITEMS = 'shop/orderStatusItems';
 export const LOAD_SEARCHED_ITMES = 'shop/searchedItems';
 export const APPROVE_ITEM = 'shop/approveItem'
+export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
@@ -37,7 +38,7 @@ const mutations = {
     },
     [LOAD_ITEM](state, payload) {
         state.currItem = payload.item;
-        console.log(state.currItem)        
+        // console.log(state.currItem)        
     },
 
     [LOAD_SELLER](state, payload) {
@@ -99,6 +100,20 @@ const actions = {
             })
     },
 
+    [LOAD_ITEMS_BY_IDS]({ commit },{ids}) {
+        // console.log('ids',ids)
+        return ShopService.getItemsByIds(ids)
+            .then(items => {
+                // console.log(items)
+                // items.shift();
+                commit({ type: SET_ITEMS, items })
+                return items
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
 
 
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
@@ -114,7 +129,7 @@ const actions = {
             })
     },
     [LOAD_ITEM]({ commit }, { itemId }) {
-        console.log('action: LOAD_ITEM itemId', itemId)
+        // console.log('action: LOAD_ITEM itemId', itemId)
         return ShopService.getItemById(itemId)
             .then(item => {
                 commit({ type: LOAD_ITEM, item })
@@ -123,7 +138,7 @@ const actions = {
     },
 
     [LOAD_SELLER]({ commit }, { itemId }) {
-        console.log(itemId)
+        // console.log(itemId)
         return ShopService.getItemById(itemId)
             .then(item => {
                 // console.log(item.seller.sellerId)
