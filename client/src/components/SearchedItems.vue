@@ -4,7 +4,7 @@
 
         <div class="items-container">
             <ul>
-                <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
+                <li  v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>

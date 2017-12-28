@@ -75,13 +75,8 @@ export default {
                     return;
                 };
                 this.$router.push('/searchedItems/' + keyWord)
-<<<<<<< HEAD
-                this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
-                }, 1000);
-=======
                 this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, keyWord })
             }, 350);
->>>>>>> 47e287d04ec5699ed455e835e6312e3a5aefe3cd
         },
     },
 
