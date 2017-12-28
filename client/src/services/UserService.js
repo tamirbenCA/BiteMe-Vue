@@ -9,7 +9,7 @@ const CLOUDINARY_PRESET = 'rggusa2m'
 function signup(userDetails) {
     return axios.post(`${URL}/data/user`, userDetails)
         .then(_ => {
-            console.log('userDetails', userDetails);
+            // console.log('userDetails', userDetails);
             return login(userDetails)
         })
         .catch(err => err)
@@ -18,7 +18,7 @@ function signup(userDetails) {
 function login(userCreds) {
     return axios.post(`${URL}/login`, userCreds)
         .then(({ data }) => {
-            console.log('user service login', userCreds);
+            // console.log('user service login', userCreds);
             return data
         })
 }
@@ -34,7 +34,7 @@ function toggleLike(userId, carId) {
 
 
 function getItems() {
-    console.log('inside getitmes')
+    // console.log('inside getitmes')
     return axios
         .get(`${URL}/data/item`)
         .then(res => {
@@ -71,7 +71,7 @@ function getItemsByTag(obj) {
     var keyWord;
     obj.tag ? tag = obj.tag : tag = ''
     obj.keyWord ? keyWord = obj.keyWord : keyWord = ''
-    console.log('in userservice, tag: ' + tag + ' keyword: ' + keyWord)
+    // console.log('in userservice, tag: ' + tag + ' keyword: ' + keyWord)
     return axios.get(`${URL}/data/items`, {
         params: {
             tag: tag,
@@ -79,7 +79,7 @@ function getItemsByTag(obj) {
         }
     })
     .then(res => {
-        console.log('res:', res.data)
+        // console.log('res:', res.data)
         return res.data
     }
     )

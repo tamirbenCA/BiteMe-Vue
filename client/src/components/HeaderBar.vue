@@ -30,7 +30,7 @@
 <script>
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
-import { LOAD_SEARCHED_ITMES } from '../modules/ShopModule.js';
+import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
 
 export default {
     name: 'HeaderBar',
@@ -42,7 +42,7 @@ export default {
         }
     },
     created() {
-    
+
     },
     computed: {
         loggedUser() {
@@ -67,10 +67,21 @@ export default {
             this.keyUpInterval = setTimeout(() => {
                 // console.log('searching for a byte', this.searchValue)
                 var keyWord = this.searchValue.toLowerCase();
-                if (keyWord === '' || keyWord.length < 2) return;
+                if (keyWord === '' || keyWord.length < 2) {
+                    var tag = this.$store.getters.tag;
+                    // console.log('tag in empty search: ', tag)
+                    this.$store.dispatch({type: LOAD_ITEMS_BY_TAG, tag})
+                    this.$router.push(`/items/${tag}`)
+                    return;
+                };
                 this.$router.push('/searchedItems/' + keyWord)
+<<<<<<< HEAD
                 this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
                 }, 1000);
+=======
+                this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, keyWord })
+            }, 350);
+>>>>>>> 47e287d04ec5699ed455e835e6312e3a5aefe3cd
         },
     },
 
@@ -109,6 +120,7 @@ ul {
 .map-button {
     width: 100px;
 }
+
 
 
 /* 

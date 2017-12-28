@@ -2,7 +2,7 @@
     <section class="tags-bar">
         <nav>
             <ul class="container-tags">
-            <router-link v-for="(tag, index) in tags" :key="index" tag="li" :to="`/items/${tag}`">{{tag}}</router-link>
+            <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items/${tag}`">{{tag}}</router-link>
                 <!-- <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)"> -->
                     <!-- {{tag}} -->
                 <!-- </li> -->
@@ -22,9 +22,9 @@ export default {
         }
     },
     methods: {
-        showTagItems(tag) {
-            // console.log('tag27', tag)
-            this.$router.push('/items/' + tag);
+        setTag(tag) {
+            // console.log('tag in component TagsBar: ', tag)
+            // this.$router.push('/items/' + tag);
             this.$store.commit({type: SET_TAG, tag})
         }
     },
