@@ -45,6 +45,8 @@ function getItems() {
 }
 
 
+
+
 function getItemsByTag(tag) {
     console.log('tag48',tag);
     return axios
@@ -82,5 +84,6 @@ export default {
     toggleLike,
     getEmptyUser,
     getItems,
-    getItemsByTag
+    getItemsByTag,
+    
 } 

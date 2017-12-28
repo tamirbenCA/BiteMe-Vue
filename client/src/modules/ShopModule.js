@@ -2,10 +2,9 @@ export const LOAD_TAGS = 'shop/loadTags';
 export const LOAD_ITEMS = 'shop/loadItems';
 export const LOAD_ITEMS_BY_TAG = 'shop/loadItemsByTag';
 export const LOAD_ITEM = 'shop/loadItem';
-
+export const LOAD_SELLER = 'shop/loadSeller';
 export const LOAD_SELLERS_ITEMS = 'shop/toApproveItems';
 export const LOAD_BUYERS_ITEMS = 'shop/orderStatusItems';
-
 export const APPROVE_ITEM = 'shop/approveItem'
 
 import ShopService from '../services/ShopService.js';
@@ -20,7 +19,7 @@ const state = {
     tag: null,
     currItem: {},
     tags: [],
-    currSeller:null,
+    currSeller: null,
     sellersItems: null,
     buyersItems: null,
 }
@@ -34,18 +33,25 @@ const mutations = {
         // console.log( state.items)
     },
     [LOAD_ITEM](state, payload) {
-        state.currItem =payload.item;
+        state.currItem = payload.item;
+        console.log(state.currItem)        
+    },
+
+    [LOAD_SELLER](state, payload) {
+        state.currItem = payload.item;
         state.currSeller = payload.seller;
+        // console.log('payload41',  state.currItem )
+        // console.log('payload41',state.currSeller )
     },
     // [LOAD_ITEM](state, item) {
     //     // console.log('mutation item: ', item)
     //     state.currItem = item;
     // },
-    [LOAD_SELLERS_ITEMS](state, {items}) {
+    [LOAD_SELLERS_ITEMS](state, { items }) {
         // console.log('seller items in mutataion: ', items)
         state.sellersItems = items
     },
-    [LOAD_BUYERS_ITEMS](state, {items}) {
+    [LOAD_BUYERS_ITEMS](state, { items }) {
         // console.log('buyer items in mutataion: ', items)
         state.buyersItems = items
     }
@@ -56,7 +62,7 @@ const getters = {
     currItem: state => state.currItem,
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
-    buyersItems: state => state.buyersItems,
+    buyersItems: state => state.buyersItems
 }
 
 const actions = {
@@ -81,8 +87,11 @@ const actions = {
                 throw err;
             })
     },
+
+
+
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
-        console.log('54', tag)
+        // console.log('54', tag)
         return UserService.getItemsByTag(tag)
             .then(items => {
                 // console.log(items)
@@ -95,25 +104,37 @@ const actions = {
     },
     [LOAD_ITEM]({ commit }, { itemId }) {
         console.log('action: LOAD_ITEM itemId', itemId)
-        return ShopService.getItemById(itemId.item)
+        return ShopService.getItemById(itemId)
             .then(item => {
-                console.log(item)
+                commit({ type: LOAD_ITEM, item })
+            })
+
+    },
+
+    [LOAD_SELLER]({ commit }, { itemId }) {
+        console.log(itemId)
+        return ShopService.getItemById(itemId)
+            .then(item => {
+                // console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
                     .then(seller => {
                         console.log(seller)
-                        commit({ type: LOAD_ITEM, item, seller})
+                        commit({ type: LOAD_SELLER, item, seller })
+                        return {item:item,seller:seller}
                     })
             })
     },
-    [LOAD_SELLERS_ITEMS] ({commit},  {userId}) {
-        console.log('loading to approve items in ACTIONS id:', userId)
+
+
+    [LOAD_SELLERS_ITEMS]({ commit }, { userId }) {
+        // console.log('loading to approve items in ACTIONS id:', userId)
         return ShopService.loadSellersItems(userId).then(items => {
-            commit({type: LOAD_SELLERS_ITEMS, items: items.data})
+            commit({ type: LOAD_SELLERS_ITEMS, items: items.data })
         }).catch(() => {
             console.error('promise in actions NOT GOOD')
         })
     },
-    [LOAD_BUYERS_ITEMS] ({commit}, {userId}) {
+    [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {
         // console.log('loading order status items in ACTIONS')
         // return ShopService.loadBuyersItems(sellerId).then(items => {
         //     commit({type: LOAD_BUYERS_ITEMS, items})
