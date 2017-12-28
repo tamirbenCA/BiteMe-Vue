@@ -7,23 +7,23 @@ function loadTags() {
 }
 
 function getItemById(itemId) {
+    // console.log('itemId',itemId)
     return axios
     .get(`${URL}/data/item/${itemId}`)
     .then(res => {
-        console.log('resdata:', res.data)
+        // console.log('resdata:', res.data)
         return res.data
     })
 }
 
 function getChefById(chefId) {
-    console.log('chefId:', chefId)
+    // console.log('chefId:', chefId)
     return axios
     .get('http://127.0.0.1:3003/data/user/'+chefId)
     .then(res => {
-        console.log('resdata:', res.data)
+        // console.log('resdata:', res.data)
         return res.data
     })
-
 }
 
 function loadSellersItems (sellerId) {

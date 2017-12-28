@@ -1,17 +1,13 @@
 <template>
     <div class="details-container">
-        <div class="left-side">
-            <!-- <div class="head-left">
-                                    <img class="logo" src="../assets/Byte-Me-Logo.png" />
-                                </div> -->
+ <div class="left-side">
+            
             <div class="middle">
+                {{item.item}}
                 <p class="title"> {{item.name}}
                     <span class="star">{{item.rank}} ★</span>
                 </p>
-                <!-- <p class="rank"> {{item.rank}}
-                                                                <span class="star">★</span>
-                                                            </p> -->
-                <img :src="item.imgUrl" />
+                <img class="item" :src="item.imgUrl" />
 
             </div>
             <div class="buttom">
@@ -26,25 +22,33 @@
         <div>
             <div>
                 <h1> About chef</h1>
-                <!-- <p> Meet {{chef}} </p> -->
-                 <p> Meet {{chef}} </p>
-                <!-- <img :src="chef.imgUrl" /> -->
-                  <!-- <ul>
-                <li v-for="(item, idx) in chef.itemsForSale" :key="idx">
-                    {{item.name}}
-                </li>
-            </ul> -->
+               <p> Meet {{chef.name}} </p>
+                <img class="chef" :src="chef.imgUrl" />
+
             </div>
             <div class="right-side">
                 <div class="details">
                     <h1>About the byte</h1>
-                </div>
-                <div class="comments">
+                    <p>{{item.desc}} </p>
+                </div> 
+                 <div class="comments">
                     <h1>Reviews</h1>
+
                 </div>
 
             </div>
         </div>
+        <div class="see-more">
+            <div>See more of {{chef.name}}'s yummi meals </div>
+            <ul> 
+              <li v-for="(item, idx)  in chef.itemsForSale" :key="idx"> 
+                  {{item.itemsForSale}}
+                  <show-meals :meal="item"></show-meals>
+                </li>
+            </ul>
+         
+     
+        </div>  
 
     </div>
 </template>
@@ -52,27 +56,38 @@
 <script>
 
 import { LOAD_ITEM } from '../modules/ShopModule.js';
-
+import { LOAD_SELLER } from '../modules/ShopModule.js';
+import ShowMeals from './ShowMeals.vue';
 export default {
 
     data() {
         return {
-          
         }
     },
     created() {
         var itemId = this.$route.params.itemId;
-        this.$store.dispatch({ type: LOAD_ITEM, itemId })
-       
+        console.log(itemId)
+        this.$store.dispatch({ type:LOAD_SELLER, itemId })
+            .then((item) => {
+                console.log(item)
+            })
+
     },
+    methods: {
+    },
+
     computed: {
         item() {
             return this.$store.getters.currItem
         },
         chef() {
             return this.$store.getters.currSeller
-        }
+        },
+
     },
+    components: {
+        ShowMeals
+    }
 
 }
 </script>
@@ -93,6 +108,18 @@ img {
     width: 80%;
 }
 
+.chef {
+    width: 40%;
+    height: 40%;
+}
+
+.item {
+    background-size: cover;
+    background-position: center;
+    width: 320px;
+    height: 300px;
+}
+
 .right-side {
     color: black;
     background-color: lightgray;
@@ -109,14 +136,14 @@ img {
     background-color: white;
     width: 90%;
     margin: 5px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .details {
     background-color: white;
     width: 90%;
     margin: 5px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 select {
