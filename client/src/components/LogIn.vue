@@ -12,6 +12,7 @@
 <script>
 import { SIGNIN } from '../modules/UserModule';
 import UserService from '../services/UserService';
+import swal from 'sweetalert'
 
 export default {
     name: 'HeaderBar',
@@ -31,8 +32,16 @@ export default {
             // })
             console.log('user is: ', this.user)
             this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
-                .then(this.$router.push('/'))
-
+                .then(res => { 
+                    this.$router.push('/')
+                })
+                .catch(err => { 
+                    // alert('Wrong email / password')
+                    swal({
+                        text: 'Wrong email / password',
+                        icon: 'error'
+                })
+            })
         }
     },
     created() {

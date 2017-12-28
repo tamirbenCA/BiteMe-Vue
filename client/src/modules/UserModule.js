@@ -21,7 +21,6 @@ export default {
         },
 
         loggedinUser: (state) => {
-            // debugger;
             console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser 
         },
@@ -83,12 +82,13 @@ export default {
                         console.log('res686868', res)
                         commit({ type: SET_USER, user: res.user });
                         saveToLocalStorage(res.user)
+                        resolve();
                     })
                     .catch(err => {
                         console.log(err)
-                        throw err;
+                        reject(err);
                     });
-            })
+            });
         },
         [SIGNOUT]({ commit }) {
             UserService
@@ -96,6 +96,7 @@ export default {
                 .then(_ => {
                     commit({ type: SIGNOUT })
                     saveToLocalStorage(null);
+                    // localStorage.clear(STORAGE_KEY)
                 })
         },
         [TOGGLE_LIKE]({ commit, state }, { carId }) {
@@ -112,7 +113,6 @@ export default {
 
 
 function getUserFromStorage() {
-    // debugger;
     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
     // console.log('GETTING FROM STORAGE', loggedinUser);
     return loggedinUser;

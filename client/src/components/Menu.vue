@@ -81,6 +81,7 @@ h2 {
 
 .name {
     width: 200px;
+    text-transform: uppercase;
 }
 
 
