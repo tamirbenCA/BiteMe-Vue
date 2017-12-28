@@ -63,6 +63,7 @@ const mutations = {
         state.searchedItems = items;
     },
     [SET_TAG](state, {tag}) {
+        console.log('tag in MUTATIONS: ', tag)
         state.tag = tag;
     }
 }
@@ -157,7 +158,7 @@ const actions = {
         return ShopService.loadSellersItems(userId).then(items => {
             commit({ type: LOAD_SELLERS_ITEMS, items: items.data })
         }).catch(() => {
-            console.error('promise in actions NOT GOOD')
+            // console.error('promise in actions NOT GOOD')
         })
     },
     [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {

@@ -41,11 +41,11 @@ export default {
     '$route.params.tag'() {
       var tag = this.$route.params.tag;
       tag = tag.toLowerCase();
-      console.log(' this.tag 38', tag)
+      // console.log(' this.tag 38', tag) 
       this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
         .then(items => {
           var x = this.$store.getters.items
-          console.log('items:', x)
+          // console.log('items:', x)
         })
         .catch(err => { console.log('err', err) })
     }
