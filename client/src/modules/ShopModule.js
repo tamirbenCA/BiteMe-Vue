@@ -83,11 +83,8 @@ const getters = {
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
     buyersItems: state => state.buyersItems,
-<<<<<<< HEAD
     chefs:state => state.chefs,
-=======
     searchedItems: state => state.searchedItems,
->>>>>>> 3ddf9a6de62959999f76d039a3b207f6b4872e8d
 }
 
 const actions = {
