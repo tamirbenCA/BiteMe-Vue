@@ -3,7 +3,7 @@
         <tags-bar> </tags-bar>
 
         <!-- <tags-bar/> -->
-        <div class="items-container">
+        <div class="items-container" v-if="isLoaded">
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -43,10 +43,11 @@ export default {
     data() {
         return {
             items: [],
-            chefsIds: []
+            chefsIds: [], 
         }
     },
     created() {
+
         this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
                 items.forEach((item) =>
@@ -57,7 +58,6 @@ export default {
                         // console.log(items)
                     })
             })
-
     },
     methods: {
         showDetails(item) {
@@ -70,6 +70,9 @@ export default {
         },
         seller() {
             return this.$store.getters.chefs
+        },
+        isLoaded(){
+            return true
         }
     },
     components: {
@@ -105,6 +108,7 @@ h2 {
     height: 24px;
     border-radius: 50px;
 }
+
 
 
 /* width: 25px;
