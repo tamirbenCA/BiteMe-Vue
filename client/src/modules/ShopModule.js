@@ -1,10 +1,12 @@
 export const LOAD_TAGS = 'shop/loadTags';
 export const LOAD_ITEMS = 'shop/loadItems';
 export const LOAD_ITEMS_BY_TAG = 'shop/loadItemsByTag';
+export const SET_TAG = 'shop/setTag';
 export const LOAD_ITEM = 'shop/loadItem';
 export const LOAD_SELLER = 'shop/loadSeller';
 export const LOAD_SELLERS_ITEMS = 'shop/toApproveItems';
 export const LOAD_BUYERS_ITEMS = 'shop/orderStatusItems';
+export const LOAD_SEARCHED_ITMES = 'shop/searchedItems';
 export const APPROVE_ITEM = 'shop/approveItem'
 export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
 export const LOAD_CHEFS_BY_IDS = 'shop/loadChefsByIds'
@@ -27,6 +29,7 @@ const state = {
     currSeller: null,
     sellersItems: null,
     buyersItems: null,
+    searchedItems: null,
 }
 const mutations = {
     [LOAD_TAGS](state, payload) {
@@ -64,16 +67,27 @@ const mutations = {
     [LOAD_BUYERS_ITEMS](state, { items }) {
         // console.log('buyer items in mutataion: ', items)
         state.buyersItems = items
+    },
+    [LOAD_SEARCHED_ITMES](state, {items}) { 
+        state.searchedItems = items;
+    },
+    [SET_TAG](state, {tag}) {
+        state.tag = tag;
     }
 }
 const getters = {
     tags: state => state.tags,
+    tag: state => state.tag,
     items: state => state.items,
     currItem: state => state.currItem,
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
     buyersItems: state => state.buyersItems,
+<<<<<<< HEAD
     chefs:state => state.chefs,
+=======
+    searchedItems: state => state.searchedItems,
+>>>>>>> 3ddf9a6de62959999f76d039a3b207f6b4872e8d
 }
 
 const actions = {
@@ -130,7 +144,7 @@ const actions = {
 
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
         // console.log('54', tag)
-        return UserService.getItemsByTag(tag)
+        return UserService.getItemsByTag({tag})
             .then(items => {
                 // console.log(items)
                 commit({ type: SET_ITEMS, items })
@@ -177,6 +191,21 @@ const actions = {
         // return ShopService.loadBuyersItems(sellerId).then(items => {
         //     commit({type: LOAD_BUYERS_ITEMS, items})
         // })        
+    },
+    [LOAD_SEARCHED_ITMES]({commit}, {keyWord}) {
+        // console.log('keyWord in ACTIONS: ', keyWord)
+        // var tag = state.tag
+        var tag = this.getters.tag
+        // console.log('!!!!!!!!!tag in load search!!!!!!!: ', tag)
+        return UserService.getItemsByTag({tag, keyWord})
+        .then(items => {
+            // console.log(items)
+            commit({ type: SET_ITEMS, items })
+        })
+        .catch(err => {
+            commit(SET_ITEMS, [])
+            throw err;
+        })
     }
 }
 export default {

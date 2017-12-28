@@ -4,7 +4,7 @@ function getTags() {
 
 
 function sortByRank(items) {
-    console.log('itemsitemsitemsitems', items.length)
+    // console.log('itemsitemsitemsitems', items.length)
     // var maxRank = 5;
     var itemsRank = [];
 
@@ -14,7 +14,7 @@ function sortByRank(items) {
     if (itemsRank.length > 9)   itemsRank = itemsRank.slice(0, 9);  
     
     
-    console.log(itemsRank)
+    // console.log(itemsRank)
     return itemsRank
 }
 

@@ -51,19 +51,42 @@ function getItems() {
 
 
 
-function getItemsByTag(tag) {
-    console.log('tag48',tag);
-    return axios
-        .get(`${URL}/data/items/`+tag)
-        .then(res => {
-            console.log('res:', res.data)
-            return res.data
+// function getItemsByTag(tag) {
+//     // console.log('tag48',tag);
+//     return axios
+//         .get(`${URL}/data/items/`+tag)
+//         .then(res => {
+//             console.log('res:', res.data)
+//             return res.data
+//         }
+//         )
+//         .catch(e => {
+//             console.log('No Items', e);
+//             throw e;
+//         });
+// }
+
+function getItemsByTag(obj) {
+    var tag;
+    var keyWord;
+    obj.tag ? tag = obj.tag : tag = ''
+    obj.keyWord ? keyWord = obj.keyWord : keyWord = ''
+    console.log('in userservice, tag: ' + tag + ' keyword: ' + keyWord)
+    return axios.get(`${URL}/data/items`, {
+        params: {
+            tag: tag,
+            term: keyWord
         }
-        )
-        .catch(e => {
-            console.log('No Items', e);
-            throw e;
-        });
+    })
+    .then(res => {
+        console.log('res:', res.data)
+        return res.data
+    }
+    )
+    .catch(e => {
+        console.log('No Items', e);
+        throw e;
+    });
 }
 
 function getEmptyUser() {
