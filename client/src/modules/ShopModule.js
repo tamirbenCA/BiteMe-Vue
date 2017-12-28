@@ -143,8 +143,9 @@ const actions = {
         // console.log('54', tag)
         return UserService.getItemsByTag({tag})
             .then(items => {
-                // console.log(items)
+                console.log(items)
                 commit({ type: SET_ITEMS, items })
+                return items
             })
             .catch(err => {
                 commit(SET_ITEMS, [])

@@ -29,7 +29,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 100px;
@@ -42,5 +42,9 @@ export default {
   text-align: left;
   line-height: 50px;
   padding: 10px;
+}
+.top-page{
+      box-shadow: 1px 2px 6px 0px black;
+
 }
 </style>

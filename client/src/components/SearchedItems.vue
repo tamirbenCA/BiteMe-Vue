@@ -1,6 +1,6 @@
 <template>
   <div class="items-container">
-      <h1>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+      <!-- <h1>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1> -->
 
     <ul>
       <li v-for="(item, idx) in itemsToDisplay" :key="idx">
