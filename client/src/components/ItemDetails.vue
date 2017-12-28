@@ -1,54 +1,67 @@
 <template>
     <div class="details-container">
- <div class="left-side">
-            
+        <!-- <div v-if="isProcessing">
+                        <img src="../assets/buffer.png">
+                    </div> -->
+        <div class="top-page">
             <div class="middle">
-                {{item.item}}
-                <p class="title"> {{item.name}}
-                    <span class="star">{{item.rank}} ★</span>
-                </p>
-                <img class="item" :src="item.imgUrl" />
-
-            </div>
-            <div class="buttom">
-                <p> Price: {{item.price}}$ </p>
-                <select>
-                    <option>0</option>
-                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
-                </select>
-                <button class="checkout-btn">Add to cart</button>
-            </div>
-        </div>
-        <div>
-            <div>
-                <h1> About chef</h1>
-               <p> Meet {{chef.name}} </p>
-                <img class="chef" :src="chef.imgUrl" />
-
-            </div>
-            <div class="right-side">
-                <div class="details">
-                    <h1>About the byte</h1>
-                    <p>{{item.desc}} </p>
-                </div> 
-                 <div class="comments">
-                    <h1>Reviews</h1>
-
+                <div class="chef-details" style="background-color:white">
+                    <h1 style="color:black"> About chef</h1>
+                    <p> Meet {{chef.name}} </p>
+                    <img class="chef" :src="chef.imgUrl" />
+                    <p class="about-chef"> {{chef.about}} </p>
                 </div>
+                <div class="comments">
+                    <h1>Reviews</h1>
+                    <ul class="comments-box">
+                        <li class="comment" v-for="(comment, idx)  in chef.commentsOnSellers" :key="idx">
+                            <p>
+                                <i class="fa fa-user" aria-hidden="true"></i> {{comment}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="left-side" v-if="!isProcessing"> -->
+                <div class="left-side">
+                <div class="top">
+                    {{item.item}}
+                    <p class="title"> {{item.name}}
+                        <br>
+                        <span class="star">{{item.rank}} ★</span>
+                    </p>
+                    <img class="item" :src="item.imgUrl" />
+                    <p>{{item.desc}}</p>
+                </div>
+                <div class="price" style="background-color:white">
+                    <p> Price: {{item.price}}$ </p>
+                    <select>
+                        <option>0</option>
+                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                    </select>
+                    <button class="checkout-btn">Add to cart</button>
+                </div>
+            </div>
+            <!-- <div class="left-side" v-else>
+                <img style="width:400px" src="../assets/buffer.png">
+            </div> -->
+
+
+            <div class="right-side">
+                <h3>See more of {{chef.name}}'s yummi meals </h3>
+                <ul>
+                    <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
+                        <div class="more-item">
+                            <div style="margin:10px">{{meal.name}}</div>
+                            <div><img class="meal" :src="meal.imgUrl" /></div>
+                        </div>
+
+                    </li>
+                </ul>
 
             </div>
         </div>
-        <div class="see-more">
-            <div>See more of {{chef.name}}'s yummi meals </div>
-            <ul> 
-              <li v-for="(item, idx)  in chef.itemsForSale" :key="idx"> 
-                  {{item.itemsForSale}}
-                  <show-meals :meal="item"></show-meals>
-                </li>
-            </ul>
-         
-     
-        </div>  
+
+    </div>
 
     </div>
 </template>
@@ -57,23 +70,50 @@
 
 import { LOAD_ITEM } from '../modules/ShopModule.js';
 import { LOAD_SELLER } from '../modules/ShopModule.js';
-import ShowMeals from './ShowMeals.vue';
+import { LOAD_ITEMS_BY_IDS } from '../modules/ShopModule.js';
+
+// import ShowMeals from './ShowMeals.vue';
 export default {
 
     data() {
         return {
+            mealsIds: [],
+            isProcessing: false
         }
+    },
+    watch: {
+        '$route.params.itemId'() {
+            // this.isProcessing = true;
+            setTimeout(() => {
+                this.mealsIds = [];
+                var itemId = this.$route.params.itemId;
+                this.$store.dispatch({ type: LOAD_SELLER, itemId })
+                // this.isProcessing = false;
+            }, 500);
+        }
+
     },
     created() {
         var itemId = this.$route.params.itemId;
-        console.log(itemId)
-        this.$store.dispatch({ type:LOAD_SELLER, itemId })
+        // console.log(itemId)
+        this.$store.dispatch({ type: LOAD_SELLER, itemId })
             .then((item) => {
-                console.log(item)
+                console.log('item', item.seller.commentsOnSellers)
+                item.seller.itemsForSale.forEach((item) =>
+                    this.mealsIds.push(item))
+
+                this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
+                    .then((items) => {
+                        console.log(items)
+                    })
             })
 
     },
     methods: {
+        showDetails(item) {
+            this.$router.push('/itemdetails/' + item._id);
+        },
+
     },
 
     computed: {
@@ -83,11 +123,15 @@ export default {
         chef() {
             return this.$store.getters.currSeller
         },
+        meals() {
+            return this.$store.getters.items
+        },
+        // isProcessing(){
+        //     // if(this.isProcessing === false)
+        //     // return !this.isProcessing
+        // }
 
     },
-    components: {
-        ShowMeals
-    }
 
 }
 </script>
@@ -99,13 +143,106 @@ export default {
     font-weight: bold;
 }
 
+.middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
+
+
+h2 {
+    margin: 0;
+}
+
+.comment {
+    /* border-bottom: 1px solid lightgray; */
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid lightgray;
+    color: black;
+}
+
+.about-chef {
+    word-wrap: break-word;
+}
+
+.fa-user {
+    padding-right: 10px;
+    font-size: 35px;
+    color: lightslategray;
+}
+
+.comments {
+    padding: 10px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 5px;
+}
+
+.comments-box {
+    padding: 0;
+}
+
+.top-page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.price {
+    border: 1px solid lightgray;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    /* width: 80%; */
+}
+
+.left-side {
+    border: 1px solid lightgray;
+    padding: 20px;
+}
+
+.chef-details {
+    /* border: 1px solid lightgray; */
+    padding-bottom: 40px;
+    width: 50%;
+}
+
+li {
+    list-style: none;
+}
+
 .star {
     color: gold;
 }
 
+.more-item {
+    cursor: pointer;
+}
+
+.top {
+    /* border-bottom: 1px solid lightgray; */
+    margin-bottom: 15px;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 img {
-    height: 80%;
+    height: 50%;
     width: 80%;
+}
+
+.meal {
+    height: 30%;
+    width: 40%;
 }
 
 .chef {
@@ -120,24 +257,25 @@ img {
     height: 300px;
 }
 
+.meal {
+    background-size: cover;
+    background-position: center;
+    max-width: 7vw;
+    max-height: 7vw;
+    /* width: 220px;
+    height: 200px; */
+}
+
 .right-side {
     color: black;
-    background-color: lightgray;
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     height: 300px;
     align-items: center;
 }
 
 
-.comments {
-    background-color: white;
-    width: 90%;
-    margin: 5px;
-    /* border-radius: 10px; */
-}
 
 .details {
     background-color: white;
@@ -151,24 +289,15 @@ select {
 }
 
 .details-container {
+    padding-top: 60px;
     width: 100%;
     max-width: 1500px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /* background-color: lightgray; */
-    height: 500px;
     justify-content: center;
     align-items: center;
-    justify-content: space-around;
-}
-
-.left-side {
-    background-color: white;
-    width: 40%;
-    border: 1px lightgray solid;
-    height: 470px;
-    padding: 10px;
-    margin-left: 100px;
+    justify-content: space-between;
 }
 
 

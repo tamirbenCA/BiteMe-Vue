@@ -5,17 +5,15 @@
         <!-- <tags-bar/> -->
         <div class="items-container">
             <ul>
-                <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+                <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
-                        <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
+                        <div   class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                             <!-- <img :src="item.item.img" /> -->
                         </div>
                         <div class="item-footer">
                             <div class="left-icon">
-                                <h3>
-                                    <span class="star">★</span> {{item.rank}}</h3>
+                                <h3><span class="star">★</span> {{item.rank}}</h3>
                                 <h2>{{item.price}}$</h2>
-
                             </div>
                             <div class="name">
                                 <h4>{{item.name}}</h4>
@@ -36,7 +34,7 @@
 </template>
 
 <script>
-// @click="showDetails(item.sellerId,item.item.id)"
+
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
@@ -86,33 +84,6 @@ h2 {
 }
 
 
-
-
-
-/* .front-img {
-  width: 1400px;;
-} */
-
-
-/* .msg {
-  background-color: lightgray;
-  color: #4a4848;
-  text-align: left;
-  line-height: 50px;
-  padding: 10px;
-} */
-
-
-/* .top-page {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 1000px;
-  justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 50px;
-} */
-
 .right-icon {
     width: 80px;
     display: flex;
@@ -139,8 +110,8 @@ ul {
 
 .item {
     cursor: pointer;
-    height: 350px;
-    width: 320px;
+    height: 300px;
+    width: 250px;
     border: 1px solid black;
     /* border-radius: 15px; */
     display: flex;
@@ -152,7 +123,7 @@ ul {
 }
 
 .item-footer {
-    width: 290px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -161,7 +132,7 @@ ul {
 }
 
 .left-icon {
-    width: 100px;
+    width: 50%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -172,8 +143,8 @@ ul {
 .img-item {
     background-size: cover;
     background-position: center;
-    width: 320px;
-    height: 300px;
+    width: 100%;
+    height: 80%;
 }
 
 li {
