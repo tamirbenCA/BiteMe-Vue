@@ -2,7 +2,7 @@
     <section>
         <tags-bar> </tags-bar>
 
-        <div class="items-container" v-if="pageReady">
+        <div class="items-container">
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -38,8 +38,7 @@ export default {
   data() {
     return {
       items: [],
-      chefsIds: [],
-      pageReady: false
+      chefsIds: []
     }
   },
   watch: {
@@ -70,7 +69,6 @@ export default {
         this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
           .then((items) => {
             console.log(items)
-            this.pageReady = true;
           })
       })
   },
