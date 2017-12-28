@@ -7,24 +7,21 @@
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
-                        <div   class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
+                        <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                             <!-- <img :src="item.item.img" /> -->
                         </div>
                         <div class="item-footer">
-                            <div class="left-icon">
-                                <h3><span class="star">★</span> {{item.rank}}</h3>
-                                <h2>{{item.price}}$</h2>
+                            <div class="chef-details">
+                                <img class="chef" :src="seller[idx].imgUrl" />
+                                <p>{{seller[idx].name}}</p>
                             </div>
                             <div class="name">
-                                <h4>{{item.name}}</h4>
+                                <p>{{item.name}}</p>
                             </div>
-                            <!-- <div class="right-icon">
-                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                            <select>
-                                                <option>0</option>
-                                                <option v-for="n in 10">{{n}}</option>
-                                            </select>
-                                        </div> -->
+                            <p class="rank">{{item.rank}}
+                                <span class="star">★</span>
+                            </p>
+                            <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
                 </li>
@@ -38,22 +35,29 @@
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
+import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
+
 
 export default {
     name: 'Menu',
     data() {
         return {
             items: [],
-            y: null
+            chefsIds: []
         }
     },
     created() {
         this.$store.dispatch({ type: LOAD_ITEMS })
-            .then(items => {
-                var x = this.$store.getters.items
-                // console.log('items:', x)
+            .then((items) => {
+                items.forEach((item) =>
+                    this.chefsIds.push(item.seller.sellerId))
+                console.log(' this.chefsIds', this.chefsIds)
+                this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                    .then((items) => {
+                        console.log(items)
+                    })
             })
-            .catch(err => { console.log('err', err) })
+
     },
     methods: {
         showDetails(item) {
@@ -64,6 +68,9 @@ export default {
         itemsToDisplay() {
             return this.$store.getters.items
         },
+        seller() {
+            return this.$store.getters.chefs
+        }
     },
     components: {
         TagsBar
@@ -79,19 +86,29 @@ h2 {
     font-weight: normal;
 }
 
-.name {
-    width: 200px;
-    text-transform: uppercase;
-}
-
-
-.right-icon {
-    width: 80px;
+.chef-details {
     display: flex;
     flex-direction: row;
+    width: 60px;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
+
+.name {
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.chef {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+}
+
+
+/* width: 25px;
+    height: 25px; */
 
 .fa-shopping-cart {
     font-size: 30px;
@@ -102,6 +119,11 @@ h2 {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    /* padding-bottom: 10px; */
+}
+
+p {
+    margin: 0;
 }
 
 ul {
@@ -111,9 +133,10 @@ ul {
 
 .item {
     cursor: pointer;
-    height: 300px;
+    height: 350px;
     width: 250px;
-    border: 1px solid black;
+    box-shadow: 1px 2px 6px 0px black;
+    /* border: 1px solid black; */
     /* border-radius: 15px; */
     display: flex;
     flex-direction: column;
@@ -124,22 +147,15 @@ ul {
 }
 
 .item-footer {
+    height: 150px;
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    /* border-bottom: 1px solid gray; */
-}
-
-.left-icon {
-    width: 50%;
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 15px;
+    justify-content: center;
     justify-content: space-around;
-    align-items: center;
 }
-
 
 .img-item {
     background-size: cover;
@@ -157,7 +173,7 @@ a {
     color: #42b983;
 }
 
-h3 {
+.rank {
     color: gold;
 }
 

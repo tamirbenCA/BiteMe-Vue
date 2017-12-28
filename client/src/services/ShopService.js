@@ -19,18 +19,42 @@ function getItemById(itemId) {
 
 
 function getItemsByIds(itemsIds) {
+    console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
         return getItemById(itemId)
             .then((res) => {
-                // console.log(res)
+                console.log(res)
                 return res
             })
     })
-
     return Promise.all(items)
-
 }
 
+
+
+function getChefById(itemId) {
+    // console.log('itemId', itemId)
+    return axios
+        .get(`${URL}/data/user/${itemId}`)
+        .then(res => {
+            // console.log('resdata:', res.data)
+            return res.data
+        })
+}
+
+
+
+function getChefsByIds(itemsIds) {
+    console.log(itemsIds)
+    var items = itemsIds.map((itemId) => {
+        return getChefById(itemId)
+            .then((res) => {
+                console.log(res)
+                return res
+            })
+    })
+    return Promise.all(items)
+}
 
 
 function getChefById(chefId) {
@@ -63,5 +87,7 @@ export default {
     getChefById,
     loadSellersItems,
     loadBuyersItems,
-    getItemsByIds
+    getItemsByIds,
+    getChefById,
+    getChefsByIds
 }

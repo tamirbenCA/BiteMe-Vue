@@ -3,17 +3,17 @@
     <div class="how-work">
       <img class="how-work-img" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_500/v1514378353/images_lhhfvl.jpg" />
       <div class="details">
-        <a name="how-it-works"><h1>How it works</h1></a> 
-        <!-- <h1>How it works</h1> -->
+        <a name="how-it-works">
+          <h1>How it works</h1>
+        </a>
         <br> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </div>
     </div>
-    <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
-    <div class>
-    <!-- <div class="our-mission"> -->
-      <a name="our-mission" id="our-mission"><h1>Our mission</h1></a>
-      <!-- <h1>Our mission</h1> -->
-      <br>
+    <div class="mission">
+      <a name="our-mission" id="our-mission">
+        <h1>Our mission</h1>
+      </a>
+
       <h2>Make the world taste better</h2>
       <br>
       <div class="imgs">
@@ -38,6 +38,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  margin-top: 50px;
 }
 
 .imgs {
@@ -54,14 +55,16 @@ export default {
   justify-content: space-between;
   margin: 0 auto;
   margin-bottom: 100px;
+  border-bottom: 1px solid lightgrey;
 }
 
 .details {
   width: 40%;
 }
 
-.our-mission{
-   margin-bottom: 100px;
+.mission {
+  margin-top: -50px;
+  margin-bottom: 50px;
 }
 
 .top-page {
@@ -73,5 +76,4 @@ export default {
   margin: 0 auto;
   margin-bottom: 100px;
 }
-
 </style>
