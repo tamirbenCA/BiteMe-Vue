@@ -125,10 +125,10 @@ const actions = {
     },
 
     [LOAD_CHEFS_BY_IDS]({ commit }, { ids }) {
-        console.log('ids',ids)
+        // console.log('ids',ids)
         return ShopService.getChefsByIds(ids)
             .then(items => {
-                console.log(items)
+                // console.log(items)
                 // items.shift();
                 commit({ type: SET_CHEFS, items })
                 return items
@@ -143,7 +143,7 @@ const actions = {
         // console.log('54', tag)
         return UserService.getItemsByTag({tag})
             .then(items => {
-                console.log(items)
+                // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
             })
@@ -168,7 +168,7 @@ const actions = {
                 // console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
                     .then(seller => {
-                        console.log(seller)
+                        // console.log(seller)
                         commit({ type: LOAD_SELLER, item, seller })
                         return { item: item, seller: seller }
                     })

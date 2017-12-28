@@ -70,7 +70,7 @@ export default {
                 if (keyWord === '' || keyWord.length < 2) return;
                 this.$router.push('/searchedItems/' + keyWord)
                 this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
-                }, 350);
+                }, 1000);
         },
     },
 
