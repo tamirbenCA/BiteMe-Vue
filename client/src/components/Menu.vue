@@ -48,6 +48,7 @@ export default {
         }
     },
     created() {
+
         this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
                 items.forEach((item) =>
@@ -59,7 +60,6 @@ export default {
                         this.pageReady = true;
                     })
             })
-
     },
     methods: {
         showDetails(item) {
@@ -72,6 +72,9 @@ export default {
         },
         seller() {
             return this.$store.getters.chefs
+        },
+        isLoaded(){
+            return true
         }
     },
     components: {
@@ -107,6 +110,7 @@ h2 {
     height: 24px;
     border-radius: 50px;
 }
+
 
 
 /* width: 25px;
