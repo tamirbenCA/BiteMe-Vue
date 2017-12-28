@@ -7,14 +7,18 @@ export const LOAD_SELLERS_ITEMS = 'shop/toApproveItems';
 export const LOAD_BUYERS_ITEMS = 'shop/orderStatusItems';
 export const APPROVE_ITEM = 'shop/approveItem'
 export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
+export const LOAD_CHEFS_BY_IDS = 'shop/loadChefsByIds'
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
 
 const SET_ITEMS = 'shop/setItems';
+const SET_CHEFS = 'shop/setChefs';
+
 
 const state = {
     items: [],
+    chefs:[],
     tags: [],
     currentItem: null,
     tag: null,
@@ -31,6 +35,11 @@ const mutations = {
     },
     [SET_ITEMS](state, { items }) {
         state.items = items;
+        // console.log( state.items)
+    },
+
+    [SET_CHEFS](state, { items }) {
+        state.chefs = items;
         // console.log( state.items)
     },
     [LOAD_ITEM](state, payload) {
@@ -63,7 +72,8 @@ const getters = {
     currItem: state => state.currItem,
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
-    buyersItems: state => state.buyersItems
+    buyersItems: state => state.buyersItems,
+    chefs:state => state.chefs,
 }
 
 const actions = {
@@ -73,14 +83,13 @@ const actions = {
                 tags = tags.data
                 commit({ type: LOAD_TAGS, tags })
             })
-
     },
     [LOAD_ITEMS]({ commit }) {
         return UserService.getItems()
             .then(items => {
                 // console.log(items)
                 commit({ type: SET_ITEMS, items })
-
+                return items
 
             })
             .catch(err => {
@@ -89,7 +98,7 @@ const actions = {
             })
     },
 
-    [LOAD_ITEMS_BY_IDS]({ commit },{ids}) {
+    [LOAD_ITEMS_BY_IDS]({ commit }, { ids }) {
         // console.log('ids',ids)
         return ShopService.getItemsByIds(ids)
             .then(items => {
@@ -104,6 +113,20 @@ const actions = {
             })
     },
 
+    [LOAD_CHEFS_BY_IDS]({ commit }, { ids }) {
+        console.log('ids',ids)
+        return ShopService.getChefsByIds(ids)
+            .then(items => {
+                console.log(items)
+                // items.shift();
+                commit({ type: SET_CHEFS, items })
+                return items
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
 
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
         // console.log('54', tag)
@@ -135,7 +158,7 @@ const actions = {
                     .then(seller => {
                         console.log(seller)
                         commit({ type: LOAD_SELLER, item, seller })
-                        return {item:item,seller:seller}
+                        return { item: item, seller: seller }
                     })
             })
     },

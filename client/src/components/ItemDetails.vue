@@ -29,7 +29,7 @@
                         <br>
                         <span class="star">{{item.rank}} ★</span>
                     </p>
-                    <img class="item" :src="item.imgUrl" />
+                    <img  class="item" :src="item.imgUrl" />
                     <p>{{item.desc}}</p>
                 </div>
                 <div class="price" style="background-color:white">
@@ -84,12 +84,12 @@ export default {
     watch: {
         '$route.params.itemId'() {
             // this.isProcessing = true;
-            setTimeout(() => {
+            // setTimeout(() => {
                 this.mealsIds = [];
                 var itemId = this.$route.params.itemId;
                 this.$store.dispatch({ type: LOAD_SELLER, itemId })
                 // this.isProcessing = false;
-            }, 500);
+            // }, 500);
         }
 
     },
@@ -204,6 +204,7 @@ h2 {
 .left-side {
     border: 1px solid lightgray;
     padding: 20px;
+    margin-left: 80px;
 }
 
 .chef-details {
