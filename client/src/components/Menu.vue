@@ -52,7 +52,7 @@ export default {
             .then((items) => {
                 items.forEach((item) =>
                     this.chefsIds.push(item.seller.sellerId))
-                console.log(' this.chefsIds', this.chefsIds)
+                // console.log(' this.chefsIds', this.chefsIds)
                 this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
                     .then((items) => {
                         console.log(items)

@@ -19,7 +19,7 @@ function getItemById(itemId) {
 
 
 function getItemsByIds(itemsIds) {
-    console.log(itemsIds)
+    // console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
         return getItemById(itemId)
             .then((res) => {
@@ -45,11 +45,11 @@ function getChefById(itemId) {
 
 
 function getChefsByIds(itemsIds) {
-    console.log(itemsIds)
+    // console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
         return getChefById(itemId)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 return res
             })
     })

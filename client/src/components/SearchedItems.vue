@@ -1,77 +1,94 @@
 <template>
-  <div class="items-container">
-      <!-- <h1>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1> -->
+    <section>
+        <tags-bar> </tags-bar>
 
-    <ul>
-      <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-        <div class="item">
-          <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
-            <!-- <img :src="item.item.img" /> -->
-          </div>
-          <div class="item-footer">
-            <div class="left-icon">
-              <h3>
-                <span class="star">★</span> {{item.rank}}</h3>
-              <h2>{{item.price}}$</h2>
-            </div>
-            <div class="right-icon">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </div>
-          </div>
+        <div class="items-container">
+            <ul>
+                <li  v-for="(item, idx) in itemsToDisplay" :key="idx">
+                    <div class="item">
+                        <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
+                        </div>
+                        <div class="item-footer">
+                            <div class="chef-details">
+                                <img class="chef" :src="seller[idx].imgUrl" />
+                                <p>{{seller[idx].name}}</p>
+                            </div>
+                            <div class="name">
+                                <p>{{item.name}}</p>
+                            </div>
+                            <p class="rank">{{item.rank}}
+                                <span class="star">★</span>
+                            </p>
+                            <p class="price">{{item.price}}$</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-
-      </li>
-    </ul>
-  </div>
+    </section>
 </template>
 
 <script>
 import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
+import TagsBar from './TagsBar.vue';
+import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
+
 export default {
 
   data() {
     return {
-      // tag: this.$route.params.tag
+      items: [],
+      chefsIds: []
     }
   },
-  // watch: {
-  //   '$route.params.tag'() {
-  //     var tag = this.$route.params.tag;
-  //     tag = tag.toLowerCase();
-  //     console.log(' this.tag 38', tag)
-  //     this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-  //       .then(items => {
-  //         var x = this.$store.getters.items
-  //         console.log('items:', x)
-  //       })
-  //       .catch(err => { console.log('err', err) })
-  //   }
-  // },
-  //watch
+  watch: {
+    '$route.params.tag'() {
+      this.chefsIds=[];
+      var tag = this.$route.params.tag;
+      tag = tag.toLowerCase();
+      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+        .then((items) => {
+          items.forEach((item) =>
+            this.chefsIds.push(item.seller.sellerId))
+          // console.log(' this.chefsIds', this.chefsIds)
+          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+            .then((items) => {
+              // console.log(items)
+            })
+        })
+ .catch(err => { console.log('err', err) })
+    }
+  },
   created() {
-    // var tag = this.$route.params.tag;
-    // tag = tag.toLowerCase();
-    // console.log(' this.tag 50', tag)
-
-    // this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-    //   .then(items => {
-    //     var x = this.$store.getters.items
-    //     // console.log('items:', x)
-    //   })
-    //   .catch(err => { console.log('err', err) })
+    var tag = this.$route.params.tag;
+    tag = tag.toLowerCase();
+    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+      .then((items) => {
+        items.forEach((item) =>
+          this.chefsIds.push(item.seller.sellerId))
+        // console.log(' this.chefsIds', this.chefsIds)
+        this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+          .then((items) => {
+            // console.log(items)
+          })
+      })
   },
   methods: {
     showDetails(item) {
       this.$router.push('/itemdetails/' + item._id);
     }
   },
-
   computed: {
     itemsToDisplay() {
       return this.$store.getters.items
     },
+    seller() {
+      return this.$store.getters.chefs
+    }
   },
-
+  components: {
+    TagsBar
+  }
 }
 </script>
 
@@ -79,73 +96,95 @@ export default {
 <style scoped>
 h1,
 h2 {
-  font-weight: normal;
+    font-weight: normal;
 }
 
+.chef-details {
+    display: flex;
+    flex-direction: row;
+    width: 60px;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.name {
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.chef {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+}
+
+
 .fa-shopping-cart {
-  font-size: 30px;
-  color: darkcyan;
+    font-size: 30px;
+    color: darkcyan;
 }
 
 .items-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+p {
+    margin: 0;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 .item {
-  cursor: pointer;
-  height: 350px;
-  width: 320px;
-  border: 1px solid black;
-  /* border-radius: 15px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    cursor: pointer;
+    height: 350px;
+    width: 250px;
+    box-shadow: 1px 2px 6px 0px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .item-footer {
-  width: 290px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  /* border-bottom: 1px solid gray; */
+    height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 15px;
+    justify-content: center;
+    justify-content: space-around;
 }
-
-.left-icon {
-  width: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
 
 .img-item {
-  background-size: cover;
-  background-position: center;
-  width: 320px;
-  height: 300px;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 80%;
 }
 
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 a {
-  color: #42b983;
+    color: #42b983;
 }
 
-h3 {
-  color: gold;
+.rank {
+    color: gold;
+}
+
+select {
+    height: 30px;
 }
 </style>

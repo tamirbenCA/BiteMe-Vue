@@ -4,7 +4,7 @@
 
         <div class="items-container" v-if="pageReady">
             <ul>
-                <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
+                <li v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
@@ -42,23 +42,23 @@ export default {
       pageReady: false
     }
   },
-  watch: {
-    '$route.params.tag'() {
-      var tag = this.$route.params.tag;
-      tag = tag.toLowerCase();
-      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-        .then((items) => {
-          items.forEach((item) =>
-            this.chefsIds.push(item.seller.sellerId))
-          console.log(' this.chefsIds', this.chefsIds)
-          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-            .then((items) => {
-              console.log(items)
-            })
-        })
- .catch(err => { console.log('err', err) })
-    }
-  },
+    watch: {
+        '$route.params.tag'() {
+            var tag = this.$route.params.tag;
+            tag = tag.toLowerCase();
+            this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+                .then((items) => {
+                    items.forEach((item) =>
+                        this.chefsIds.push(item.seller.sellerId))
+                    //   console.log(' this.chefsIds', this.chefsIds)
+                    this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                        .then((items) => {
+                            //   console.log(items)
+                        })
+                })
+                .catch(err => { console.log('err', err) })
+        }
+    },
   created() {
     var tag = this.$route.params.tag;
     tag = tag.toLowerCase();
@@ -72,24 +72,24 @@ export default {
             console.log(items)
             this.pageReady = true;
           })
-      })
+      }).catch(err => { console.log('err', err) })
   },
-  methods: {
-    showDetails(item) {
-      this.$router.push('/itemdetails/' + item._id);
-    }
-  },
-  computed: {
-    itemsToDisplay() {
-      return this.$store.getters.items
+    methods: {
+        showDetails(item) {
+            this.$router.push('/itemdetails/' + item._id);
+        }
     },
-    seller() {
-      return this.$store.getters.chefs
+    computed: {
+        itemsToDisplay() {
+            return this.$store.getters.items
+        },
+        seller() {
+            return this.$store.getters.chefs
+        }
+    },
+    components: {
+        TagsBar
     }
-  },
-  components: {
-    TagsBar
-  }
 }
 </script>
 
