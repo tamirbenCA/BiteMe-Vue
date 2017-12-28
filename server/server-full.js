@@ -117,9 +117,6 @@ app.get('/data/items/:tag', function (req, res) {
 app.get('/data/user/:id/orders/asseller', function (req, res) {
 	const objType = 'order';
 	const id = req.params.id;
-	// console.log('**********************')
-	// console.log('userid: ' , id)
-	// console.log('**********************')
 
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
@@ -281,7 +278,7 @@ app.put('/data/:objType/:id', function (req, res) {
 // Basic Login/Logout/Protected assets
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {
-		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
+		db.collection('user').findOne({ email: req.body.email, password: req.body.password }, function (err, user) {
 			if (user) {
 				cl('Login Succesful');
 				delete user.pass;

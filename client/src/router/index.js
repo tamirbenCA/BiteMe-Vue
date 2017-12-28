@@ -31,27 +31,27 @@ export default new Router({
     {
       path: '/join',
       name: 'JoinIn',
-      component: JoinIn,
+      component: JoinIn
     },
     {
       path: '/items/:tag',
       name: 'itemsByTag',
-      component: itemsByTag,
+      component: itemsByTag
     },
     {
       path: '/login',
       name: 'LogIn',
-      component: LogIn,
+      component: LogIn
     },
     {
       path: '/itemdetails/:itemId',
       name: 'ItemDetails',
-      component: ItemDetails,
+      component: ItemDetails
     },
     {
       path: '/manageorders/:userid',
       name: 'ManageOrders',
-      component: ManageOrders,
+      component: ManageOrders
     },
     // {
     //   path: '/map',
@@ -61,13 +61,26 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: AdminPage,
+      component: AdminPage
     },
     {
       path: '/aboutus',
       name: 'AboutUs',
-      component: AboutUs,
+      component: AboutUs
+    },
+    {
+      path: '/aboutus#our-mission',
+      name: 'our-mission',
+      component: AboutUs
     }
+
   ],
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  }
 })

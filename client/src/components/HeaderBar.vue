@@ -1,27 +1,27 @@
 <template>
     <section class="header-bar">
 
-        <div>
-            <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
-            <!-- <button>Show Map</button> -->
-            <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
-            <router-link to="/admin" v-if="adminLogged" class="admin">
-                Admin
-            </router-link>
-        </div>
         <div class="logo">
             <router-link to="/">
                 <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
         </div>
+
+        <div>
+            <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
+            <!-- <button>Show Map</button> -->
+            <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
+            <router-link to="/admin" v-if="adminLogged" class="admin">Admin</router-link>
+        </div>
+        
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
+            <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
             <router-link to="/aboutus" tag="button" class="header-button">How it works</router-link>
             <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
-            <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
             <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
-            <router-link v-if="loggedUser" :to="'/manageorders/' + userId" tag="button" class="header-button">Manage Orders</router-link>
+            <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
             <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
         </div>
     </section>
@@ -37,12 +37,11 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
-            userId: this.$store.getters.userId, 
             keyUpInterval: null,
             // isAdmin: false,
-            x: null
         }
-    }, created() {
+    }, 
+    created() {
     },
 
     computed: {
@@ -54,7 +53,9 @@ export default {
             // return this.$store.getters.loggedinUser;
             return this.$store.getters.isAdmin;
         },
-
+        userId() {
+            return this.$store.getters.userId
+        } 
     },
     methods: {
         logOut() {

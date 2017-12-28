@@ -11,7 +11,7 @@
     <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
     <div class>
     <!-- <div class="our-mission"> -->
-      <a name="our-mission"><h1>Our mission</h1></a>
+      <a name="our-mission" id="our-mission"><h1>Our mission</h1></a>
       <!-- <h1>Our mission</h1> -->
       <br>
       <h2>Make the world taste better</h2>
