@@ -5,6 +5,7 @@ import Menu from '@/components/Menu'
 
 import JoinIn from '@/components/JoinIn'
 import itemsByTag from '@/components/itemsByTag'
+import SearchedItems from '@/components/SearchedItems'
 
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
@@ -37,6 +38,11 @@ export default new Router({
       path: '/items/:tag',
       name: 'itemsByTag',
       component: itemsByTag
+    },
+    {
+      path: '/searchedItems/:key',
+      name: 'SearchedItems',
+      component: SearchedItems
     },
     {
       path: '/login',
@@ -75,6 +81,7 @@ export default new Router({
     }
 
   ],
+
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     if (to.hash) {

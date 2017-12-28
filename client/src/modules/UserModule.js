@@ -35,7 +35,7 @@ export default {
             if (state.loggedinUser) {
                 return state.loggedinUser._id
             } else return null;
-        }
+        },
     },
     mutations: {
         [SET_USER](state, { user }) {

@@ -90,20 +90,37 @@ app.get('/data/tags', function (req, res) {
 		res.json(tags)
 })
 
-app.get('/data/items/:tag', function (req, res) {
+app.get('/data/items', function (req, res) {
 	const objType = 'item';
-	const tag = req.params.tag;
+	const tag = req.query.tag;
+	const term = req.query.term;
+
+	var queryName = {}
+	var queryDesc = {}
+
+	if (tag) {
+		queryName.tags = tag;
+		queryDesc.tags = tag;
+	}
+
+	if (term) {
+		queryName.name = {$regex: term}
+		queryDesc.desc = {$regex: term}
+	}
+	// cl('********', queryDesc , '*********')
 
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ tags: tag } ).toArray((err, objs) => {
+		collection.find({$or: [queryName, queryDesc]}).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
+				cl('##################')
 				cl('Objecets:', objs)
 				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
+				cl('##################')
 				var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
 				res.json(sortedObjs);
@@ -112,6 +129,29 @@ app.get('/data/items/:tag', function (req, res) {
 		});
 	});
 });
+
+// app.get('/data/items/:tag', function (req, res) {
+// 	const objType = 'item';
+// 	const tag = req.params.tag;
+
+// 	dbConnect().then(db => {
+// 		const collection = db.collection(objType);
+
+// 		collection.find({ tags: tag } ).toArray((err, objs) => {
+// 			if (err) {
+// 				cl('Cannot get you a list of ', err)
+// 				res.json(404, { error: 'not found' })
+// 			} else {
+// 				cl('Objecets:', objs)
+// 				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
+// 				var sortedObjs = utilsService.sortByRank(objs);
+// 				// console.log(sortedObjs);
+// 				res.json(sortedObjs);
+// 			}
+// 			db.close();
+// 		});
+// 	});
+// });
 
 // Get Orders as Seller:
 app.get('/data/user/:id/orders/asseller', function (req, res) {

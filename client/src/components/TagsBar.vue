@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { LOAD_TAGS } from '../modules/ShopModule';
+import { LOAD_TAGS, SET_TAG } from '../modules/ShopModule';
+// import { SET_TAG } from '../modules/ShopModule';
 export default {
     name: 'TagsBar',
     data() {
@@ -22,8 +23,9 @@ export default {
     },
     methods: {
         showTagItems(tag) {
-            console.log('tag27', tag)
+            // console.log('tag27', tag)
             this.$router.push('/items/' + tag);
+            this.$store.commit({type: SET_TAG, tag})
         }
     },
     computed: {
@@ -35,6 +37,7 @@ export default {
     created() {
         // console.log('tags created')
         this.$store.dispatch({ type: LOAD_TAGS })
+    
     }
 }
 </script>

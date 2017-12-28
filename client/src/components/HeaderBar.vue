@@ -8,12 +8,12 @@
         </div>
 
         <div>
-            <input type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
+            <input v-model="searchValue" type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
             <!-- <button>Show Map</button> -->
             <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
             <router-link to="/admin" v-if="adminLogged" class="admin">Admin</router-link>
         </div>
-        
+        {{userName}}
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
             <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
+import { LOAD_SEARCHED_ITMES } from '../modules/ShopModule.js';
 
 export default {
     name: 'HeaderBar',
@@ -39,23 +38,25 @@ export default {
         return {
             keyUpInterval: null,
             // isAdmin: false,
+            searchValue: ''
         }
-    }, 
-    created() {
     },
-
+    created() {
+    
+    },
     computed: {
         loggedUser() {
             return this.$store.getters.isUser;
         },
         adminLogged() {
-            // console.log(this.$store.getters.loggedinUser.isAdmin)
-            // return this.$store.getters.loggedinUser;
             return this.$store.getters.isAdmin;
         },
         userId() {
             return this.$store.getters.userId
-        } 
+        },
+        userName() {
+            return this.$store.getters.loggedinUser.name
+        },
     },
     methods: {
         logOut() {
@@ -63,13 +64,13 @@ export default {
         },
         searchByte() {
             clearTimeout(this.keyUpInterval)
-            this.keyUpInterval = setTimeout(function() {
-                console.log('searching for a byte')
-            }, 350);
-
-            // _.throttle(() => {
-            //     console.log('I get fired every two seconds!')
-            // }, 2000)
+            this.keyUpInterval = setTimeout(() => {
+                // console.log('searching for a byte', this.searchValue)
+                var keyWord = this.searchValue.toLowerCase();
+                if (keyWord === '' || keyWord.length < 2) return;
+                this.$router.push('/searchedItems/' + keyWord)
+                this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
+                }, 350);
         },
     },
 
@@ -94,20 +95,22 @@ ul {
     justify-content: space-around;
 }
 
-.log-out{
-    width:250px;
+.log-out {
+    width: 250px;
     display: flex;
     flex-direction: row;
 }
 
-.log-out-btn{
-    width:200px;
-    height:30px;
+.log-out-btn {
+    width: 200px;
+    height: 30px;
 }
 
 .map-button {
     width: 100px;
 }
+
+
 /* 
 .logo {
     margin-left: -80px;
