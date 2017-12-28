@@ -17,7 +17,7 @@
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
             <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
-            <router-link to="/aboutus" tag="button" class="header-button">How it works</router-link>
+            <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
             <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
             <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
@@ -204,5 +204,9 @@ button {
 .fa-shopping-cart {
     color: white;
     font-size: 40px;
+}
+
+.router-link-active {
+    color: orange
 }
 </style>

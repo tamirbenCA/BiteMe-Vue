@@ -2,10 +2,10 @@
     <section class="tags-bar">
         <nav>
             <ul class="container-tags">
-                <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)">
-                    {{tag}}
-                </li>
-
+            <router-link v-for="(tag, index) in tags" :key="index" tag="li" :to="`/items/${tag}`">{{tag}}</router-link>
+                <!-- <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)"> -->
+                    <!-- {{tag}} -->
+                <!-- </li> -->
             </ul>
         </nav>
 
@@ -21,10 +21,10 @@ export default {
         }
     },
     methods: {
-        showTagItems(tag) {
-            console.log('tag27', tag)
-            this.$router.push('/items/' + tag);
-        }
+        // showTagItems(tag) {
+            // console.log('tag27', tag)
+            // this.$router.push('/items/' + tag);
+        // }
     },
     computed: {
         tags() {
@@ -61,6 +61,12 @@ li {
     text-transform: capitalize
 }
 
+.li-active {
+    color: orange
+}
+.router-link-active {
+    color: orange
+}
 
 .tags-bar {
     /* height: 50px; */
@@ -71,5 +77,6 @@ li {
     /* border-bottom: 1px solid black; */
     margin-bottom: 50px;
 }
+
 
 </style>
