@@ -44,6 +44,23 @@ export default {
       pageReady: false
     }
   },
+  watch: {
+    '$route.params.tag'() {
+      var tag = this.$route.params.tag;
+      tag = tag.toLowerCase();
+      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+        .then((items) => {
+          items.forEach((item) =>
+            this.chefsIds.push(item.seller.sellerId))
+        //   console.log(' this.chefsIds', this.chefsIds)
+          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+            .then((items) => {
+            //   console.log(items)
+            })
+        })
+ .catch(err => { console.log('err', err) })
+    }
+  },
     watch: {
         '$route.params.tag'() {
             this.pageReady = false;

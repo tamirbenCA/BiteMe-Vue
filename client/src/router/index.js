@@ -42,8 +42,8 @@ export default new Router({
     {
       path: '/searchedItems/:key',
       name: 'SearchedItems',
-      // component: SearchedItems
-      component: itemsByTag
+      component: SearchedItems
+      // component: itemsByTag
     },
     {
       path: '/login',

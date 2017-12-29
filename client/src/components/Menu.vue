@@ -13,8 +13,8 @@
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
-                                <img class="chef" :src="seller[idx].imgUrl" />
-                                <p>{{seller[idx].name}}</p>
+                                <img v-if="seller[idx]" class="chef" :src="seller[idx].imgUrl" />
+                                <p v-if="seller[idx]">{{seller[idx].name}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
