@@ -10,6 +10,7 @@ export const LOAD_SEARCHED_ITMES = 'shop/searchedItems';
 export const APPROVE_ITEM = 'shop/approveItem'
 export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
 export const LOAD_CHEFS_BY_IDS = 'shop/loadChefsByIds'
+export const MARK_DELIVERED = 'shop/markDelivered'
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
@@ -61,12 +62,12 @@ const mutations = {
     //     state.currItem = item;
     // },
     [LOAD_SELLERS_ITEMS](state, { items }) {
-        // console.log('seller items in mutataion: ', items)
         state.sellersItems = items
+        // console.log('seller items in mutataion: ', items)
     },
     [LOAD_BUYERS_ITEMS](state, { items }) {
-        // console.log('buyer items in mutataion: ', items)
         state.buyersItems = items
+        // console.log('buyer items in mutataion: ', items)
     },
     [LOAD_SEARCHED_ITMES](state, {items}) { 
         state.searchedItems = items;
@@ -74,6 +75,10 @@ const mutations = {
     [SET_TAG](state, {tag}) {
         // console.log('tag in MUTATIONS: ', tag)
         state.tag = tag;
+    },
+    [MARK_DELIVERED](state, {orderId}) {
+        var orderIdx = state.sellersItems.findIndex(item => item._id === orderId)
+        state.sellersItems[orderIdx].isDelivered = Date.now();
     }
 }
 const getters = {
@@ -176,7 +181,6 @@ const actions = {
             })
     },
 
-
     [LOAD_SELLERS_ITEMS]({ commit }, { userId }) {
         // console.log('loading to approve items in ACTIONS id:', userId)
         return ShopService.loadSellersItems(userId).then(items => {
@@ -185,12 +189,14 @@ const actions = {
             // console.error('promise in actions NOT GOOD')
         })
     },
+
     [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {
         // console.log('loading order status items in ACTIONS')
-        // return ShopService.loadBuyersItems(sellerId).then(items => {
-        //     commit({type: LOAD_BUYERS_ITEMS, items})
-        // })        
+        return ShopService.loadBuyersItems(userId).then(items => {
+            commit({type: LOAD_BUYERS_ITEMS, items: items.data})
+        })        
     },
+
     [LOAD_SEARCHED_ITMES]({commit}, {keyWord}) {
         // console.log('keyWord in ACTIONS: ', keyWord)
         // var tag = state.tag
@@ -205,8 +211,16 @@ const actions = {
             commit(SET_ITEMS, [])
             throw err;
         })
+    },
+    [MARK_DELIVERED]({ commit }, {order}) {
+        console.log('shop:', order)
+        return ShopService.markDelivered({order})
+        .then(_ => {
+            commit({type: MARK_DELIVERED, order})
+        })
     }
 }
+
 export default {
     state,
     mutations,

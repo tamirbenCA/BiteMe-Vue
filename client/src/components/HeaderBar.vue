@@ -22,6 +22,7 @@
             <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
             <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
             <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
+            <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
             <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
         </div>
     </section>

@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import HomePage from '@/components/HomePage'
 import Menu from '@/components/Menu'
-
 import JoinIn from '@/components/JoinIn'
 import itemsByTag from '@/components/itemsByTag'
 import SearchedItems from '@/components/SearchedItems'
-
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
 import Map from '@/components/Map'
 import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
 import AboutUs from '@/components/AboutUs'
+import EditItem from '@/components/EditItem'
 
 
 Vue.use(Router)
@@ -79,6 +79,11 @@ export default new Router({
       path: '/aboutus#our-mission',
       name: 'our-mission',
       component: AboutUs
+    },
+    {
+    path: '/additem',
+    name: 'editItem',
+    component: EditItem
     }
 
   ],

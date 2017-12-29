@@ -2,59 +2,89 @@
     <div>
         <h1>Manage Orders</h1>
 
-        <h2>waiting for my approve</h2>
-        <ul>
-           <li v-for="order in sellersItems ">
-               <p style="display: inline;">{{order.item.itemName}} </p>
-               <button @click="approveOrder(order._id)">Approve</button>
-               <button @click="declineOrder(order._id)">Decline</button>
-               <button @click="deliverOrder(order._id)">Delivered</button>
-           </li>
-       </ul>
-        <h2>waiting for sellers approve</h2>
-        <ul>
-           <li v-for="item in buyersItems">
-               {{item.name}}
-           </li>
-       </ul>
+        <h2>Items you sold</h2>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Actions</th>
+            </tr>
+            <tr v-for="(order, index) in sellersItems" :key="index">
+                <td>{{order.item.itemName}}</td>
+                <td>
+                    <!-- <button @click="approveOrder(order._id)" :class="order._id" class="button-approve">Approve</button> -->
+                    <!-- <button @click="approveOrder(order._id)" :class="order._id" class="button">Approve</button> -->
+                    <!-- <button @click="declineOrder(order._id)">Decline</button> -->
+                    <button @click="declineOrder(order)">Details</button>
+                    <button @click="deliverOrder(order)" :id="order._id" v-if="!!!order.isDelivered">Delivered</button>
+                </td>
+            </tr>
+        </table>
+
+        <h2>Items you bought</h2>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Delivered</th>
+            </tr>
+            <tr v-for="(item, index) in buyersItems" :key="index">
+                <td>{{item.item.itemName}}</td>
+                <!-- <td>Processing: {{!!item.isProcessing}} -->
+                    <!-- <span style="marginLeft: 50px">Delivered: {{!!item.isDelivered}}</span> -->
+                <!-- </td> -->
+                <td>{{!!item.isDelivered}}</td>
+            </tr>
+        </table>
     </div>
 </template>
 
 <script>
-import { LOAD_SELLERS_ITEMS } from '../modules/ShopModule';
-import { LOAD_BUYERS_ITEMS } from '../modules/ShopModule';
-import { APPROVE_ITEM } from '../modules/ShopModule';
+import { LOAD_SELLERS_ITEMS , LOAD_BUYERS_ITEMS , MARK_DELIVERED} from '../modules/ShopModule';
+// import { LOAD_BUYERS_ITEMS } from '../modules/ShopModule';
+// import { APPROVE_ITEM } from '../modules/ShopModule';
 
 
 export default {
     data() {
         return {
-            userId: ''
+            userId: '',
         }
     },
     created() {
         this.userId = this.$route.params.userid
-        this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});//
-        // this.$store.dispatch({type: LOAD_BUYERS_ITEMS});       
+        this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});
+        this.$store.dispatch({type: LOAD_BUYERS_ITEMS, userId: this.userId});       
         // console.log('manage orders user id: ', this.userId)
     },
     computed: { 
         sellersItems () {
-            return this.$store.getters.sellersItems 
+            return this.$store.getters.sellersItems
         },
         buyersItems() {
+            var buyers = this.$store.getters.buyersItems;
+            return buyers;
             // return this.$store.getters.buyersItems
-        }
+        },
     },
     methods: {
-        approveOrder(itemId) {
-            console.log('item approved in METHODS _id: ', itemId);
-        },
-        declineOrder(itemId) {
+        // approveOrder(itemId) {
+            // console.log('item approved in METHODS _id: ', itemId);
+            // console.log(document.querySelector(`.button-approve`))
+            // console.log(document.querySelector('.' + itemId))
+            // console.log(document.getElementsByClassName(itemId))
+            // var elButton = document.getElementsByClassName(itemId)
+            // elButton.setAttribute('disabled')
+            // document.querySelector().disabled = true;
+        // },
+        declineOrder(item) {
             console.log('item declined in METHODS _id: ', itemId);
         },
-        deliverOrder(itemId) {
-            console.log('item deliverd in METHODS _id: ', itemId);
+        deliverOrder(item) {
+            // console.log('item deliverd in METHODS _id: ', item._id);
+            // console.log(document.getElementsByClassName(item._Id))
+            // document.getElementById(itemId).disabled = true;
+            item.isDelivered = Date.now()
+            console.log('item:', item)
+            this.$store.dispatch({type: MARK_DELIVERED, order: item})
         }
     }
 
@@ -67,114 +97,17 @@ export default {
     list-style: none;
 }
 
-/* .title {
-    font-size: 30px;
-    font-weight: bold;
+table {
+    margin: auto;
+    border-spacing: 5px;
+    width: 60%;
+    text-align: left;
 }
 
-.star {
-    color: gold;
+td {
+    text-align: left;
 }
 
-img {
-    height: 40%;
-    width: 40%;
-}
-
-.right-side {
-    color: black;
-    background-color: lightgray;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 300px;
-    align-items: center;
-}
-
-
-.comments {
-    background-color: white;
-    width: 90%;
-    margin: 5px;
-    border-radius: 10px;
-}
-
-.details {
-    background-color: white;
-    width: 90%;
-    margin: 5px;
-    border-radius: 10px;
-}
-
-select {
-    height: 40px;
-}
-
-.details-container {
-    width: 100%;
-    max-width: 1500px;
-    display: flex;
-    flex-direction: row; */
-    /* background-color: lightgray; */
-    /* height: 500px;
-    justify-content: center;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.left-side {
-    background-color: white;
-    width: 40%;
-    border: 1px lightgray solid;
-    height: 470px;
-    padding: 10px;
-    margin-left: 100px;
-}
-
-
-.checkout-btn {
-    background-color: green;
-    border: none;
-    height: 40px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo {
-    width: 20%;
-    height: 20%;
-    margin-bottom: 50px;
-    margin-left: -500px;
-}
-
-.name {
-    margin: 0;
-}
-
-.title {
-    margin: 10px;
-    color: black;
-}
-
-input {
-    margin: 10px;
-}
-
-.buttom { */
-    /* background-color: lightgray; */
-    /* padding: 10px;
-    border-radius: 10px;
-}
-
-.right-side-title {
-    color: black;
-    font-size: 30px;
-    margin: 0 auto;
-} */
 </style>
 
 
