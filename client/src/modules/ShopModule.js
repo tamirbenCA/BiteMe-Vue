@@ -72,7 +72,7 @@ const mutations = {
         state.searchedItems = items;
     },
     [SET_TAG](state, {tag}) {
-        console.log('tag in MUTATIONS: ', tag)
+        // console.log('tag in MUTATIONS: ', tag)
         state.tag = tag;
     }
 }

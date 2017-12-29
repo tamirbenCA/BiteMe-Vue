@@ -1,9 +1,10 @@
 <template>
     <section>
         <tags-bar> </tags-bar>
-
-        <!-- <tags-bar/> -->
-        <div class="items-container" v-if="pageReady">
+        <div class="items-container" v-if="!pageReady">
+            <img class="gif-loading" src="../assets/loading.gif">
+        </div>
+        <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -56,7 +57,8 @@ export default {
                 // console.log(' this.chefsIds', this.chefsIds)
                 this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
                     .then((items) => {
-                        console.log(items)
+                        // console.log(items)
+                        // console.log('bool', this.pageReady)
                         this.pageReady = true;
                     })
             })
@@ -111,7 +113,10 @@ h2 {
     border-radius: 50px;
 }
 
-
+.gif-loading {
+    width: 200px;
+    margin-bottom: 50px;
+}
 
 /* width: 25px;
     height: 25px; */

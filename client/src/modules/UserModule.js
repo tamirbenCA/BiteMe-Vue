@@ -25,8 +25,7 @@ export default {
             return state.loggedinUser 
         },
         isAdmin: (state) => {
-            // debugger;
-            console.log('state.loggedinUser',state.loggedinUser)
+            // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser && state.loggedinUser.isAdmin
         // isAdmin(state) {
         //     return state.loggedinUser && state.loggedinUser.isAdmin
