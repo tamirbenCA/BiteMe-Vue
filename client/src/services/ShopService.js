@@ -83,13 +83,22 @@ function loadBuyersItems(buyerId) {
 }
 
 function markDelivered({order}) {
-    console.log('shop service:', order)
-    console.log('shop service:', order._id)
+    // console.log('shop service:', order)
     return axios.put(`${URL}/data/order/${order._id}`, order)
 }
 
 function emptyItem() {
     return {name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: ''}
+}
+
+function saveItem(item) {
+    if (item._id) return axios.put(`${URL}/data/item/${item._id}`, item)
+    else {
+        var seller = this.$shop.getters.loggedinUser
+        item.seller.id = seller._id;
+        item.seller.name = seller.name;
+        return axios.post(`${URL}/data/item`, item);
+    }
 }
 
 export default {
@@ -102,5 +111,6 @@ export default {
     getChefById,
     getChefsByIds,
     markDelivered,
-    emptyItem
+    emptyItem,
+    saveItem
 }

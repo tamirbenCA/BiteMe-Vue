@@ -78,7 +78,7 @@ export default {
                 UserService
                     .login(signinDetails)
                     .then(res => {
-                        console.log('res686868', res)
+                        // console.log('res686868', res)
                         commit({ type: SET_USER, user: res.user });
                         saveToLocalStorage(res.user)
                         resolve();

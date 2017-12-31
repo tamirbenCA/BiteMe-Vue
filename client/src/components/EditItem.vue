@@ -37,19 +37,29 @@ export default {
             .then(imgUrl => {
                 console.log('photo uploaded')
                 this.itemToUpdate.imgUrl = imgUrl
-            }).catch(err => {
+            })
+            .catch(err => {
                 console.error('error adding photo:', err)
             })
         },
         submitItem() {
             console.log('submiting form', this.itemToUpdate)
-            // this.$store.dispatch({ type: SIGNUP, signupDetails: this.newUser })
-                // .then(this.$router.push('/'))
+            ShopService.saveItem(this.itemToUpdate)
+            .then(_ => {
+                this.$router.push('/')
+            })
+            .catch(err => {
+                console.log('error saving car', err)
+            })
         },
     },
     created() {
         // this.itemToUpdate.seller = this.$store.getters.loggedinUser
-    
+        if (!this.itemId) return;
+        ShopService.getItemById(this.itemId)
+            .then(item => {
+                this.itemToUpdate = Object.assign({}, item)
+            })
     }
 }
 </script>

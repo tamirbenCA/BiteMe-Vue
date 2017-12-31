@@ -56,6 +56,7 @@ export default {
             return this.$store.getters.userId
         },
         userName() {
+            console.log('LOGIN USER', this.$store.getters.loggedinUser.name)
             return this.$store.getters.loggedinUser.name
         },
     },

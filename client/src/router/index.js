@@ -82,10 +82,14 @@ export default new Router({
     },
     {
     path: '/additem',
+    name: 'addItem',
+    component: EditItem
+    },
+    {
+    path: '/item/:itemId/edit',
     name: 'editItem',
     component: EditItem
     }
-
   ],
 
   mode: 'history',
