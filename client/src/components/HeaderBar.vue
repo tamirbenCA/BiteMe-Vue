@@ -16,6 +16,7 @@
         <!-- {{userName}} -->
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
+
             <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
             <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
             <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
@@ -24,6 +25,29 @@
             <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
             <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
             <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
+            <div class="icons">
+                <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
+                <i class="fa fa-arrow-circle-left" aria-hidden="true" @click="showChosenItems"></i>
+            </div>
+            <div class="orders">
+
+                <div class="dropdown" v-if="isActive">
+                    <i style="color:red" class="fa fa-times" aria-hidden="true" @click="showChosenItems"></i>
+                    <ul class="dropdown-cart" role="menu">
+                        <li v-for="item in cart">
+                            <div class="information">
+                                <img :src="item.imgUrl" alt="" style="height: 80px;width: 80px;" />
+                                <div class="item-info">
+                                    <p>{{item.name}}</p>
+                                    <p>Price:{{item.price}}$</p>
+                                </div>
+                                <p class="item">Quantity: {{item.quantity}}</p>
+                                <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -32,6 +56,10 @@
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
+import { mapGetters } from 'vuex';
+import { REMOVE_FROM_CART } from '../modules/CartModule.js';
+
+
 
 export default {
     name: 'HeaderBar',
@@ -39,7 +67,8 @@ export default {
         return {
             keyUpInterval: null,
             // isAdmin: false,
-            searchValue: ''
+            searchValue: '',
+            isActive: false
         }
     },
     created() {
@@ -59,8 +88,27 @@ export default {
             console.log('LOGIN USER', this.$store.getters.loggedinUser.name)
             return this.$store.getters.loggedinUser.name
         },
+        cart() {
+            return this.$store.getters.cart;
+        },
+        cartLength() {
+            return this.$store.getters.cartLength;
+        },
     },
     methods: {
+        goToMyCart() {
+            this.$router.push('/myCart/');
+        },
+        deleteItem(item) {
+            // console.log(itemId)
+            this.$store.commit({ type: REMOVE_FROM_CART, item })
+        },
+        showChosenItems() {
+            console.log(this.cart)
+            console.log(this.cartLength)
+            if (!this.cartLength) this.isActive = false;
+            else this.isActive = !this.isActive;
+        },
         logOut() {
             this.$store.dispatch({ type: SIGNOUT })
         },
@@ -72,7 +120,7 @@ export default {
                 if (keyWord === '' || keyWord.length < 2) {
                     var tag = this.$store.getters.tag;
                     // console.log('tag in empty search: ', tag)
-                    this.$store.dispatch({type: LOAD_ITEMS_BY_TAG, tag})
+                    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag })
                     this.$router.push(`/items/${tag}`)
                     return;
                 };
@@ -87,12 +135,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.icons {
+    display: flex;
+    flex-direction: row;
+}
+
 h1,
 h2 {
     font-weight: normal;
 }
 
-ul {
+.fa-shopping-basket {
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+/* ul {
     cursor: pointer;
     list-style: none;
     display: flex;
@@ -100,8 +165,10 @@ ul {
     width: 245px;
     padding: 0;
     /* display: flex; */
-    justify-content: space-around;
-}
+
+
+/* justify-content: space-around;
+} */
 
 .log-out {
     width: 250px;
@@ -118,13 +185,6 @@ ul {
     width: 100px;
 }
 
-
-
-/* 
-.logo {
-    margin-left: -80px;
-} */
-
 .right-side {
     display: flex;
     flex-direction: row;
@@ -137,11 +197,6 @@ ul {
     font-weight: bold;
     padding-left: 5px;
     font-size: 20px;
-}
-
-.balance {
-    font-size: 25px;
-    color: green;
 }
 
 .cart {
@@ -220,5 +275,57 @@ button {
 
 .router-link-active {
     color: orange
+}
+
+
+
+
+
+
+
+
+/* .router-link-active {
+  color: lightgreen !important;
+} */
+
+.router-link-active {
+    color: lightgreen !important;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    margin-right: 100px;
+    height: 100px;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+    background-color: lightgray;
+    width: 100%;
+    width: 500px;
+    margin-right: 500px;
+}
+
+.information {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-items: center;
 }
 </style>

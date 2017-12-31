@@ -10,6 +10,9 @@ export const LOAD_SEARCHED_ITMES = 'shop/searchedItems';
 export const APPROVE_ITEM = 'shop/approveItem'
 export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
 export const LOAD_CHEFS_BY_IDS = 'shop/loadChefsByIds'
+export const UPDATE_ITEM = 'shop/updateItem';
+export const LOAD_SELLERS = 'shop/loadChefs';
+export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
 
 import ShopService from '../services/ShopService.js';
@@ -21,7 +24,7 @@ const SET_CHEFS = 'shop/setChefs';
 
 const state = {
     items: [],
-    chefs:[],
+    chefs: [],
     tags: [],
     currentItem: null,
     tag: null,
@@ -33,6 +36,18 @@ const state = {
     searchedItems: null,
 }
 const mutations = {
+    [UPDATE_ITEM](state, payload) {
+        console.log(payload.comment)
+        console.log(payload.chefId)
+        ShopService.addComment(payload.chefId, payload.comment)
+    },
+    [DELETE_SELLER](state, payload) {
+        console.log('payload._id44', payload.sellerId)
+        UserService.deleteSeller(payload.sellerId)
+    },
+    // [DELETE_ITEMS](state, payload) {
+    //     UserService.deleteItems(payload)
+    // },
     [LOAD_TAGS](state, payload) {
         // console.log('mutating tags', payload.tags)
         state.tags = payload
@@ -69,7 +84,7 @@ const mutations = {
         state.buyersItems = items
         // console.log('buyer items in mutataion: ', items)
     },
-    [LOAD_SEARCHED_ITMES](state, {items}) { 
+    [LOAD_SEARCHED_ITMES](state, { items }) {
         state.searchedItems = items;
     },
     [SET_TAG](state, {tag}) {
@@ -114,6 +129,18 @@ const actions = {
                 throw err;
             })
     },
+    [LOAD_SELLERS]({ commit }) {
+        return UserService.getSellers()
+            .then(items => {
+                console.log(items)
+                commit({ type: SET_ITEMS, items })
+                return items
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
 
     [LOAD_ITEMS_BY_IDS]({ commit }, { ids }) {
         // console.log('ids',ids)
@@ -147,7 +174,7 @@ const actions = {
 
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
         // console.log('54', tag)
-        return UserService.getItemsByTag({tag})
+        return UserService.getItemsByTag({ tag })
             .then(items => {
                 // console.log(items)
                 commit({ type: SET_ITEMS, items })
@@ -196,8 +223,7 @@ const actions = {
             commit({type: LOAD_BUYERS_ITEMS, items: items.data})
         })        
     },
-
-    [LOAD_SEARCHED_ITMES]({commit}, {keyWord}) {
+    [LOAD_SEARCHED_ITMES]({ commit }, { keyWord }) {
         // console.log('keyWord in ACTIONS: ', keyWord)
         // var tag = state.tag
         var tag = this.getters.tag

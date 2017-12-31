@@ -50,6 +50,51 @@ function getItems() {
 
 
 
+function getSellers() {
+    // console.log('inside getitmes')
+    return axios
+        .get(`${URL}/data/user/seller`)
+        .then(res => {
+            console.log('res58:', res.data)
+            return res.data
+        }
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
+}
+
+
+function deleteSeller(sellerId) {
+    console.log('70',sellerId)
+    return axios
+        .delete(`${URL}/data/user/sellerId`)
+        .then(res => {
+            console.log('res72:', res.data)
+            return res.data
+        }
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
+}
+
+function deleteItems(mealsForSale) {
+    console.log('85',mealsForSale)
+    return axios
+        .deleteMany(`${URL}/data/item/mealsForSaleIds`)
+        .then(res => {
+            console.log('res72:', res.data)
+            return res.data
+        }
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
+}
 
 // function getItemsByTag(tag) {
 //     // console.log('tag48',tag);
@@ -78,15 +123,15 @@ function getItemsByTag(obj) {
             term: keyWord
         }
     })
-    .then(res => {
-        // console.log('res:', res.data)
-        return res.data
-    }
-    )
-    .catch(e => {
-        console.log('No Items', e);
-        throw e;
-    });
+        .then(res => {
+            // console.log('res:', res.data)
+            return res.data
+        }
+        )
+        .catch(e => {
+            console.log('No Items', e);
+            throw e;
+        });
 }
 
 function getEmptyUser() {
@@ -109,7 +154,7 @@ function uploadImage(file) {
     formData.append('upload_preset', CLOUDINARY_PRESET)
 
     for (var pair of formData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
+        console.log(pair[0] + ', ' + pair[1]);
     }
 
     return axios({
@@ -120,7 +165,7 @@ function uploadImage(file) {
         },
         data: formData
     }).then(res => res.data.url)
-    .catch(err => console.log(err))
+        .catch(err => console.log(err))
 }
 
 export default {
@@ -131,5 +176,7 @@ export default {
     getEmptyUser,
     getItems,
     getItemsByTag,
-    uploadImage
+    uploadImage,
+    getSellers,
+    deleteSeller
 } 

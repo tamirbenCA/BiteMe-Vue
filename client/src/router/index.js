@@ -12,6 +12,8 @@ import Map from '@/components/Map'
 import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
 import AboutUs from '@/components/AboutUs'
+import MyCart from '@/components/MyCart'
+
 import EditItem from '@/components/EditItem'
 
 
@@ -79,6 +81,11 @@ export default new Router({
       path: '/aboutus#our-mission',
       name: 'our-mission',
       component: AboutUs
+    },
+    {
+      path: '/myCart',
+      name: 'myCart',
+      component: MyCart
     },
     {
     path: '/additem',

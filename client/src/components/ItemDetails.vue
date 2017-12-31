@@ -1,8 +1,20 @@
 <template>
     <div class="details-container">
-        <!-- <div v-if="isProcessing">
-                        <img src="../assets/buffer.png">
-                    </div> -->
+        <div class="modal" v-if="isActive">
+            <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
+            <form class="form-signin" novalidate @submit.prevent="sendComment(chef._id,msg)">
+                <p>Add a comment</p>
+                <input v-model="msg" type="text">
+                <div class="rank-chef">
+                    <select @change="rankVal({quantity: +$event.target.value})">
+                        <option>0</option>
+                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                    </select>
+                </div>
+                <button class="midal-btn">Send</button>
+            </form>
+        </div>
+
         <div class="top-page">
             <div class="middle">
                 <div class="chef-details" style="background-color:white">
@@ -13,6 +25,7 @@
                 </div>
                 <div class="comments">
                     <h1>Reviews</h1>
+                    <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
                     <ul class="comments-box">
                         <li class="comment" v-for="(comment, idx)  in chef.commentsOnSellers" :key="idx">
                             <p>
@@ -22,29 +35,26 @@
                 </div>
             </div>
             <!-- <div class="left-side" v-if="!isProcessing"> -->
-                <div class="left-side">
+            <div class="left-side">
                 <div class="top">
-                    {{item.item}}
-                    <p class="title"> {{item.name}}
-                        <br>
-                        <span class="star">{{item.rank}} ★</span>
-                    </p>
-                    <img  class="item" :src="item.imgUrl" />
+                    <p class="title"> {{item.name}}</p>
+                    <div class="rank">
+                        <div v-for="(start,idx) in item.rank" :key="idx">
+                            <span>★</span>
+                        </div>
+                    </div>
+                    <img class="item" :src="item.imgUrl" />
                     <p>{{item.desc}}</p>
                 </div>
                 <div class="price" style="background-color:white">
                     <p> Price: {{item.price}}$ </p>
-                    <select>
+
+                    <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
                         <option>0</option>
                         <option v-for="(n, index) in 10" :key="index">{{n}}</option>
                     </select>
-                    <button class="checkout-btn">Add to cart</button>
                 </div>
             </div>
-            <!-- <div class="left-side" v-else>
-                <img style="width:400px" src="../assets/buffer.png">
-            </div> -->
-
 
             <div class="right-side">
                 <h3>See more of {{chef.name}}'s yummi meals </h3>
@@ -71,6 +81,10 @@
 import { LOAD_ITEM } from '../modules/ShopModule.js';
 import { LOAD_SELLER } from '../modules/ShopModule.js';
 import { LOAD_ITEMS_BY_IDS } from '../modules/ShopModule.js';
+import { UPDATE_CART } from '../modules/CartModule.js';
+import {  UPDATE_ITEM } from '../modules/ShopModule.js';
+
+import swal from 'sweetalert'
 
 // import ShowMeals from './ShowMeals.vue';
 export default {
@@ -78,41 +92,67 @@ export default {
     data() {
         return {
             mealsIds: [],
-            isProcessing: false
+            isProcessing: false,
+            isActive: false,
+            rank: 0,
+            msg: ''
         }
     },
     watch: {
         '$route.params.itemId'() {
             // this.isProcessing = true;
             // setTimeout(() => {
-                this.mealsIds = [];
-                var itemId = this.$route.params.itemId;
-                this.$store.dispatch({ type: LOAD_SELLER, itemId })
-                // this.isProcessing = false;
+            this.mealsIds = [];
+            var itemId = this.$route.params.itemId;
+            this.$store.dispatch({ type: LOAD_SELLER, itemId })
+            // this.isProcessing = false;
             // }, 500);
         }
 
     },
     created() {
+        this.mealsIds = [];
         var itemId = this.$route.params.itemId;
         // console.log(itemId)
         this.$store.dispatch({ type: LOAD_SELLER, itemId })
             .then((item) => {
-                console.log('item', item.seller.commentsOnSellers)
+                // console.log('item', item.seller.commentsOnSellers)
                 item.seller.itemsForSale.forEach((item) =>
                     this.mealsIds.push(item))
 
                 this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
                     .then((items) => {
-                        console.log(items)
+                        // console.log(items)
                     })
             })
 
     },
     methods: {
+        addComment() {
+            this.isActive = true;
+        },
+        sendComment(chefId, comment) {
+            console.log(chefId, comment, this.rank.quantity)
+            this.$store.commit({ type:  UPDATE_ITEM, chefId, comment });
+            this.isActive = false;
+        },
+        rankVal(val) {
+            this.rank = val
+        },
+        closeModal() {
+            this.isActive = false;
+        },
         showDetails(item) {
             this.$router.push('/itemdetails/' + item._id);
         },
+        quantityChange({ quantity, item }) {
+            console.log('imdddddddddddd')
+            // console.log('quantityquantity', quantity)
+            // console.log('itemitem', item)
+            // var currUser = this.user
+            this.$store.commit({ type: UPDATE_CART, item, quantity });
+        }
+
 
     },
 
@@ -138,6 +178,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.rank {
+    display: flex;
+    flex-direction: row;
+    color: gold;
+    width: 100px;
+}
+
+.fa-commenting-o {
+    font-size: 30px;
+    margin-left: -320px;
+}
+
+.modal {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    background-color: lightgoldenrodyellow;
+}
+
+.midal-btn {
+    border-radius: 15px;
+    border: none;
+    width: 50px;
+    margin-bottom: 5px;
+}
+
 .title {
     font-size: 30px;
     font-weight: bold;
@@ -190,6 +255,7 @@ h2 {
 .top-page {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     width: 100%;
     max-width: 1400px;
 }
@@ -202,6 +268,8 @@ h2 {
 }
 
 .left-side {
+    display: flex;
+    flex-direction: column;
     border: 1px solid lightgray;
     padding: 20px;
     margin-left: 80px;
@@ -228,6 +296,10 @@ li {
 .top {
     /* border-bottom: 1px solid lightgray; */
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 ul {

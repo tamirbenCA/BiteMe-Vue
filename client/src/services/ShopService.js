@@ -23,7 +23,7 @@ function getItemsByIds(itemsIds) {
     var items = itemsIds.map((itemId) => {
         return getItemById(itemId)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 return res
             })
     })
@@ -40,6 +40,22 @@ function getChefById(itemId) {
             // console.log('resdata:', res.data)
             return res.data
         })
+}
+
+
+function addComment(chefId, comment) {
+    console.log(chefId, comment)
+    getChefById(chefId).then((item) => {
+        console.log(item)
+        item.commentsOnSellers.push(comment)
+        return axios
+        .put(`${URL}/data/user/${chefId}`,item)
+        .then(res => {
+            console.log('resdata:', res.data)
+            return res.data
+        })
+    })
+
 }
 
 
@@ -110,6 +126,7 @@ export default {
     getItemsByIds,
     getChefById,
     getChefsByIds,
+    addComment,
     markDelivered,
     emptyItem,
     saveItem
