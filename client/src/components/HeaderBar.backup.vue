@@ -2,7 +2,7 @@
     <section class="header-bar">
 
         <div class="logo">
-            <router-link to="/" @click.native="setTag">
+            <router-link to="/">
                 <img src="../assets/Byte-Me-Logo.png" />
             </router-link>
         </div>
@@ -17,7 +17,7 @@
         <!-- <div class="btns" v-if="!loggedUser"> -->
         <div class="btns">
 
-            <router-link to="/menu" tag="button" @click.native="setTag" class="header-button">Menu</router-link>
+            <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
             <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
             <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
             <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
@@ -56,8 +56,9 @@
 import { mapGetters } from 'vuex';
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
-import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG, SET_TAG } from '../modules/ShopModule.js';
+import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
 import { REMOVE_FROM_CART } from '../modules/CartModule.js';
+
 
 
 export default {
@@ -99,6 +100,7 @@ export default {
             this.$router.push('/myCart/');
         },
         deleteItem(item) {
+            // console.log(itemId)
             this.$store.commit({ type: REMOVE_FROM_CART, item })
         },
         showChosenItems() {
@@ -113,14 +115,19 @@ export default {
         searchByte() {
             clearTimeout(this.keyUpInterval)
             this.keyUpInterval = setTimeout(() => {
+                // console.log('searching for a byte', this.searchValue)
                 var keyWord = this.searchValue.toLowerCase();
-                this.$router.push({ path: '/items', query: {tag: this.$store.getters.tag, term: keyWord}})
+                if (keyWord === '' || keyWord.length < 2) {
+                    var tag = this.$store.getters.tag;
+                    // console.log('tag in empty search: ', tag)
+                    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag })
+                    this.$router.push(`/items/${tag}`)
+                    return;
+                };
+                this.$router.push('/searchedItems/' + keyWord)
                 this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
                 }, 1000);
         },
-        setTag() {
-            this.$store.commit({type: SET_TAG, tag: null})
-        }
     },
 
 }

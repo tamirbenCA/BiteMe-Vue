@@ -214,10 +214,13 @@ app.get('/data/:objType', function (req, res) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
+				cl('******************');
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				var sortedObjs = utilsService.sortByRank(objs);
-				console.log(sortedObjs);
-				res.json(sortedObjs);
+				cl('******************');
+				// var sortedObjs = utilsService.sortByRank(objs);
+				// console.log(sortedObjs);
+				// res.json(sortedObjs);
+				res.json(objs);
 			}
 			db.close();
 		});

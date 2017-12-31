@@ -1,8 +1,10 @@
 <template>
     <section>
-        <tags-bar> </tags-bar>
-
-        <div class="items-container">
+        <tags-bar @resetTag="initPage"> </tags-bar>
+            <div class="items-container" v-if="!pageReady">
+                <img class="gif-loading" src="../assets/loading.gif">
+            </div>
+            <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -10,8 +12,8 @@
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
-                                <img class="chef" :src="seller[idx].imgUrl" />
-                                <p>{{seller[idx].name}}</p>
+                                <img class="chef" :src="item.seller.sellerImgUrl" />
+                                <p>{{item.seller.sellerName}}</p>                            
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -29,54 +31,32 @@
 </template>
 
 <script>
-import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
+import { LOAD_ITEMS_BY_TAG, LOAD_SEARCHED_ITMES } from '../modules/ShopModule';
 import TagsBar from './TagsBar.vue';
-import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
 
 export default {
 
   data() {
     return {
-      items: [],
-      chefsIds: []
-    }
-  },
-  watch: {
-    '$route.params.tag'() {
-      this.chefsIds=[];
-      var tag = this.$route.params.tag;
-      tag = tag.toLowerCase();
-      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-        .then((items) => {
-          items.forEach((item) =>
-            this.chefsIds.push(item.seller.sellerId))
-          // console.log(' this.chefsIds', this.chefsIds)
-          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-            .then((items) => {
-              // console.log(items)
-            })
-        })
- .catch(err => { console.log('err', err) })
+        pageReady: false,
     }
   },
   created() {
-    var tag = this.$route.params.tag;
-    tag = tag.toLowerCase();
-    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-      .then((items) => {
-        items.forEach((item) =>
-          this.chefsIds.push(item.seller.sellerId))
-        // console.log(' this.chefsIds', this.chefsIds)
-        this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-          .then((items) => {
-            // console.log(items)
-          })
-      })
+    this.initPage()
   },
   methods: {
     showDetails(item) {
       this.$router.push('/itemdetails/' + item._id);
-    }
+    },
+    initPage() {
+        this.pageReady = false
+        var query = this.$route.query;
+        console.log('query:', query)
+        this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, query })
+            .then((items) => {
+                this.pageReady = true;
+            })
+        }
   },
   computed: {
     itemsToDisplay() {
