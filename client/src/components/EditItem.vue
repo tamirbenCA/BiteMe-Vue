@@ -58,8 +58,10 @@ export default {
             console.log('submiting form', this.itemToUpdate)
             if (!this.itemToUpdate._id) {
                 console.log('getters:', this.$store.getters.loggedinUser._id)
-                this.itemToUpdate.seller.sellerId = this.$store.getters.loggedinUser._id
-                this.itemToUpdate.seller.sellerName = this.$store.getters.loggedinUser.name
+                var seller = this.$store.getters.loggedinUser;
+                this.itemToUpdate.seller.sellerId = seller._id;
+                this.itemToUpdate.seller.sellerName = seller.name;
+                this.itemToUpdate.seller.sellerImgUrl = seller.imgUrl;
             }
             ShopService.saveItem(this.itemToUpdate)
             .then(_ => {

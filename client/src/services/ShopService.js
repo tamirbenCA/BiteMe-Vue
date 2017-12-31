@@ -104,7 +104,7 @@ function markDelivered({order}) {
 }
 
 function emptyItem() {
-    return {name: '', desc: '', imgUrl: '', tags: [], price: '', seller: {sellerName: '', sellerId: ''}, rank: ''}
+    return {name: '', desc: '', imgUrl: '', tags: [], price: '', seller: {sellerName: '', sellerId: '', sellerImgUrl: ''}, rank: ''}
 }
 
 function saveItem(item) {
