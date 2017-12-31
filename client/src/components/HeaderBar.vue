@@ -53,10 +53,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
-import { mapGetters } from 'vuex';
 import { REMOVE_FROM_CART } from '../modules/CartModule.js';
 
 

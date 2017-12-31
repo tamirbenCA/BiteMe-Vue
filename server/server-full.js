@@ -362,6 +362,7 @@ app.put('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
+	delete newObj._id;
 	var query = getBasicQueryObj(req)
 
 	cl('~~~~~~~~~~~~~~~')

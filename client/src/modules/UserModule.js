@@ -1,12 +1,10 @@
 import UserService from "../services/UserService.js";
 
-
 export const SIGNUP = 'user/signup';
 export const SIGNIN = 'user/signin';
 export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
 export const TOGGLE_LIKE = 'user/toggleLike';
-
 
 var STORAGE_KEY = 'loggedinUser';
 
@@ -19,12 +17,11 @@ export default {
         isUser(state) {
             return !!state.loggedinUser
         },
-
-        loggedinUser: (state) => {
+        loggedinUser(state) {
             console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser 
         },
-        isAdmin: (state) => {
+        isAdmin(state) {
             // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser && state.loggedinUser.isAdmin
         // isAdmin(state) {

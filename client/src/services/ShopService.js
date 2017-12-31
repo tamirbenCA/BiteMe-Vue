@@ -104,15 +104,18 @@ function markDelivered({order}) {
 }
 
 function emptyItem() {
-    return {name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: ''}
+    return {name: '', desc: '', imgUrl: '', tags: [], price: '', seller: {sellerName: '', sellerId: ''}, rank: ''}
 }
 
 function saveItem(item) {
     if (item._id) return axios.put(`${URL}/data/item/${item._id}`, item)
     else {
-        var seller = this.$shop.getters.loggedinUser
-        item.seller.id = seller._id;
-        item.seller.name = seller.name;
+        // item.seller.id = this.$store.getters.loggedinUser._id
+        // item.seller.name = this.$store.getters.loggedinUser.name
+        // var seller = this.$store.getters.loggedinUser
+        // console.log(seller)
+        // item.seller.id = seller._id;
+        // item.seller.name = seller.name;
         return axios.post(`${URL}/data/item`, item);
     }
 }

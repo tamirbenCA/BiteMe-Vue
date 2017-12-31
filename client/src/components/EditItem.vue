@@ -7,9 +7,14 @@
             <input type="number" v-model.number="itemToUpdate.price" placeholder="Item Price">
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl"/>
-            <input type="checkbox" v-model="itemToUpdate.tags">
+            <div>
+                tags:
+                <span v-for="(tag, index) in tags" :key="index">
+                    <input type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
+                    <label :for="tag">{{tag}}</label>
+                </span>
+            </div>
             <!-- ADD CHECKBOX AS TAGS IN SERVER -->
-            
 
             <button>{{(itemId) ? 'Save' : 'Add'}}</button>
             <router-link tag="button" to="/">Cancel</router-link>
@@ -21,6 +26,8 @@
 import swal from 'sweetalert'
 import UserService from '../services/UserService';
 import ShopService from '../services/ShopService';
+import { LOAD_TAGS, SET_TAG } from '../modules/ShopModule';
+
 
 export default {
     name: 'editItem',
@@ -28,6 +35,11 @@ export default {
         return {
             itemToUpdate: ShopService.emptyItem(),
             itemId: this.$route.params.itemId
+        }
+    },
+    computed: {
+        tags() {
+            return this.$store.getters.tags.tags
         }
     },
     methods: {
@@ -44,22 +56,29 @@ export default {
         },
         submitItem() {
             console.log('submiting form', this.itemToUpdate)
+            if (!this.itemToUpdate._id) {
+                console.log('getters:', this.$store.getters.loggedinUser._id)
+                this.itemToUpdate.seller.sellerId = this.$store.getters.loggedinUser._id
+                this.itemToUpdate.seller.sellerName = this.$store.getters.loggedinUser.name
+            }
             ShopService.saveItem(this.itemToUpdate)
             .then(_ => {
                 this.$router.push('/')
             })
             .catch(err => {
-                console.log('error saving car', err)
+                console.log('error saving item', err)
             })
         },
     },
     created() {
         // this.itemToUpdate.seller = this.$store.getters.loggedinUser
+        this.$store.dispatch({ type: LOAD_TAGS })
+        console.log('tags:')
         if (!this.itemId) return;
         ShopService.getItemById(this.itemId)
             .then(item => {
                 this.itemToUpdate = Object.assign({}, item)
-            })
+            });
     }
 }
 </script>
