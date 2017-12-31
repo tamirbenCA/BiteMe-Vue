@@ -91,10 +91,21 @@ function loadSellersItems(sellerId) {
     // })
 }
 
-function loadBuyersItems() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => resolve([{ name: 'orderStatusItems0', _id: 0 }, { name: 'orderStatusItems1', _id: 1 }]))
-    })
+function loadBuyersItems(buyerId) {
+    // return new Promise((resolve, reject) => {
+        // setTimeout(() => resolve([{ name: 'orderStatusItems0', _id: 0 }, { name: 'orderStatusItems1', _id: 1 }]))
+    // })
+    return axios.get(`${URL}/data/user/${buyerId}/orders/asbuyer`)
+}
+
+function markDelivered({order}) {
+    console.log('shop service:', order)
+    console.log('shop service:', order._id)
+    return axios.put(`${URL}/data/order/${order._id}`, order)
+}
+
+function emptyItem() {
+    return {name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: ''}
 }
 
 export default {
@@ -106,5 +117,7 @@ export default {
     getItemsByIds,
     getChefById,
     getChefsByIds,
-    addComment
+    addComment,
+    markDelivered,
+    emptyItem
 }

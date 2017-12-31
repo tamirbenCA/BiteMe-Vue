@@ -1,8 +1,10 @@
 <template>
     <section>
         <tags-bar> </tags-bar>
-
-        <div class="items-container" v-if="pageReady">
+        <div class="items-container" v-if="!pageReady">
+            <img class="gif-loading" src="../assets/loading.gif">
+        </div>
+        <div class="items-container" v-else>
             <ul>
                 <li v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -42,8 +44,26 @@ export default {
       pageReady: false
     }
   },
+  watch: {
+    '$route.params.tag'() {
+      var tag = this.$route.params.tag;
+      tag = tag.toLowerCase();
+      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+        .then((items) => {
+          items.forEach((item) =>
+            this.chefsIds.push(item.seller.sellerId))
+        //   console.log(' this.chefsIds', this.chefsIds)
+          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+            .then((items) => {
+            //   console.log(items)
+            })
+        })
+ .catch(err => { console.log('err', err) })
+    }
+  },
     watch: {
         '$route.params.tag'() {
+            this.pageReady = false;
             var tag = this.$route.params.tag;
             tag = tag.toLowerCase();
             this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
@@ -54,6 +74,8 @@ export default {
                     this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
                         .then((items) => {
                             //   console.log(items)
+                            this.pageReady = true;
+
                         })
                 })
                 .catch(err => { console.log('err', err) })
@@ -66,10 +88,10 @@ export default {
       .then((items) => {
         items.forEach((item) =>
           this.chefsIds.push(item.seller.sellerId))
-        console.log(' this.chefsIds', this.chefsIds)
+        // console.log(' this.chefsIds', this.chefsIds)
         this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
           .then((items) => {
-            console.log(items)
+            // console.log(items)
             this.pageReady = true;
           })
       }).catch(err => { console.log('err', err) })
@@ -98,6 +120,11 @@ export default {
 h1,
 h2 {
     font-weight: normal;
+}
+
+.gif-loading {
+    width: 200px;
+    margin-bottom: 50px;
 }
 
 .chef-details {

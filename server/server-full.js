@@ -161,22 +161,46 @@ app.get('/data/user/:id/orders/asseller', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-
-		console.log('userid: ', id)
-		collection.find({ "seller.sellerId": id }).toArray((err, orders) => {
-			console.log('*****', orders, '******')
+	// console.log('userid: ' , id)
+	collection.find({ "seller.sellerId": id}).toArray((err, orders) => {
+			// console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('Returning list of ' + orders.length + ' ' + objType + 's');
-				console.log(orders);
+				// console.log(orders);
 				res.json(orders);
 			}
 			db.close();
 		});
 	});
 });
+
+// Get Orders as Buyer:
+app.get('/data/user/:id/orders/asbuyer', function (req, res) {
+	const objType = 'order';
+	const id = req.params.id;
+
+	dbConnect().then(db => {
+		const collection = db.collection(objType);
+		
+	// console.log('userid: ' , id)
+	collection.find({ "buyer.buyerId": id}).toArray((err, orders) => {
+			// console.log('*****', orders, '******')
+			if (err) {
+				cl('Cannot get you a list of ', err)
+				res.json(404, { error: 'not found' })
+			} else {
+				cl('Returning list of ' + orders.length + ' ' + objType + 's');
+				// console.log(orders);
+				res.json(orders);
+			}
+			db.close();
+		});
+	});
+});
+
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
@@ -340,10 +364,12 @@ app.put('/data/:objType/:id', function (req, res) {
 	const newObj = req.body;
 	var query = getBasicQueryObj(req)
 
-	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);
-	cl(`queryqueryquery`, query);
-	cl(`newObjnewObjnewObj`, newObj);
-
+	cl('~~~~~~~~~~~~~~~')
+	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);	
+	cl('query:', query)
+	cl('newObj:', newObj)
+	cl('~~~~~~~~~~~~~~~')
+	
 	dbConnect().then((db) => {
 		const collection = db.collection(objType);
 		collection.updateOne(query, newObj,

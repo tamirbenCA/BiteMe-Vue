@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import HomePage from '@/components/HomePage'
 import Menu from '@/components/Menu'
-
 import JoinIn from '@/components/JoinIn'
 import itemsByTag from '@/components/itemsByTag'
 import SearchedItems from '@/components/SearchedItems'
-
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
 import Map from '@/components/Map'
@@ -15,6 +14,7 @@ import AdminPage from '@/components/AdminPage'
 import AboutUs from '@/components/AboutUs'
 import MyCart from '@/components/MyCart'
 
+import EditItem from '@/components/EditItem'
 
 
 Vue.use(Router)
@@ -44,8 +44,8 @@ export default new Router({
     {
       path: '/searchedItems/:key',
       name: 'SearchedItems',
-      // component: SearchedItems
-      component: itemsByTag
+      component: SearchedItems
+      // component: itemsByTag
     },
     {
       path: '/login',
@@ -86,6 +86,11 @@ export default new Router({
       path: '/myCart',
       name: 'myCart',
       component: MyCart
+    },
+    {
+    path: '/additem',
+    name: 'editItem',
+    component: EditItem
     }
 
   ],
