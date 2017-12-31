@@ -70,24 +70,24 @@ var objTypeRequiresUser = {
 // 1. _id if needed
 // 2. userId when needed
 function getBasicQueryObj(req) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
+	const objType = req.params.objType;
+	const objId = req.params.id;
 	var query = {};
-	
+
 	if (objId) {
-		try { query._id = new mongodb.ObjectID(objId);}
-		catch(e) {return query}
+		try { query._id = new mongodb.ObjectID(objId); }
+		catch (e) { return query }
 	}
 	if (!objTypeRequiresUser[objType]) return query;
 	query.userId = null;
-	if ( req.session.user ) query.userId = req.session.user._id
+	if (req.session.user) query.userId = req.session.user._id
 	return query;
 }
 
 app.get('/data/tags', function (req, res) {
 	// console.log('inside tags')
-		var tags = utilsService.getTags();
-		res.json(tags)
+	var tags = utilsService.getTags();
+	res.json(tags)
 })
 
 app.get('/data/items', function (req, res) {
@@ -104,22 +104,22 @@ app.get('/data/items', function (req, res) {
 	}
 
 	if (term) {
-		queryName.name = {$regex: term}
-		queryDesc.desc = {$regex: term}
+		queryName.name = { $regex: term }
+		queryDesc.desc = { $regex: term }
 	}
 	// cl('********', queryDesc , '*********')
 
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({$or: [queryName, queryDesc]}).toArray((err, objs) => {
+		collection.find({ $or: [queryName, queryDesc] }).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('##################')
 				cl('Objecets:', objs)
-				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag );
+				cl('Returning list of ' + objs.length + ' ' + objType + 's, tag:' + tag);
 				cl('##################')
 				var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
@@ -161,9 +161,9 @@ app.get('/data/user/:id/orders/asseller', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		
-	console.log('userid: ' , id)
-	collection.find({ "seller.sellerId": id}).toArray((err, orders) => {
+
+		console.log('userid: ', id)
+		collection.find({ "seller.sellerId": id }).toArray((err, orders) => {
 			console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)
@@ -200,6 +200,26 @@ app.get('/data/:objType', function (req, res) {
 	});
 });
 
+//get sellers only
+app.get('/data/:user/seller', function (req, res) {
+	console.log('queryqueryqueryhiiiiiiiiiiiiiiiiiiii')
+	// var query = getBasicQueryObj(req);
+	dbConnect().then(db => {
+		const collection = db.collection('user');
+		collection.find(  {itemsForSale : {$exists:true}, $where:'this.itemsForSale.length>1'}).toArray((err, objs) => {
+		// collection.find( { itemsForSale: {$ne:undefined} } ).toArray((err, objs) => {
+			if (err) {
+				cl('Cannot get you a list of ', err)
+				res.json(404, { error: 'not found' })
+			} else {
+				cl('objsobjsobjsobjs',objs);
+				res.json(objs);
+			}
+			db.close();
+		});
+	});
+});
+
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
@@ -207,19 +227,19 @@ app.get('/data/:objType/:id', function (req, res) {
 	cl(`Getting you an ${objType} with id: ${objId}`);
 	var query = getBasicQueryObj(req)
 	dbConnect()
-		.then(db=> {
+		.then(db => {
 			const collection = db.collection(objType);
-			
+
 			return collection.findOne(query)
 				.then(obj => {
 					cl('Returning a single ' + objType);
 					res.json(obj);
-					db.close();	
+					db.close();
 				})
 				.catch(err => {
 					cl('Cannot get you that ', err)
 					res.json(404, { error: 'not found' })
-					db.close();	
+					db.close();
 				})
 
 		});
@@ -227,11 +247,11 @@ app.get('/data/:objType/:id', function (req, res) {
 
 // DELETE
 app.delete('/data/:objType/:id', function (req, res) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
+	const objType = req.params.objType;
+	const objId = req.params.id;
 	cl(`Requested to DELETE the ${objType} with id: ${objId}`);
 	var query = getBasicQueryObj(req);
-	
+
 	dbConnect().then((db) => {
 		const collection = db.collection(objType);
 		collection.deleteOne(query, (err, result) => {
@@ -239,8 +259,30 @@ app.delete('/data/:objType/:id', function (req, res) {
 				cl('Cannot Delete', err)
 				res.json(500, { error: 'Delete failed' })
 			} else {
-				if (result.deletedCount)	res.json({});
-				else res.json(403, { error: 'Cannot delete' }) 
+				if (result.deletedCount) res.json({});
+				else res.json(403, { error: 'Cannot delete' })
+			}
+			db.close();
+		});
+
+	});
+});
+
+//deleteAll
+app.delete('/data/:objType/:mealsForSaleIds', function (req, res) {
+	const objType = req.params.objType;
+	const objIds = req.params.mealsForSaleIds;
+	cl(`Requested to DELETE the ${objType} with id: ${objIds}`);
+
+	dbConnect().then((db) => {
+		const collection = db.collection(objType);
+		collection.deleteMany({ "_id" : "objIds" }, (err, result) => {
+			if (err) {
+				cl('Cannot Delete', err)
+				res.json(500, { error: 'Delete failed' })
+			} else {
+				if (result.deletedCount) res.json({});
+				else res.json(403, { error: 'Cannot delete' })
 			}
 			db.close();
 		});
@@ -258,14 +300,14 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 
 	const obj = req.body;
 	delete obj._id;
-	if (objTypeRequiresUser[objType]){
+	if (objTypeRequiresUser[objType]) {
 		if (req.session.user) {
 			obj.userId = req.session.user._id;
 		} else {
 			res.json(403, { error: 'Please Login first' })
 			return;
 		}
-	} 
+	}
 	// If there is a file upload, add the url to the obj
 	// if (req.file) {
 	// 	obj.imgUrl = serverRoot + req.file.filename;
@@ -292,13 +334,16 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 
 // PUT - updates
 app.put('/data/:objType/:id', function (req, res) {
-	const objType 	= req.params.objType;
-	const objId 	= req.params.id;
-	const newObj 	= req.body;
+
+	const objType = req.params.objType;
+	const objId = req.params.id;
+	const newObj = req.body;
+	var query = getBasicQueryObj(req)
 
 	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);
-	var query = getBasicQueryObj(req)
-	
+	cl(`queryqueryquery`, query);
+	cl(`newObjnewObjnewObj`, newObj);
+
 	dbConnect().then((db) => {
 		const collection = db.collection(objType);
 		collection.updateOne(query, newObj,
@@ -322,7 +367,7 @@ app.post('/login', function (req, res) {
 			if (user) {
 				cl('Login Succesful');
 				delete user.pass;
-				req.session.user = user;  
+				req.session.user = user;
 				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
 			} else {
 				cl('Login NOT Succesful');

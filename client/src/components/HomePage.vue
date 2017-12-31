@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="top-page">
-      <img class="front-img" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_1000/v1514370410/freshly_press_release_photo3_99980_yvwi41.jpg" />
+      <img class="front-img" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,h_500,w_900/v1514534807/mafrum_650_grgpwx.jpg" />
       <div class="msg">
         <h1>CHEF-COOKED</h1>
         <h1>HEALTHY MEALS</h1>
@@ -29,7 +29,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 100px;

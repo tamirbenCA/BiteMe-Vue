@@ -18,9 +18,12 @@
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-                            <p class="rank">{{item.rank}}
-                                <span class="star">★</span>
-                            </p>
+                            <div class="rank">
+                                <div v-for="(start,idx) in item.rank" :key="idx">
+                                    <span class="star">★</span>
+                                </div>
+                            </div>
+                         
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -73,7 +76,7 @@ export default {
         seller() {
             return this.$store.getters.chefs
         },
-        isLoaded(){
+        isLoaded() {
             return true
         }
     },
@@ -113,6 +116,9 @@ h2 {
 
 
 
+
+
+
 /* width: 25px;
     height: 25px; */
 
@@ -125,6 +131,7 @@ h2 {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 100px;
     /* padding-bottom: 10px; */
 }
 
@@ -170,6 +177,8 @@ ul {
     height: 80%;
 }
 
+
+
 li {
     display: inline-block;
     margin: 0 10px;
@@ -180,7 +189,13 @@ a {
 }
 
 .rank {
-    color: gold;
+    display: flex;
+    flex-direction: row;
+     color: gold;
+    /* width:150px; */
+}
+.star{
+    margin: 0;
 }
 
 select {
