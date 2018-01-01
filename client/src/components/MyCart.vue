@@ -1,13 +1,12 @@
 <template>
     <section>
-        <button @click.stop="backToMenu">Continue shopping</button>
-        <!-- <div class="orders">
-                                                    <div class="dropdown" v-if="isActive"> -->
+
         <div v-if="cartTotal === 0">
-            <p>No Items To Show</p>
+            <p class="title" >No Items To Show</p>
         </div>
 
         <ul class="dropdown-cart" role="menu" v-else>
+            <button @click.stop="backToMenu">Continue shopping</button>
             <li v-for="item in cart">
                 {{item.name}}
                 <div class="information">
@@ -37,7 +36,7 @@ import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js
 import { mapGetters } from 'vuex';
 import { REMOVE_FROM_CART } from '../modules/CartModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
-import checkout  from '../modules/CartModule.js';
+import checkout from '../modules/CartModule.js';
 
 
 
@@ -69,12 +68,7 @@ export default {
                 this.$router.push('/login');
             }
             this.user = loggedinUser.name;
-            // this.total = this.cartTotal;
-            // this.items = this.cart;
-            // console.log(this.user)
-            // console.log(this.total)
-            // console.log(this.items)
-            this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart:this.cart } });
+            this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
         },
 
         backToMenu() {
@@ -96,6 +90,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.title{
+    font-size:20px;
+    margin: 50px;
+}
 .orders {
     display: flex;
     flex-direction: column;

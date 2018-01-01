@@ -51,6 +51,7 @@
                 <div class="left-side">
                     <div class="top">
                         <p class="title">
+                        
                             <router-link :to="`/item/${itemId}/edit`" v-if="chef._id === loggedinUserId">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </router-link>
