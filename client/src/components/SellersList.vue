@@ -1,24 +1,37 @@
 <template>
-<section class="sellers-container">
-    <table class="sellers-list">
-        <tr>
-            <th>seller name</th>
-            <th>seller address</th>
-        </tr>
-        <tr v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller">
-            <td>{{seller.name}}</td>
-            <td>{{seller.address.city}}</td>
-        </tr>
-    </table>
-    <!-- <ul> -->
+    <section class="sellers-container">
+
+        <!-- <table class="sellers-list"> -->
+        <!-- <tr> -->
+        <div>
+            <h1>OUR SELLERS</h1>
+             <h4>CLICK ON THEM TO SEE WHAT THEY ARE COOKING</h4>
+        </div>
+        <!-- <th>seller name</th> -->
+        <!-- <th>seller address</th> -->
+        <!-- </tr> -->
+        <div class="sellers">
+            <!-- <tr v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller"> -->
+            <div v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller">
+                <img class="slr-img" :src="seller.imgUrl" alt="">
+
+            </div>
+        </div>
+
+        <!-- <td>{{seller.name}}</td> -->
+
+        <!-- <td>{{seller.address.city}}</td> -->
+        <!-- </tr> -->
+        <!-- </table> -->
+        <!-- <ul> -->
         <!-- <li class="user" v-for="(seller, idx) in sellers" :key="idx"> -->
-            <!-- <img class="image" :src="seller.imgUrl"> -->
-            <!-- <div class="details" style="text-transform: capitalize"> {{seller.name}} </div> -->
-            <!-- <div class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</div> -->
-            <!-- <router-link :to="`/items/seller/${seller._id}`" tag="button">View This Seller Items</router-link> -->
+        <!-- <img class="image" :src="seller.imgUrl"> -->
+        <!-- <div class="details" style="text-transform: capitalize"> {{seller.name}} </div> -->
+        <!-- <div class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</div> -->
+        <!-- <router-link :to="`/items/seller/${seller._id}`" tag="button">View This Seller Items</router-link> -->
         <!-- </li> -->
-    <!-- </ul> -->
-</section>
+        <!-- </ul> -->
+    </section>
 </template>
 
 <script>
@@ -59,48 +72,45 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .sellers-container {
     display: flex;
     justify-content: center;
-    margin: 25px 0px;
-}
- th, td {
-     width: 30%;
-     text-transform: capitalize;
- }
-
- .tr-seller {
-     cursor: pointer;
- }
-
-/* .details {
-    width: 200px;
-    text-align: start;
+    flex-direction: column;
+    /* margin: 25px 0px; */
 }
 
-.image {
-    background-size: cover;
-    background-position: center;
-    width: auto;
-    max-height: 50px;
+h1{
+    margin-bottom: 50px;
 }
 
-.user {
-    width: 50%;
+.sellers {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom: 20px;
+    width: 100%;
+    
 }
 
-ul {
-    list-style: none;
-    margin-top: 50px;
+th,
+td {
+    width: 30%;
+    text-transform: capitalize;
 }
 
-img {
-    width: 5%;
-    height: 5%;
-} */
+.slr-img {
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 70%;
+}
+
+.tr-seller {
+    cursor: pointer;
+    margin-right: 150px;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+}
 </style>

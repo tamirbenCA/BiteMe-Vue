@@ -108,6 +108,8 @@ export default {
     width:200px;
     justify-content: space-around;
     margin: 0 auto;
+        align-items: center;
+
 }
 .fa-times {
     color: red;
@@ -150,6 +152,7 @@ form {
     box-shadow: 1px 1px 4px 0px black;
     justify-content: space-between;
     height:400px;
+    padding: 10px;
 }
 
 form>* {

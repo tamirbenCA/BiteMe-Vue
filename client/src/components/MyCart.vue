@@ -8,7 +8,7 @@
             <div class="header">
                 <div class="top-header">
                     <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
-                    <p>CONTINUE SHOPPING</p>
+                    <p style="margin:0">CONTINUE SHOPPING</p>
                 </div>
             </div>
             <div class="cart">
@@ -34,7 +34,9 @@
                                     </select>
                                     <span style="margin-top:5px;">X</span>
                                     <div style="font-size:25px">{{item.price}}$</div>
+
                                     <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+
                                 </div>
                             </div>
                         </div>
@@ -47,24 +49,24 @@
         </div>
         <!-- <ul class="dropdown" role="menu" v-else> -->
         <!-- <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
-                                                                                                    <! <button class="cnt-shop" @click.stop="backToMenu">Continue shopping</button> -->
+                                                                                                        <! <button class="cnt-shop" @click.stop="backToMenu">Continue shopping</button> -->
         <!-- <li v-for="item in cart">
-                                                                                                        <p style="font-size:30px;text-transform: capitalize">{{item.name}}</p>
+                                                                                                            <p style="font-size:30px;text-transform: capitalize">{{item.name}}</p>
 
-                                                                                                        <img :src="item.imgUrl" />
-                                                                                                        <div class="item-info">
-                                                                                                            <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
-                                                                                                            <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                                <option value=""></option>
-                                                                                                                <option v-for="n in 10">{{n}}</option> -->
+                                                                                                            <img :src="item.imgUrl" />
+                                                                                                            <div class="item-info">
+                                                                                                                <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+                                                                                                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                                                                                                    <option value=""></option>
+                                                                                                                    <option v-for="n in 10">{{n}}</option> -->
         <!-- </select>
-                                                                                                            <p class="price">Price:{{item.price}}$</p>
+                                                                                                                <p class="price">Price:{{item.price}}$</p>
 
-                                                                                                        </div>
+                                                                                                            </div>
 
-                                                                                                    </li> -->
+                                                                                                        </li> -->
         <!-- <p class="crtTtl">Cart Total:{{cartTotal}}$</p>
-                                                                                                    <button class="ck-out" @click="checkout">Checkout</button> -->
+                                                                                                        <button class="ck-out" @click="checkout">Checkout</button> -->
         <!-- </ul>  -->
 
     </section>
@@ -137,12 +139,15 @@ export default {
     border-radius: 5px;
     width: 150px;
     margin: auto;
-    box-shadow: 2px 3px 6px 4px black;
+    box-shadow: 2px 3px 6px 0px black;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
 }
 
 .top-header {
     display: flex;
-    width: 204px;
+    width: 250px;
     justify-content: space-around;
     cursor: pointer;
 }
@@ -158,7 +163,7 @@ export default {
     flex-direction: row;
     height: 150px;
     /* border: 1px solid black; */
-    box-shadow: 2px 3px 6px 4px black;
+    box-shadow: 2px 3px 6px 2px black;
     margin-bottom: 50px;
 }
 
@@ -178,6 +183,7 @@ export default {
     display: flex;
     height: 50px;
     padding-top: 10px;
+    border-radius: 5px 5px 0  0 ;
 }
 
 .cart {
@@ -187,6 +193,7 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    border-radius:0 0 5px    5px    ;
 
     /* font-weight:bold; */
 }
@@ -239,9 +246,9 @@ li {
 select {
     border: 1px solid black;
     border-radius: 5px;
-    padding-left: 7px;
+    /* padding-left: 7px;
     padding-right: 5px;
-    width: 22px;
+    width: 22px; */
 }
 
 select:hover {
@@ -258,10 +265,10 @@ select:hover {
 }
 
 .title {
-        height: 50px;
+    height: 50px;
 
     margin-top: 50px;
     margin-bottom: 50px;
-    font-size: 60px;
+    font-size: 40px;
 }
 </style>

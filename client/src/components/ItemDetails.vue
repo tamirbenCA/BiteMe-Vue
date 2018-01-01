@@ -4,6 +4,7 @@
             <img class="gif-loading" src="../assets/loading.gif">
         </div>
         <div class="details-container" v-else>
+
             <div class="modal" v-if="isActive">
                 <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
                 <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
@@ -20,35 +21,11 @@
             </div>
 
             <div class="top-page">
-                <div class="middle">
-                    <div class="chef-details" style="background-color:white">
-                        <h1 style="color:black"> About chef</h1>
-                        <p> Meet {{chef.name}} </p>
-                        <img class="chef" :src="chef.imgUrl" />
-                        <p class="about-chef"> {{chef.about}} </p>
-                    </div>
-                    <div class="comments">
-                        <h1>Reviews</h1>
-                        <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
-                        <ul class="comments-box">
-                            <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
 
-                                <div>
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    {{comment.comment}}
-                                    <div class="rank">
-                                        <div v-for="(start,idx) in comment.rank" :key="idx">
-                                            <span>★</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <!-- <div class="left-side" v-if="!isProcessing"> -->
-                <div class="left-side">
+                <div class="cover">
                     <div class="left-side">
+
                         <div class="top">
                             <p class="title">
                                 <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
@@ -66,20 +43,50 @@
                         </div>
                         <div class="price" style="background-color:white">
                             <p> Price: {{item.price}}$ </p>
+                            <div class="price-btm">
+                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                    <option>0</option>
+                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                            <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                <option>0</option>
-                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
-
-                            </select>
-                            <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem"></i>
+                                </select>
+                                <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem" style="font-size:30px"></i>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="comments">
+                        <div class="comment-top">
+                            <h1>Reviews</h1>
+                            <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
+                        </div>
+                        <ul class="comments-box">
+
+                            <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
+                                <div class="cmt-div">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{comment.comment}}
+                                    <div class="rank">
+                                        <div v-for="(start,idx) in comment.rank" :key="idx">
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="middle">
+                    <div class="chef-details" style="background-color:white">
+                        <h1 style="color:black"> About chef</h1>
+                        <p> Meet {{chef.name}} </p>
+                        <img class="chef" :src="chef.imgUrl" />
+                        <p class="about-chef"> {{chef.about}} </p>
+                    </div>
                     <div class="right-side">
                         <h3>See more of {{chef.name}}'s yummi meals </h3>
                         <ul>
-                            <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
+                            <li style="display: flex; justify-content: center;" v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
                                 <div class="more-item">
                                     <div style="margin:10px">{{meal.name}}</div>
                                     <div><img class="meal" :src="meal.imgUrl" /></div>
@@ -92,6 +99,7 @@
                 </div>
 
             </div>
+
         </div>
     </section>
 </template>
@@ -217,17 +225,45 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-select{
-    border: 1px solid black;
-    border-radius:5px; 
-    padding-left: 7px;
+.cover {
+    display: flex;
+    flex-direction: column;
 }
+
+.cmt-div {
+    width: 100%;
+    box-shadow: 1px 2px 6px 0px black;
+    display: flex;
+    padding: 9px;
+}
+
+.comment-top {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.price-btm {
+    display: flex;
+    justify-content: space-around;
+    width: 100px;
+    margin: auto;
+}
+
+select {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
 .rank {
     display: flex;
     flex-direction: row;
     color: gold;
-    width: 100px;
+    padding-left: 10px;
+    /* width: 100px; */
+    margin: none;
 }
 
 .fa-pencil {
@@ -237,7 +273,7 @@ select{
 
 .fa-commenting-o {
     font-size: 30px;
-    margin-left: -320px;
+
     cursor: pointer;
 }
 
@@ -273,14 +309,13 @@ h2 {
 }
 
 .comment {
-    /* border-bottom: 1px solid lightgray; */
-    width: 100%;
     text-align: left;
-    border-bottom: 1px solid lightgray;
     color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin: 5px;
+    background-color: lightgreen;
 }
 
 .about-chef {
@@ -298,8 +333,11 @@ h2 {
     border: 1px solid lightgray;
     display: flex;
     flex-direction: column;
-    width: 70%;
-    margin: 5px;
+    width: 50%;
+    /* margin: 5px; */
+    width: 500px;
+    border-radius: 5px;
+    margin: inherit;
 }
 
 .comments-box {
@@ -326,7 +364,10 @@ h2 {
     flex-direction: column;
     border: 1px solid lightgray;
     padding: 20px;
-    margin-left: 80px;
+    /* margin-left: 80px; */
+    border-radius: 5px;
+    justify-content: space-around;
+    height: 600px;
 }
 
 .chef-details {
@@ -337,6 +378,7 @@ h2 {
 
 li {
     list-style: none;
+    display: flex;
 }
 
 .star {
@@ -360,6 +402,7 @@ ul {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: initial;
 }
 
 img {
@@ -373,22 +416,25 @@ img {
 }
 
 .chef {
-    width: 40%;
-    height: 40%;
+    background-size: cover;
+    background-position: center;
+    width: 60%;
+    height: 60%;
 }
 
 .item {
     background-size: cover;
     background-position: center;
-    width: 320px;
+    width: 400px;
     height: 300px;
+    margin-top: 50px;
 }
 
 .meal {
     background-size: cover;
     background-position: center;
-    max-width: 7vw;
-    max-height: 7vw;
+    max-width: 20vw;
+    max-height: 20vw;
     /* width: 220px;
     height: 200px; */
 }
@@ -398,7 +444,7 @@ img {
     width: 40%;
     display: flex;
     flex-direction: column;
-    height: 300px;
+
     align-items: center;
 }
 
@@ -419,13 +465,18 @@ select {
 .details-container {
     padding-top: 60px;
     width: 100%;
-    max-width: 1500px;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     /* background-color: lightgray; */
     justify-content: center;
     align-items: center;
     justify-content: space-between;
+    margin: auto;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 2px 3px 8px 0px black;
+    margin-bottom: 20px;
 }
 
 

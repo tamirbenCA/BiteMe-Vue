@@ -53,6 +53,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  width:800px;
+  margin: auto;
 }
 
 .how-work {
@@ -80,7 +82,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 100px;

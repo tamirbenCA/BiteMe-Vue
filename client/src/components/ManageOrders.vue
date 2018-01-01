@@ -2,7 +2,7 @@
     <div>
         <h1>Manage Orders</h1>
 
-        <h2>Items you sold</h2>
+        <h2>Items sold</h2>
         <table>
             <tr>
                 <!-- <th>Order Id</th> -->
@@ -22,7 +22,7 @@
             </tr>
         </table>
 
-        <h2>Items you bought</h2>
+        <h2>Items bought</h2>
         <table>
             <tr>
                 <!-- <th>Order Id</th> -->
