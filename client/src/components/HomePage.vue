@@ -23,16 +23,18 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  margin-top: 50px;
 }
 
 .top-page {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 100px;
+  box-shadow: 1px 2px 6px 0px black;
 }
 
 
@@ -43,8 +45,5 @@ export default {
   line-height: 50px;
   padding: 10px;
 }
-.top-page{
-      box-shadow: 1px 2px 6px 0px black;
 
-}
 </style>

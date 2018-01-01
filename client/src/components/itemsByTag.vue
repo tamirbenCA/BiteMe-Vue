@@ -7,6 +7,7 @@
         <div class="items-container" v-else>
             <ul>
                 <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+               <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
@@ -18,9 +19,15 @@
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-                            <p class="rank">{{item.rank}}
+
+                            <div class="rank">
+                                <div v-for="(star,idx) in item.rank" :key="idx">
+                                    <span class="star">★</span>
+                                </div>
+                            </div>
+                            <!-- <p class="rank">{{item.rank}}
                                 <span class="star">★</span>
-                            </p>
+                            </p> -->
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -37,30 +44,30 @@ import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
 
 export default {
 
-  data() {
-    return {
-      items: [],
-      chefsIds: [],
-      pageReady: false
-    }
-  },
-  watch: {
-    '$route.params.tag'() {
-      var tag = this.$route.params.tag;
-      tag = tag.toLowerCase();
-      this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-        .then((items) => {
-          items.forEach((item) =>
-            this.chefsIds.push(item.seller.sellerId))
-        //   console.log(' this.chefsIds', this.chefsIds)
-          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-            .then((items) => {
-            //   console.log(items)
-            })
-        })
- .catch(err => { console.log('err', err) })
-    }
-  },
+    data() {
+        return {
+            items: [],
+            chefsIds: [],
+            pageReady: false
+        }
+    },
+    watch: {
+        '$route.params.tag'() {
+            var tag = this.$route.params.tag;
+            tag = tag.toLowerCase();
+            this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+                .then((items) => {
+                    items.forEach((item) =>
+                        this.chefsIds.push(item.seller.sellerId))
+                    //   console.log(' this.chefsIds', this.chefsIds)
+                    this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                        .then((items) => {
+                            //   console.log(items)
+                        })
+                })
+                .catch(err => { console.log('err', err) })
+        }
+    },
     watch: {
         '$route.params.tag'() {
             this.pageReady = false;
@@ -81,21 +88,21 @@ export default {
                 .catch(err => { console.log('err', err) })
         }
     },
-  created() {
-    var tag = this.$route.params.tag;
-    tag = tag.toLowerCase();
-    this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
-      .then((items) => {
-        items.forEach((item) =>
-          this.chefsIds.push(item.seller.sellerId))
-        // console.log(' this.chefsIds', this.chefsIds)
-        this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-          .then((items) => {
-            // console.log(items)
-            this.pageReady = true;
-          })
-      }).catch(err => { console.log('err', err) })
-  },
+    created() {
+        var tag = this.$route.params.tag;
+        tag = tag.toLowerCase();
+        this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+            .then((items) => {
+                items.forEach((item) =>
+                    this.chefsIds.push(item.seller.sellerId))
+                // console.log(' this.chefsIds', this.chefsIds)
+                this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                    .then((items) => {
+                        // console.log(items)
+                        this.pageReady = true;
+                    })
+            }).catch(err => { console.log('err', err) })
+    },
     methods: {
         showDetails(item) {
             this.$router.push('/itemdetails/' + item._id);
@@ -117,6 +124,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.rank {
+    display: flex;
+    flex-direction: row;
+    color: gold;
+    /* width:150px; */
+}
 h1,
 h2 {
     font-weight: normal;

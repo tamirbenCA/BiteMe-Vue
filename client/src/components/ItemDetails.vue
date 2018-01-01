@@ -399,6 +399,7 @@ img {
 
 select {
     height: 40px;
+    border: 1px solid black;
 }
 
 .details-container {
