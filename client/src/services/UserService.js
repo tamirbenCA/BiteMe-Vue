@@ -150,12 +150,12 @@ function getEmptyUser() {
 
 function changeUserActivity(seller){
     console.log('seller',seller)
-    // return axios
-    // .put(`${URL}/data/user/${itemId}`, item)
-    // .then(res => {
-    //     console.log('resdata:', res.data)
-    //     return res.data
-    // })
+    return axios
+    .put(`${URL}/data/user/${seller._id}`, seller)
+    .then(res => {
+        console.log('resdata:', res.data)
+        return res.data
+    })
 }
 
 

@@ -2,29 +2,70 @@
     <section>
 
         <div v-if="cartTotal === 0">
-            <p class="title" >No Items To Show</p>
+            <p class="title">No Items To Show</p>
         </div>
-
-        <ul class="dropdown" role="menu" v-else>
-            <button @click.stop="backToMenu">Continue shopping</button>
-            <li v-for="item in cart">
-                {{item.name}}
-                <div class="information">
-                    <img :src="item.imgUrl" alt="" style="height: 80px;width: 80px;" />
-                    <div class="item-info">
-
-                        <p>Price:{{item.price}}$</p>
-                    </div>
-                    <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+        <div class="box" v-else>
+            <div class="header">
+                <div class="top-header">
+                    <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
+                    <p>CONTINUE SHOPPING</p>
                 </div>
-                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                    <option value=""></option>
-                    <option v-for="n in 10">{{n}}</option>
-                </select>
-            </li>
-            <p>Cart Total:{{cartTotal}}</p>
-            <button @click="checkout">Checkout</button>
-        </ul>
+            </div>
+            <div class="cart">
+                <div class="cart-header">
+                    <div style="font-weight:bold;font-size:20px;width:300px;"> YOUR SHOPPING CART</div>
+                    <br>
+                    <div> Review of
+                        <span style="font-weight:bold">{{cart.length}}</span> items:
+                        <span style="font-weight:bold">{{cartTotal}}$</span>
+                    </div>
+                </div>
+                <div class="item-container">
+                    <div class="item" v-for="(item, idx) in cart" :key="idx">
+                        <div class="item-back">
+                            <img :src="item.imgUrl" alt="">
+                            <div class="item-info">
+                                <p style="text-transform: uppercase;">{{item.name}}</p>
+                                <p style="text-transform: uppercase;">{{item.desc}}</p>
+                                <div class="payment">
+                                    <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                        <option value=""></option>
+                                        <option v-for="n in 10">{{n}}</option>
+                                    </select>
+                                    <span style="margin-top:5px;">X</span>
+                                    <div style="font-size:25px">{{item.price}}$</div>
+                                    <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div"></div>
+                    </div>
+                </div>
+                <button class="ck-out" @click="checkout">Checkout</button>
+            </div>
+
+        </div>
+        <!-- <ul class="dropdown" role="menu" v-else> -->
+        <!-- <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                                                                    <! <button class="cnt-shop" @click.stop="backToMenu">Continue shopping</button> -->
+        <!-- <li v-for="item in cart">
+                                                                                                        <p style="font-size:30px;text-transform: capitalize">{{item.name}}</p>
+
+                                                                                                        <img :src="item.imgUrl" />
+                                                                                                        <div class="item-info">
+                                                                                                            <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
+                                                                                                            <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                                                                                                <option value=""></option>
+                                                                                                                <option v-for="n in 10">{{n}}</option> -->
+        <!-- </select>
+                                                                                                            <p class="price">Price:{{item.price}}$</p>
+
+                                                                                                        </div>
+
+                                                                                                    </li> -->
+        <!-- <p class="crtTtl">Cart Total:{{cartTotal}}$</p>
+                                                                                                    <button class="ck-out" @click="checkout">Checkout</button> -->
+        <!-- </ul>  -->
 
     </section>
 </template>
@@ -90,45 +131,137 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.title{
-    font-size:20px;
-    margin: 50px;
+.ck-out {
+    background-color: lightgreen;
+    height: 50px;
+    border-radius: 5px;
+    width: 150px;
+    margin: auto;
+    box-shadow: 2px 3px 6px 4px black;
 }
-.orders {
+
+.top-header {
+    display: flex;
+    width: 204px;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+.item-info {
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
-    margin-right: 100px;
+    margin: auto;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    /* border: 1px solid black; */
+    box-shadow: 2px 3px 6px 4px black;
+    margin-bottom: 50px;
+}
+
+.box {
+    /* border: 1px solid lightgray; */
+    /* height: 300px; */
+    width: 900px;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.header {
+    border: 1px solid lightgray;
     height: 100px;
+    width: 100%;
+    display: flex;
+    height: 50px;
+    padding-top: 10px;
 }
 
-ul {
+.cart {
+    background-color: #efe9e9;
+    width: 100%;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    /* font-weight:bold; */
+}
+
+.cart-header {
+    width: 30%;
     display: flex;
     flex-direction: column;
-    list-style: none;
+    flex-direction: center;
+    padding-bottom: 30px;
+
+    padding-top: 30px;
+    margin: auto;
+}
+
+img {
+    background-size: cover;
+    background-position: center;
+    width: 200px;
+
+    height: 150px;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 li {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    background-color: white;
 }
 
-.dropdown {
+
+.item-back {
     display: flex;
-    flex-direction: column;
-    z-index: 10000;
-    background-color: lightgray;
-    width: 100%;
-    width: 500px;
-    margin-right: 500px;
+    width: 85%;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+    padding-right: 10px;
 }
 
-.information {
+.div {
+    background-color: lightgreen;
+    width: 20%;
+    height: 150px;
+}
+
+select {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 5px;
+    width: 22px;
+}
+
+select:hover {
+    background-color: lightgreen;
+}
+
+.payment {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-items: center;
+    justify-content: space-around;
+}
+
+.fa-trash-o {
+    font-size: 25px;
+}
+
+.title {
+        height: 50px;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 60px;
 }
 </style>

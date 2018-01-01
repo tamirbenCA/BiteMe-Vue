@@ -33,6 +33,7 @@ export default {
     },
     methods: {
         disableSeller(seller) {
+            console.log(seller)
             if (seller.isActive === true) {
                 seller.isActive = false;
             }

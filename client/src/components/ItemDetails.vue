@@ -3,94 +3,96 @@
         <div class="items-container" v-if="!pageReady">
             <img class="gif-loading" src="../assets/loading.gif">
         </div>
-    <div class="details-container" v-else>
-        <div class="modal" v-if="isActive">
-            <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
-            <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
-                <p>Add a comment</p>
-                <input v-model="msg" type="text">
-                <div class="rank-chef">
-                    <select @change="rankVal({quantity: +$event.target.value})">
-                        <option>0</option>
-                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                    </select>
-                </div>
-                <button class="midal-btn">Send</button>
-            </form>
-        </div>
-
-        <div class="top-page">
-            <div class="middle">
-                <div class="chef-details" style="background-color:white">
-                    <h1 style="color:black"> About chef</h1>
-                    <p> Meet {{chef.name}} </p>
-                    <img class="chef" :src="chef.imgUrl" />
-                    <p class="about-chef"> {{chef.about}} </p>
-                </div>
-                <div class="comments">
-                    <h1>Reviews</h1>
-                    <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
-                    <ul class="comments-box">
-                        <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
-
-                            <div>
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                {{comment.comment}}
-                                <div class="rank">
-                                    <div v-for="(start,idx) in comment.rank" :key="idx">
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- <div class="left-side" v-if="!isProcessing"> -->
-            <div class="left-side">
-                <div class="left-side">
-                    <div class="top">
-                        <p class="title">
-                            <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </router-link>
-                            {{item.name}}
-                        </p>
-                        <div class="rank">
-                            <div v-for="(start,idx) in rankOfMeal" :key="idx">
-                                <span>★</span>
-                            </div>
-                        </div>
-                        <img class="item" :src="item.imgUrl" />
-                        <p>{{item.desc}}</p>
-                    </div>
-                    <div class="price" style="background-color:white">
-                        <p> Price: {{item.price}}$ </p>
-
-                        <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+        <div class="details-container" v-else>
+            <div class="modal" v-if="isActive">
+                <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
+                <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
+                    <p>Add a comment</p>
+                    <input v-model="msg" type="text">
+                    <div class="rank-chef">
+                        <select @change="rankVal({quantity: +$event.target.value})">
                             <option>0</option>
-                            <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                            <option v-for="(n, index) in 5" :key="index">{{n}}</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="right-side">
-                    <h3>See more of {{chef.name}}'s yummi meals </h3>
-                    <ul>
-                        <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
-                            <div class="more-item">
-                                <div style="margin:10px">{{meal.name}}</div>
-                                <div><img class="meal" :src="meal.imgUrl" /></div>
-                            </div>
-
-                        </li>
-                    </ul>
-
-                </div>
+                    <button class="midal-btn">Send</button>
+                </form>
             </div>
 
+            <div class="top-page">
+                <div class="middle">
+                    <div class="chef-details" style="background-color:white">
+                        <h1 style="color:black"> About chef</h1>
+                        <p> Meet {{chef.name}} </p>
+                        <img class="chef" :src="chef.imgUrl" />
+                        <p class="about-chef"> {{chef.about}} </p>
+                    </div>
+                    <div class="comments">
+                        <h1>Reviews</h1>
+                        <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
+                        <ul class="comments-box">
+                            <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
+
+                                <div>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{comment.comment}}
+                                    <div class="rank">
+                                        <div v-for="(start,idx) in comment.rank" :key="idx">
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="left-side" v-if="!isProcessing"> -->
+                <div class="left-side">
+                    <div class="left-side">
+                        <div class="top">
+                            <p class="title">
+                                <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </router-link>
+                                {{item.name}}
+                            </p>
+                            <div class="rank">
+                                <div v-for="(start,idx) in rankOfMeal" :key="idx">
+                                    <span>★</span>
+                                </div>
+                            </div>
+                            <img class="item" :src="item.imgUrl" />
+                            <p>{{item.desc}}</p>
+                        </div>
+                        <div class="price" style="background-color:white">
+                            <p> Price: {{item.price}}$ </p>
+
+                            <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                <option>0</option>
+                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+
+                            </select>
+                            <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem"></i>
+                        </div>
+                    </div>
+
+                    <div class="right-side">
+                        <h3>See more of {{chef.name}}'s yummi meals </h3>
+                        <ul>
+                            <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
+                                <div class="more-item">
+                                    <div style="margin:10px">{{meal.name}}</div>
+                                    <div><img class="meal" :src="meal.imgUrl" /></div>
+                                </div>
+
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
     </section>
 </template>
 
@@ -152,6 +154,12 @@ export default {
 
     },
     methods: {
+        addItem() {
+            swal({
+                title: "Item added to cart",
+                icon: "success",
+            });
+        },
         addComment() {
             this.isActive = true;
         },
@@ -209,6 +217,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+select{
+    border: 1px solid black;
+    border-radius:5px; 
+    padding-left: 7px;
+}
 .rank {
     display: flex;
     flex-direction: row;
@@ -462,7 +476,6 @@ input {
     width: 200px;
     margin-bottom: 50px;
 }
-
 </style>
 
 

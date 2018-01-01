@@ -56,7 +56,7 @@ export default {
             }
         },
         [UPDATE_USER](state, payload) {
-            console.log(payload)
+            console.log(payload.seller)
             UserService.changeUserActivity(payload.seller)
         },
     },
