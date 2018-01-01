@@ -7,9 +7,14 @@
             <input type="number" v-model.number="itemToUpdate.price" placeholder="Item Price">
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl"/>
-            <input type="checkbox" v-model="itemToUpdate.tags">
+            <div>
+                tags:
+                <span v-for="(tag, index) in tags" :key="index">
+                    <input type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
+                    <label :for="tag">{{tag}}</label>
+                </span>
+            </div>
             <!-- ADD CHECKBOX AS TAGS IN SERVER -->
-            
 
             <button>{{(itemId) ? 'Save' : 'Add'}}</button>
             <router-link tag="button" to="/">Cancel</router-link>
@@ -21,6 +26,8 @@
 import swal from 'sweetalert'
 import UserService from '../services/UserService';
 import ShopService from '../services/ShopService';
+import { LOAD_TAGS, SET_TAG } from '../modules/ShopModule';
+
 
 export default {
     name: 'editItem',
@@ -30,6 +37,11 @@ export default {
             itemId: this.$route.params.itemId
         }
     },
+    computed: {
+        tags() {
+            return this.$store.getters.tags.tags
+        }
+    },
     methods: {
         addPhoto({target}) {
             var file = target.files
@@ -37,19 +49,38 @@ export default {
             .then(imgUrl => {
                 console.log('photo uploaded')
                 this.itemToUpdate.imgUrl = imgUrl
-            }).catch(err => {
+            })
+            .catch(err => {
                 console.error('error adding photo:', err)
             })
         },
         submitItem() {
             console.log('submiting form', this.itemToUpdate)
-            // this.$store.dispatch({ type: SIGNUP, signupDetails: this.newUser })
-                // .then(this.$router.push('/'))
+            if (!this.itemToUpdate._id) {
+                console.log('getters:', this.$store.getters.loggedinUser._id)
+                var seller = this.$store.getters.loggedinUser;
+                this.itemToUpdate.seller.sellerId = seller._id;
+                this.itemToUpdate.seller.sellerName = seller.name;
+                this.itemToUpdate.seller.sellerImgUrl = seller.imgUrl;
+            }
+            ShopService.saveItem(this.itemToUpdate)
+            .then(_ => {
+                this.$router.push('/')
+            })
+            .catch(err => {
+                console.log('error saving item', err)
+            })
         },
     },
     created() {
         // this.itemToUpdate.seller = this.$store.getters.loggedinUser
-    
+        this.$store.dispatch({ type: LOAD_TAGS })
+        console.log('tags:')
+        if (!this.itemId) return;
+        ShopService.getItemById(this.itemId)
+            .then(item => {
+                this.itemToUpdate = Object.assign({}, item)
+            });
     }
 }
 </script>

@@ -2,7 +2,10 @@
     <section class="tags-bar">
         <nav>
             <ul class="container-tags">
-            <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>{{tag}}</router-link>
+            <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items/${tag}`">{{tag}}</router-link>
+                <!-- <li v-for="(tag, index) in tags" :key="index" @click="showTagItems(tag)"> -->
+                    <!-- {{tag}} -->
+                <!-- </li> -->
             </ul>
         </nav>
 
@@ -10,8 +13,8 @@
 </template>
 
 <script>
-import { LOAD_TAGS, SET_TAG, LOAD_SEARCHED_ITMES } from '../modules/ShopModule';
-
+import { LOAD_TAGS, SET_TAG } from '../modules/ShopModule';
+// import { SET_TAG } from '../modules/ShopModule';
 export default {
     name: 'TagsBar',
     data() {
@@ -20,18 +23,21 @@ export default {
     },
     methods: {
         setTag(tag) {
-            this.$emit('resetTag')
+            // console.log('tag in component TagsBar: ', tag)
+            // this.$router.push('/items/' + tag);
             this.$store.commit({type: SET_TAG, tag})
-            this.$store.dispatch({type: LOAD_SEARCHED_ITMES})
         }
     },
     computed: {
         tags() {
+            // console.log('computing tags', this.$store.getters.tags.tags)
             return this.$store.getters.tags.tags
         }
     },
     created() {
-        this.$store.dispatch({ type: LOAD_TAGS })    
+        // console.log('tags created')
+        this.$store.dispatch({ type: LOAD_TAGS })
+    
     }
 }
 </script>

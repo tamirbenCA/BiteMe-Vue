@@ -30,7 +30,7 @@ export default {
             // }).catch(err => {
             //     err.json().then(res => this.error = res.error);
             // })
-            console.log('user is: ', this.user)
+            // console.log('user is: ', this.user)
             this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
                 .then(res => { 
                      this.$router.go(-1);

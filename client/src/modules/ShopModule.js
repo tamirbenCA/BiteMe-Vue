@@ -120,7 +120,7 @@ const actions = {
     [LOAD_ITEMS]({ commit }) {
         return UserService.getItems()
             .then(items => {
-                // console.log(items)
+                console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
 
@@ -245,7 +245,7 @@ const actions = {
         .then(_ => {
             commit({type: MARK_DELIVERED, order})
         })
-    }
+    },
 }
 
 export default {

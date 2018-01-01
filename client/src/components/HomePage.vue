@@ -3,7 +3,7 @@
     <div class="top-page">
       <img class="front-img" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,h_500,w_900/v1514534807/mafrum_650_grgpwx.jpg" />
       <div class="msg">
-        <h1>CHEF-COOKED</h1>
+        <h1>HOME-COOKED</h1>
         <h1>HEALTHY MEALS</h1>
         <h1>DELIVERED TO YOU</h1>
       </div>

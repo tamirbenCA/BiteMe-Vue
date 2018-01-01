@@ -8,7 +8,7 @@ import itemsByTag from '@/components/itemsByTag'
 import SearchedItems from '@/components/SearchedItems'
 import LogIn from '@/components/LogIn'
 import ItemDetails from '@/components/ItemDetails'
-import Map from '@/components/Map'
+// import Map from '@/components/Map'
 import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
 import AboutUs from '@/components/AboutUs'
@@ -36,17 +36,17 @@ export default new Router({
       name: 'JoinIn',
       component: JoinIn
     },
-    {
-      path: '/items/:tag',
-      name: 'itemsByTag',
-      component: itemsByTag
-    },
-    {
-      path: '/searchedItems/:key',
-      name: 'SearchedItems',
-      component: SearchedItems
-      // component: itemsByTag
-    },
+    // {
+    //   path: '/items/:tag',
+    //   name: 'itemsByTag',
+    //   component: itemsByTag
+    // },
+    // {
+    //   path: '/searchedItems/:key',
+    //   name: 'SearchedItems',
+    //   component: SearchedItems
+    //   // component: itemsByTag
+    // },
     {
       path: '/login',
       name: 'LogIn',
@@ -89,10 +89,18 @@ export default new Router({
     },
     {
     path: '/additem',
+    name: 'addItem',
+    component: EditItem
+    },
+    {
+    path: '/item/:itemId/edit',
     name: 'editItem',
     component: EditItem
+    },
+    {
+      path: '/items',
+      component: SearchedItems
     }
-
   ],
 
   mode: 'history',

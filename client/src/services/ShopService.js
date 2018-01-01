@@ -112,14 +112,26 @@ function loadBuyersItems(buyerId) {
     return axios.get(`${URL}/data/user/${buyerId}/orders/asbuyer`)
 }
 
-function markDelivered({ order }) {
-    console.log('shop service:', order)
-    console.log('shop service:', order._id)
+function markDelivered({order}) {
+    // console.log('shop service:', order)
     return axios.put(`${URL}/data/order/${order._id}`, order)
 }
 
 function emptyItem() {
-    return { name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: '' }
+    return {name: '', desc: '', imgUrl: '', tags: [], price: '', seller: {sellerName: '', sellerId: '', sellerImgUrl: ''}, rank: ''}
+}
+
+function saveItem(item) {
+    if (item._id) return axios.put(`${URL}/data/item/${item._id}`, item)
+    else {
+        // item.seller.id = this.$store.getters.loggedinUser._id
+        // item.seller.name = this.$store.getters.loggedinUser.name
+        // var seller = this.$store.getters.loggedinUser
+        // console.log(seller)
+        // item.seller.id = seller._id;
+        // item.seller.name = seller.name;
+        return axios.post(`${URL}/data/item`, item);
+    }
 }
 
 export default {
@@ -134,5 +146,9 @@ export default {
     addComment,
     markDelivered,
     emptyItem,
+<<<<<<< HEAD
     addOrder
+=======
+    saveItem
+>>>>>>> d92ca120607f5c581cf66c4df26da96692a004ca
 }
