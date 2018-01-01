@@ -3,14 +3,7 @@
         <li class="user" v-for="(seller, idx) in sellers" :key="idx">
             <img class="image" :src="seller.imgUrl">
             <div class="details" style="text-transform: capitalize"> {{seller.name}} </div>
-            <div class="details" style="text-transform: capitalize"> {{seller.address.street}},  {{seller.address.city}}</div>
-
-            <!-- <ul>
-                    Products:
-                    <li v-for="(meal, idx) in seller.itemsForSale" :key="idx">
-                        {{meal}}
-                    </li>
-                </ul> -->
+            <div class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</div>
 
             <button v-if="seller.isActive" style="background-color:green" class="dis-btn" @click="disableSeller(seller)">
                 Disable
@@ -70,12 +63,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.details{
-    width:200px;
+.details {
+    width: 200px;
     text-align: start;
-    
 }
+
 .dis-btn {
     width: 100px;
     height: 30px;
@@ -91,7 +83,7 @@ export default {
 }
 
 .user {
-    width:50%;
+    width: 50%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

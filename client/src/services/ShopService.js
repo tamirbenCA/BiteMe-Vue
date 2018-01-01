@@ -146,9 +146,6 @@ export default {
     addComment,
     markDelivered,
     emptyItem,
-<<<<<<< HEAD
-    addOrder
-=======
+    addOrder,
     saveItem
->>>>>>> d92ca120607f5c581cf66c4df26da96692a004ca
 }

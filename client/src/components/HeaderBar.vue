@@ -1,48 +1,19 @@
 <template>
     <section class="header-bar">
-        <div class="header">
+        <div class="top-bar">
             <div class="logo">
-                <router-link to="/">
+                <router-link to="/" @click.native="setTag">
                     <img src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
-
-<<<<<<< HEAD
             <div>
                 <input v-model="searchValue" type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
-=======
-        <div class="logo">
-            <router-link to="/" @click.native="setTag">
-                <img src="../assets/Byte-Me-Logo.png" />
-            </router-link>
-        </div>
 
-        <div>
-            <input v-model="searchValue" type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
-            <!-- <button>Show Map</button> -->
-            <!-- <router-link to="/map" tag="button" class="map-button">Show Map</router-link> -->
-            <router-link to="/admin" v-if="adminLogged" class="admin">Admin</router-link>
-        </div>
-        <!-- {{userName}} -->
-        <!-- <div class="btns" v-if="!loggedUser"> -->
-        <div class="btns">
-
-            <router-link to="/menu" tag="button" @click.native="setTag" class="header-button">Menu</router-link>
-            <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
-            <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
-            <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
-            <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
-            <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
-            <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
-            <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
-            <div class="icons">
-                <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
-                <i class="fa fa-arrow-circle-left" aria-hidden="true" @click="showChosenItems"></i>
->>>>>>> d92ca120607f5c581cf66c4df26da96692a004ca
             </div>
+        </div>
+        <div class="header">
             <div class="btns">
-
-                <router-link to="/menu" tag="button" class="header-button">Menu</router-link>
+                <router-link to="/menu" tag="button" @click.native="setTag" class="header-button">Menu</router-link>
                 <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
                 <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
                 <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
@@ -52,25 +23,7 @@
                 <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
                 <div class="icons">
                     <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
-                </div>
-                <div class="orders">
-
-                    <div class="dropdown" v-if="isActive">
-                        <!-- <i style="color:red" class="fa fa-times" aria-hidden="true" @click="showChosenItems"></i> -->
-                        <ul class="dropdown-cart" role="menu">
-                            <li v-for="item in cart">
-                                <div class="information">
-                                    <img :src="item.imgUrl" alt="" style="height: 80px;width: 80px;" />
-                                    <div class="item-info">
-                                        <p>{{item.name}}</p>
-                                        <p>Price:{{item.price}}$</p>
-                                    </div>
-                                    <p class="item">Quantity: {{item.quantity}}</p>
-                                    <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- <i class="fa fa-arrow-circle-left" aria-hidden="true" @click="showChosenItems"></i> -->
                 </div>
             </div>
         </div>
@@ -149,12 +102,12 @@ export default {
             clearTimeout(this.keyUpInterval)
             this.keyUpInterval = setTimeout(() => {
                 var keyWord = this.searchValue.toLowerCase();
-                this.$router.push({ path: '/items', query: {tag: this.$store.getters.tag, term: keyWord}})
-                this.$store.dispatch({type: LOAD_SEARCHED_ITMES, keyWord})
-                }, 1000);
+                this.$router.push({ path: '/items', query: { tag: this.$store.getters.tag, term: keyWord } })
+                this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, keyWord })
+            }, 1000);
         },
         setTag() {
-            this.$store.commit({type: SET_TAG, tag: null})
+            this.$store.commit({ type: SET_TAG, tag: null })
         }
     },
 
@@ -163,18 +116,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-input{
-    margin-left: 40px;
+.top-bar {
+    height: 410px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
 }
+
+input {
+    margin-left: 40px;
+    border-radius: 5px;
+    height: 30px;
+}
+
 .header {
     display: flex;
     flex-direction: row;
-    height: 102px;
-    align-items: center;
-    justify-content: space-between;
-    width:1300px;
-    margin-left: -200px;
+    justify-content: center;
+    height: 500px;
+    width: 1300px;
+    margin-top: 50px;
 }
 
 .lgn-user {
@@ -260,12 +222,9 @@ a {
 .header-bar {
     height: 100px;
     display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: column;
-    /* height: 211px; */
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 60px;
 }
 
 input {
@@ -288,16 +247,17 @@ button {
 }
 
 .header-button {
-    /* width: 100px; */
     background: none;
     border: none;
     cursor: pointer;
     outline: none;
+    font-size: 17px;
 }
 
 .join-button {
-    background-color: #00b22d;
+    background-color: lightgreen;
     color: white;
+    border-radius: 5px;
 }
 
 .fa-shopping-cart {

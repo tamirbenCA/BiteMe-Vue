@@ -29,7 +29,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 100px;

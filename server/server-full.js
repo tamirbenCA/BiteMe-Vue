@@ -216,15 +216,10 @@ app.get('/data/:objType', function (req, res) {
 			} else {
 				cl('******************');
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-<<<<<<< HEAD
-				// var sortedObjs = utilsService.sortByRank(objs);
-				// console.log(sortedObjs);
-=======
 				cl('******************');
 				// var sortedObjs = utilsService.sortByRank(objs);
 				// console.log(sortedObjs);
 				// res.json(sortedObjs);
->>>>>>> d92ca120607f5c581cf66c4df26da96692a004ca
 				res.json(objs);
 			}
 			db.close();
