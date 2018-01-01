@@ -5,7 +5,7 @@
             <p class="title" >No Items To Show</p>
         </div>
 
-        <ul class="dropdown-cart" role="menu" v-else>
+        <ul class="dropdown" role="menu" v-else>
             <button @click.stop="backToMenu">Continue shopping</button>
             <li v-for="item in cart">
                 {{item.name}}
