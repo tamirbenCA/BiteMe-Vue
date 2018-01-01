@@ -9,6 +9,7 @@ function sortByRank(items) {
     var itemsRank = [];
 
     var itemsRank = items.filter((item) => {
+        // return (3<= item.rank )
         return (item.rank === 5 || item.rank === 4|| item.rank === 3) 
     })
     if (itemsRank.length > 9)   itemsRank = itemsRank.slice(0, 9);  

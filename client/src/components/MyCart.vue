@@ -37,6 +37,8 @@ import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js
 import { mapGetters } from 'vuex';
 import { REMOVE_FROM_CART } from '../modules/CartModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
+import checkout  from '../modules/CartModule.js';
+
 
 
 
@@ -67,14 +69,14 @@ export default {
                 this.$router.push('/login');
             }
             this.user = loggedinUser.name;
-            this.total = this.cartTotal;
-            this.items = this.cart;
-            console.log(this.user)
-            console.log(this.total)
-            console.log(this.items)
-
-            // this.$store.dispatch({ type: 'checkout', data: { user: this.user, cartTotal: this.cartTotal } });
+            // this.total = this.cartTotal;
+            // this.items = this.cart;
+            // console.log(this.user)
+            // console.log(this.total)
+            // console.log(this.items)
+            this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart:this.cart } });
         },
+
         backToMenu() {
             this.$router.push('/menu');
         },

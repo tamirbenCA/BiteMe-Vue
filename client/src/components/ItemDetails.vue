@@ -2,7 +2,7 @@
     <div class="details-container">
         <div class="modal" v-if="isActive">
             <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
-            <form class="form-signin" novalidate @submit.prevent="sendComment(chef._id,msg)">
+            <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
                 <p>Add a comment</p>
                 <input v-model="msg" type="text">
                 <div class="rank-chef">
@@ -27,53 +27,62 @@
                     <h1>Reviews</h1>
                     <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
                     <ul class="comments-box">
-                        <li class="comment" v-for="(comment, idx)  in chef.commentsOnSellers" :key="idx">
-                            <p>
-                                <i class="fa fa-user" aria-hidden="true"></i> {{comment}}</p>
+                        <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
+
+                            <div>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                {{comment.comment}}
+                                <div class="rank">
+                                    <div v-for="(start,idx) in comment.rank" :key="idx">
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!-- <div class="left-side" v-if="!isProcessing"> -->
-            <div class="left-side">
-                <div class="top">
-                    <p class="title"> {{item.name}}</p>
-                    <div class="rank">
-                        <div v-for="(start,idx) in item.rank" :key="idx">
-                            <span>★</span>
+            <div class="left-side" v-if="!isProcessing">
+                <div class="left-side">
+                    <div class="top">
+                        <p class="title"> {{item.name}}</p>
+                        <div class="rank">
+                            <div v-for="(start,idx) in rankOfMeal" :key="idx">
+                                <span>★</span>
+                            </div>
                         </div>
+                        <img class="item" :src="item.imgUrl" />
+                        <p>{{item.desc}}</p>
                     </div>
-                    <img class="item" :src="item.imgUrl" />
-                    <p>{{item.desc}}</p>
-                </div>
-                <div class="price" style="background-color:white">
-                    <p> Price: {{item.price}}$ </p>
+                    <div class="price" style="background-color:white">
+                        <p> Price: {{item.price}}$ </p>
 
-                    <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                        <option>0</option>
-                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
-                    </select>
+                        <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                            <option>0</option>
+                            <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <h3>See more of {{chef.name}}'s yummi meals </h3>
+                    <ul>
+                        <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
+                            <div class="more-item">
+                                <div style="margin:10px">{{meal.name}}</div>
+                                <div><img class="meal" :src="meal.imgUrl" /></div>
+                            </div>
+
+                        </li>
+                    </ul>
+
                 </div>
             </div>
 
-            <div class="right-side">
-                <h3>See more of {{chef.name}}'s yummi meals </h3>
-                <ul>
-                    <li v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
-                        <div class="more-item">
-                            <div style="margin:10px">{{meal.name}}</div>
-                            <div><img class="meal" :src="meal.imgUrl" /></div>
-                        </div>
-
-                    </li>
-                </ul>
-
-            </div>
         </div>
-
     </div>
-
-    </div>
+    <!-- </div>
+     </div> -->
 </template>
 
 <script>
@@ -82,7 +91,7 @@ import { LOAD_ITEM } from '../modules/ShopModule.js';
 import { LOAD_SELLER } from '../modules/ShopModule.js';
 import { LOAD_ITEMS_BY_IDS } from '../modules/ShopModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
-import {  UPDATE_ITEM } from '../modules/ShopModule.js';
+import { UPDATE_ITEM } from '../modules/ShopModule.js';
 
 import swal from 'sweetalert'
 
@@ -131,9 +140,10 @@ export default {
         addComment() {
             this.isActive = true;
         },
-        sendComment(chefId, comment) {
-            console.log(chefId, comment, this.rank.quantity)
-            this.$store.commit({ type:  UPDATE_ITEM, chefId, comment });
+        sendComment(itemId, comment) {
+            // var quantity = this.rank.quantity
+            // console.log(itemId, comment, this.rank.quantity)
+            this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity });
             this.isActive = false;
         },
         rankVal(val) {
@@ -146,7 +156,7 @@ export default {
             this.$router.push('/itemdetails/' + item._id);
         },
         quantityChange({ quantity, item }) {
-            console.log('imdddddddddddd')
+            // console.log('imdddddddddddd')
             // console.log('quantityquantity', quantity)
             // console.log('itemitem', item)
             // var currUser = this.user
@@ -166,6 +176,9 @@ export default {
         meals() {
             return this.$store.getters.items
         },
+        rankOfMeal() {
+            return Math.round(this.$store.getters.currItem.rank)
+        }
         // isProcessing(){
         //     // if(this.isProcessing === false)
         //     // return !this.isProcessing
@@ -227,6 +240,9 @@ h2 {
     text-align: left;
     border-bottom: 1px solid lightgray;
     color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .about-chef {

@@ -17,9 +17,9 @@
       <h2>Make the world taste better</h2>
       <br>
       <div class="imgs">
-        <img src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234179/Ben_h2kuyh.png" />
-        <img src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234189/May_q8y1qc.jpg" />
-        <img src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514379263/Moshiko_nm44c7.png" />
+        <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234179/Ben_h2kuyh.png" />
+        <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514704865/FB_IMG_1475170769079_zjibhn.jpg" />
+        <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514379263/Moshiko_nm44c7.png" />
       </div>
     </div>
   </div>
@@ -41,6 +41,12 @@ export default {
   margin-top: 50px;
 }
 
+.partner{
+      background-size: cover;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+}
 .imgs {
   display: flex;
   align-items: center;

@@ -215,9 +215,9 @@ app.get('/data/:objType', function (req, res) {
 				res.json(404, { error: 'not found' })
 			} else {
 				cl('Returning list of ' + objs.length + ' ' + objType + 's');
-				var sortedObjs = utilsService.sortByRank(objs);
-				console.log(sortedObjs);
-				res.json(sortedObjs);
+				// var sortedObjs = utilsService.sortByRank(objs);
+				// console.log(sortedObjs);
+				res.json(objs);
 			}
 			db.close();
 		});
@@ -317,7 +317,7 @@ app.delete('/data/:objType/:mealsForSaleIds', function (req, res) {
 // POST - adds 
 app.post('/data/:objType', upload.single('file'), function (req, res) {
 	//console.log('req.file', req.file);
-	// console.log('req.body', req.body);
+	console.log('req.body320320320320', req.body);
 
 	const objType = req.params.objType;
 	cl('POST for ' + objType);
@@ -358,10 +358,11 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 
 // PUT - updates
 app.put('/data/:objType/:id', function (req, res) {
-
+	console.log('hiiiiiiiii',req.body)
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
+	delete newObj._id;
 	var query = getBasicQueryObj(req)
 
 	cl('~~~~~~~~~~~~~~~')
@@ -378,6 +379,7 @@ app.put('/data/:objType/:id', function (req, res) {
 					cl('Cannot Update', err)
 					res.json(500, { error: 'Update failed' })
 				} else {
+					console.log('err',err)					
 					if (result.modifiedCount) res.json(newObj);
 					else res.json(403, { error: 'Cannot update' })
 				}

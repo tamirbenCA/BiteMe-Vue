@@ -20,11 +20,11 @@
                                 <p>{{item.name}}</p>
                             </div>
                             <div class="rank">
-                                <div v-for="(start,idx) in item.rank" :key="idx">
-                                    <span class="star">★</span>
+                                    <div v-for="(star,idx) in item.rank" :key="idx">
+                                        <span class="star">★</span>
+                                    </div>
                                 </div>
-                            </div>
-                         
+
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -55,8 +55,12 @@ export default {
 
         this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
-                items.forEach((item) =>
-                    this.chefsIds.push(item.seller.sellerId))
+                items.forEach((item) => {
+                    // console.log(' item', item)
+                    this.chefsIds.push(item.seller.sellerId)
+                })
+
+
                 // console.log(' this.chefsIds', this.chefsIds)
                 this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
                     .then((items) => {
@@ -80,7 +84,8 @@ export default {
         },
         isLoaded() {
             return true
-        }
+        },
+
     },
     components: {
         TagsBar
@@ -120,6 +125,7 @@ h2 {
     width: 200px;
     margin-bottom: 50px;
 }
+
 
 
 
@@ -196,10 +202,11 @@ a {
 .rank {
     display: flex;
     flex-direction: row;
-     color: gold;
+    color: gold;
     /* width:150px; */
 }
-.star{
+
+.star {
     margin: 0;
 }
 

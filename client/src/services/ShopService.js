@@ -43,22 +43,36 @@ function getChefById(itemId) {
 }
 
 
-function addComment(chefId, comment) {
-    console.log(chefId, comment)
-    getChefById(chefId).then((item) => {
-        console.log(item)
-        item.commentsOnSellers.push(comment)
+function addComment(itemId, comment, rank) {
+    getItemById(itemId).then((item) => {
+        item.comments.push({ comment, rank });
+        var sum = item.comments.reduce(function (a, b) {
+            return a + b.rank;
+        }, 0);
+        item.rank = Math.round(sum / item.comments.length);
+        console.log(item.rank)
         return axios
-        .put(`${URL}/data/user/${chefId}`,item)
-        .then(res => {
-            console.log('resdata:', res.data)
-            return res.data
-        })
+            .put(`${URL}/data/item/${itemId}`, item)
+            .then(res => {
+                console.log('resdata:', res.data)
+                return res.data
+            })
     })
 
 }
 
 
+function addOrder(order) {
+    console.log('order:', order)
+    return axios
+        .post(`${URL}/data/order/`,order)
+        .then(res => {
+            console.log('resdata:', res.data)
+            return res.data
+        })
+
+
+}
 
 function getChefsByIds(itemsIds) {
     // console.log(itemsIds)
@@ -93,19 +107,19 @@ function loadSellersItems(sellerId) {
 
 function loadBuyersItems(buyerId) {
     // return new Promise((resolve, reject) => {
-        // setTimeout(() => resolve([{ name: 'orderStatusItems0', _id: 0 }, { name: 'orderStatusItems1', _id: 1 }]))
+    // setTimeout(() => resolve([{ name: 'orderStatusItems0', _id: 0 }, { name: 'orderStatusItems1', _id: 1 }]))
     // })
     return axios.get(`${URL}/data/user/${buyerId}/orders/asbuyer`)
 }
 
-function markDelivered({order}) {
+function markDelivered({ order }) {
     console.log('shop service:', order)
     console.log('shop service:', order._id)
     return axios.put(`${URL}/data/order/${order._id}`, order)
 }
 
 function emptyItem() {
-    return {name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: ''}
+    return { name: '', desc: '', imgUrl: '', tags: '', price: '', seller: '', rank: '' }
 }
 
 export default {
@@ -119,5 +133,6 @@ export default {
     getChefsByIds,
     addComment,
     markDelivered,
-    emptyItem
+    emptyItem,
+    addOrder
 }

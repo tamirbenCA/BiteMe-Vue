@@ -1,25 +1,23 @@
 <template>
     <ul>
         <li class="user" v-for="(seller, idx) in sellers" :key="idx">
-            <img :src="seller.imgUrl">
-            <div>{{seller.rank}}</div>
-            <div> {{seller.name}} {{seller.address}}</div>
-           
-            <ul>
-                Products:
-                <li v-for="(meal, idx) in seller.itemsForSale" :key="idx">
-                    {{meal}}
-                </li>
-            </ul>
-            <ul>
-                Comments:
-                <li v-for="(comment, idx) in seller.commentsOnSellers" :key="idx">
-                    {{comment}}
-                </li>
-            </ul>
-            Meals sold:
-            
-            <button @click="deleteSeller(seller)">Delete seller</button>
+            <img class="image" :src="seller.imgUrl">
+            <div class="details" style="text-transform: capitalize"> {{seller.name}} </div>
+            <div class="details" style="text-transform: capitalize"> {{seller.address.street}},  {{seller.address.city}}</div>
+
+            <!-- <ul>
+                    Products:
+                    <li v-for="(meal, idx) in seller.itemsForSale" :key="idx">
+                        {{meal}}
+                    </li>
+                </ul> -->
+
+            <button v-if="seller.isActive" style="background-color:green" class="dis-btn" @click="disableSeller(seller)">
+                Disable
+            </button>
+            <button v-else style="background-color:red" class="dis-btn" @click="disableSeller(seller)">
+                Enable
+            </button>
         </li>
     </ul>
 </template>
@@ -28,7 +26,7 @@
 
 import { LOAD_SELLERS } from '../modules/ShopModule.js';
 import { DELETE_SELLER } from '../modules/ShopModule.js';
-// import { DELETE_ITEMS } from '../modules/ShopModule.js';
+import { UPDATE_USER } from '../modules/UserModule.js';
 
 import swal from 'sweetalert'
 
@@ -37,35 +35,20 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
+
         }
     },
     methods: {
-        deleteSeller(seller) {
-            var sellerId = seller._id;
-            var mealsForSale=[];
-            seller.itemsForSale.forEach(item=>mealsForSale.push(item))
-            console.log(mealsForSale)
-            // swal({
-            //     title: 'Are you sure?',
-            //     text: "You won't be able to revert this!",
-            //     type: 'warning',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     cancelButtonColor: '#d33',
-            //     confirmButtonText: 'Yes, delete it!'
-            // }).then((result) => {
-            //     if (result.value) {
-            //         swal(
-            //             'Deleted!',
-            //             'Your file has been deleted.',
-            //             'success'
-            //         )
-            //     }
-            // })
-            console.log(sellerId)
-            // alert('are you sure???')
+        disableSeller(seller) {
+            if (seller.isActive === true) {
+                seller.isActive = false;
+            }
+            else {
 
-            // this.$store.commit({ type: DELETE_SELLER, sellerId })
+                seller.isActive = true;
+            }
+            console.log(seller)
+            this.$store.commit({ type: UPDATE_USER, seller })
             // this.$store.commit({ type: DELETE_ITEMS, mealsForSale})
         }
     },
@@ -78,7 +61,8 @@ export default {
     computed: {
         sellers() {
             return this.$store.getters.items
-        }
+        },
+
     }
 
 }
@@ -87,13 +71,39 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.user{
-display: flex;
-flex-direction: row;
+.details{
+    width:200px;
+    text-align: start;
+    
 }
+.dis-btn {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    width: 120px;
+    height: 90px;
+}
+
+.user {
+    width:50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
 ul {
     list-style: none;
+    margin-top: 50px;
 }
+
+
 
 img {
     width: 10%;

@@ -148,6 +148,18 @@ function getEmptyUser() {
     }
 }
 
+function changeUserActivity(seller){
+    console.log('seller',seller)
+    // return axios
+    // .put(`${URL}/data/user/${itemId}`, item)
+    // .then(res => {
+    //     console.log('resdata:', res.data)
+    //     return res.data
+    // })
+}
+
+
+
 function uploadImage(file) {
     var formData = new FormData()
     formData.append('file', file)
@@ -178,5 +190,6 @@ export default {
     getItemsByTag,
     uploadImage,
     getSellers,
-    deleteSeller
+    deleteSeller,
+    changeUserActivity
 } 

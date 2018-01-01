@@ -1,4 +1,5 @@
 import UserService from "../services/UserService.js";
+import ShopService from "../services/ShopService.js";
 
 
 export const SIGNUP = 'user/signup';
@@ -6,6 +7,7 @@ export const SIGNIN = 'user/signin';
 export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
 export const TOGGLE_LIKE = 'user/toggleLike';
+export const UPDATE_USER = 'user/updateUser';
 
 
 var STORAGE_KEY = 'loggedinUser';
@@ -21,14 +23,14 @@ export default {
         },
 
         loggedinUser: (state) => {
-            console.log('state.loggedinUser',state.loggedinUser)
-            return state.loggedinUser 
+            console.log('state.loggedinUser', state.loggedinUser)
+            return state.loggedinUser
         },
         isAdmin: (state) => {
             // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser && state.loggedinUser.isAdmin
-        // isAdmin(state) {
-        //     return state.loggedinUser && state.loggedinUser.isAdmin
+            // isAdmin(state) {
+            //     return state.loggedinUser && state.loggedinUser.isAdmin
         },
         userId(state) {
             if (state.loggedinUser) {
@@ -55,7 +57,11 @@ export default {
             } else {
                 state.loggedinUser.likedCarIds.splice(idxLike, 1)
             }
-        }
+        },
+        [UPDATE_USER](state, payload) {
+            console.log(payload)
+            UserService.changeUserActivity(payload.seller)
+        },
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
