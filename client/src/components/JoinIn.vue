@@ -6,7 +6,10 @@
             <input v-model="newUser.name" type="text" placeholder="Name">
             <input v-model="newUser.password" type="password" placeholder="Password">
             <input v-model="newUser.email" type="email" placeholder="Email">
-            <input v-model="newUser.address" type="text" placeholder="Address">
+            <div class="user-address">
+                <input v-model="newUser.address.street" type="text" placeholder="Street">
+                <input v-model="newUser.address.city" type="text" placeholder="City">
+            </div>
             <textarea v-model="newUser.about" placeholder="About you"></textarea>
             <input type="file" @change="pushPhoto" />
             <img v-if="newUser.imgUrl" :src="newUser.imgUrl"/>
@@ -54,7 +57,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.user-address {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+}
 
+.user-address > input {
+    width: 43%;
+    padding: 5px;
+} 
 button{
     background-color: #53bf53;
     border-radius: 5px;
@@ -63,7 +75,7 @@ button{
 .join-box{
     margin: 0 auto;
     margin-top: 50px;
-     margin-bottom: 50px;
+    margin-bottom: 50px;
     border:1px solid lightgray;
     border-radius:5px;
     max-width:500px;

@@ -141,10 +141,9 @@ function getEmptyUser() {
         email: '',
         about: '',
         imgUrl: '',
-        address: '',
+        address: {street: '', city: ''},
         itemsForSale: [],
-        commentsOnSellers: [],
-        payment: {},
+        isActive: true,
     }
 }
 
