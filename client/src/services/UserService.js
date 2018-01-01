@@ -55,7 +55,7 @@ function getSellers() {
     return axios
         .get(`${URL}/data/user/seller`)
         .then(res => {
-            console.log('res58:', res.data)
+            // console.log('res58:', res.data)
             return res.data
         }
         )
@@ -141,10 +141,9 @@ function getEmptyUser() {
         email: '',
         about: '',
         imgUrl: '',
-        address: '',
+        address: {street: '', city: ''},
         itemsForSale: [],
-        commentsOnSellers: [],
-        payment: {},
+        isActive: true,
     }
 }
 

@@ -20,7 +20,7 @@ export default {
             return !!state.loggedinUser
         },
         loggedinUser(state) {
-            console.log('state.loggedinUser',state.loggedinUser)
+            // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser 
         },
         isAdmin(state) {

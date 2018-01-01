@@ -13,8 +13,9 @@ import ManageOrders from '@/components/ManageOrders'
 import AdminPage from '@/components/AdminPage'
 import AboutUs from '@/components/AboutUs'
 import MyCart from '@/components/MyCart'
-
 import EditItem from '@/components/EditItem'
+import SellersList from '@/components/SellersList'
+import ItemsBySeller from '@/components/ItemsBySeller'
 
 
 Vue.use(Router)
@@ -96,6 +97,14 @@ export default new Router({
     path: '/item/:itemId/edit',
     name: 'editItem',
     component: EditItem
+    },
+    {
+      path: '/sellerslist',
+      component: SellersList
+    },
+    {
+      path: '/items/seller/:sellerId',
+      component: ItemsBySeller
     },
     {
       path: '/items',

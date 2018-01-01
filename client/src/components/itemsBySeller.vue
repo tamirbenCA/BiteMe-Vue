@@ -1,29 +1,30 @@
 <template>
     <section>
-        <tags-bar @resetTag="initPage"> </tags-bar>
-            <div class="items-container" v-if="!pageReady">
-                <img class="gif-loading" src="../assets/loading.gif">
-            </div>
-            <div class="items-container" v-else>
+        <tags-bar> </tags-bar>
+        <div class="items-container" v-if="!pageReady">
+            <img class="gif-loading" src="../assets/loading.gif">
+        </div>
+        <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
-                     <!-- {{item}} -->
+               <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p>{{item.seller.sellerName}}</p>                            
+                                <p>{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-                                <div class="rank">
-                                    <div v-for="(start,idx) in item.rank" :key="idx">
-                                        <span>★</span>
-                                    </div>
+
+                            <div class="rank">
+                                <div v-for="(star,idx) in item.rank" :key="idx">
+                                    <span class="star">★</span>
                                 </div>
+                            </div>
                             <!-- <p class="rank">{{item.rank}}
                                 <span class="star">★</span>
                             </p> -->
@@ -37,58 +38,58 @@
 </template>
 
 <script>
-import { LOAD_ITEMS_BY_TAG, LOAD_SEARCHED_ITMES } from '../modules/ShopModule';
 import TagsBar from './TagsBar.vue';
+import { LOAD_ITEMS } from '../modules/ShopModule.js';
 
 export default {
 
-  data() {
-    return {
-        pageReady: false,
-    }
-  },
-  created() {
-    this.initPage()
-  },
-  methods: {
-    showDetails(item) {
-      this.$router.push('/itemdetails/' + item._id);
+    data() {
+        return {
+            items: [],
+            pageReady: false,
+            sellerId: this.$route.params.sellerId
+        }
     },
-    initPage() {
-        this.pageReady = false
-        var query = this.$route.query;
-        // console.log('query:', query)
-        this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, query })
+    created() {
+        this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
                 this.pageReady = true;
+                // console.log('sellerId:', this.sellerId)
             })
-        }
-  },
-  computed: {
-    itemsToDisplay() {
-      return this.$store.getters.items
     },
-    seller() {
-      return this.$store.getters.chefs
+    methods: {
+        showDetails(item) {
+            this.$router.push('/itemdetails/' + item._id);
+        }
+    },
+    computed: {
+        itemsToDisplay() {
+            return (this.$store.getters.items).filter(item => item.seller.sellerId === this.sellerId)
+        }
+    },
+    components: {
+        TagsBar
     }
-  },
-  components: {
-    TagsBar
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .rank {
     display: flex;
     flex-direction: row;
     color: gold;
-    width: 100px;
+    /* width:150px; */
 }
 h1,
 h2 {
     font-weight: normal;
+}
+
+.gif-loading {
+    width: 200px;
+    margin-bottom: 50px;
 }
 
 .chef-details {
