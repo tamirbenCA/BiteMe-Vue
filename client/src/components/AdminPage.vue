@@ -18,7 +18,7 @@
 <script>
 
 import { LOAD_SELLERS } from '../modules/ShopModule.js';
-import { DELETE_SELLER } from '../modules/ShopModule.js';
+// import { DELETE_SELLER } from '../modules/ShopModule.js';
 import { UPDATE_USER } from '../modules/UserModule.js';
 
 import swal from 'sweetalert'

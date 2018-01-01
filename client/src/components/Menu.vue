@@ -39,7 +39,7 @@
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
-import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
+// import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
 
 
 export default {

@@ -5,13 +5,13 @@
         <h2>Items you sold</h2>
         <table>
             <tr>
-                <th>Order Id</th>
+                <!-- <th>Order Id</th> -->
                 <th>Buyer Name</th>
                 <th>Item Name</th>
                 <th>Actions</th>
             </tr>
             <tr v-for="(order, index) in sellersItems" :key="index">
-                <td>{{order._id}}</td>
+                <!-- <td>{{order._id}}</td> -->
                 <td>{{order.buyer.buyerName}}</td>
                 <td>
                     <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
@@ -25,13 +25,13 @@
         <h2>Items you bought</h2>
         <table>
             <tr>
-                <th>Order Id</th>
+                <!-- <th>Order Id</th> -->
                 <th>Seller Name</th>
                 <th>Item Name</th>
                 <th>Delivered</th>
             </tr>
             <tr v-for="(order, index) in buyersItems" :key="index">
-                <td>{{order._id}}</td>
+                <!-- <td>{{order._id}}</td> -->
                 <td>
                     <span v-for="(seller, index) in order.sellers" :key="index">{{seller.sellerName}}</span>
                 </td>
