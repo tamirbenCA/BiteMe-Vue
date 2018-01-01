@@ -51,7 +51,7 @@
                 <div class="left-side">
                     <div class="top">
                         <p class="title">
-                            <router-link :to="`/item/${itemId}/edit`" v-if="chef._id === loggedinUserId">
+                            <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </router-link>
                             {{item.name}}
@@ -192,8 +192,10 @@ export default {
         rankOfMeal() {
             return Math.round(this.$store.getters.currItem.rank)
         },
-        loggedinUserId() {
-            return this.$store.getters.loggedinUser._id
+        loggedinUserIsChef() {
+            if (this.$store.getters.loggedinUser) {
+                if (this.chef._id === this.$store.getters.loggedinUser._id) return true;
+            } else return false;
         }
         // isProcessing(){
         //     // if(this.isProcessing === false)
