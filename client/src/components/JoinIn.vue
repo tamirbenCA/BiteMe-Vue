@@ -1,7 +1,8 @@
 <template>
-    <section class="">
-        <form @submit.prevent="submitNewUser">
+    <section class="join-box">
+        <form @submit.prevent="submitNewUser" >
             <h1>Join Us</h1>
+            
             <input v-model="newUser.name" type="text" placeholder="Name">
             <input v-model="newUser.password" type="password" placeholder="Password">
             <input v-model="newUser.email" type="email" placeholder="Email">
@@ -9,7 +10,7 @@
             <textarea v-model="newUser.about" placeholder="About you"></textarea>
             <input type="file" @change="pushPhoto" />
             <img v-if="newUser.imgUrl" :src="newUser.imgUrl"/>
-            <button>submit</button>
+            <button >submit</button>
         </form>
     </section>
 </template>
@@ -53,11 +54,34 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+button{
+    background-color: #53bf53;
+    border-radius: 5px;
+    width:100px;
+}
+.join-box{
+    margin: 0 auto;
+    margin-top: 50px;
+     margin-bottom: 50px;
+    border:1px solid lightgray;
+    border-radius:5px;
+    max-width:500px;
+    width:100%;
+    background-color: #b5f5b5;
+    
+}
 form {
     margin: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 50%;
+} 
+
+form button{
+    margin: 20px 0 20px 70px;
+
 } 
 form > * {
     padding: 5px;

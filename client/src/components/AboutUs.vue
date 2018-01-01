@@ -12,9 +12,11 @@
     <div class="mission">
       <a name="our-mission" id="our-mission">
         <h1>Our mission</h1>
+        <br>
+         <h2>Make the world taste better</h2>
       </a>
 
-      <h2>Make the world taste better</h2>
+     
       <br>
       <div class="imgs">
         <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234179/Ben_h2kuyh.png" />
@@ -56,6 +58,7 @@ export default {
 .how-work {
   width: 100%;
   max-width: 1000px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -70,7 +73,7 @@ export default {
 
 .mission {
   margin-top: -50px;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 .top-page {

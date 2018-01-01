@@ -7,6 +7,7 @@
             <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
+                     <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
@@ -18,9 +19,14 @@
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-                            <p class="rank">{{item.rank}}
+                                <div class="rank">
+                                    <div v-for="(start,idx) in item.rank" :key="idx">
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            <!-- <p class="rank">{{item.rank}}
                                 <span class="star">★</span>
-                            </p>
+                            </p> -->
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -74,6 +80,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.rank {
+    display: flex;
+    flex-direction: row;
+    color: gold;
+    width: 100px;
+}
 h1,
 h2 {
     font-weight: normal;

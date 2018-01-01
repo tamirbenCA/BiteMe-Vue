@@ -2,10 +2,14 @@
     <section class="tags-bar">
         <nav>
             <ul class="container-tags">
-            <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>{{tag}}</router-link>
+                <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>
+                    <button style="text-transform: capitalize">
+                        {{tag}}
+                    </button>
+
+                </router-link>
             </ul>
         </nav>
-
     </section>
 </template>
 
@@ -21,8 +25,8 @@ export default {
     methods: {
         setTag(tag) {
             this.$emit('resetTag')
-            this.$store.commit({type: SET_TAG, tag})
-            this.$store.dispatch({type: LOAD_SEARCHED_ITMES})
+            this.$store.commit({ type: SET_TAG, tag })
+            this.$store.dispatch({ type: LOAD_SEARCHED_ITMES })
         }
     },
     computed: {
@@ -31,13 +35,25 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch({ type: LOAD_TAGS })    
+        this.$store.dispatch({ type: LOAD_TAGS })
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+button {
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    width: 80px;
+    background-color:#b5f5b5;
+}
+
+button:hover {
+    background-color: lightgreen;
+}
+
 * {
     list-style: none;
 }
@@ -61,19 +77,17 @@ li {
 .li-active {
     color: orange
 }
+
 .router-link-active {
     color: orange
 }
 
 .tags-bar {
-    /* height: 50px; */
     width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* border-bottom: 1px solid black; */
     margin-bottom: 50px;
+    margin-top: 20px;
 }
-
-
 </style>

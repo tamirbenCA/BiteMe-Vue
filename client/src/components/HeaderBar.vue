@@ -3,7 +3,7 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img src="../assets/Byte-Me-Logo.png" />
+                    <img src="../assets/logo.png" />
                 </router-link>
             </div>
             <div>
@@ -12,7 +12,13 @@
             </div>
         </div>
         <div class="header">
-            <div class="btns">
+            <div class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' ">
+                Hello {{loggedinUser.name}}
+            </div>
+            <div class="lgn-user" v-else>
+                <router-link to="/admin" v-if="adminLogged" class="admin"> Hello Admin</router-link>
+            </div>
+            <div class="btns-right">
                 <router-link to="/menu" tag="button" @click.native="setTag" class="header-button">Menu</router-link>
                 <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
                 <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
@@ -21,18 +27,12 @@
                 <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
                 <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
                 <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
-                <div class="icons">
-                    <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
-                    <!-- <i class="fa fa-arrow-circle-left" aria-hidden="true" @click="showChosenItems"></i> -->
-                </div>
+                <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
+
             </div>
+
         </div>
-        <div class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' ">
-            Hello {{loggedinUser.name}}
-        </div>
-        <div class="lgn-user" v-else>
-            <router-link to="/admin" v-if="adminLogged" class="admin"> Hello Admin</router-link>
-        </div>
+
     </section>
 </template>
 
@@ -116,12 +116,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btns-right {
+    width: 100%;
+    margin-right: 200px;
+}
+
+img {
+    width: 80%;
+    height: 80%;
+}
+
 .top-bar {
-    height: 410px;
+    /* height: 410px; */
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 input {
@@ -134,16 +144,18 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 500px;
-    width: 1300px;
-    margin-top: 50px;
+    padding: 7px 0 7px 0;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
 }
 
 .lgn-user {
     text-transform: capitalize;
-    width: 100%;
     display: flex;
-    margin-left: 60px;
+    width: 200px;
+    margin-left: 40px;
+    font-size: 20px;
 }
 
 .icons {
@@ -204,6 +216,7 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    /* width:100%; */
     /* width: 460px; */
 }
 
@@ -216,15 +229,16 @@ h2 {
 }
 
 a {
+
     color: #42b983;
 }
 
 .header-bar {
-    height: 100px;
+
+    padding: 5px;
+    height: 150px;
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
-    margin-bottom: 60px;
 }
 
 input {
@@ -256,7 +270,7 @@ button {
 
 .join-button {
     background-color: lightgreen;
-    color: white;
+    color: gray;
     border-radius: 5px;
 }
 
@@ -272,7 +286,8 @@ button {
 
 
 .router-link-active {
-    color: lightgreen !important;
+    color: gray;
+    /* color: lightgreen !important; */
 }
 
 .orders {
