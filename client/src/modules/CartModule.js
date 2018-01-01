@@ -6,7 +6,7 @@ export const CHECKOUT_SUCCESS = 'cart/CHECKOUT_SUCCESS';
 export const CHECKOUT_ERROR = 'cart/CHECKOUT_ERROR';
 
 import swal from 'sweetalert'
-import shopService from '../services/shopService';
+import ShopService from '../services/ShopService';
 
 
 const state = {
@@ -80,7 +80,7 @@ const actions = {
         }
         // console.log('order', data)
         // commit(CHECKOUT);
-        shopService.addOrder(order)
+        ShopService.addOrder(order)
             .then(_ => {
                 //   if (data.user.balance > data.cartTotal) {
                 //     var newBalance = data.user.balance - data.cartTotal;
