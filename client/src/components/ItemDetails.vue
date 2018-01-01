@@ -1,5 +1,9 @@
 <template>
-    <div class="details-container">
+    <section>
+        <div class="items-container" v-if="!pageReady">
+            <img class="gif-loading" src="../assets/loading.gif">
+        </div>
+    <div class="details-container" v-else>
         <div class="modal" v-if="isActive">
             <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
             <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
@@ -8,7 +12,7 @@
                 <div class="rank-chef">
                     <select @change="rankVal({quantity: +$event.target.value})">
                         <option>0</option>
-                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
                     </select>
                 </div>
                 <button class="midal-btn">Send</button>
@@ -42,10 +46,16 @@
                     </ul>
                 </div>
             </div>
-            <div class="left-side" v-if="!isProcessing">
+            <!-- <div class="left-side" v-if="!isProcessing"> -->
+            <div class="left-side">
                 <div class="left-side">
                     <div class="top">
-                        <p class="title"> {{item.name}}</p>
+                        <p class="title">
+                            <router-link :to="`/item/${itemId}/edit`" v-if="chef._id === loggedinUserId">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </router-link>
+                            {{item.name}}
+                        </p>
                         <div class="rank">
                             <div v-for="(start,idx) in rankOfMeal" :key="idx">
                                 <span>★</span>
@@ -81,8 +91,7 @@
 
         </div>
     </div>
-    <!-- </div>
-     </div> -->
+    </section>
 </template>
 
 <script>
@@ -100,38 +109,44 @@ export default {
 
     data() {
         return {
-            mealsIds: [],
+            // mealsIds: [],
             isProcessing: false,
             isActive: false,
             rank: 0,
-            msg: ''
+            msg: '',
+            pageReady: false,
+            itemId: ''
         }
     },
     watch: {
         '$route.params.itemId'() {
             // this.isProcessing = true;
             // setTimeout(() => {
-            this.mealsIds = [];
-            var itemId = this.$route.params.itemId;
-            this.$store.dispatch({ type: LOAD_SELLER, itemId })
+            // this.mealsIds = [];
+            this.itemId = this.$route.params.itemId;
+            this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             // this.isProcessing = false;
             // }, 500);
         }
 
     },
     created() {
-        this.mealsIds = [];
-        var itemId = this.$route.params.itemId;
+        // this.mealsIds = [];
+        var mealsIds = [];
+        this.itemId = this.$route.params.itemId;
         // console.log(itemId)
-        this.$store.dispatch({ type: LOAD_SELLER, itemId })
+        this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             .then((item) => {
                 // console.log('item', item.seller.commentsOnSellers)
                 item.seller.itemsForSale.forEach((item) =>
-                    this.mealsIds.push(item))
+                    // this.mealsIds.push(item))
+                    mealsIds.push(item))
 
-                this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
+                // this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
+                this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: mealsIds })
                     .then((items) => {
                         // console.log(items)
+                        this.pageReady = true;
                     })
             })
 
@@ -162,8 +177,6 @@ export default {
             // var currUser = this.user
             this.$store.commit({ type: UPDATE_CART, item, quantity });
         }
-
-
     },
 
     computed: {
@@ -178,6 +191,9 @@ export default {
         },
         rankOfMeal() {
             return Math.round(this.$store.getters.currItem.rank)
+        },
+        loggedinUserId() {
+            return this.$store.getters.loggedinUser._id
         }
         // isProcessing(){
         //     // if(this.isProcessing === false)
@@ -198,9 +214,15 @@ export default {
     width: 100px;
 }
 
+.fa-pencil {
+    cursor: pointer;
+    color: black;
+}
+
 .fa-commenting-o {
     font-size: 30px;
     margin-left: -320px;
+    cursor: pointer;
 }
 
 .modal {
@@ -433,6 +455,12 @@ input {
     font-size: 30px;
     margin: 0 auto;
 }
+
+.gif-loading {
+    width: 200px;
+    margin-bottom: 50px;
+}
+
 </style>
 
 

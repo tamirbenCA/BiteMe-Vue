@@ -5,16 +5,18 @@
         <h2>Items you sold</h2>
         <table>
             <tr>
+                <th>Order Id</th>
+                <th>Buyer Name</th>
                 <th>Item Name</th>
                 <th>Actions</th>
             </tr>
             <tr v-for="(order, index) in sellersItems" :key="index">
-                <td>{{order.item.itemName}}</td>
+                <td>{{order._id}}</td>
+                <td>{{order.buyer.buyerName}}</td>
                 <td>
-                    <!-- <button @click="approveOrder(order._id)" :class="order._id" class="button-approve">Approve</button> -->
-                    <!-- <button @click="approveOrder(order._id)" :class="order._id" class="button">Approve</button> -->
-                    <!-- <button @click="declineOrder(order._id)">Decline</button> -->
-                    <button @click="declineOrder(order)">Details</button>
+                    <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
+                </td>
+                <td>
                     <button @click="deliverOrder(order)" :id="order._id" v-if="!!!order.isDelivered">Delivered</button>
                 </td>
             </tr>
@@ -23,15 +25,20 @@
         <h2>Items you bought</h2>
         <table>
             <tr>
+                <th>Order Id</th>
+                <th>Seller Name</th>
                 <th>Item Name</th>
                 <th>Delivered</th>
             </tr>
-            <tr v-for="(item, index) in buyersItems" :key="index">
-                <td>{{item.item.itemName}}</td>
-                <!-- <td>Processing: {{!!item.isProcessing}} -->
-                    <!-- <span style="marginLeft: 50px">Delivered: {{!!item.isDelivered}}</span> -->
-                <!-- </td> -->
-                <td>{{!!item.isDelivered}}</td>
+            <tr v-for="(order, index) in buyersItems" :key="index">
+                <td>{{order._id}}</td>
+                <td>
+                    <span v-for="(seller, index) in order.sellers" :key="index">{{seller.sellerName}}</span>
+                </td>
+                <td>
+                    <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
+                </td>
+                <td>{{!!order.isDelivered}}</td>
             </tr>
         </table>
     </div>
@@ -66,18 +73,6 @@ export default {
         },
     },
     methods: {
-        // approveOrder(itemId) {
-            // console.log('item approved in METHODS _id: ', itemId);
-            // console.log(document.querySelector(`.button-approve`))
-            // console.log(document.querySelector('.' + itemId))
-            // console.log(document.getElementsByClassName(itemId))
-            // var elButton = document.getElementsByClassName(itemId)
-            // elButton.setAttribute('disabled')
-            // document.querySelector().disabled = true;
-        // },
-        declineOrder(item) {
-            console.log('item declined in METHODS _id: ', itemId);
-        },
         deliverOrder(item) {
             // console.log('item deliverd in METHODS _id: ', item._id);
             // console.log(document.getElementsByClassName(item._Id))

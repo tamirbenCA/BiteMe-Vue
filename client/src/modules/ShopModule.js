@@ -93,6 +93,7 @@ const mutations = {
         state.tag = tag;
     },
     [MARK_DELIVERED](state, {orderId}) {
+        state.sellersItems.forEach((item, index) => console.log('line 97:', item, index))
         var orderIdx = state.sellersItems.findIndex(item => item._id === orderId)
         state.sellersItems[orderIdx].isDelivered = Date.now();
     }
@@ -243,7 +244,7 @@ const actions = {
         console.log('shop:', order)
         return ShopService.markDelivered({order})
         .then(_ => {
-            commit({type: MARK_DELIVERED, order})
+            commit({type: MARK_DELIVERED, orderId: order._id})
         })
     },
 }

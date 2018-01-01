@@ -97,6 +97,7 @@ export default {
         },
         logOut() {
             this.$store.dispatch({ type: SIGNOUT })
+            .then(_ => this.$router.push('/'))
         },
         searchByte() {
             clearTimeout(this.keyUpInterval)
