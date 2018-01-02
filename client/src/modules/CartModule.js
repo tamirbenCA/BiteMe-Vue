@@ -1,3 +1,5 @@
+import ShopService from '../services/ShopService';
+
 // export const ADD_TO_CART = 'cart/ADD_TO_CART';
 export const UPDATE_CART = '/UPDATE_CART';
 export const REMOVE_FROM_CART = 'cart/REMOVE_FROM_CART';
@@ -5,8 +7,6 @@ export const CHECKOUT = 'cart/CHECKOUT';
 export const CHECKOUT_SUCCESS = 'cart/CHECKOUT_SUCCESS';
 export const CHECKOUT_ERROR = 'cart/CHECKOUT_ERROR';
 
-import swal from 'sweetalert'
-import ShopService from '../services/ShopService';
 
 
 const state = {
@@ -59,7 +59,8 @@ const mutations = {
 }
 
 const actions = {
-    checkout({ commit }, { data }) {
+    // checkout({ commit }, { data }) {
+    [CHECKOUT]({ commit }, { data }) {
         var sellers = data.cart.map((item) => {
             return item.seller
         })
@@ -85,11 +86,11 @@ const actions = {
                 //   if (data.user.balance > data.cartTotal) {
                 //     var newBalance = data.user.balance - data.cartTotal;
                 commit(CHECKOUT_SUCCESS);
-                swal({
-                    title: "Thank You!!!!",
-                    icon: "success",
-                    text: "Hope you enjoy",
-                });
+                // swal({
+                //     title: "Thank You!!!!",
+                //     icon: "success",
+                //     text: "Hope you enjoy",
+                // });
                 //   } else if (data.user.balance < data.cartTotal) {
                 //     var cartDifference = data.cartTotal - data.user.balance
                 //     commit(CHECKOUT_SUCCESS);

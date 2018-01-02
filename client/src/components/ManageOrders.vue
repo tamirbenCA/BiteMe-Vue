@@ -3,6 +3,7 @@
         <h1>Manage Orders</h1>
 
         <h2>Items sold</h2>
+                <!-- {{sellersItems}} -->
         <table>
             <tr>
                 <!-- <th>Order Id</th> -->
@@ -17,7 +18,7 @@
                     <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
                 </td>
                 <td>
-                    <button @click="deliverOrder(order)" :id="order._id" v-if="!!!order.isDelivered">Delivered</button>
+                    <button @click="deliverOrder(order)" :id="order._id" v-if="!!!order.isDelivered">Shipped</button>
                 </td>
             </tr>
         </table>
@@ -28,7 +29,7 @@
                 <!-- <th>Order Id</th> -->
                 <th>Seller Name</th>
                 <th>Item Name</th>
-                <th>Delivered</th>
+                <th>Shipped</th>
             </tr>
             <tr v-for="(order, index) in buyersItems" :key="index">
                 <!-- <td>{{order._id}}</td> -->
@@ -38,7 +39,8 @@
                 <td>
                     <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
                 </td>
-                <td>{{!!order.isDelivered}}</td>
+                <td v-if="!!order.isDelivered">{{ (new Date(order.isDelivered)).toLocaleString('en-GB') }}</td>
+                <td v-else>{{!!order.isDelivered}}</td>
             </tr>
         </table>
     </div>

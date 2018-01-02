@@ -1,36 +1,22 @@
 <template>
     <section class="sellers-container">
+        <h1>OUR SELLERS</h1>
+        <h4>CLICK ON THEM TO SEE WHAT THEY ARE COOKING</h4>
 
-        <!-- <table class="sellers-list"> -->
-        <!-- <tr> -->
-        <div>
-            <h1>OUR SELLERS</h1>
-             <h4>CLICK ON THEM TO SEE WHAT THEY ARE COOKING</h4>
-        </div>
-        <!-- <th>seller name</th> -->
-        <!-- <th>seller address</th> -->
-        <!-- </tr> -->
-        <div class="sellers">
-            <!-- <tr v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller"> -->
-            <div v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller">
-                <img class="slr-img" :src="seller.imgUrl" alt="">
-
-            </div>
-        </div>
-
-        <!-- <td>{{seller.name}}</td> -->
-
-        <!-- <td>{{seller.address.city}}</td> -->
-        <!-- </tr> -->
-        <!-- </table> -->
-        <!-- <ul> -->
-        <!-- <li class="user" v-for="(seller, idx) in sellers" :key="idx"> -->
-        <!-- <img class="image" :src="seller.imgUrl"> -->
-        <!-- <div class="details" style="text-transform: capitalize"> {{seller.name}} </div> -->
-        <!-- <div class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</div> -->
-        <!-- <router-link :to="`/items/seller/${seller._id}`" tag="button">View This Seller Items</router-link> -->
-        <!-- </li> -->
-        <!-- </ul> -->
+        <table class="sellers-list">
+            <tr>
+                <!-- <th colspan="2">seller name</th> -->
+                <th>seller name</th>
+                <th>seller address</th>
+                <th>available meals</th>
+            </tr>
+            <tr v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller">
+                <!-- <td><img class="seller-img" :src="seller.imgUrl"></td> -->
+                <td>{{seller.name}}</td>
+                <td>{{seller.address.city}}</td>
+                <td>{{seller.itemsForSale.length}}</td>
+            </tr>
+        </table>
     </section>
 </template>
 
@@ -72,6 +58,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .sellers-container {
     display: flex;
     justify-content: center;
@@ -83,12 +70,12 @@ h1{
     margin-bottom: 50px;
 }
 
-.sellers {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.sellers-list {
+    /* display: flex; */
+    /* flex-direction: column;; */
+    /* justify-content: center; */
+    /* justify-content: space-around; */
     width: 100%;
-    
 }
 
 th,
@@ -97,16 +84,15 @@ td {
     text-transform: capitalize;
 }
 
-.slr-img {
-    background-size: cover;
-    background-position: center;
-    width: 50%;
-    height: 70%;
+.seller-img {
+    /* background-size: cover; */
+    /* background-position: center; */
+    width: 50px;
+    height: 50px;
 }
 
 .tr-seller {
     cursor: pointer;
-    margin-right: 150px;
 }
 
 tr {

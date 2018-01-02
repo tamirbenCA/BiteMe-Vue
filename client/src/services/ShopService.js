@@ -100,15 +100,9 @@ function getChefById(chefId) {
 function loadSellersItems(sellerId) {
     // console.log('sellers id in service.loadSellers(): ', sellerId)
     return axios.get(`${URL}/data/user/${sellerId}/orders/asseller`)
-    // return new Promise ((resolve, reject) => {
-    //     setTimeout(() => resolve([{name:'toApproveItems0',_id: 0},{name: 'toApproveItems1', _id: 1}])) 
-    // })
 }
 
 function loadBuyersItems(buyerId) {
-    // return new Promise((resolve, reject) => {
-    // setTimeout(() => resolve([{ name: 'orderStatusItems0', _id: 0 }, { name: 'orderStatusItems1', _id: 1 }]))
-    // })
     return axios.get(`${URL}/data/user/${buyerId}/orders/asbuyer`)
 }
 

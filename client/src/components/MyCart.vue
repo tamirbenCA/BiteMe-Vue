@@ -58,9 +58,11 @@ import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
 import { mapGetters } from 'vuex';
-import { REMOVE_FROM_CART } from '../modules/CartModule.js';
-import { UPDATE_CART } from '../modules/CartModule.js';
-import checkout from '../modules/CartModule.js';
+// import { REMOVE_FROM_CART } from '../modules/CartModule.js';
+import { REMOVE_FROM_CART, UPDATE_CART, CHECKOUT } from '../modules/CartModule.js';
+// import { UPDATE_CART } from '../modules/CartModule.js';
+// import checkout from '../modules/CartModule.js';
+// import { CHECKOUT } from '../modules/CartModule.js';
 
 
 
@@ -95,7 +97,14 @@ picker: null,
                 this.$router.push('/login');
             }
             this.user = loggedinUser.name;
-            this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
+            this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } })
+                .then(_ => {
+                    swal({
+                    title: "Thank You!!!!",
+                    icon: "success",
+                    text: "Hope you enjoy",
+                });
+            })
         },
 
         backToMenu() {
