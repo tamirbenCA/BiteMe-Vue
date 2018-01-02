@@ -49,7 +49,6 @@ function getItems() {
 }
 
 
-
 function getSellers() {
     // console.log('inside getitmes')
     return axios
@@ -190,5 +189,5 @@ export default {
     uploadImage,
     getSellers,
     deleteSeller,
-    changeUserActivity
+    changeUserActivity,
 } 

@@ -49,13 +49,24 @@ import { LOAD_SELLERS_ITEMS , LOAD_BUYERS_ITEMS , MARK_DELIVERED} from '../modul
 // import { LOAD_BUYERS_ITEMS } from '../modules/ShopModule';
 // import { APPROVE_ITEM } from '../modules/ShopModule';
 
-
 export default {
     data() {
         return {
             userId: '',
         }
     },
+    // beforeRouteEnter(to, from, next) {
+    //     console.log('to', to)
+    //     console.log('from', from)
+    //     console.log('userId in store:', this.$store.getters.userId)
+    //     // if (to.params.userid === this.$store.getters.userId) {
+    //         // next()
+    //     // } else {
+    //         // console.log('in else')
+    //         // next(false)
+    //         // this.$router.push('/')
+    //         // }
+    // },
     created() {
         this.userId = this.$route.params.userid
         this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});
