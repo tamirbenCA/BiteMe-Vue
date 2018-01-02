@@ -96,7 +96,7 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 80%;
+    width: 100%;
     margin: auto;
     margin-bottom: 50px;
 }
@@ -122,7 +122,7 @@ td {
 img {
     background-size: cover;
     background-position: center;
-    width: 150px;
+    width: 180px;
     height: 180px;
 }
 
