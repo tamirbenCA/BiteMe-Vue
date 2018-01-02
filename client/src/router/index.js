@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 import HomePage from '@/components/HomePage'
 import Menu from '@/components/Menu'
@@ -61,7 +62,17 @@ export default new Router({
     {
       path: '/manageorders/:userid',
       name: 'ManageOrders',
-      component: ManageOrders
+      component: ManageOrders,
+      beforeEnter: (to, from, next) => {
+        // console.log('to:', to)
+        if (to.params.userid === store.getters.userId) {
+          next()
+        } else {
+          console.log('forbidden access');
+          console.log(this)
+          next(false) 
+        }
+      }
     },
     // {
     //   path: '/map',
@@ -71,7 +82,18 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: AdminPage
+      component: AdminPage,
+      beforeEnter: (to, from, next) => {
+        // console.log('to:', to)
+        // console.log('store:', store.getters.loggedinUser.itemsForSale)
+        if (store.getters.isAdmin) {
+          next()
+        } else {
+          console.log('forbidden access');
+          next(false)
+          this.router.push('/')
+          }
+        }
     },
     {
       path: '/aboutus',
@@ -96,7 +118,17 @@ export default new Router({
     {
     path: '/item/:itemId/edit',
     name: 'editItem',
-    component: EditItem
+    component: EditItem,
+    beforeEnter: (to, from, next) => {
+      // console.log('to:', to)
+      // console.log('store:', store.getters.loggedinUser.itemsForSale)
+      if (store.getters.loggedinUser.itemsForSale.includes(to.params.itemId)) {
+        next()
+      } else {
+        console.log('forbidden access');
+        next(false) 
+        }
+      }
     },
     {
       path: '/sellerslist',
