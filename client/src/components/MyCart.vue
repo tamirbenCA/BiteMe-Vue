@@ -110,7 +110,7 @@ export default {
             }, 3000);
         },
         backToMenu() {
-            this.$router.push('/menu');
+            this.$router.push('/meals');
         },
         deleteItem(item) {
             console.log(item)
@@ -130,6 +130,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.fa-hand-o-left{
+    cursor: pointer;
+}
 .date{
     padding-right: 5px;
 }
