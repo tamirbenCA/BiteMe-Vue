@@ -14,7 +14,7 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p>{{item.seller.sellerName}}</p>
+                                <p style=" text-transform: capitalize;">{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -155,6 +155,8 @@ ul {
     padding-left: 15px;
     justify-content: center;
     justify-content: space-around;
+    background-color: white;
+    box-sizing: border-box;
 }
 
 .img-item {

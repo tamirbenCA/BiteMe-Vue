@@ -1,16 +1,21 @@
 <template>
     <section>
-
         <div v-if="cartTotal === 0">
             <p class="title">No Items To Show</p>
         </div>
+        <!-- <p>Date: <input type="text" id="datepicker"></p> -->
         <div class="box" v-else>
-
             <div class="header">
-                <div class="top-header">
-                    <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
-                    <p style="margin:0">CONTINUE SHOPPING</p>
-                </div>
+                <!-- <div class="top-header"> -->
+                    <div class="cnt-shop">
+                        <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
+                        <p style="margin:0">CONTINUE SHOPPING</p>
+                    </div>
+                    <div class="date">
+                        <p>Date: <input type="date" id="datepicker"></p>
+                    </div>
+
+                <!-- </div> -->
             </div>
             <div class="cart">
                 <div class="cart-header">
@@ -24,7 +29,7 @@
                 <div class="item-container">
                     <div class="item" v-for="(item, idx) in cart" :key="idx">
                         <div class="item-back">
-                            <img :src="item.imgUrl" alt="">
+                            <img class="meal" :src="item.imgUrl" alt="">
                             <div class="item-info">
                                 <p style="text-transform: uppercase;">{{item.name}}</p>
                                 <p style="text-transform: uppercase;">{{item.desc}}</p>
@@ -62,9 +67,6 @@ import { REMOVE_FROM_CART } from '../modules/CartModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
 import checkout from '../modules/CartModule.js';
 
-
-
-
 export default {
     name: 'myCart',
     data() {
@@ -72,10 +74,7 @@ export default {
             user: null,
             total: 0,
             items: [],
-picker: null,
-        picker2: null,
-            e2: null,
-
+            isActive: false
         }
     },
     created() {
@@ -89,6 +88,9 @@ picker: null,
         },
     },
     methods: {
+        runFunc() {
+            datepicker();
+        },
         checkout() {
             var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
             if (!loggedinUser) {
@@ -96,8 +98,15 @@ picker: null,
             }
             this.user = loggedinUser.name;
             this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
-        },
+            this.showModal();
 
+        },
+        showModal() {
+            this.isActive = true;
+            setTimeout(function() {
+                this.isActive = false;
+            }, 3000);
+        },
         backToMenu() {
             this.$router.push('/menu');
         },
@@ -111,13 +120,23 @@ picker: null,
             this.$store.commit({ type: UPDATE_CART, item, quantity });
         }
     },
- 
+
 
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.date{
+    padding-right: 5px;
+}
+.goodbye-img {
+    width: 500px;
+    height: 500px;
+    border-radius: 250px;
+}
+
 .ck-out {
     background-color: lightgreen;
     height: 50px;
@@ -130,9 +149,15 @@ picker: null,
     cursor: pointer;
 }
 
+.cnt-shop{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width:25%;
+}
 .top-header {
     display: flex;
-    width: 250px;
+    /* width: 250px; */
     justify-content: space-around;
     cursor: pointer;
 }
@@ -194,11 +219,10 @@ picker: null,
     margin: auto;
 }
 
-img {
+.meal {
     background-size: cover;
     background-position: center;
     width: 200px;
-
     height: 150px;
 }
 

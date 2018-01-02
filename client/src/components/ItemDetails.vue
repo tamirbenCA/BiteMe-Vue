@@ -29,7 +29,7 @@
                                 <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </router-link>
-                                <p style="text-transform: capitalize; font-size:20px;">{{item.name}}</p>
+                                <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p>
 
                             </p>
                             <div class="rank">
@@ -38,10 +38,10 @@
                                 </div>
                             </div>
                             <img class="item" :src="item.imgUrl" />
-                            <p>{{item.desc}}</p>
+                            <p style="text-transform: capitalize; margin:10px" >{{item.desc}}</p>
                         </div>
                         <div class="price" style="background-color:#ffffffa8">
-                            <p> Price: {{item.price}}$ </p>
+                            <p style="margin-bottom:10px"> Price: {{item.price}}$ </p>
                             <div class="price-btm">
                                 <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
                                     <option>0</option>
@@ -63,7 +63,9 @@
                             <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
                                 <div class="cmt-div">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    {{comment.comment}}
+                                    <p style="text-transform: capitalize;">{{comment.userName}} :</p>
+                                    <p style="text-transform: capitalize;"> {{comment.comment}}</p>
+                                   
                                     <div class="rank">
                                         <div v-for="(start,idx) in comment.rank" :key="idx">
                                             <span>★</span>
@@ -88,7 +90,7 @@
                         <ul>
                             <li style="display: flex; justify-content: center;" v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
                                 <div class="more-item">
-                                    <div style="margin:10px">{{meal.name}}</div>
+                                    <div style="margin:10px;">{{meal.name}}</div>
                                     <div><img class="meal" :src="meal.imgUrl" /></div>
                                 </div>
 
@@ -170,16 +172,19 @@ export default {
             });
         },
         addComment() {
-            console.log('172172')
+
             this.isActive = true;
             console.log(this.isActive)
         },
         sendComment(itemId, comment) {
             if (comment !== '') {
-                // var quantity = this.rank.quantity
-                // console.log(itemId, comment, this.rank.quantity)
-                this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity });
-                this.isActive = false;
+                if (!this.$store.getters.loggedinUser.name) this.$router.push('/login');
+                else {
+                    this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity, userName: this.$store.getters.loggedinUser.name });
+                    this.isActive = false;
+                }
+         
+
             }
 
         },
@@ -245,6 +250,8 @@ export default {
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     padding: 9px;
+        align-items: center;
+
 }
 
 .comment-top {
@@ -382,19 +389,19 @@ h2 {
 .price {
     border: 1px solid lightgray;
     padding-bottom: 40px;
-    padding-top: 40px;
+    /* padding-top: 20px; */
     /* width: 80%; */
 }
 
 .left-side {
     display: flex;
     flex-direction: column;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     padding: 20px;
     /* margin-left: 80px; */
     border-radius: 5px;
     justify-content: space-around;
-    height: 600px;
+    height: 650px;
 }
 
 .chef-details {
@@ -423,7 +430,7 @@ li {
 
 .top {
     /* border-bottom: 1px solid lightgray; */
-    margin-bottom: 15px;
+    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;

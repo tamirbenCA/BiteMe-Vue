@@ -65,18 +65,18 @@ const actions = {
         })
 
         var items = data.cart.map((item) => {
-            return {itemId:item._id,itemName:item.name,seller:item.seller}
+            return { itemId: item._id, itemName: item.name, seller: item.seller }
         })
-        console.log('sellerssellerssellers',data)
+        console.log('sellerssellerssellers', data)
         var order = {
             buyer: {
                 buyerId: data.user._id,
                 buyerName: data.user.name
             },
             isDelivered: false,
-            items:items,
+            items: items,
             totalSum: data.cartTotal,
-            sellers:sellers
+            sellers: sellers
         }
         // console.log('order', data)
         // commit(CHECKOUT);
@@ -85,11 +85,6 @@ const actions = {
                 //   if (data.user.balance > data.cartTotal) {
                 //     var newBalance = data.user.balance - data.cartTotal;
                 commit(CHECKOUT_SUCCESS);
-                swal({
-                    title: "Thank You!!!!",
-                    icon: "success",
-                    text: "Hope you enjoy",
-                });
                 //   } else if (data.user.balance < data.cartTotal) {
                 //     var cartDifference = data.cartTotal - data.user.balance
                 //     commit(CHECKOUT_SUCCESS);

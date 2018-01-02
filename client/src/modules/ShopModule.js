@@ -37,10 +37,8 @@ const state = {
 }
 const mutations = {
     [UPDATE_ITEM](state, payload) {
-        console.log(payload.comment)
-        console.log(payload.itemId)
-        console.log(payload.quantity)
-        ShopService.addComment(payload.itemId, payload.comment,payload.quantity)
+        console.log(payload)
+        ShopService.addComment(payload.itemId, payload.comment,payload.quantity, payload.userName)
     },
     [DELETE_SELLER](state, payload) {
         console.log('payload._id44', payload.sellerId)

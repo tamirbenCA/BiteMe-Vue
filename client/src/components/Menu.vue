@@ -176,6 +176,8 @@ ul {
     justify-content: center;
     justify-content: space-around;
         background-color: white;
+            box-sizing: border-box;
+
 
 }
 

@@ -4,19 +4,22 @@
         <!-- <table class="sellers-list"> -->
         <!-- <tr> -->
         <div>
-            <h1>OUR SELLERS</h1>
-             <h4>CLICK ON THEM TO SEE WHAT THEY ARE COOKING</h4>
+            <p style="font-size:40px;">OUR SELLERS</p>
+            <p style="font-size:20px;">CLICK ON THEM TO SEE WHAT THEY ARE COOKING</p>
         </div>
         <!-- <th>seller name</th> -->
         <!-- <th>seller address</th> -->
         <!-- </tr> -->
-        <div class="sellers">
+        <!-- <div class="sellers"> -->
             <!-- <tr v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller"> -->
-            <div v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)" class="tr-seller">
-                <img class="slr-img" :src="seller.imgUrl" alt="">
+            <ul class="sellers">
+                <li v-for="(seller, idx) in sellers" :key="idx" @click="sellerPage(seller._id)">
+                    <img  :src="seller.imgUrl" alt="">
+                    <p style="text-transform: capitalize;font-size:20px">{{seller.name}}</p>
+                </li>
 
-            </div>
-        </div>
+            </ul>
+        <!-- </div> -->
 
         <!-- <td>{{seller.name}}</td> -->
 
@@ -57,7 +60,7 @@ export default {
     created() {
         this.$store.dispatch({ type: LOAD_SELLERS })
             .then((items) => {
-                // console.log('items20', items)
+                console.log('items20', items)
             })
     },
     computed: {
@@ -79,29 +82,39 @@ export default {
     /* margin: 25px 0px; */
 }
 
-h1{
+h1 {
     margin-bottom: 50px;
 }
 
+li{
+    cursor: pointer;
+    list-style: none;
+}
+
+p{
+    margin-bottom: 50px;
+}
 .sellers {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 100%;
-    
+    width: 80%;
+    margin: auto;
+    margin-bottom: 50px;
 }
 
-th,
+
+/* th,
 td {
     width: 30%;
     text-transform: capitalize;
-}
+} */
 
-.slr-img {
+img {
     background-size: cover;
     background-position: center;
-    width: 50%;
-    height: 70%;
+    width: 150px;
+    height: 180px;
 }
 
 .tr-seller {

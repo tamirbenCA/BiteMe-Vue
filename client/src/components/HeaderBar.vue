@@ -6,10 +6,7 @@
                     <img src="../assets/logo.png" />
                 </router-link>
             </div>
-            <div>
-                <input v-model="searchValue" type="text" placeholder="What you want to byte?" @keyup="searchByte" autofocus>
 
-            </div>
         </div>
         <div class="header">
             <div class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' ">
@@ -32,7 +29,9 @@
             </div>
 
         </div>
-
+        <div>
+            <input style="margin-top: 50px;" v-model="searchValue" type="text" @keyup="searchByte" autofocus>
+        </div>
     </section>
 </template>
 
@@ -97,7 +96,7 @@ export default {
         },
         logOut() {
             this.$store.dispatch({ type: SIGNOUT })
-            .then(_ => this.$router.push('/'))
+                .then(_ => this.$router.push('/'))
         },
         searchByte() {
             clearTimeout(this.keyUpInterval)
@@ -237,7 +236,7 @@ a {
 .header-bar {
 
     padding: 5px;
-    height: 150px;
+    height: 250px;
     display: flex;
     flex-direction: column;
 }
@@ -254,6 +253,10 @@ input {
     background-repeat: no-repeat;
     background-position: left center;
     outline: 0;
+    height:35px;
+    margin-top: 20px;
+    width:500px;
+    border: 1px solid black;
 }
 
 button {
@@ -267,8 +270,8 @@ button {
     cursor: pointer;
     outline: none;
     font-size: 17px;
-    font-weight:bold;
-     box-shadow: 1px 2px 2px 0px black;
+    font-weight: 600;
+    box-shadow: 1px 2px 2px 0px black;
 }
 
 .join-button {
@@ -288,10 +291,10 @@ button {
 
 
 
-.router-link-active {
+/* .router-link-active {
     color: gray;
     /* color: lightgreen !important; */
-}
+/* }  */
 
 .orders {
     display: flex;

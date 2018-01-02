@@ -47,7 +47,9 @@ button {
     border: none;
     height: 40px;
     width: 80px;
-    background-color:#b5f5b5;
+    background-color: #b5f5b5;
+    font-weight: 600;
+    box-shadow: 1px 2px 2px 0px black;
 }
 
 button:hover {
