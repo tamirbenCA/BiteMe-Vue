@@ -13,6 +13,7 @@
                <input v-model="user.email" type="text" placeholder="Email">
                <input v-model="user.password" type="password" placeholder="Password">
                <button>submit</button>
+               <p>Don't have an account? <router-link to="/join">Click here</router-link></p>
            </form>
        </section>
 </template>
@@ -33,20 +34,11 @@ export default {
     },
     methods: {
         logIn(user) {
-
-            // authService.signin(user).then(res => {
-            //     this.$store.commit(SIGN_IN, res);
-            //     this.$router.go(-1);
-            // }).catch(err => {
-            //     err.json().then(res => this.error = res.error);
-            // })
-            // console.log('user is: ', this.user)
             this.$store.dispatch({ type: SIGNIN, signinDetails: this.user })
                 .then(res => {
                     this.$router.go(-1);
                 })
                 .catch(err => {
-                    // alert('Wrong email / password')
                     swal({
                         text: 'Wrong email / password',
                         icon: 'error'

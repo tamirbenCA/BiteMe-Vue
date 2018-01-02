@@ -16,12 +16,13 @@
                 <router-link to="/admin" v-if="adminLogged" class="admin"> Hello Admin</router-link>
             </div>
             <div class="btns-right">
-                <router-link to="/menu" tag="button" @click.native="setTag" class="header-button">Menu</router-link>
+                <router-link to="/meals" tag="button" @click.native="setTag" class="header-button">Meals</router-link>
                 <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
                 <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
                 <router-link to="/sellerslist" tag="button" class="header-button">Sellers List</router-link>
-                <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link>
-                <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link>
+                <!-- <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link> -->
+                <!-- <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link> -->
+                <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
                 <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
                 <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
                 <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>

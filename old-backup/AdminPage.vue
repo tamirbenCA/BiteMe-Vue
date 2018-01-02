@@ -1,29 +1,18 @@
 <template>
-    <table>
-        <tr>
-            <th>seller name</th>
-            <th>seller's address</th>
-            <th>seller's # of items</th>
-            <!-- <th>seller's # of orders</th> -->
-            <th>actions</th>
-        </tr>
-        <tr class="user" v-for="(seller, idx) in sellers" :key="idx">
-            <!-- <td>  -->
-                <!-- <img class="image" :src="seller.imgUrl"> -->
-                <!-- <span class="details" style="text-transform: capitalize"> {{seller.name}}</span> -->
-            <td class="details" style="text-transform: capitalize"> {{seller.name}}</td>
-            <td class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</td>
-            <td class="details" style="text-transform: capitalize">{{seller.itemsForSale.length}}</td> 
-            <td>
-                <button v-if="seller.isActive" style="background-color:green" class="dis-btn" @click="disableSeller(seller)">
-                    Disable
-                </button>
-                <button v-else style="background-color:red" class="dis-btn" @click="disableSeller(seller)">
-                    Enable
-                </button>
-            </td>
-        </tr>
-    </table>
+    <ul>
+        <li class="user" v-for="(seller, idx) in sellers" :key="idx">
+            <img class="image" :src="seller.imgUrl">
+            <div class="details" style="text-transform: capitalize"> {{seller.name}} </div>
+            <div class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</div>
+
+            <button v-if="seller.isActive" style="background-color:green" class="dis-btn" @click="disableSeller(seller)">
+                Disable
+            </button>
+            <button v-else style="background-color:red" class="dis-btn" @click="disableSeller(seller)">
+                Enable
+            </button>
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -71,49 +60,42 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .details {
+.details {
     width: 200px;
     text-align: start;
-} */
+}
 
 .dis-btn {
     width: 100px;
     height: 30px;
     border: none;
     border-radius: 10px;
-    color: white;
 }
-/* 
+
 .image {
     background-size: cover;
     background-position: center;
     width: 120px;
     height: 90px;
-} */
+}
 
-/* .user {
+.user {
     width: 50%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-bottom: 20px;
-} */
+}
 
-/* ul {
+ul {
     list-style: none;
     margin-top: 50px;
-} */
+}
+
+
 
 img {
     width: 10%;
     height: 10%;
 }
-
-th,
-td {
-    width: 30%;
-    text-transform: capitalize;
-    padding: 10px;
-}
-
 </style>

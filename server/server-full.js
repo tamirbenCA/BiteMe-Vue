@@ -162,8 +162,9 @@ app.get('/data/user/:id/orders/asseller', function (req, res) {
 		const collection = db.collection(objType);
 
 	// console.log('userid: ' , id)
-	collection.find({ "seller.sellerId": id}).toArray((err, orders) => {
-			// console.log('*****', orders, '******')
+	// console.log('sellers: ' , collection)
+	collection.find({ 'sellers.sellerId': id}).toArray((err, orders) => {
+			console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
@@ -186,7 +187,7 @@ app.get('/data/user/:id/orders/asbuyer', function (req, res) {
 		const collection = db.collection(objType);
 		
 	// console.log('userid: ' , id)
-	collection.find({ "buyer.buyerId": id}).toArray((err, orders) => {
+	collection.find({ 'buyer.buyerId': id}).toArray((err, orders) => {
 			// console.log('*****', orders, '******')
 			if (err) {
 				cl('Cannot get you a list of ', err)

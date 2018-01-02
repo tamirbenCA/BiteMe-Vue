@@ -1,3 +1,5 @@
+import ShopService from '../services/ShopService';
+
 // export const ADD_TO_CART = 'cart/ADD_TO_CART';
 export const UPDATE_CART = '/UPDATE_CART';
 export const REMOVE_FROM_CART = 'cart/REMOVE_FROM_CART';
@@ -5,8 +7,6 @@ export const CHECKOUT = 'cart/CHECKOUT';
 export const CHECKOUT_SUCCESS = 'cart/CHECKOUT_SUCCESS';
 export const CHECKOUT_ERROR = 'cart/CHECKOUT_ERROR';
 
-import swal from 'sweetalert'
-import ShopService from '../services/ShopService';
 
 
 const state = {
@@ -59,7 +59,8 @@ const mutations = {
 }
 
 const actions = {
-    checkout({ commit }, { data }) {
+    // checkout({ commit }, { data }) {
+    [CHECKOUT]({ commit }, { data }) {
         var sellers = data.cart.map((item) => {
             return item.seller
         })
