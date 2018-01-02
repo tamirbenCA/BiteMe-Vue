@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-      <header-bar/>
-      <router-view/>
-      <footer>
-        <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May & Ben</footer>
+
+    <header-bar/>
+    <router-view/>
+    <footer>
+      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May & Ben</footer>
   </div>
 </template>
 
@@ -22,6 +23,20 @@ export default {
 </script>
 
 <style>
+body::after {
+  background: url("./assets/pexels-photo-616401.jpeg");
+  background-repeat: no-repeat;
+  content: "";
+  opacity: 0.45;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+}
+
 #app {
   text-align: center;
   color: #2c3e50;

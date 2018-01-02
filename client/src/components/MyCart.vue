@@ -5,6 +5,7 @@
             <p class="title">No Items To Show</p>
         </div>
         <div class="box" v-else>
+
             <div class="header">
                 <div class="top-header">
                     <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
@@ -47,32 +48,12 @@
             </div>
 
         </div>
-        <!-- <ul class="dropdown" role="menu" v-else> -->
-        <!-- <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
-                                                                                                        <! <button class="cnt-shop" @click.stop="backToMenu">Continue shopping</button> -->
-        <!-- <li v-for="item in cart">
-                                                                                                            <p style="font-size:30px;text-transform: capitalize">{{item.name}}</p>
-
-                                                                                                            <img :src="item.imgUrl" />
-                                                                                                            <div class="item-info">
-                                                                                                                <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
-                                                                                                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                                    <option value=""></option>
-                                                                                                                    <option v-for="n in 10">{{n}}</option> -->
-        <!-- </select>
-                                                                                                                <p class="price">Price:{{item.price}}$</p>
-
-                                                                                                            </div>
-
-                                                                                                        </li> -->
-        <!-- <p class="crtTtl">Cart Total:{{cartTotal}}$</p>
-                                                                                                        <button class="ck-out" @click="checkout">Checkout</button> -->
-        <!-- </ul>  -->
 
     </section>
 </template>
 
 <script>
+
 import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
@@ -84,14 +65,17 @@ import checkout from '../modules/CartModule.js';
 
 
 
-
 export default {
     name: 'myCart',
     data() {
         return {
             user: null,
             total: 0,
-            items: []
+            items: [],
+picker: null,
+        picker2: null,
+            e2: null,
+
         }
     },
     created() {
@@ -127,6 +111,7 @@ export default {
             this.$store.commit({ type: UPDATE_CART, item, quantity });
         }
     },
+ 
 
 }
 </script>
@@ -177,13 +162,13 @@ export default {
 }
 
 .header {
-    border: 1px solid lightgray;
+    border: 1px solid #efe9e991;
     height: 100px;
     width: 100%;
     display: flex;
     height: 50px;
     padding-top: 10px;
-    border-radius: 5px 5px 0  0 ;
+    border-radius: 5px 5px 0 0;
 }
 
 .cart {
@@ -193,7 +178,7 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border-radius:0 0 5px    5px    ;
+    border-radius: 0 0 5px 5px;
 
     /* font-weight:bold; */
 }
@@ -224,7 +209,7 @@ img {
 }
 
 li {
-    background-color: white;
+    /* background-color: white; */
 }
 
 
