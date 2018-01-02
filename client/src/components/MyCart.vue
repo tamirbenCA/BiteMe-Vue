@@ -196,6 +196,7 @@ export default {
     height: 50px;
     padding-top: 10px;
     border-radius: 5px 5px 0 0;
+    justify-content: space-between;
 }
 
 .cart {
