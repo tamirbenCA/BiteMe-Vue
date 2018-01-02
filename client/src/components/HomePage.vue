@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="top-page">
-      <carousel>
+      <!-- <carousel>
         <slide>
           <img src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514884248/pexels-photo-209459_azskkd.jpg" alt="">
         </slide>
@@ -17,7 +17,7 @@
         <slide>
           <img src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514884813/pexels-photo-691114_xs5kjf.jpg" alt="">
         </slide>
-      </carousel>
+      </carousel> -->
       <div class="msg">
         <h1>HOME-COOKED</h1>
         <h1>HEALTHY MEALS</h1>
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { Carousel, Slide } from 'vue-carousel';
+// import { Carousel, Slide } from 'vue-carousel';
 
 export default {
   name: 'HomePage',
-  components: {
-    Carousel,
-    Slide
-  }
+  // components: {
+  //   Carousel,
+  //   Slide
+  // }
 }
 </script>
 
