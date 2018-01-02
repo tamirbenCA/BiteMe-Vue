@@ -4,14 +4,14 @@
             <img class="gif-loading" src="../assets/loading.gif">
         </div>
         <div class="details-container" v-else>
-
-            <div class="modal" v-if="isActive">
+            <div class="modal" v-if="isActive === true">
                 <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
                 <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
                     <p>Add a comment</p>
                     <input v-model="msg" type="text">
                     <div class="rank-chef">
-                        <select @change="rankVal({quantity: +$event.target.value})">
+                        Rank the meal
+                        <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
                             <option>0</option>
                             <option v-for="(n, index) in 5" :key="index">{{n}}</option>
                         </select>
@@ -21,17 +21,16 @@
             </div>
 
             <div class="top-page">
-
                 <!-- <div class="left-side" v-if="!isProcessing"> -->
                 <div class="cover">
                     <div class="left-side">
-
                         <div class="top">
                             <p class="title">
                                 <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </router-link>
-                                {{item.name}}
+                                <p style="text-transform: capitalize; font-size:20px;">{{item.name}}</p>
+
                             </p>
                             <div class="rank">
                                 <div v-for="(start,idx) in rankOfMeal" :key="idx">
@@ -41,7 +40,7 @@
                             <img class="item" :src="item.imgUrl" />
                             <p>{{item.desc}}</p>
                         </div>
-                        <div class="price" style="background-color:white">
+                        <div class="price" style="background-color:#ffffffa8">
                             <p> Price: {{item.price}}$ </p>
                             <div class="price-btm">
                                 <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
@@ -49,14 +48,14 @@
                                     <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
                                 </select>
-                                <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem" style="font-size:30px"></i>
+                                <!-- <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem" style="font-size:30px"></i> -->
                             </div>
                         </div>
 
                     </div>
                     <div class="comments">
                         <div class="comment-top">
-                            <h1>Reviews</h1>
+                            <h1 style="font-size:30px">Reviews</h1>
                             <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
                         </div>
                         <ul class="comments-box">
@@ -77,14 +76,15 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <div class="chef-details" style="background-color:white">
-                        <h1 style="color:black"> About chef</h1>
-                        <p> Meet {{chef.name}} </p>
-                        <img class="chef" :src="chef.imgUrl" />
+                    <div class="chef-details" style="background-color:#ffffffa8">
+                        <!-- <h1 style="color:black"> About chef</h1> -->
+                        <p style="font-size:20px; text-transform: capitalize;"> Meet {{chef.name}} </p>
+                        <div><img class="chef" :src="chef.imgUrl" /></div>
+
                         <p class="about-chef"> {{chef.about}} </p>
                     </div>
                     <div class="right-side">
-                        <h3>See more of {{chef.name}}'s yummi meals </h3>
+                        <h3 style="font-size:20px;">See more of {{chef.name}}'s yummi meals </h3>
                         <ul>
                             <li style="display: flex; justify-content: center;" v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
                                 <div class="more-item">
@@ -121,11 +121,12 @@ export default {
         return {
             // mealsIds: [],
             isProcessing: false,
-            isActive: false,
             rank: 0,
             msg: '',
             pageReady: false,
-            itemId: ''
+            itemId: '',
+            isActive: false,
+            itemsPurch: {},
         }
     },
     watch: {
@@ -169,13 +170,18 @@ export default {
             });
         },
         addComment() {
+            console.log('172172')
             this.isActive = true;
+            console.log(this.isActive)
         },
         sendComment(itemId, comment) {
-            // var quantity = this.rank.quantity
-            // console.log(itemId, comment, this.rank.quantity)
-            this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity });
-            this.isActive = false;
+            if (comment !== '') {
+                // var quantity = this.rank.quantity
+                // console.log(itemId, comment, this.rank.quantity)
+                this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity });
+                this.isActive = false;
+            }
+
         },
         rankVal(val) {
             this.rank = val
@@ -192,6 +198,10 @@ export default {
             // console.log('itemitem', item)
             // var currUser = this.user
             this.$store.commit({ type: UPDATE_CART, item, quantity });
+            swal({
+                title: "Item added to cart",
+                icon: "success",
+            });
         }
     },
 
@@ -243,6 +253,7 @@ export default {
     width: 200px;
     justify-content: space-around;
     margin: auto;
+    margin-bottom: 15px;
 }
 
 .price-btm {
@@ -280,14 +291,26 @@ select {
 .modal {
     border: 1px solid lightgray;
     border-radius: 15px;
-    background-color: lightgoldenrodyellow;
+    background-color: lightgray;
+    z-index: 1000;
+    display: block;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    box-shadow: 3px 3px 6px 3px black;
 }
 
 .midal-btn {
     border-radius: 15px;
     border: none;
-    width: 50px;
+    width: 80px;
+    height: 50px;
     margin-bottom: 5px;
+    background-color: lightgreen;
+    font-size: 15px;
+    /* margin: auto;
+    margin-top: 20px;
+    margin-top: none; */
 }
 
 .title {
@@ -298,9 +321,10 @@ select {
 .middle {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     justify-content: center;
     align-items: center;
+    justify-content: space-around;
 }
 
 
@@ -315,7 +339,7 @@ h2 {
     flex-direction: row;
     justify-content: space-around;
     margin: 5px;
-    background-color: lightgreen;
+    background-color: #75f975d6;
 }
 
 .about-chef {
@@ -342,6 +366,7 @@ h2 {
 
 .comments-box {
     padding: 0;
+    border-radius: 5px;
 }
 
 .top-page {
@@ -350,6 +375,8 @@ h2 {
     justify-content: center;
     width: 100%;
     max-width: 1400px;
+    margin-bottom: none;
+    margin-top: none;
 }
 
 .price {
@@ -373,7 +400,12 @@ h2 {
 .chef-details {
     /* border: 1px solid lightgray; */
     padding-bottom: 40px;
-    width: 50%;
+    width: 65%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 li {
@@ -462,13 +494,27 @@ select {
     border: 1px solid black;
 }
 
+.details-container::after {
+    background-color: white;
+    /* background: url("../img/background.jpg"); */
+    /* background-repeat: no-repeat; */
+    /* content: ""; */
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+}
+
 .details-container {
     padding-top: 60px;
     width: 100%;
     max-width: 900px;
     display: flex;
     flex-direction: column;
-    /* background-color: lightgray; */
+    /* background-color: white; */
     justify-content: center;
     align-items: center;
     justify-content: space-between;
@@ -489,6 +535,10 @@ select {
 form {
     display: flex;
     flex-direction: column;
+    height: 250px;
+    justify-content: space-around;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .logo {
@@ -509,6 +559,8 @@ form {
 
 input {
     margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .buttom {

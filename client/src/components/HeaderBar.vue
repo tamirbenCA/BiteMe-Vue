@@ -267,6 +267,8 @@ button {
     cursor: pointer;
     outline: none;
     font-size: 17px;
+    font-weight:bold;
+     box-shadow: 1px 2px 2px 0px black;
 }
 
 .join-button {
