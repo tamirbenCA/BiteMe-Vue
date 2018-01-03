@@ -6,7 +6,6 @@ export const SIGNIN = 'user/signin';
 export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
 export const TOGGLE_LIKE = 'user/toggleLike';
-export const UPDATE_USER = 'user/updateUser';
 
 var STORAGE_KEY = 'loggedinUser';
 
@@ -54,11 +53,7 @@ export default {
             } else {
                 state.loggedinUser.likedCarIds.splice(idxLike, 1)
             }
-        },
-        [UPDATE_USER](state, payload) {
-            console.log(payload.seller)
-            UserService.changeUserActivity(payload.seller)
-        },
+        }
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {

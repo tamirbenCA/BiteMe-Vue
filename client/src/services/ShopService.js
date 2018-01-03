@@ -6,10 +6,11 @@ function loadTags() {
     return axios.get(`${URL}/data/tags`)
 }
 
-function getItemById(itemId) {
+function getItemById(itemId, collection) {
     // console.log('itemId', itemId)
+    // console.log('collection', collection)
     return axios
-        .get(`${URL}/data/item/${itemId}`)
+        .get(`${URL}/data/${collection}/${itemId}`)
         .then(res => {
             // console.log('resdata:', res.data)
             return res.data
@@ -21,7 +22,7 @@ function getItemById(itemId) {
 function getItemsByIds(itemsIds) {
     // console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
-        return getItemById(itemId)
+        return getItemById(itemId, 'item')
             .then((res) => {
                 // console.log(res)
                 return res
@@ -86,17 +87,6 @@ function getChefsByIds(itemsIds) {
     return Promise.all(items)
 }
 
-
-function getChefById(chefId) {
-    // console.log('chefId:', chefId)
-    return axios
-        .get('http://127.0.0.1:3003/data/user/' + chefId)
-        .then(res => {
-            // console.log('resdata:', res.data)
-            return res.data
-        })
-}
-
 function loadSellersItems(sellerId) {
     // console.log('sellers id in service.loadSellers(): ', sellerId)
     return axios.get(`${URL}/data/user/${sellerId}/orders/asseller`)
@@ -106,8 +96,8 @@ function loadBuyersItems(buyerId) {
     return axios.get(`${URL}/data/user/${buyerId}/orders/asbuyer`)
 }
 
-function markDelivered({order}) {
-    // console.log('shop service:', order)
+function markDelivered(order) {
+    console.log('shop service:', order)
     return axios.put(`${URL}/data/order/${order._id}`, order)
 }
 
@@ -147,7 +137,6 @@ export default {
     loadSellersItems,
     loadBuyersItems,
     getItemsByIds,
-    getChefById,
     getChefsByIds,
     addComment,
     markDelivered,

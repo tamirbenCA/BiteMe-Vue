@@ -49,7 +49,8 @@
                 </div>
                 <div class="btm-cont">
                     <div class="date">
-                        <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1">
+                        <!-- <el-date-picker v-model="timeChosen" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1"> -->
+                        <el-date-picker v-model="timeChosen" type="datetime" placeholder="Select date and time">
                         </el-date-picker>
                     </div>
                     <button class="ck-out" @click="checkout">Checkout</button>
@@ -78,31 +79,29 @@ export default {
             items: [],
             isActive: false,
             isCheckedOut: false,
-
-            pickerOptions1: {
-                shortcuts: [{
-                    text: 'Today',
-                    onClick(picker) {
-                        picker.$emit('pick', new Date());
-                    }
-                }, {
-                    text: 'Yesterday',
-                    onClick(picker) {
-                        const date = new Date();
-                        date.setTime(date.getTime() - 3600 * 1000 * 24);
-                        picker.$emit('pick', date);
-                    }
-                }, {
-                    text: 'A week ago',
-                    onClick(picker) {
-                        const date = new Date();
-                        date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                        picker.$emit('pick', date);
-                    }
-                }]
-            },
-            value1: '',
-            value2: ''
+            timeChosen: ''
+            // pickerOptions1: {
+            //     shortcuts: [{
+            //         text: 'Today',
+            //         onClick(picker) {
+            //             picker.$emit('pick', new Date());
+            //         }
+            //     }, {
+            //         text: 'Yesterday',
+            //         onClick(picker) {
+            //             const date = new Date();
+            //             date.setTime(date.getTime() - 3600 * 1000 * 24);
+            //             picker.$emit('pick', date);
+            //         }
+            //     }, {
+            //         text: 'A week ago',
+            //         onClick(picker) {
+            //             const date = new Date();
+            //             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            //             picker.$emit('pick', date);
+            //         }
+            //     }]
+            // },
         };
 
     },
@@ -117,20 +116,17 @@ export default {
         },
     },
     methods: {
-        runFunc() {
-            datepicker();
-        },
         checkout() {
 
             var loggedinUser = this.$store.getters.loggedinUser;
-            console.log(loggedinUser)
+            // console.log(loggedinUser)
 
             // var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
             if (!loggedinUser) this.$router.push('/login');
             else {
-                if (this.value2 !== '') {
+                if (this.timeChosen !== '') {
                     this.isCheckedOut = true;
-                    this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart, deliveryDate: this.value2 } });
+                    this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart, deliveryDate: this.timeChosen.getTime() } });
                     swal({
                         title: "Got it :)",
                         text: "See you soon",
@@ -145,7 +141,6 @@ export default {
                         text: "Enter date",
                     });
                 }
-
             }
         },
         showModal() {

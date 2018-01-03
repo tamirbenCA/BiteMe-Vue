@@ -49,6 +49,14 @@ function getItems() {
 }
 
 
+function getSellerById(sellerId) {
+    return axios
+        .get('http://127.0.0.1:3003/data/user/' + sellerId)
+        .then(res => {
+            return res.data
+        })
+}
+
 function getSellers() {
     // console.log('inside getitmes')
     return axios
@@ -147,7 +155,6 @@ function getEmptyUser() {
 }
 
 function changeUserActivity(seller){
-    console.log('seller',seller)
     return axios
     .put(`${URL}/data/user/${seller._id}`, seller)
     .then(res => {
@@ -190,4 +197,5 @@ export default {
     getSellers,
     deleteSeller,
     changeUserActivity,
+    getSellerById
 } 

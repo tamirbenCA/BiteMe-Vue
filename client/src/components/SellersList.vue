@@ -57,7 +57,7 @@ export default {
     created() {
         this.$store.dispatch({ type: LOAD_SELLERS })
             .then((items) => {
-                console.log('items20', items)
+                // console.log('items20', items)
             })
     },
     computed: {

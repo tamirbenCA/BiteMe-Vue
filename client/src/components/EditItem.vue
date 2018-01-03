@@ -85,7 +85,7 @@ export default {
         this.$store.dispatch({ type: LOAD_TAGS })
         console.log('tags:')
         if (!this.itemId) return;
-        ShopService.getItemById(this.itemId)
+        ShopService.getItemById(this.itemId, 'item')
             .then(item => {
                 this.itemToUpdate = Object.assign({}, item)
             });

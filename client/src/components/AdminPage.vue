@@ -1,67 +1,98 @@
 <template>
-    <table>
-        <tr>
-            <th>seller name</th>
-            <th>seller's address</th>
-            <th>seller's # of items</th>
-            <!-- <th>seller's # of orders</th> -->
-            <th>actions</th>
-        </tr>
-        <tr class="user" v-for="(seller, idx) in sellers" :key="idx">
-            <!-- <td>  -->
-                <!-- <img class="image" :src="seller.imgUrl"> -->
-                <!-- <span class="details" style="text-transform: capitalize"> {{seller.name}}</span> -->
-            <td class="details" style="text-transform: capitalize"> {{seller.name}}</td>
-            <td class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</td>
-            <td class="details" style="text-transform: capitalize">{{seller.itemsForSale.length}}</td> 
-            <td>
-                <button v-if="seller.isActive" style="background-color:green" class="dis-btn" @click="disableSeller(seller)">
-                    Disable
-                </button>
-                <button v-else style="background-color:red" class="dis-btn" @click="disableSeller(seller)">
-                    Enable
-                </button>
-            </td>
-        </tr>
-    </table>
+<section>
+    <div v-if="!pageReady">
+        <img class="gif-loading" src="../assets/loading.gif">
+    </div>
+    <div v-else>
+   <el-table
+        :data="sellers"
+        :default-sort = "{prop: 'Name', order: 'descending'}"
+        style="width: 100%">
+        <el-table-column
+            prop="id"
+            label="id"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="name"
+            label="Name"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="address"
+            label="Address"
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="email"
+            label="Email"
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="itemsForSale"
+            label="# of items for sale"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            label="Operations">
+            <template slot-scope="scope">
+                <el-button
+                v-if="scope.row.isActive"
+                size="mini"
+                type="danger"
+                @click="disableSeller(scope.row.id)">Disable</el-button>
+                <el-button
+                v-else
+                size="mini"
+                type="success"
+                @click="disableSeller(scope.row.id)">Enable</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    </div>
+    </section>
 </template>
 
 <script>
 import swal from 'sweetalert'
-import { LOAD_SELLERS } from '../modules/ShopModule.js';
-import { UPDATE_USER } from '../modules/UserModule.js';
+import { LOAD_SELLERS , UPDATE_SELLER } from '../modules/ShopModule.js';
+// import { UPDATE_SELLER } from '../modules/UserModule.js';
 
 export default {
     name: 'HeaderBar',
     data() {
         return {
-
+            pageReady: false
         }
     },
     methods: {
-        disableSeller(seller) {
-            console.log(seller)
-            if (seller.isActive === true) {
-                seller.isActive = false;
-            }
-            else {
-
-                seller.isActive = true;
-            }
-            console.log(seller)
-            this.$store.commit({ type: UPDATE_USER, seller })
-            // this.$store.commit({ type: DELETE_ITEMS, mealsForSale})
+        disableSeller(sellerId) {
+            console.log(sellerId)
+            this.$store.dispatch({ type: UPDATE_SELLER, sellerId })
         }
     },
     created() {
         this.$store.dispatch({ type: LOAD_SELLERS })
-            .then((items) => {
-                console.log('items20', items)
+            .then((sellers) => {
+                console.log('sellers', sellers)
+                this.pageReady = true;
             })
     },
     computed: {
         sellers() {
-            return this.$store.getters.items
+            return (this.$store.getters.items).map(seller => {
+                return {
+                    id: seller._id,
+                    name: seller.name,
+                    address: seller.address.city,
+                    email: seller.email,
+                    itemsForSale: seller.itemsForSale.length,
+                    isActive: seller.isActive
+                    }
+            })
         },
 
     }
@@ -71,49 +102,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .details {
-    width: 200px;
-    text-align: start;
-} */
 
-.dis-btn {
-    width: 100px;
-    height: 30px;
-    border: none;
-    border-radius: 10px;
-    color: white;
-}
-/* 
-.image {
-    background-size: cover;
-    background-position: center;
-    width: 120px;
-    height: 90px;
-} */
-
-/* .user {
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-bottom: 20px;
-} */
-
-/* ul {
-    list-style: none;
-    margin-top: 50px;
-} */
-
-img {
-    width: 10%;
-    height: 10%;
-}
-
-th,
-td {
-    width: 30%;
+.cell {
     text-transform: capitalize;
-    padding: 10px;
 }
 
 </style>
