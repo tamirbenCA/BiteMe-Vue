@@ -1,21 +1,15 @@
 <template>
-    <!-- <section class="form-box">
-        <form @submit.prevent="logIn(user)">
-            <h1>Join Us</h1>
-            <input v-model="user.password" type="password" placeholder="Password">
-            <input v-model="user.email" type="email" placeholder="Email">
-            <button>submit</button>
-        </form>
-    </section> -->
     <section class="form-box">
-           <form @submit.prevent="logIn(user)">
-               <h1>Log in</h1>
-               <input v-model="user.email" type="text" placeholder="Email">
-               <input v-model="user.password" type="password" placeholder="Password">
-               <button>submit</button>
-               <p>Don't have an account? <router-link to="/join">Click here</router-link></p>
-           </form>
-       </section>
+        <form @submit.prevent="logIn(user)">
+            <p style="font-size:30px">Log in</p>
+            <input v-model="user.email" type="text" placeholder="Email">
+            <input v-model="user.password" type="password" placeholder="Password">
+            <button>submit</button>
+            <p>Don't have an account?
+                <router-link to="/join">Click here</router-link>
+            </p>
+        </form>
+    </section>
 </template>
 
 
@@ -57,9 +51,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 button {
-    background-color: #53bf53;
+    background-color: #a6cfd6;
     border-radius: 5px;
     width: 100px;
+    height:40px;
+    border: none;
+     font-size: 20px;
+     color:#5a5454;
 }
 
 
@@ -69,17 +67,19 @@ form button {
 
 input {
     outline: none;
+    background-color: white;
+    border-radius: 5px;
 }
 
 .form-box {
     margin: 0 auto;
-    margin-top: 50px;
     margin-bottom: 50px;
     border: 1px solid lightgray;
     border-radius: 5px;
     max-width: 500px;
     width: 100%;
-    background-color: #b5f5b5;
+    background-color: #ffffff9e;
+    margin-top: 174px;
 }
 
 form {

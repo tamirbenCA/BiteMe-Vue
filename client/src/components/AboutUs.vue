@@ -13,10 +13,9 @@
       <a name="our-mission" id="our-mission">
         <h1>Our mission</h1>
         <br>
-         <h2>Make the world taste better</h2>
+        <h2>Make the world taste better</h2>
       </a>
 
-     
       <br>
       <div class="imgs">
         <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234179/Ben_h2kuyh.png" />
@@ -43,24 +42,26 @@ export default {
   margin-top: 50px;
 }
 
-.partner{
-      background-size: cover;
-    background-position: center;
-    width: 200px;
-    height: 200px;
+.partner {
+  background-size: cover;
+  background-position: center;
+  width: 200px;
+  height: 200px;
 }
+
 .imgs {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width:800px;
+  width: 800px;
   margin: auto;
 }
 
 
-.how-work-img{
-  width:60%;
+.how-work-img {
+  width: 60%;
 }
+
 .how-work {
   width: 100%;
   max-width: 1000px;
@@ -71,6 +72,7 @@ export default {
   margin: 0 auto;
   margin-bottom: 100px;
   border-bottom: 1px solid lightgrey;
+  margin-top: 150px;
 }
 
 .details {

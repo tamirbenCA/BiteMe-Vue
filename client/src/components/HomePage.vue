@@ -44,6 +44,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 400px;
+  margin-top: 150px;
 }
 .imgs-btm {
   display: flex;
@@ -66,9 +67,7 @@ export default {
   margin-left: 20px;
 }
 
-.img-btm:hover {
-  animate: pulse;
-}
+
 
 h1 {
   font-size: 25px;

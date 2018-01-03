@@ -2,28 +2,27 @@
     <section>
 
         <form @submit.prevent="submitItem">
-            <div style="text-align: left">Name: <input type="text" v-model="itemToUpdate.name" autofocus placeholder="Item Name"></div>
+            <div style="text-align: left">Name <input type="text" v-model="itemToUpdate.name" autofocus></div>
 
-            <div class="desc" >Description:
-                <textarea style="height: 24px" v-model="itemToUpdate.desc" placeholder="Item Description"></textarea>
+            <div class="desc">Description
+                <textarea style="height: 24px" v-model="itemToUpdate.desc"></textarea>
             </div>
 
-            <div style="text-align: left">Price:<input type="number" v-model.number="itemToUpdate.price" placeholder="Item Price"></div>
+            <div style="text-align: left">Price<input type="number" v-model.number="itemToUpdate.price"></div>
 
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl" />
             <div>
-                tags:
+                Tags
                 <span v-for="(tag, index) in tags" :key="index">
-                    <input style="margin:10px"   type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
+                    <input style="margin:10px" type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
                     <label :for="tag">{{tag}}</label>
                 </span>
             </div>
-            <!-- ADD CHECKBOX AS TAGS IN SERVER -->
             <div class="btn">
                 <button>{{(itemId) ? 'Save' : 'Add'}}</button>
                 <router-link to="/">
-                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <button style="background-color:white; color:lightgrey">Reset</button>
                 </router-link>
             </div>
 
@@ -96,33 +95,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.desc{
+
+body{
+    color:#5a5454;
+}
+.desc {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.btn{
+.btn {
     display: flex;
     flex-direction: row;
-    width:200px;
+    width: 250px;
     justify-content: space-around;
     margin: 0 auto;
-        align-items: center;
-
+    align-items: center;
 }
+
 .fa-times {
     color: red;
     font-size: 50px;
 }
 
 button {
-    background-color: #53bf53;
+    background-color: #a6cfd6;
     border-radius: 5px;
     width: 100px;
-        height: 36px;
-
-    font-size:20px;
+    height: 36px;
+    border: none;
+    font-size: 20px;
+    color:#5a5454;
 }
 
 section {
@@ -141,18 +145,33 @@ form {
     display: flex;
     flex-direction: column;
     align-self: flex-end;
-    width: 50%;   
+    width: 50%;
     z-index: 10000;
-    background-color: #b5f5b5;
+    background-color: #ffffff9e;
     width: 100%;
     width: 350px;
     margin-right: 500px;
     border-radius: 5px;
     margin: 50px auto;
-    box-shadow: 1px 1px 4px 0px black;
+    /* box-shadow: 1px 1px 4px 0px black; */
     justify-content: space-between;
-    height:400px;
+    height: 400px;
     padding: 10px;
+    margin-top: 200px;
+}
+
+input {
+    border-radius: 5px;
+    outline: none;
+    padding: 7px;
+    margin-left: 5px;
+}
+
+textarea {
+    border-radius: 5px;
+    outline: none;
+    padding: 7px;
+    margin-left: 5px;
 }
 
 form>* {

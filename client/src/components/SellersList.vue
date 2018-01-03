@@ -77,6 +77,8 @@ export default {
     justify-content: center;
     flex-direction: column;
     /* margin: 25px 0px; */
+        margin-top: 136px;
+
 }
 
 h1 {
