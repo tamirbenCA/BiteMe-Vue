@@ -3,6 +3,8 @@ function getTags() {
 }
 
 
+
+
 function sortByRank(items) {
     // console.log('itemsitemsitemsitems', items.length)
     // var maxRank = 5;
@@ -21,5 +23,5 @@ function sortByRank(items) {
 
 module.exports = {
     sortByRank,
-    getTags
+    getTags,
 };

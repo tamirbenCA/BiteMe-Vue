@@ -1,14 +1,17 @@
 <template>
   <div class="box">
-    <p class="gt-start">Get Started With Our Top Sellers</p>
+    <p class="gt-start">Get Started With Our Best Sellers</p>
+    <!-- <div class="imgs-btm" v-for="meal in meals"> -->
+    <!-- <img  @click="showDetails(meal)" :src="meal.imgUrl" alt=""> -->
     <div class="imgs-btm">
-      <div class="animated bounceInRight"> <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-566345_l9uouq.jpg" alt=""></div>
-      <div class="animated bounceInRight"><img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/food-prawn-asian_mbxnej.jpg" alt=""></div>
+      <div class="animated bounceInRight">
+        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-566345_l9uouq.jpg" alt=""></div>
+      <div class="animated bounceInRight">
+        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/food-prawn-asian_mbxnej.jpg" alt=""></div>
 
       <div class="animated bounceInRight">
         <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-76093_xlkq0h.jpg" alt="">
         <img src="../assets/icons8-new-40.png" style="position:relative; top:0;left: -70px;width:40px;height:40px">
-
       </div>
 
       <div class="animated bounceInRight">
@@ -17,7 +20,6 @@
       <div class="animated bounceInRight">
         <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928795/sushi-japan-soya-rice-681586_axfola.jpg" alt="">
         <img src="../assets/icons8-new-40.png" style="position:relative; top:0;left: -70px;width:40px;height:40px;">
-
       </div>
     </div>
   </div>
@@ -25,27 +27,45 @@
 
 <script>
 
+
+import { LOAD_TOP_MEALS } from '../modules/ShopModule.js';
+
 export default {
   name: 'HomePage',
+
+  created() {
+    this.$store.dispatch({ type: LOAD_TOP_MEALS })
+  },
+  computed: {
+    meals() {
+      return this.$store.getters.items
+    }
+  },
+  methods: {
+    showDetails(meal) {
+      this.$router.push('/itemdetails/' + meal._id);
+    }
+  }
 
 }
 </script>
 
 <style>
-
-.gt-start{
+.gt-start {
   text-align: left;
   font-size: 30px;
   margin-bottom: 0;
-  font-weight: 600;
+  /* font-weight: 600; */
   margin-left: 50px;
 }
-.box{
+
+.box {
   display: flex;
   flex-direction: column;
   height: 400px;
-  margin-top: 150px;
+  margin: 50px;
 }
+
 .imgs-btm {
   display: flex;
   justify-content: space-around;

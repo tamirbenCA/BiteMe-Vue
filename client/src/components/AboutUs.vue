@@ -39,7 +39,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .partner {

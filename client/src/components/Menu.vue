@@ -14,7 +14,7 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p style="text-transform: capitalize">{{item.seller.sellerName}}</p>
+                                <p style="text-transform: capitalize;padding-left:5px;">{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -118,8 +118,9 @@ h2 {
 }
 
 .gif-loading {
-    width: 200px;
-    margin-bottom: 50px;
+    width: 100px;
+    height:100px;
+    /* margin-bottom: 50px; */
 }
 
 .fa-shopping-cart {

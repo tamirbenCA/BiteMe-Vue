@@ -157,7 +157,7 @@ form {
     justify-content: space-between;
     height: 400px;
     padding: 10px;
-    margin-top: 200px;
+    /* margin-top: 200px; */
 }
 
 input {

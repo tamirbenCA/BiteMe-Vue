@@ -14,6 +14,7 @@ export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
+export const LOAD_TOP_MEALS = 'shop/loadTopMeals'
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
@@ -122,6 +123,20 @@ const actions = {
                 // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
+
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
+    [LOAD_TOP_MEALS]({ commit }) {
+        // console.log('im here')
+        return ShopService.getTopMeals()
+            .then(items => {
+                // console.log(items)
+                // commit({ type: SET_ITEMS, items })
+                // return items
 
             })
             .catch(err => {

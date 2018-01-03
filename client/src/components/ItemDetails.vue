@@ -5,6 +5,7 @@
         </div>
         <div class="details-container" v-else>
             <div class="modal" v-if="isActive === true">
+
                 <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
                 <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
                     <p>Add a comment</p>
@@ -26,10 +27,12 @@
                     <div class="left-side">
                         <div class="top">
                             <p class="title">
+                                <div class="top-detail">
+
                                 <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </router-link>
-                                <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p>
+                                <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p></div>
 
                             </p>
                             <div class="rank">
@@ -63,7 +66,7 @@
                             <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
                                 <div class="cmt-div">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <p style="text-transform: capitalize;">{{comment.userName}} :</p>
+                                    <p style="text-transform: capitalize;">{{comment.userName}} ,</p>
                                     <p style="text-transform: capitalize;"> {{comment.comment}}</p>
                                    
                                     <div class="rank">
@@ -144,6 +147,7 @@ export default {
 
     },
     created() {
+        console.log( this.$store.getters.currItem)
         // this.mealsIds = [];
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
@@ -240,6 +244,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.top-detail{
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .cover {
     display: flex;
     flex-direction: column;
@@ -251,6 +261,8 @@ export default {
     display: flex;
     padding: 9px;
         align-items: center;
+            height: 41px;
+
 
 }
 
@@ -531,7 +543,7 @@ select {
     border-radius: 5px;
     box-shadow: 2px 3px 8px 0px black;
     margin-bottom: 20px;
-    margin-top: 200px;
+    margin-top: 50px;
 }
 
 
@@ -585,8 +597,9 @@ input {
 }
 
 .gif-loading {
-    width: 200px;
-    margin-bottom: 50px;
+    width: 100px;
+    height:100px;
+    margin-top: 250px;
 }
 </style>
 
