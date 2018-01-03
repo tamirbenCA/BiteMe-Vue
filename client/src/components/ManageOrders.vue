@@ -3,39 +3,47 @@
         <h1>Manage Orders</h1>
         <h2>Items sold</h2>
         <el-table
-        :data="sellersItems"
-        :default-sort = "{prop: 'date', order: 'descending'}"
-        style="width: 100%">
-        <el-table-column
-            prop="date"
-            label="Order To-Date"
-            sortable
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="buyerName"
-            label="Buyer Name"
-            sortable
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="items"
-            label="Items Name"
-            width="300">
-        </el-table-column>
-        <el-table-column
-            label="Operations">
-            <template slot-scope="scope">
-                <el-button
-                v-if="!scope.row.isDelivered"
-                size="mini"
-                @click="deliverOrder(scope.row.id)">Shipped</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+            v-loading="loading2"
+            element-loading-text="Loading..."
+            element-loading-spinner="el-icon-loading"
+            :data="sellersItems"
+            :default-sort = "{prop: 'date', order: 'descending'}"
+            border
+            style="width: 100%">
+            <el-table-column
+                prop="date"
+                label="Order To-Date"
+                sortable
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="buyerName"
+                label="Buyer Name"
+                sortable
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="items"
+                label="Items Name"
+                width="300">
+            </el-table-column>
+            <el-table-column
+                label="Operations">
+                <template slot-scope="scope">
+                    <el-button
+                    v-if="!scope.row.isDelivered"
+                    size="mini"
+                    type="success"
+                    @click="deliverOrder(scope.row.id)">Mark as Shipped</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
 
         <h2>Items bought</h2>
         <el-table
+        v-loading="loading2"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
         :data="buyersItems"
         :default-sort = "{prop: 'date', order: 'descending'}"
         style="width: 100%">
@@ -72,6 +80,7 @@ export default {
     data() {
         return {
             userId: '',
+            loading2: true
         }
     },
     // beforeRouteEnter(to, from, next) {
@@ -88,9 +97,11 @@ export default {
     // },
     created() {
         this.userId = this.$route.params.userid
-        this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});
-        this.$store.dispatch({type: LOAD_BUYERS_ITEMS, userId: this.userId});       
         // console.log('manage orders user id: ', this.userId)
+        var p1 = this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});
+        var p2 = this.$store.dispatch({type: LOAD_BUYERS_ITEMS, userId: this.userId});
+        console.log(p1, p2)
+        Promise.all([p1, p2]).then(_ => this.loading2 = false);
     },
     computed: { 
         sellersItems () {
@@ -98,7 +109,7 @@ export default {
             var mapOrders = orders.map(order => {
                 return {
                     id: order._id,
-                    date: order.deliveryDate,
+                    date: new Date(order.deliveryDate).toLocaleString('en-GB'),
                     buyerName: order.buyer.buyerName,
                     items: order.items,
                     isDelivered: order.isDelivered
@@ -118,7 +129,7 @@ export default {
             var mapOrders = orders.map(order => {
                 return {
                     id: order._id,
-                    date: order.deliveryDate,
+                    date: new Date(order.deliveryDate).toLocaleString('en-GB'),
                     sellers: order.sellers,
                     items: order.items,
                     isDelivered: order.isDelivered.toString()
@@ -133,10 +144,12 @@ export default {
                     .map(seller => seller.sellerName)
                     .toString()
                 mapOrder.sellers = sellers;
-                if (mapOrder.isDelivered !== 'false') {
-                    mapOrder.isDelivered = Date(+mapOrder.isDelivered)
+                if (mapOrder.isDelivered === 'false') {
+                    mapOrder.isDelivered = 'Not Yet'
+                } else {
+                    mapOrder.isDelivered = new Date(+mapOrder.isDelivered).toLocaleString('en-GB')
                 }
-                mapOrder.isDeliverd = mapOrder.isDelivered.toString()
+                console.log('line 142', mapOrder.isDelivered)
             })
             return mapOrders;
         },
@@ -153,20 +166,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-* {
-    list-style: none;
-}
-
-table {
-    margin: auto;
-    border-spacing: 5px;
-    width: 60%;
-    text-align: left;
-}
-
-td {
-    text-align: left;
-}
 
 </style>
 
