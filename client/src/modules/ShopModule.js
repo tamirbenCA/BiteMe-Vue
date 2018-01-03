@@ -14,12 +14,14 @@ export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
+export const UPDATE_SELLER = 'user/updateSeller';
+
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
 
 const SET_ITEMS = 'shop/setItems';
-const SET_CHEFS = 'shop/setChefs';
+// const SET_CHEFS = 'shop/setChefs';
 
 
 const state = {
@@ -56,10 +58,10 @@ const mutations = {
         // console.log( state.items)
     },
 
-    [SET_CHEFS](state, { items }) {
-        state.chefs = items;
-        // console.log( state.items)
-    },
+    // [SET_CHEFS](state, { items }) {
+    //     state.chefs = items;
+    //     // console.log( state.items)
+    // },
     [LOAD_ITEM](state, payload) {
         state.currItem = payload.item;
         // console.log(state.currItem)        
@@ -91,9 +93,14 @@ const mutations = {
         state.tag = tag;
     },
     [MARK_DELIVERED](state, {orderId}) {
-        state.sellersItems.forEach((item, index) => console.log('line 97:', item, index))
         var orderIdx = state.sellersItems.findIndex(item => item._id === orderId)
         state.sellersItems[orderIdx].isDelivered = Date.now();
+    },
+    [UPDATE_SELLER](state, { sellerId }) {
+        // console.log('inside mutation', sellerId)
+        // console.log('inside mutation', (state.items).find(item => item._id === sellerId))
+        var sellerInState = (state.items).find(item => item._id === sellerId)
+        sellerInState.isActive = !sellerInState.isActive
     }
 }
 const getters = {
@@ -109,6 +116,22 @@ const getters = {
 }
 
 const actions = {
+    [UPDATE_SELLER]({commit}, {sellerId}) {
+        console.log('inside action', sellerId)
+        UserService.getSellerById(sellerId)
+        .then(seller => {
+            console.log('seller is:', seller)
+            seller.isActive = !seller.isActive
+            // return UserService.changeUserActivity(seller)
+            UserService.changeUserActivity(seller)
+            return seller;
+            })
+            .then(updatedSeller => {
+                console.log('line 71, seller:', updatedSeller)
+                console.log('line 72, sellerId:', updatedSeller._id)
+                commit({type: UPDATE_SELLER, sellerId: updatedSeller._id})
+                })  
+    },
     [LOAD_TAGS]({ commit, payload }) {
         ShopService.loadTags()
             .then(tags => {
@@ -187,7 +210,7 @@ const actions = {
     },
     [LOAD_ITEM]({ commit }, { itemId }) {
         // console.log('action: LOAD_ITEM itemId', itemId)
-        return ShopService.getItemById(itemId)
+        return ShopService.getItemById(itemId, 'item')
             .then(item => {
                 commit({ type: LOAD_ITEM, item })
             })
@@ -196,7 +219,7 @@ const actions = {
 
     [LOAD_SELLER]({ commit }, { itemId }) {
         // console.log(itemId)
-        return ShopService.getItemById(itemId)
+        return ShopService.getItemById(itemId, 'item')
             .then(item => {
                 // console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
@@ -238,11 +261,16 @@ const actions = {
             throw err;
         })
     },
-    [MARK_DELIVERED]({ commit }, {order}) {
-        console.log('shop:', order)
-        return ShopService.markDelivered({order})
+    [MARK_DELIVERED]({ commit }, {orderId}) {
+        // console.log('shop:', orderId)
+        ShopService.getItemById(orderId, 'order')
+        .then(order => {
+            order.isDelivered = Date.now();
+            console.log('line 269:', order)
+            return ShopService.markDelivered(order)
+        })
         .then(_ => {
-            commit({type: MARK_DELIVERED, orderId: order._id})
+            commit({type: MARK_DELIVERED, orderId})
         })
     },
 }

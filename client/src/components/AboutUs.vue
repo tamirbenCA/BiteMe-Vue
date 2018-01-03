@@ -57,20 +57,24 @@ export default {
   margin: auto;
 }
 
+
+.how-work-img{
+  width:60%;
+}
 .how-work {
   width: 100%;
   max-width: 1000px;
   padding-bottom: 100px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0 auto;
   margin-bottom: 100px;
   border-bottom: 1px solid lightgrey;
 }
 
 .details {
-  width: 40%;
+  width: 30%;
 }
 
 .mission {

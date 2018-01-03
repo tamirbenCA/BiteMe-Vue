@@ -1,55 +1,72 @@
 <template>
     <div>
         <h1>Manage Orders</h1>
-
         <h2>Items sold</h2>
-                <!-- {{sellersItems}} -->
-        <table>
-            <tr>
-                <!-- <th>Order Id</th> -->
-                <th>Buyer Name</th>
-                <th>Item Name</th>
-                <th>Actions</th>
-            </tr>
-            <tr v-for="(order, index) in sellersItems" :key="index">
-                <!-- <td>{{order._id}}</td> -->
-                <td>{{order.buyer.buyerName}}</td>
-                <td>
-                    <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
-                </td>
-                <td>
-                    <button @click="deliverOrder(order)" :id="order._id" v-if="!!!order.isDelivered">Shipped</button>
-                </td>
-            </tr>
-        </table>
+        <el-table
+        :data="sellersItems"
+        :default-sort = "{prop: 'date', order: 'descending'}"
+        style="width: 100%">
+        <el-table-column
+            prop="date"
+            label="Order To-Date"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="buyerName"
+            label="Buyer Name"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="items"
+            label="Items Name"
+            width="300">
+        </el-table-column>
+        <el-table-column
+            label="Operations">
+            <template slot-scope="scope">
+                <el-button
+                v-if="!scope.row.isDelivered"
+                size="mini"
+                @click="deliverOrder(scope.row.id)">Shipped</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
 
         <h2>Items bought</h2>
-        <table>
-            <tr>
-                <!-- <th>Order Id</th> -->
-                <th>Seller Name</th>
-                <th>Item Name</th>
-                <th>Shipped</th>
-            </tr>
-            <tr v-for="(order, index) in buyersItems" :key="index">
-                <!-- <td>{{order._id}}</td> -->
-                <td>
-                    <span v-for="(seller, index) in order.sellers" :key="index">{{seller.sellerName}}</span>
-                </td>
-                <td>
-                    <span v-for="(item, index) in order.items" :key="index">{{item.itemName}}</span>
-                </td>
-                <td v-if="!!order.isDelivered">{{ (new Date(order.isDelivered)).toLocaleString('en-GB') }}</td>
-                <td v-else>{{!!order.isDelivered}}</td>
-            </tr>
-        </table>
+        <el-table
+        :data="buyersItems"
+        :default-sort = "{prop: 'date', order: 'descending'}"
+        style="width: 100%">
+        <el-table-column
+            prop="date"
+            label="Order To-Date"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="sellers"
+            label="Sellers Name"
+            sortable
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="items"
+            label="Items Name"
+            width="300">
+        </el-table-column>
+        <el-table-column
+            prop="isDelivered"
+            label="Shipped"
+            width="300">
+        </el-table-column>
+    </el-table>
     </div>
 </template>
 
 <script>
 import { LOAD_SELLERS_ITEMS , LOAD_BUYERS_ITEMS , MARK_DELIVERED} from '../modules/ShopModule';
-// import { LOAD_BUYERS_ITEMS } from '../modules/ShopModule';
-// import { APPROVE_ITEM } from '../modules/ShopModule';
 
 export default {
     data() {
@@ -77,22 +94,57 @@ export default {
     },
     computed: { 
         sellersItems () {
-            return this.$store.getters.sellersItems
+            var orders = this.$store.getters.sellersItems;
+            var mapOrders = orders.map(order => {
+                return {
+                    id: order._id,
+                    date: order.deliveryDate,
+                    buyerName: order.buyer.buyerName,
+                    items: order.items,
+                    isDelivered: order.isDelivered
+                }
+            });
+            mapOrders.forEach(mapOrder => {
+                var items = mapOrder.items
+                    .filter(item => this.userId === item.seller.sellerId )
+                    .map(item => item.itemName)
+                    .toString()
+                mapOrder.items = items;
+            })
+            return mapOrders;
         },
         buyersItems() {
-            var buyers = this.$store.getters.buyersItems;
-            return buyers;
-            // return this.$store.getters.buyersItems
+            var orders = this.$store.getters.buyersItems;            
+            var mapOrders = orders.map(order => {
+                return {
+                    id: order._id,
+                    date: order.deliveryDate,
+                    sellers: order.sellers,
+                    items: order.items,
+                    isDelivered: order.isDelivered.toString()
+                }
+            })
+            mapOrders.forEach(mapOrder => {
+                var items = mapOrder.items
+                    .map(item => item.itemName)
+                    .toString()
+                mapOrder.items = items;
+                var sellers = mapOrder.sellers
+                    .map(seller => seller.sellerName)
+                    .toString()
+                mapOrder.sellers = sellers;
+                if (mapOrder.isDelivered !== 'false') {
+                    mapOrder.isDelivered = Date(+mapOrder.isDelivered)
+                }
+                mapOrder.isDeliverd = mapOrder.isDelivered.toString()
+            })
+            return mapOrders;
         },
     },
     methods: {
-        deliverOrder(item) {
-            // console.log('item deliverd in METHODS _id: ', item._id);
-            // console.log(document.getElementsByClassName(item._Id))
-            // document.getElementById(itemId).disabled = true;
-            item.isDelivered = Date.now()
-            console.log('item:', item)
-            this.$store.dispatch({type: MARK_DELIVERED, order: item})
+        deliverOrder(orderId) {
+            // console.log('order in delivery:', orderId)
+            this.$store.dispatch({type: MARK_DELIVERED, orderId: orderId})
         }
     }
 

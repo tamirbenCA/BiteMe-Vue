@@ -68,7 +68,7 @@
                                    
                                     <div class="rank">
                                         <div v-for="(start,idx) in comment.rank" :key="idx">
-                                            <span>★</span>
+                                            <span >★</span>
                                         </div>
                                     </div>
                                 </div>
@@ -280,8 +280,9 @@ select {
     flex-direction: row;
     color: gold;
     padding-left: 10px;
-    /* width: 100px; */
     margin: none;
+   
+
 }
 
 .fa-pencil {
@@ -346,7 +347,7 @@ h2 {
     flex-direction: row;
     justify-content: space-around;
     margin: 5px;
-    background-color: #75f975d6;
+    background-color: #99a9bf;
 }
 
 .about-chef {
@@ -356,7 +357,7 @@ h2 {
 .fa-user {
     padding-right: 10px;
     font-size: 35px;
-    color: lightslategray;
+    color: lightcyan;
 }
 
 .comments {

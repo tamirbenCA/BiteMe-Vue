@@ -1,5 +1,6 @@
 <template>
     <section>
+
         <div v-if="cartTotal === 0">
             <p class="title">No Items To Show</p>
         </div>
@@ -7,17 +8,10 @@
         <div class="box" v-else>
             <div class="header">
                 <!-- <div class="top-header"> -->
-                    <div class="cnt-shop">
-                        <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
-                        <p style="margin:0">CONTINUE SHOPPING</p>
-                    </div>
-                    <div class="date">
-                        <p>Date: <input type="date" id="datepicker"></p>
-                    </div>
-
-                <!-- </div> -->
-            </div>
-            <div class="cart">
+                <div class="cnt-shop">
+                    <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
+                    <p style="margin:0">CONTINUE SHOPPING</p>
+                </div>
                 <div class="cart-header">
                     <div style="font-weight:bold;font-size:20px;width:300px;"> YOUR SHOPPING CART</div>
                     <br>
@@ -26,34 +20,40 @@
                         <span style="font-weight:bold">{{cartTotal}}$</span>
                     </div>
                 </div>
-                <div class="item-container">
-                    <div class="item" v-for="(item, idx) in cart" :key="idx">
-                        <div class="item-back">
-                            <img class="meal" :src="item.imgUrl" alt="">
-                            <div class="item-info">
-                                <p style="text-transform: uppercase;">{{item.name}}</p>
-                                <p style="text-transform: uppercase;">{{item.desc}}</p>
-                                <div class="payment">
-                                    <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                        <option value=""></option>
-                                        <option v-for="n in 10">{{n}}</option>
-                                    </select>
-                                    <span style="margin-top:5px;">X</span>
-                                    <div style="font-size:25px">{{item.price}}$</div>
+            </div>
+            <!-- <div class="cart"> -->
+            <div class="item-container">
+                <div class="item" v-for="(item, idx) in cart" :key="idx">
+                    <div class="item-back">
+                        <img class="meal" :src="item.imgUrl" alt="">
+                        <div class="item-info">
+                            <p style="text-transform: uppercase;">{{item.name}}</p>
+                            <p style="text-transform: uppercase;">{{item.desc}}</p>
+                            <div class="payment">
+                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                    <option value=""></option>
+                                    <option v-for="n in 10">{{n}}</option>
+                                </select>
+                                <span style="margin-top:5px;">X</span>
+                                <div style="font-size:25px">{{item.price}}$</div>
 
-                                    <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
-
-                                </div>
+                                <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
                             </div>
+
                         </div>
                         <div class="div"></div>
                     </div>
+
                 </div>
-                <button class="ck-out" @click="checkout">Checkout</button>
+                <div class="btm-cont">
+                    <div class="date">
+                        <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1" requited>
+                        </el-date-picker>
+                    </div>
+                    <button class="ck-out" @click="checkout">Checkout</button>
+                </div>
             </div>
-
         </div>
-
     </section>
 </template>
 
@@ -63,11 +63,8 @@ import UserService from '../services/UserService.js';
 import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
 import { mapGetters } from 'vuex';
-// import { REMOVE_FROM_CART } from '../modules/CartModule.js';
 import { REMOVE_FROM_CART, UPDATE_CART, CHECKOUT } from '../modules/CartModule.js';
-// import { UPDATE_CART } from '../modules/CartModule.js';
-// import checkout from '../modules/CartModule.js';
-// import { CHECKOUT } from '../modules/CartModule.js';
+
 
 export default {
     name: 'myCart',
@@ -76,8 +73,34 @@ export default {
             user: null,
             total: 0,
             items: [],
-            isActive: false
-        }
+            isActive: false,
+
+            pickerOptions1: {
+                shortcuts: [{
+                    text: 'Today',
+                    onClick(picker) {
+                        picker.$emit('pick', new Date());
+                    }
+                }, {
+                    text: 'Yesterday',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() - 3600 * 1000 * 24);
+                        picker.$emit('pick', date);
+                    }
+                }, {
+                    text: 'A week ago',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', date);
+                    }
+                }]
+            },
+            value1: '',
+            value2: ''
+        };
+
     },
     created() {
     },
@@ -94,13 +117,14 @@ export default {
             datepicker();
         },
         checkout() {
+            console.log(this.value2)
             var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
             if (!loggedinUser) {
                 this.$router.push('/login');
             }
             this.user = loggedinUser.name;
-            this.$store.dispatch({ type: 'checkout', data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
-            this.showModal();
+            this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
+
 
         },
         showModal() {
@@ -129,13 +153,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btm-cont {
+    /* display: flex; */
+    flex-direction: column;
+}
 
-.fa-hand-o-left{
+.fa-hand-o-left {
     cursor: pointer;
 }
-.date{
-    padding-right: 5px;
+
+.date {
+    display: flex;
+    align-items: left;
+    margin-left: 10px;
 }
+
 .goodbye-img {
     width: 500px;
     height: 500px;
@@ -152,14 +184,16 @@ export default {
     border: none;
     font-size: 17px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
-.cnt-shop{
+.cnt-shop {
     display: flex;
-    align-items: center;
     justify-content: space-around;
-    width:25%;
+    width: 25%;
+    height: 30px;
 }
+
 .top-header {
     display: flex;
     /* width: 250px; */
@@ -180,23 +214,26 @@ export default {
     /* border: 1px solid black; */
     box-shadow: 2px 3px 6px 2px black;
     margin-bottom: 50px;
+    display: block;
 }
 
 .box {
     /* border: 1px solid lightgray; */
     /* height: 300px; */
+    display: block;
     width: 900px;
     margin: auto;
     margin-bottom: 50px;
     margin-top: 20px;
+    height: 100%;
 }
 
 .header {
     border: 1px solid #efe9e991;
-    height: 100px;
+    height: 130px;
     width: 100%;
     display: flex;
-    height: 50px;
+
     padding-top: 10px;
     border-radius: 5px 5px 0 0;
     justify-content: space-between;
@@ -218,11 +255,10 @@ export default {
     width: 30%;
     display: flex;
     flex-direction: column;
-    flex-direction: center;
+    justify-content: center;
     padding-bottom: 30px;
-
     padding-top: 30px;
-    margin: auto;
+    margin-right: 300px;
 }
 
 .meal {
@@ -233,9 +269,9 @@ export default {
 }
 
 .item-container {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 
 li {
@@ -245,11 +281,11 @@ li {
 
 .item-back {
     display: flex;
-    width: 85%;
+    width: 100%;
     justify-content: space-between;
     background-color: white;
     align-items: center;
-    padding-right: 10px;
+    /* margin-left: none; */
 }
 
 .div {

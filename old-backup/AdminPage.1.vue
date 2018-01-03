@@ -1,16 +1,16 @@
 <template>
-    <!-- <table>
+    <table>
         <tr>
             <th>seller name</th>
             <th>seller's address</th>
             <th>seller's # of items</th>
-            <th>seller's # of orders</th>
+            <!-- <th>seller's # of orders</th> -->
             <th>actions</th>
         </tr>
         <tr class="user" v-for="(seller, idx) in sellers" :key="idx">
-            <td> 
-                <img class="image" :src="seller.imgUrl">
-                <span class="details" style="text-transform: capitalize"> {{seller.name}}</span>
+            <!-- <td>  -->
+                <!-- <img class="image" :src="seller.imgUrl"> -->
+                <!-- <span class="details" style="text-transform: capitalize"> {{seller.name}}</span> -->
             <td class="details" style="text-transform: capitalize"> {{seller.name}}</td>
             <td class="details" style="text-transform: capitalize"> {{seller.address.street}}, {{seller.address.city}}</td>
             <td class="details" style="text-transform: capitalize">{{seller.itemsForSale.length}}</td> 
@@ -23,10 +23,7 @@
                 </button>
             </td>
         </tr>
-    </table> -->
-    <div id="people">
-        <v-client-table :data="sellers" :columns="columns"></v-client-table>
-    </div>
+    </table>
 </template>
 
 <script>
@@ -35,25 +32,10 @@ import { LOAD_SELLERS } from '../modules/ShopModule.js';
 import { UPDATE_USER } from '../modules/UserModule.js';
 
 export default {
-    name: 'AdminPage',
-    
+    name: 'HeaderBar',
     data() {
         return {
-            columns: ['id', 'name', 'email', 'address', '# of items for sale', 'actions'],
-            options: {
-                headings: {
-                id: 'id',
-                name: 'name',
-                email: 'email',
-                address: 'address',
-                '# of items for sale': '# of items for sale',
-                actions: 'id'
-                },
-                sortable: ['name', 'id', '# of items for sale'],
-                filterable: ['name']
 
-            }
-            // tableData: this.$store.getters.items
         }
     },
     methods: {
@@ -79,9 +61,7 @@ export default {
     },
     computed: {
         sellers() {
-            return (this.$store.getters.items).map(seller => {
-                return {id: seller._id, name: seller.name, email: seller.email, address: seller.address.city, '# of items for sale': seller.itemsForSale.length, actions: ''}
-            })
+            return this.$store.getters.items
         },
 
     }
