@@ -9,29 +9,38 @@
 
         </div>
         <div class="header">
-            <div class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' ">
-                Hello {{loggedinUser.name}}
-            </div>
-            <div class="lgn-user" v-else>
-                <router-link to="/admin" v-if="adminLogged" class="admin"> Hello Admin</router-link>
-            </div>
+
             <div class="btns-right">
-                <router-link to="/meals" tag="button" @click.native="setTag" class="header-button">Meals</router-link>
-                <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
-                <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
-                <router-link to="/sellerslist" tag="button" class="header-button">Sellers List</router-link>
-                <!-- <router-link to="/login" tag="button" class="header-button" v-if="!loggedUser">Log In</router-link> -->
-                <!-- <router-link to="/join" tag="button" class="join-button header-button" v-if="!loggedUser">Join</router-link> -->
-                <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
-                <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
-                <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
-                <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
-                <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
+                <div>
+                    <router-link to="/meals" tag="button" @click.native="setTag" class="header-button">Meals</router-link>
+                    <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
+                    <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
+                    <router-link to="/sellerslist" tag="button" class="header-button">Sellers List</router-link>
+                    <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
+                    <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
+                </div>
+                <div style="display:flex;flex-direction:column;">
+                    <div>
+                        <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
+                        <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
+                        <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
+                    </div>
+                    <div>
+                        <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange">
+                           Hello {{loggedinUser.name}}
+                        </p>
+                        <p class="lgn-user" v-else>
+                            <router-link to="/admin" v-if="adminLogged" class="admin"> 
+                            Hello Admin
+                            </router-link>
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </div>
         <div>
-            <input style="margin-top: 50px;" v-model="searchValue" type="text" @keyup="searchByte" autofocus>
+            <input style="margin: 100px;" v-model="searchValue" type="text" @keyup="searchByte" autofocus>
         </div>
     </section>
 </template>
@@ -117,10 +126,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.logo {
+    margin-top: 120px;
+}
+
 .btns-right {
     width: 100%;
     margin-right: 50px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    /* align-items: bottom; */
+    margin-left: 50px;
 }
+
 
 img {
     width: 80%;
@@ -139,15 +159,13 @@ input {
     margin-left: 40px;
     border-radius: 5px;
     height: 30px;
+    margin-top: 100px;
 }
 
 .header {
-    display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 7px 0 7px 0;
-    /* border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray; */
     width: 100%;
 }
 
@@ -155,8 +173,12 @@ input {
     text-transform: capitalize;
     display: flex;
     width: 200px;
-    margin-left: 40px;
     font-size: 20px;
+    text-align: right;
+    display: column;
+    margin-top: 10px;
+    padding-left:60px;
+    /* margin-left: 250px; */
 }
 
 .icons {
@@ -174,6 +196,7 @@ h2 {
     margin-right: 10px;
     font-size: 30px;
     cursor: pointer;
+    color: rgb(111, 133, 154);
 }
 
 
@@ -201,7 +224,8 @@ h2 {
 
 .admin {
     text-decoration: none;
-    font-weight: bold;
+    color:orange;
+    /* font-weight: bold; */
     padding-left: 5px;
     font-size: 20px;
 }
@@ -217,8 +241,6 @@ h2 {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* width:100%; */
-    /* width: 460px; */
 }
 
 .three-icons {
@@ -237,10 +259,10 @@ a {
 .header-bar {
 
     padding: 5px;
-    height: 250px;
+    height: 120px;
     display: flex;
     flex-direction: column;
-    background-color: rgb(160, 175, 189);
+    background-color: rgb(38, 49, 60);
 }
 
 input {
@@ -255,10 +277,10 @@ input {
     background-repeat: no-repeat;
     background-position: left center;
     outline: 0;
-    height:35px;
+    height: 35px;
     margin-top: 20px;
-    width:500px;
-    border: 1px solid black;
+    width: 500px;
+    border: 1px solid #f1ece4;
 }
 
 button {
@@ -272,14 +294,15 @@ button {
     cursor: pointer;
     outline: none;
     font-size: 17px;
-    font-weight: 600;
-    box-shadow: 1px 2px 2px 0px black;
+    color: #f1ece4;
 }
 
 .join-button {
-    background-color: lightgreen;
-    color: gray;
+    background: linear-gradient(to right, #5cccde, #77cde0);
+    border: 1px #3db2c5 solid;
+    color: #f1ece4;
     border-radius: 5px;
+    height: 44px;
 }
 
 .fa-shopping-cart {
@@ -293,9 +316,17 @@ button {
 
 
 
+
+
+
+
+
+
 /* .router-link-active {
     color: gray;
     /* color: lightgreen !important; */
+
+
 /* }  */
 
 .orders {

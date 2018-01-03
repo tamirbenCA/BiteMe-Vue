@@ -4,7 +4,9 @@
         <div v-if="cartTotal === 0">
             <p class="title">No Items To Show</p>
         </div>
-        <!-- <p>Date: <input type="text" id="datepicker"></p> -->
+        <!-- <div v-if="isCheckedOut && cartTotal === 0">
+                <img style="width:200px;height:200px" src="../assets/28ed52a553df9f994789b3739b5abf17.gif" alt="">
+            </div> -->
         <div class="box" v-else>
             <div class="header">
                 <!-- <div class="top-header"> -->
@@ -47,10 +49,11 @@
                 </div>
                 <div class="btm-cont">
                     <div class="date">
-                        <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1" requited>
+                        <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1">
                         </el-date-picker>
                     </div>
                     <button class="ck-out" @click="checkout">Checkout</button>
+
                 </div>
             </div>
         </div>
@@ -64,7 +67,7 @@ import { SIGNOUT } from '../modules/UserModule.js';
 import { LOAD_SEARCHED_ITMES, LOAD_ITEMS_BY_TAG } from '../modules/ShopModule.js';
 import { mapGetters } from 'vuex';
 import { REMOVE_FROM_CART, UPDATE_CART, CHECKOUT } from '../modules/CartModule.js';
-
+import swal from 'sweetalert'
 
 export default {
     name: 'myCart',
@@ -74,6 +77,7 @@ export default {
             total: 0,
             items: [],
             isActive: false,
+            isCheckedOut: false,
 
             pickerOptions1: {
                 shortcuts: [{
@@ -117,15 +121,32 @@ export default {
             datepicker();
         },
         checkout() {
-            console.log(this.value2)
-            var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
-            if (!loggedinUser) {
-                this.$router.push('/login');
+
+            var loggedinUser = this.$store.getters.loggedinUser;
+            console.log(loggedinUser)
+
+            // var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
+            if (!loggedinUser) this.$router.push('/login');
+            else {
+                if (this.value2 !== '') {
+                    this.isCheckedOut = true;
+                    this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart, deliveryDate: this.value2 } });
+                    swal({
+                        title: "Got it :)",
+                        text: "See you soon",
+                        icon: "success",
+
+                    });
+                }
+                else {
+                    swal({
+                        // title: "Thank You!!!!",
+                        // icon: "success",
+                        text: "Enter date",
+                    });
+                }
+
             }
-            this.user = loggedinUser.name;
-            this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart } });
-
-
         },
         showModal() {
             this.isActive = true;
@@ -175,7 +196,8 @@ export default {
 }
 
 .ck-out {
-    background-color: lightgreen;
+    background-color: rgb(111, 133, 154);
+    ;
     height: 50px;
     border-radius: 5px;
     width: 150px;
@@ -184,7 +206,8 @@ export default {
     border: none;
     font-size: 17px;
     cursor: pointer;
-    margin-top: 20px;
+
+    margin-top: 70px;
 }
 
 .cnt-shop {
@@ -226,6 +249,7 @@ export default {
     margin-bottom: 50px;
     margin-top: 20px;
     height: 100%;
+    margin-top: 200px;
 }
 
 .header {
@@ -289,7 +313,8 @@ li {
 }
 
 .div {
-    background-color: lightgreen;
+    background-color: rgb(111, 133, 154);
+    ;
     width: 20%;
     height: 150px;
 }
@@ -317,8 +342,7 @@ select:hover {
 
 .title {
     height: 50px;
-
-    margin-top: 50px;
+    margin-top: 200px;
     margin-bottom: 50px;
     font-size: 40px;
 }

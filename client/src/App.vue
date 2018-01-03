@@ -45,6 +45,8 @@ body::after {
 
 body {
   font-family: "Lato";
+      margin: 0;
+
 }
 
 

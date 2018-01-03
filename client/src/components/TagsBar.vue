@@ -1,6 +1,6 @@
 <template>
     <section class="tags-bar">
-        <nav>
+        <nav style="margin-top:150px;">
             <ul class="container-tags">
                 <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>
                     <button style="text-transform: capitalize">
@@ -42,18 +42,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 button {
     border-radius: 5px;
     border: none;
     height: 40px;
     width: 80px;
-    background-color: #b5f5b5;
-    font-weight: 600;
-    box-shadow: 1px 2px 2px 0px black;
+    background-color: #a6cfd6;
+    /* font-weight: 600; */
+    font-size:17px;
+    color:#5a5454;
+    /* box-shadow: 1px 2px 2px 0px black; */
 }
 
 button:hover {
-    background-color: lightgreen;
+    background-color: rgb(111, 133, 154);
 }
 
 * {

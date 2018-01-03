@@ -61,6 +61,7 @@ const mutations = {
 const actions = {
     // checkout({ commit }, { data }) {
     [CHECKOUT]({ commit }, { data }) {
+        console.log('sellerssellerssellers', data.user)
         var sellers = data.cart.map((item) => {
             return item.seller
         })
@@ -68,7 +69,7 @@ const actions = {
         var items = data.cart.map((item) => {
             return { itemId: item._id, itemName: item.name, seller: item.seller }
         })
-        console.log('sellerssellerssellers', data)
+        
         var order = {
             buyer: {
                 buyerId: data.user._id,
@@ -77,7 +78,8 @@ const actions = {
             isDelivered: false,
             items: items,
             totalSum: data.cartTotal,
-            sellers: sellers
+            sellers: sellers,
+            deliveryDate:data.deliveryDate
         }
         // console.log('order', data)
         // commit(CHECKOUT);
