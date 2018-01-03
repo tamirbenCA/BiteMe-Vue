@@ -146,8 +146,8 @@ input {
     flex-direction: row;
     justify-content: center;
     padding: 7px 0 7px 0;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    /* border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray; */
     width: 100%;
 }
 
@@ -240,6 +240,7 @@ a {
     height: 250px;
     display: flex;
     flex-direction: column;
+    background-color: rgb(160, 175, 189);
 }
 
 input {

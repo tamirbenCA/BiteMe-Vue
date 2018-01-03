@@ -122,13 +122,6 @@ h2 {
     margin-bottom: 50px;
 }
 
-
-
-
-
-/* width: 25px;
-    height: 25px; */
-
 .fa-shopping-cart {
     font-size: 30px;
     color: darkcyan;

@@ -4,7 +4,7 @@
     <header-bar/>
     <router-view/>
     <footer>
-      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May & Ben</footer>
+      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May & Ben <i class="fa fa-hand-peace-o" aria-hidden="true"></i></footer>
   </div>
 </template>
 
