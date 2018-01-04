@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="manage-orders">
         <h1>Manage Orders</h1>
         <h2>Items sold</h2>
         <el-table
@@ -9,7 +9,8 @@
             :data="sellersItems"
             :default-sort = "{prop: 'date', order: 'descending'}"
             border
-            style="width: 100%">
+            style="width: 100%"
+            class="manage-orders-table">
             <el-table-column
                 prop="date"
                 label="Order To-Date"
@@ -46,7 +47,8 @@
         element-loading-spinner="el-icon-loading"
         :data="buyersItems"
         :default-sort = "{prop: 'date', order: 'descending'}"
-        style="width: 100%">
+        style="width: 100%"
+        class="manage-orders-table">
         <el-table-column
             prop="date"
             label="Order To-Date"
@@ -166,7 +168,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.manage-orders-table {
+  text-align: left;
+}
 
+.manage-orders-table, td, tr, .cell {
+  background-color: transparent !important
+}
+
+#app > section > div:nth-child(3) > input[type="text"] {
+  visibility: hidden;
+}
 </style>
 
 
