@@ -15,14 +15,6 @@ export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER = 'user/updateSeller';
-export const LOAD_TOP_MEALS = 'user/updateSeller';
-
-
-import ShopService from '../services/ShopService.js';
-import UserService from "../services/UserService.js";
-
-const SET_ITEMS = 'shop/setItems';
-// const SET_CHEFS = 'shop/setChefs';
 
 
 const state = {
@@ -47,50 +39,31 @@ const mutations = {
         console.log('payload._id44', payload.sellerId)
         UserService.deleteSeller(payload.sellerId)
     },
-    // [DELETE_ITEMS](state, payload) {
-    //     UserService.deleteItems(payload)
-    // },
     [LOAD_TAGS](state, payload) {
-        // console.log('mutating tags', payload.tags)
         state.tags = payload
     },
     [SET_ITEMS](state, { items }) {
         state.items = items;
-        // console.log( state.items)
+        console.log( state.items)
     },
-
-    // [SET_CHEFS](state, { items }) {
-    //     state.chefs = items;
-    //     // console.log( state.items)
-    // },
     [LOAD_ITEM](state, payload) {
         state.currItem = payload.item;
-        // console.log(state.currItem)        
     },
 
     [LOAD_SELLER](state, payload) {
         state.currItem = payload.item;
         state.currSeller = payload.seller;
-        // console.log('payload41',  state.currItem )
-        // console.log('payload41',state.currSeller )
     },
-    // [LOAD_ITEM](state, item) {
-    //     // console.log('mutation item: ', item)
-    //     state.currItem = item;
-    // },
     [LOAD_SELLERS_ITEMS](state, { items }) {
         state.sellersItems = items
-        // console.log('seller items in mutataion: ', items)
     },
     [LOAD_BUYERS_ITEMS](state, { items }) {
         state.buyersItems = items
-        // console.log('buyer items in mutataion: ', items)
     },
     [LOAD_SEARCHED_ITMES](state, { items }) {
         state.searchedItems = items;
     },
     [SET_TAG](state, {tag}) {
-        // console.log('tag in MUTATIONS: ', tag)
         state.tag = tag;
     },
     [MARK_DELIVERED](state, {orderId}) {
@@ -98,8 +71,6 @@ const mutations = {
         state.sellersItems[orderIdx].isDelivered = Date.now();
     },
     [UPDATE_SELLER](state, { sellerId }) {
-        // console.log('inside mutation', sellerId)
-        // console.log('inside mutation', (state.items).find(item => item._id === sellerId))
         var sellerInState = (state.items).find(item => item._id === sellerId)
         sellerInState.isActive = !sellerInState.isActive
     }
@@ -123,7 +94,6 @@ const actions = {
         .then(seller => {
             console.log('seller is:', seller)
             seller.isActive = !seller.isActive
-            // return UserService.changeUserActivity(seller)
             UserService.changeUserActivity(seller)
             return seller;
             })
@@ -143,7 +113,6 @@ const actions = {
     [LOAD_ITEMS]({ commit }) {
         return UserService.getItems()
             .then(items => {
-                // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
 
@@ -154,13 +123,11 @@ const actions = {
             })
     },
     [LOAD_TOP_MEALS]({ commit }) {
-        // console.log('im here')
         return ShopService.getTopMeals()
             .then(items => {
-                // console.log(items)
-                // commit({ type: SET_ITEMS, items })
-                // return items
-
+                console.log(items)
+                commit({ type: SET_ITEMS, items })
+                return items
             })
             .catch(err => {
                 commit(SET_ITEMS, [])
@@ -170,7 +137,6 @@ const actions = {
     [LOAD_SELLERS]({ commit }) {
         return UserService.getSellers()
             .then(items => {
-                // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
             })
@@ -181,11 +147,8 @@ const actions = {
     },
 
     [LOAD_ITEMS_BY_IDS]({ commit }, { ids }) {
-        // console.log('ids',ids)
         return ShopService.getItemsByIds(ids)
             .then(items => {
-                // console.log(items)
-                // items.shift();
                 commit({ type: SET_ITEMS, items })
                 return items
             })
@@ -196,11 +159,8 @@ const actions = {
     },
 
     [LOAD_CHEFS_BY_IDS]({ commit }, { ids }) {
-        // console.log('ids',ids)
         return ShopService.getChefsByIds(ids)
             .then(items => {
-                // console.log(items)
-                // items.shift();
                 commit({ type: SET_CHEFS, items })
                 return items
             })
@@ -211,10 +171,8 @@ const actions = {
     },
 
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
-        // console.log('54', tag)
         return UserService.getItemsByTag({ tag })
             .then(items => {
-                // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
             })
@@ -224,7 +182,6 @@ const actions = {
             })
     },
     [LOAD_ITEM]({ commit }, { itemId }) {
-        // console.log('action: LOAD_ITEM itemId', itemId)
         return ShopService.getItemById(itemId, 'item')
             .then(item => {
                 commit({ type: LOAD_ITEM, item })
@@ -233,13 +190,13 @@ const actions = {
     },
 
     [LOAD_SELLER]({ commit }, { itemId }) {
-        // console.log(itemId)
+        console.log(itemId)
         return ShopService.getItemById(itemId, 'item')
             .then(item => {
-                // console.log(item.seller.sellerId)
+                console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
                     .then(seller => {
-                        // console.log(seller)
+                        console.log(seller)
                         commit({ type: LOAD_SELLER, item, seller })
                         return { item: item, seller: seller }
                     })
@@ -247,28 +204,22 @@ const actions = {
     },
 
     [LOAD_SELLERS_ITEMS]({ commit }, { userId }) {
-        // console.log('loading to approve items in ACTIONS id:', userId)
         return ShopService.loadSellersItems(userId).then(items => {
             commit({ type: LOAD_SELLERS_ITEMS, items: items.data })
         }).catch(() => {
-            // console.error('promise in actions NOT GOOD')
+            console.error('promise in actions NOT GOOD')
         })
     },
 
     [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {
-        // console.log('loading order status items in ACTIONS')
         return ShopService.loadBuyersItems(userId).then(items => {
             commit({type: LOAD_BUYERS_ITEMS, items: items.data})
         })        
     },
     [LOAD_SEARCHED_ITMES]({ commit }, { keyWord }) {
-        // console.log('keyWord in ACTIONS: ', keyWord)
-        // var tag = state.tag
         var tag = this.getters.tag
-        // console.log('!!!!!!!!!tag in load search!!!!!!!: ', tag)
         return UserService.getItemsByTag({tag, keyWord})
         .then(items => {
-            // console.log(items)
             commit({ type: SET_ITEMS, items })
         })
         .catch(err => {
@@ -277,7 +228,6 @@ const actions = {
         })
     },
     [MARK_DELIVERED]({ commit }, {orderId}) {
-        // console.log('shop:', orderId)
         ShopService.getItemById(orderId, 'order')
         .then(order => {
             order.isDelivered = Date.now();

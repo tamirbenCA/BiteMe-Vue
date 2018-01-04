@@ -34,11 +34,8 @@
 </template>
 
 <script>
-
-
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
-
 
 export default {
     name: 'Menu',
@@ -69,12 +66,10 @@ export default {
         isLoaded() {
             return true
         },
-
     },
     components: {
         TagsBar
     }
-
 }
 </script>
 
@@ -84,7 +79,6 @@ h1,
 h2 {
     font-weight: normal;
 }
-
 .chef-details {
     display: flex;
     flex-direction: row;
@@ -93,48 +87,41 @@ h2 {
     margin-bottom: 5px;
     margin-top: 5px;
 }
-
 .name {
     text-transform: uppercase;
     font-size: 15px;
 }
-
 .chef {
     width: 24px;
     height: 24px;
     border-radius: 50px;
 }
-
 .gif-loading {
     width: 100px;
     height:100px;
 }
-
 .fa-shopping-cart {
     font-size: 30px;
     color: darkcyan;
 }
-
 .items-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 100px;
 }
-
 p {
     margin: 0;
 }
-
 ul {
     list-style-type: none;
     padding: 0;
+   
 }
-
 .item {
     cursor: pointer;
-    height: 350px;
-    width: 250px;
+    height: 280px;
+    width: 320px;
     box-shadow: 0.5px 0.5px 2px 0px black;
     display: flex;
     flex-direction: column;
@@ -143,7 +130,6 @@ ul {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .item-footer {
     height: 150px;
     width: 100%;
@@ -155,38 +141,28 @@ ul {
     justify-content: space-around;
     background-color: white;
     box-sizing: border-box;
-
-
 }
-
 .img-item {
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 80%;
 }
-
-
-
 li {
     display: inline-block;
     margin: 0 10px;
 }
-
 a {
     color: #42b983;
 }
-
 .rank {
     display: flex;
     flex-direction: row;
     color: gold;
 }
-
 .star {
     margin: 0;
 }
-
 select {
     height: 30px;
 }

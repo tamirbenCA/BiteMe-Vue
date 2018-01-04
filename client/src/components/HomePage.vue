@@ -1,28 +1,17 @@
 <template>
   <div class="box">
     <p class="gt-start">Get Started With Our Best Sellers</p>
-    <div class="imgs-btm">
-      <div class="animated bounceInRight">
-        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-566345_l9uouq.jpg" alt=""></div>
-      <div class="animated bounceInRight">
-        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/food-prawn-asian_mbxnej.jpg" alt=""></div>
-
-      <div class="animated bounceInRight">
-        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-76093_xlkq0h.jpg" alt="">
-        <img src="../assets/icons8-new-40.png" style="position:relative; top:0;left: -70px;width:40px;height:40px">
-      </div>
-
-      <div class="animated bounceInRight">
-        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928795/pexels-photo-265393_c1j4rl.jpg" alt="">
-      </div>
-      <div class="animated bounceInRight">
-        <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928795/sushi-japan-soya-rice-681586_axfola.jpg" alt="">
-        <img src="../assets/icons8-new-40.png" style="position:relative; top:0;left: -70px;width:40px;height:40px;">
+    <div class="imgs-container">
+      <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
+        <div class="animated bounceInRight">
+          <img class="img-btm" @click="showDetails(meal)"  :src="meal.imgUrl"  alt="">
+          <div v-if="meal.isNew === true"> <img  class="new-icn" src="../assets/icons8-new-96.png"></div>
+         
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 
 
@@ -33,6 +22,8 @@ export default {
 
   created() {
     this.$store.dispatch({ type: LOAD_TOP_MEALS })
+    .then(data=>  console.log(data))
+   
   },
   computed: {
     meals() {
@@ -49,29 +40,38 @@ export default {
 </script>
 
 <style>
+.new-icn {
+  position: relative;
+  top: -230px;
+  right: -100px;
+  width: 80px;
+  height: 80px;
+    transform:rotateZ(20deg);
+}
+
 .gt-start {
   text-align: left;
   font-size: 30px;
   margin-bottom: 0;
-  /* font-weight: 600; */
   margin-left: 50px;
 }
 
 .box {
   display: flex;
   flex-direction: column;
-  height: 400px;
-  margin: 50px;
+  height: 450px;
+  justify-content: space-between;
+  margin-left: 50px;
 }
 
 .imgs-btm {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
+
   cursor: pointer;
+}
+
+.imgs-container {
+  display: flex;
+  flex-direction: row;
 }
 
 .img-btm:hover {
