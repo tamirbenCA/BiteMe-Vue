@@ -14,8 +14,10 @@ export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
-export const UPDATE_SELLER = 'user/updateSeller';
-export const LOAD_TOP_MEALS = 'user/loadTopMeals';
+// export const UPDATE_SELLER = 'user/updateSeller';
+export const UPDATE_SELLER = 'shop/updateSeller';
+// export const LOAD_TOP_MEALS = 'user/loadTopMeals';
+export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
 
 const SET_ITEMS = 'shop/setItems';
 

@@ -3,17 +3,18 @@
         <h1>Manage Orders</h1>
         <h2>Items sold</h2>
         <el-table
+            :data="sellersItems"
             v-loading="loading2"
             element-loading-text="Loading..."
             element-loading-spinner="el-icon-loading"
-            :data="sellersItems"
+            border
+            height="200"
             :default-sort = "{prop: 'date', order: 'descending'}"
-            cell-style="background-color: #75b8ff33"
+            style="width: 100%"
+            cell-style="background-color: #75b8ff33; text-transform: capitalize"
             row-style="background-color: transparent"
             header-row-style="background-color: transparent"
             header-cell-style="background-color: #75b8ff33"
-            border
-            style="width: 100%"
             class="manage-orders-table">
             <el-table-column
                 prop="date"
@@ -36,24 +37,31 @@
                 label="Operations">
                 <template slot-scope="scope">
                     <el-button
-                    v-if="!scope.row.isDelivered"
+                        v-if="!scope.row.isDelivered"
+                        size="mini"
+                        type="success"
+                        @click="deliverOrder(scope.row.id)">Mark as Shipped
+                    </el-button>
+                    <el-button
+                    v-if="scope.row.isDelivered"
                     size="mini"
-                    type="success"
-                    @click="deliverOrder(scope.row.id)">Mark as Shipped</el-button>
+                    type="info">Shipped
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
 
         <h2>Items bought</h2>
         <el-table
+        :data="buyersItems"
         v-loading="loading2"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         border
-        :data="buyersItems"
+        height="200"
         :default-sort = "{prop: 'date', order: 'descending'}"
         style="width: 100%"
-        cell-style="background-color: #75b8ff33"
+        cell-style="background-color: #75b8ff33; text-transform: capitalize"
         row-style="background-color: transparent"
         header-row-style="background-color: transparent"
         header-cell-style="background-color: #75b8ff33"
@@ -176,10 +184,6 @@ export default {
   background-color: transparent !important
 }
 
-#app > div > div:nth-child(3) > div.el-table__header-wrapper > table > thead > tr {
-    background-color: #75b8ff33;
-
-}
 </style>
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" v-if="pageReady">
     <p class="gt-start">Get Started With Our Best Sellers</p>
     <div class="imgs-container">
       <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
@@ -22,10 +22,16 @@ import { LOAD_TOP_MEALS } from '../modules/ShopModule.js';
 
 export default {
   name: 'HomePage',
-
+  data() {
+    return {
+      pageReady: false
+    }
+  },
   created() {
     this.$store.dispatch({ type: LOAD_TOP_MEALS })
-      .then(data => console.log(data))
+      .then(data => {
+        this.pageReady = true;
+      })
 
   },
   computed: {
