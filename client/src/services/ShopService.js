@@ -118,6 +118,18 @@ function saveItem(item) {
     }
 }
 
+
+function getTopMeals(){
+ 
+      return axios
+        .get(`${URL}/data/mealsFirstPage/`)
+        .then(res => {
+            console.log('resdata:', res.data)
+            return res.data
+        })
+}
+
+
 export default {
     loadTags,
     getItemById,
@@ -130,5 +142,6 @@ export default {
     markDelivered,
     emptyItem,
     addOrder,
-    saveItem
+    saveItem,
+    getTopMeals
 }

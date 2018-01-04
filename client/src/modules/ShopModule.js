@@ -152,6 +152,20 @@ const actions = {
                 throw err;
             })
     },
+    [LOAD_TOP_MEALS]({ commit }) {
+        // console.log('im here')
+        return ShopService.getTopMeals()
+            .then(items => {
+                // console.log(items)
+                // commit({ type: SET_ITEMS, items })
+                // return items
+
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
+    },
     [LOAD_SELLERS]({ commit }) {
         return UserService.getSellers()
             .then(items => {

@@ -3,13 +3,12 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img src="../assets/logo.png" />
+                    <img style="height:90px;width:200px"src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
 
         </div>
-        <div class="header">
-
+        <!-- <div class="header"> -->
             <div class="btns-right">
                 <div>
                     <router-link to="/meals" tag="button" @click.native="setTag" class="header-button">Meals</router-link>
@@ -18,6 +17,9 @@
                     <router-link to="/sellerslist" tag="button" class="header-button">Sellers List</router-link>
                     <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
                     <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
+                  <div>
+                <input  v-model="searchValue" type="text" @keyup="searchByte" autofocus>
+            </div>
                 </div>
                 <div style="display:flex;flex-direction:column;">
                     <div>
@@ -27,21 +29,20 @@
                     </div>
                     <div>
                         <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange">
-                           Hello {{loggedinUser.name}}
+                            Hello {{loggedinUser.name}}
                         </p>
                         <p class="lgn-user" v-else>
-                            <router-link to="/admin" v-if="adminLogged" class="admin"> 
-                            Hello Admin
+                            <router-link to="/admin" v-if="adminLogged" class="admin">
+                                Hello Admin
                             </router-link>
                         </p>
                     </div>
                 </div>
+              
             </div>
+            
+        <!-- </div> -->
 
-        </div>
-        <div>
-            <input style="margin: 100px;" v-model="searchValue" type="text" @keyup="searchByte" autofocus>
-        </div>
     </section>
 </template>
 
@@ -126,9 +127,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.logo {
-    margin-top: 120px;
-}
+/* .logo {
+    margin-top: 180px;
+} */
 
 .btns-right {
     width: 100%;
@@ -158,16 +159,12 @@ img {
 input {
     margin-left: 40px;
     border-radius: 5px;
-    height: 30px;
-    margin-top: 100px;
+    /* height: 20px; */
+    margin-top: 30px;
+    margin-left: -30px;
 }
 
-.header {
-    flex-direction: row;
-    justify-content: center;
-    padding: 7px 0 7px 0;
-    width: 100%;
-}
+
 
 .lgn-user {
     text-transform: capitalize;
@@ -177,7 +174,7 @@ input {
     text-align: right;
     display: column;
     margin-top: 10px;
-    padding-left:60px;
+    padding-left: 60px;
     /* margin-left: 250px; */
 }
 
@@ -224,7 +221,7 @@ h2 {
 
 .admin {
     text-decoration: none;
-    color:orange;
+    color: orange;
     /* font-weight: bold; */
     padding-left: 5px;
     font-size: 20px;
@@ -259,27 +256,26 @@ a {
 .header-bar {
 
     padding: 5px;
-    height: 120px;
+    height: 150px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: rgb(38, 49, 60);
+    width:100%;
+
 }
 
 input {
-    /* padding: 5px; */
     padding: 5px;
     padding-left: 55px;
-    max-width: 300px;
     border: 1px solid #f5f5f5;
     font-size: 13px;
-    /* color:gray; */
     background-image: url('../assets/search logo.png');
     background-repeat: no-repeat;
     background-position: left center;
     outline: 0;
-    height: 35px;
-    margin-top: 20px;
-    width: 500px;
+    height: 25px;
+    margin-right: 50px;
+    width: 400px;
     border: 1px solid #f1ece4;
 }
 
@@ -313,6 +309,7 @@ button {
 .router-link-active {
     color: orange
 }
+
 
 
 

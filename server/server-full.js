@@ -228,6 +228,7 @@ app.get('/data/:objType', function (req, res) {
 	});
 });
 
+
 //get sellers only
 app.get('/data/:user/seller', function (req, res) {
 	console.log('queryqueryqueryhiiiiiiiiiiiiiiiiiiii')

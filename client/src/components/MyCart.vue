@@ -244,7 +244,7 @@ export default {
     margin-bottom: 50px;
     margin-top: 20px;
     height: 100%;
-    margin-top: 200px;
+    margin-top: 100px;
 }
 
 .header {
