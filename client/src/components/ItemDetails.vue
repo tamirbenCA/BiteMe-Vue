@@ -4,23 +4,6 @@
             <img class="gif-loading" src="../assets/loading.gif">
         </div>
         <div class="details-container" v-else>
-            <div class="modal" v-if="isActive === true">
-
-                <i class="fa fa-times-circle" aria-hidden="true" @click="closeModal"></i>
-                <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
-                    <p>Add a comment</p>
-                    <input v-model="msg" type="text">
-                    <div class="rank-chef">
-                        Rank the meal
-                        <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                            <option>0</option>
-                            <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                        </select>
-                    </div>
-                    <button class="midal-btn">Send</button>
-                </form>
-            </div>
-
             <div class="top-page">
                 <div class="cover">
                     <div class="left-side">
@@ -39,7 +22,7 @@
                                 </div>
                             </div>
                             <img class="item" :src="item.imgUrl" />
-                            <p style="text-transform: capitalize; margin:10px" >{{item.desc}}</p>
+                            <p style="text-transform: capitalize; margin:10px">{{item.desc}}</p>
                         </div>
                         <div class="price" style="background-color:#ffffffa8">
                             <p style="margin-bottom:10px"> Price: {{item.price}}$ </p>
@@ -51,7 +34,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="comments">
                         <div class="comment-top">
@@ -65,16 +47,31 @@
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <p style="text-transform: capitalize;">{{comment.userName}} ,</p>
                                     <p style="text-transform: capitalize;"> {{comment.comment}}</p>
-                                   
+
                                     <div class="rank">
                                         <div v-for="(star ,idx) in comment.rank" :key="idx">
-                                            <span >★</span>
+                                            <span>★</span>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-
                         </ul>
+                        <div class="modal">
+
+                            <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
+                                <p>Add a comment</p>
+                                <input class="msg" v-model="msg" type="text">
+                                <div class="rank-chef">
+                                    Rank the meal
+                                    <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
+                                        <option>0</option>
+                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                    </select>
+                                </div>
+                                <button class="midal-btn">Send</button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
                 <div class="middle">
@@ -127,7 +124,7 @@ export default {
     },
     watch: {
         '$route.params.itemId'() {
-     
+
             this.itemId = this.$route.params.itemId;
             this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
         }
@@ -135,10 +132,10 @@ export default {
     created() {
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
-        console.log( this.itemId)
+        // console.log( this.itemId)
         this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             .then((item) => {
-                 console.log(item)
+                //  console.log(item)
                 item.seller.itemsForSale.forEach((item) =>
                     mealsIds.push(item))
                 this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: mealsIds })
@@ -156,22 +153,24 @@ export default {
         },
         addComment() {
             this.isActive = true;
-            console.log(this.isActive)
+            // console.log(this.isActive)
         },
         sendComment(itemId, comment) {
+            console.log(itemId, comment)
             if (comment !== '') {
                 if (!this.$store.getters.loggedinUser.name) this.$router.push('/login');
                 else {
                     this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity, userName: this.$store.getters.loggedinUser.name });
-                    this.isActive = false;
+                    swal({
+                        title: "Your message will be reviewed shortly",
+                        icon: "success",
+                    });
+                    this.msg = '';
                 }
             }
         },
         rankVal(val) {
             this.rank = val
-        },
-        closeModal() {
-            this.isActive = false;
         },
         showDetails(item) {
             this.$router.push('/itemdetails/' + item._id);
@@ -202,22 +201,24 @@ export default {
                 if (this.chef._id === this.$store.getters.loggedinUser._id) return true;
             } else return false;
         }
- 
+
     },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.top-detail{
-        display: flex;
+.top-detail {
+    display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 .cover {
     display: flex;
     flex-direction: column;
 }
+
 .cmt-div {
     width: 100%;
     box-shadow: 1px 2px 6px 0px black;
@@ -226,6 +227,7 @@ export default {
     align-items: center;
     height: 41px;
 }
+
 .comment-top {
     display: flex;
     align-items: center;
@@ -234,16 +236,19 @@ export default {
     margin: auto;
     margin-bottom: 15px;
 }
+
 .price-btm {
     display: flex;
     justify-content: space-around;
     width: 100px;
     margin: auto;
 }
+
 select {
     border: 1px solid black;
     border-radius: 5px;
 }
+
 .rank {
     display: flex;
     flex-direction: row;
@@ -256,34 +261,39 @@ select {
     cursor: pointer;
     color: black;
 }
+
 .fa-commenting-o {
     font-size: 30px;
     cursor: pointer;
 }
+
 .modal {
     border: 1px solid lightgray;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color: lightgray;
     z-index: 1000;
     display: block;
-    width: 300px;
-    height: 300px;
+    width: 493px;
+    height: 245px;
     margin: auto;
-    box-shadow: 3px 3px 6px 3px black;
+    box-shadow: 2px 2px 2px 0px black;
 }
+
 .midal-btn {
     border-radius: 15px;
     border: none;
     width: 80px;
     height: 50px;
     margin-bottom: 5px;
-    background-color: lightgreen;
+    background-color: #99a9bf;
     font-size: 15px;
 }
+
 .title {
     font-size: 30px;
     font-weight: bold;
 }
+
 .middle {
     display: flex;
     flex-direction: column;
@@ -291,9 +301,11 @@ select {
     align-items: center;
     justify-content: space-around;
 }
+
 h2 {
     margin: 0;
 }
+
 .comment {
     text-align: left;
     color: black;
@@ -303,14 +315,17 @@ h2 {
     margin: 5px;
     background-color: #99a9bf;
 }
+
 .about-chef {
     word-wrap: break-word;
 }
+
 .fa-user {
     padding-right: 10px;
     font-size: 35px;
     color: lightcyan;
 }
+
 .comments {
     padding: 10px;
     border: 1px solid lightgray;
@@ -321,10 +336,12 @@ h2 {
     border-radius: 5px;
     margin: inherit;
 }
+
 .comments-box {
     padding: 0;
     border-radius: 5px;
 }
+
 .top-page {
     display: flex;
     flex-direction: row;
@@ -334,10 +351,12 @@ h2 {
     margin-bottom: none;
     margin-top: none;
 }
+
 .price {
     border: 1px solid lightgray;
     padding-bottom: 40px;
 }
+
 .left-side {
     display: flex;
     flex-direction: column;
@@ -347,6 +366,7 @@ h2 {
     justify-content: space-around;
     height: 650px;
 }
+
 .chef-details {
     padding-bottom: 40px;
     width: 65%;
@@ -356,16 +376,20 @@ h2 {
     align-items: center;
     justify-content: space-around;
 }
+
 li {
     list-style: none;
     display: flex;
 }
+
 .star {
     color: gold;
 }
+
 .more-item {
     cursor: pointer;
 }
+
 .top {
     margin-bottom: 60px;
     display: flex;
@@ -373,26 +397,31 @@ li {
     justify-content: center;
     align-items: center;
 }
+
 ul {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: initial;
 }
+
 img {
     height: 50%;
     width: 80%;
 }
+
 .meal {
     height: 30%;
     width: 40%;
 }
+
 .chef {
     background-size: cover;
     background-position: center;
     width: 60%;
     height: 60%;
 }
+
 .item {
     background-size: cover;
     background-position: center;
@@ -400,12 +429,14 @@ img {
     height: 300px;
     margin-top: 50px;
 }
+
 .meal {
     background-size: cover;
     background-position: center;
     max-width: 20vw;
     max-height: 20vw;
 }
+
 .right-side {
     color: black;
     width: 40%;
@@ -419,10 +450,12 @@ img {
     width: 90%;
     margin: 5px;
 }
+
 select {
     height: 40px;
     border: 1px solid black;
 }
+
 .details-container::after {
     background-color: white;
     opacity: 0.5;
@@ -481,11 +514,15 @@ form {
     margin: 10px;
     color: black;
 }
-input {
-    margin: 10px;
-    padding: 5px;
+
+.msg {
+    width: 350px;
+    padding: none;
+    background-color: #f8f3f3;
     border-radius: 5px;
+    height: 18px;
 }
+
 
 .buttom {
     padding: 10px;
@@ -500,7 +537,7 @@ input {
 
 .gif-loading {
     width: 100px;
-    height:100px;
+    height: 100px;
     /* margin-bottom: 50px; */
 }
 </style>

@@ -36,7 +36,9 @@ function getChefById(itemId) {
 }
 
 function addComment(itemId, comment, rank, userName) {
-    getItemById(itemId).then((item) => {
+    console.log(itemId)
+    getItemById(itemId, 'item').then((item) => {
+        
         item.comments.push({ comment, rank, userName });
         var sum = item.comments.reduce(function (a, b) {
             return a + b.rank;
