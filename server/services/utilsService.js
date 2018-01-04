@@ -1,5 +1,5 @@
 function getTags() {
-    return ['vegan', 'veggie', 'meat', 'pastry', 'fish', 'pasta' ]
+    return ['vegan', 'veggie', 'meat', 'pastry', 'fish', 'pasta', 'gluten free', 'soy free' ]
 }
 
 
