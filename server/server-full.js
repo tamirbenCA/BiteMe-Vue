@@ -91,6 +91,7 @@ app.get('/data/tags', function (req, res) {
 })
 
 app.get('/data/items', function (req, res) {
+	console.log("itemsssss")
 	const objType = 'item';
 	const tag = req.query.tag;
 	const term = req.query.term;
@@ -202,6 +203,27 @@ app.get('/data/user/:id/orders/asbuyer', function (req, res) {
 	});
 });
 
+//get top meals for first page
+app.get('/data/item/topMeals', function (req, res) {
+	// console.log('queryqueryqueryhiiiiiiiiiiiiiiiiiiii', req.query )
+	const ids = req.query.mealsIds.map((meallId) => new mongodb.ObjectID(meallId))
+	console.log(ids)
+
+	dbConnect().then(db => {
+		const collection = db.collection('item');
+		collection.find( { _id : { $in : ids } }).toArray((err, objs) => {
+		
+			if (err) {
+				cl('Cannot get you a list of ', err)
+				res.json(404, { error: 'not found' })
+			} else {
+				cl('objsobjsobjsobjs',objs.length);
+				res.json(objs);
+			}
+			db.close();
+		});
+	});
+});
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
@@ -248,6 +270,9 @@ app.get('/data/:user/seller', function (req, res) {
 		});
 	});
 });
+
+
+
 
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {

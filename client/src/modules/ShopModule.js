@@ -15,7 +15,7 @@ export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER = 'user/updateSeller';
-
+export const LOAD_TOP_MEALS = 'user/loadTopMels';
 
 import ShopService from '../services/ShopService.js';
 import UserService from "../services/UserService.js";
@@ -55,7 +55,7 @@ const mutations = {
     },
     [SET_ITEMS](state, { items }) {
         state.items = items;
-        // console.log( state.items)
+        console.log( state.items)
     },
 
     // [SET_CHEFS](state, { items }) {
@@ -156,9 +156,9 @@ const actions = {
         // console.log('im here')
         return ShopService.getTopMeals()
             .then(items => {
-                // console.log(items)
-                // commit({ type: SET_ITEMS, items })
-                // return items
+                console.log(items)
+                commit({ type: SET_ITEMS, items })
+                return items
 
             })
             .catch(err => {
@@ -232,13 +232,13 @@ const actions = {
     },
 
     [LOAD_SELLER]({ commit }, { itemId }) {
-        // console.log(itemId)
+        console.log(itemId)
         return ShopService.getItemById(itemId, 'item')
             .then(item => {
-                // console.log(item.seller.sellerId)
+                console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
                     .then(seller => {
-                        // console.log(seller)
+                        console.log(seller)
                         commit({ type: LOAD_SELLER, item, seller })
                         return { item: item, seller: seller }
                     })

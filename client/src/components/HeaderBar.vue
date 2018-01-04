@@ -3,7 +3,7 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img style="height:90px;width:200px"src="../assets/Byte-Me-Logo.png" />
+                    <img style="height:130px;width:130px;margin-left:30px;"src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
 

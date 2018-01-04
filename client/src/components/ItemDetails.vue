@@ -22,7 +22,6 @@
             </div>
 
             <div class="top-page">
-                <!-- <div class="left-side" v-if="!isProcessing"> -->
                 <div class="cover">
                     <div class="left-side">
                         <div class="top">
@@ -51,7 +50,6 @@
                                     <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
                                 </select>
-                                <!-- <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem" style="font-size:30px"></i> -->
                             </div>
                         </div>
 
@@ -82,7 +80,6 @@
                 </div>
                 <div class="middle">
                     <div class="chef-details" style="background-color:#ffffffa8">
-                        <!-- <h1 style="color:black"> About chef</h1> -->
                         <p style="font-size:20px; text-transform: capitalize;"> Meet {{chef.name}} </p>
                         <div><img class="chef" :src="chef.imgUrl" /></div>
 
@@ -110,18 +107,13 @@
 </template>
 
 <script>
-
 import { LOAD_ITEM } from '../modules/ShopModule.js';
 import { LOAD_SELLER } from '../modules/ShopModule.js';
 import { LOAD_ITEMS_BY_IDS } from '../modules/ShopModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
 import { UPDATE_ITEM } from '../modules/ShopModule.js';
-
 import swal from 'sweetalert'
-
-// import ShowMeals from './ShowMeals.vue';
 export default {
-
     data() {
         return {
             // mealsIds: [],
@@ -136,37 +128,26 @@ export default {
     },
     watch: {
         '$route.params.itemId'() {
-            // this.isProcessing = true;
-            // setTimeout(() => {
-            // this.mealsIds = [];
+     
             this.itemId = this.$route.params.itemId;
             this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
-            // this.isProcessing = false;
-            // }, 500);
         }
-
     },
     created() {
-        console.log( this.$store.getters.currItem)
-        // this.mealsIds = [];
+        
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
-        // console.log(itemId)
+        console.log( this.itemId)
         this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             .then((item) => {
-                // console.log('item', item.seller.commentsOnSellers)
+                 console.log(item)
                 item.seller.itemsForSale.forEach((item) =>
-                    // this.mealsIds.push(item))
                     mealsIds.push(item))
-
-                // this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
                 this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: mealsIds })
                     .then((items) => {
-                        // console.log(items)
                         this.pageReady = true;
                     })
             })
-
     },
     methods: {
         addItem() {
@@ -176,7 +157,6 @@ export default {
             });
         },
         addComment() {
-
             this.isActive = true;
             console.log(this.isActive)
         },
@@ -188,9 +168,7 @@ export default {
                     this.isActive = false;
                 }
          
-
             }
-
         },
         rankVal(val) {
             this.rank = val
@@ -202,10 +180,6 @@ export default {
             this.$router.push('/itemdetails/' + item._id);
         },
         quantityChange({ quantity, item }) {
-            // console.log('imdddddddddddd')
-            // console.log('quantityquantity', quantity)
-            // console.log('itemitem', item)
-            // var currUser = this.user
             this.$store.commit({ type: UPDATE_CART, item, quantity });
             swal({
                 title: "Item added to cart",
@@ -213,7 +187,6 @@ export default {
             });
         }
     },
-
     computed: {
         item() {
             return this.$store.getters.currItem
@@ -232,19 +205,13 @@ export default {
                 if (this.chef._id === this.$store.getters.loggedinUser._id) return true;
             } else return false;
         }
-        // isProcessing(){
-        //     // if(this.isProcessing === false)
-        //     // return !this.isProcessing
-        // }
-
+ 
     },
-
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .top-detail{
         display: flex;
     flex-direction: row;
@@ -254,7 +221,6 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
 .cmt-div {
     width: 100%;
     box-shadow: 1px 2px 6px 0px black;
@@ -262,10 +228,7 @@ export default {
     padding: 9px;
         align-items: center;
             height: 41px;
-
-
 }
-
 .comment-top {
     display: flex;
     align-items: center;
@@ -274,19 +237,16 @@ export default {
     margin: auto;
     margin-bottom: 15px;
 }
-
 .price-btm {
     display: flex;
     justify-content: space-around;
     width: 100px;
     margin: auto;
 }
-
 select {
     border: 1px solid black;
     border-radius: 5px;
 }
-
 .rank {
     display: flex;
     flex-direction: row;
@@ -294,20 +254,15 @@ select {
     padding-left: 10px;
     margin: none;
    
-
 }
-
 .fa-pencil {
     cursor: pointer;
     color: black;
 }
-
 .fa-commenting-o {
     font-size: 30px;
-
     cursor: pointer;
 }
-
 .modal {
     border: 1px solid lightgray;
     border-radius: 15px;
@@ -319,7 +274,6 @@ select {
     margin: auto;
     box-shadow: 3px 3px 6px 3px black;
 }
-
 .midal-btn {
     border-radius: 15px;
     border: none;
@@ -332,12 +286,10 @@ select {
     margin-top: 20px;
     margin-top: none; */
 }
-
 .title {
     font-size: 30px;
     font-weight: bold;
 }
-
 .middle {
     display: flex;
     flex-direction: column;
@@ -346,12 +298,9 @@ select {
     align-items: center;
     justify-content: space-around;
 }
-
-
 h2 {
     margin: 0;
 }
-
 .comment {
     text-align: left;
     color: black;
@@ -361,17 +310,14 @@ h2 {
     margin: 5px;
     background-color: #99a9bf;
 }
-
 .about-chef {
     word-wrap: break-word;
 }
-
 .fa-user {
     padding-right: 10px;
     font-size: 35px;
     color: lightcyan;
 }
-
 .comments {
     padding: 10px;
     border: 1px solid lightgray;
@@ -383,12 +329,10 @@ h2 {
     border-radius: 5px;
     margin: inherit;
 }
-
 .comments-box {
     padding: 0;
     border-radius: 5px;
 }
-
 .top-page {
     display: flex;
     flex-direction: row;
@@ -398,14 +342,12 @@ h2 {
     margin-bottom: none;
     margin-top: none;
 }
-
 .price {
     border: 1px solid lightgray;
     padding-bottom: 40px;
     /* padding-top: 20px; */
     /* width: 80%; */
 }
-
 .left-side {
     display: flex;
     flex-direction: column;
@@ -416,7 +358,6 @@ h2 {
     justify-content: space-around;
     height: 650px;
 }
-
 .chef-details {
     /* border: 1px solid lightgray; */
     padding-bottom: 40px;
@@ -427,20 +368,16 @@ h2 {
     align-items: center;
     justify-content: space-around;
 }
-
 li {
     list-style: none;
     display: flex;
 }
-
 .star {
     color: gold;
 }
-
 .more-item {
     cursor: pointer;
 }
-
 .top {
     /* border-bottom: 1px solid lightgray; */
     margin-bottom: 60px;
@@ -449,31 +386,26 @@ li {
     justify-content: center;
     align-items: center;
 }
-
 ul {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: initial;
 }
-
 img {
     height: 50%;
     width: 80%;
 }
-
 .meal {
     height: 30%;
     width: 40%;
 }
-
 .chef {
     background-size: cover;
     background-position: center;
     width: 60%;
     height: 60%;
 }
-
 .item {
     background-size: cover;
     background-position: center;
@@ -481,7 +413,6 @@ img {
     height: 300px;
     margin-top: 50px;
 }
-
 .meal {
     background-size: cover;
     background-position: center;
@@ -490,35 +421,26 @@ img {
     /* width: 220px;
     height: 200px; */
 }
-
 .right-side {
     color: black;
     width: 40%;
     display: flex;
     flex-direction: column;
-
     align-items: center;
 }
-
-
-
 .details {
     background-color: white;
     width: 90%;
     margin: 5px;
-    /* border-radius: 10px; */
-}
 
+}
 select {
     height: 40px;
     border: 1px solid black;
 }
-
 .details-container::after {
     background-color: white;
-    /* background: url("../img/background.jpg"); */
-    /* background-repeat: no-repeat; */
-    /* content: ""; */
+
     opacity: 0.5;
     position: fixed;
     top: 0;
@@ -527,14 +449,12 @@ select {
     left: 0;
     z-index: -1;
 }
-
 .details-container {
     padding-top: 60px;
     width: 100%;
     max-width: 900px;
     display: flex;
     flex-direction: column;
-    /* background-color: white; */
     justify-content: center;
     align-items: center;
     justify-content: space-between;
@@ -545,14 +465,11 @@ select {
     margin-bottom: 20px;
     margin-top: 50px;
 }
-
-
 .checkout-btn {
     background-color: green;
     border: none;
     height: 40px;
 }
-
 form {
     display: flex;
     flex-direction: column;
@@ -561,46 +478,36 @@ form {
     justify-content: space-around;
     align-items: center;
 }
-
 .logo {
     width: 20%;
     height: 20%;
     margin-bottom: 50px;
     margin-left: -500px;
 }
-
 .name {
     margin: 0;
 }
-
 .title {
     margin: 10px;
     color: black;
 }
-
 input {
     margin: 10px;
     padding: 5px;
     border-radius: 5px;
 }
-
 .buttom {
-    /* background-color: lightgray; */
     padding: 10px;
     border-radius: 10px;
 }
-
 .right-side-title {
     color: black;
     font-size: 30px;
     margin: 0 auto;
 }
-
 .gif-loading {
     width: 100px;
     height:100px;
     margin-top: 250px;
 }
 </style>
-
-
