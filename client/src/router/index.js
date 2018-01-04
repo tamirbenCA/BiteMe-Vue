@@ -38,17 +38,6 @@ export default new Router({
       name: 'JoinIn',
       component: JoinIn
     },
-    // {
-    //   path: '/items/:tag',
-    //   name: 'itemsByTag',
-    //   component: itemsByTag
-    // },
-    // {
-    //   path: '/searchedItems/:key',
-    //   name: 'SearchedItems',
-    //   component: SearchedItems
-    //   // component: itemsByTag
-    // },
     {
       path: '/login',
       name: 'LogIn',
@@ -64,7 +53,6 @@ export default new Router({
       name: 'ManageOrders',
       component: ManageOrders,
       beforeEnter: (to, from, next) => {
-        // console.log('to:', to)
         if (to.params.userid === store.getters.userId) {
           next()
         } else {
@@ -74,18 +62,11 @@ export default new Router({
         }
       }
     },
-    // {
-    //   path: '/map',
-    //   name: 'Map',
-    //   component: Map,
-    // },
     {
       path: '/admin',
       name: 'Admin',
       component: AdminPage,
       beforeEnter: (to, from, next) => {
-        // console.log('to:', to)
-        // console.log('store:', store.getters.loggedinUser.itemsForSale)
         if (store.getters.isAdmin) {
           next()
         } else {
@@ -120,8 +101,6 @@ export default new Router({
     name: 'editItem',
     component: EditItem,
     beforeEnter: (to, from, next) => {
-      // console.log('to:', to)
-      // console.log('store:', store.getters.loggedinUser.itemsForSale)
       if (store.getters.loggedinUser.itemsForSale.includes(to.params.itemId)) {
         next()
       } else {
