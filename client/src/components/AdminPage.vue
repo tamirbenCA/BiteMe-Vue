@@ -103,6 +103,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.gif-loading {
+    width: 100px;
+    height:100px;
+    /* margin-bottom: 50px; */
+}
+
 .cell {
     text-transform: capitalize;
 }

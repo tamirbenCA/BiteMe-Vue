@@ -80,6 +80,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.gif-loading {
+    width: 100px;
+    height:100px;
+    /* margin-bottom: 50px; */
+}
 .rank {
     display: flex;
     flex-direction: row;
@@ -134,8 +140,8 @@ ul {
 
 .item {
     cursor: pointer;
-    height: 350px;
-    width: 250px;
+    height: 280px;
+    width: 320px;
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     flex-direction: column;

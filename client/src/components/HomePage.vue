@@ -4,9 +4,12 @@
     <div class="imgs-container">
       <div class="imgs-btm" v-for="meal in meals">
         <div class="animated bounceInRight">
-          <img class="img-btm" @click="showDetails(meal)"  :src="meal.imgUrl"  alt="">
-          <div v-if="meal.isNew === true"> <img  class="new-icn" src="../assets/icons8-new-96.png"></div>
-         
+          <img class="img-btm" @click="showDetails(meal)" :src="meal.imgUrl" alt="">
+          <div v-if="meal.isNew === true" class="icon-box">
+            <div class="white-bckg"></div>
+            <img class="new-icn" src="../assets/icons8-new-96.png">
+          </div>
+
         </div>
       </div>
     </div>
@@ -22,8 +25,8 @@ export default {
 
   created() {
     this.$store.dispatch({ type: LOAD_TOP_MEALS })
-    .then(data=>  console.log(data))
-   
+      .then(data => console.log(data))
+
   },
   computed: {
     meals() {
@@ -42,11 +45,26 @@ export default {
 <style>
 .new-icn {
   position: relative;
-  top: -230px;
+  top: -270px;
   right: -100px;
   width: 80px;
   height: 80px;
-    transform:rotateZ(20deg);
+  transform: rotateZ(20deg);
+  z-index: 999;
+}
+
+/* .icon-box{
+  width: 80px;
+  height: 80px;
+} */
+
+.white-bckg {
+ background-color: white;
+    top: -212px;
+    right: -210px;
+    height: 40px;
+    width: 51px;
+    position: relative;
 }
 
 .gt-start {
@@ -59,7 +77,7 @@ export default {
 .box {
   display: flex;
   flex-direction: column;
-  height: 450px;
+  height: 500px;
   justify-content: space-between;
   margin-left: 50px;
 }

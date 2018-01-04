@@ -137,8 +137,9 @@ h2 {
 }
 
 .gif-loading {
-    width: 200px;
-    margin-bottom: 50px;
+    width: 100px;
+    height:100px;
+    /* margin-bottom: 50px; */
 }
 
 .chef-details {
@@ -184,8 +185,8 @@ ul {
 
 .item {
     cursor: pointer;
-    height: 350px;
-    width: 250px;
+    height: 280px;
+    width: 320px;
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     flex-direction: column;

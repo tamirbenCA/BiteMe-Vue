@@ -508,6 +508,6 @@ input {
 .gif-loading {
     width: 100px;
     height:100px;
-    margin-top: 250px;
+    /* margin-bottom: 50px; */
 }
 </style>
