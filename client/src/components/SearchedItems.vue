@@ -7,7 +7,6 @@
             <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
-                     <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
@@ -20,13 +19,10 @@
                                 <p>{{item.name}}</p>
                             </div>
                                 <div class="rank">
-                                    <div v-for="(start,idx) in item.rank" :key="idx">
+                                    <div v-for="(star,idx) in item.rank" :key="idx">
                                         <span>★</span>
                                     </div>
                                 </div>
-                            <!-- <p class="rank">{{item.rank}}
-                                <span class="star">★</span>
-                            </p> -->
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -57,7 +53,6 @@ export default {
     initPage() {
         this.pageReady = false
         var query = this.$route.query;
-        // console.log('query:', query)
         this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, query })
             .then((items) => {
                 this.pageReady = true;
@@ -92,6 +87,7 @@ export default {
     color: gold;
     width: 100px;
 }
+
 h1,
 h2 {
     font-weight: normal;
@@ -161,8 +157,7 @@ ul {
     justify-content: center;
     justify-content: space-around;
     background-color: white;
-        box-sizing: border-box;
-
+    box-sizing: border-box;
 }
 
 .img-item {

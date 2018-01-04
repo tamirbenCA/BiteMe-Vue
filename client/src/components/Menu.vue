@@ -36,6 +36,7 @@
 <script>
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
+
 export default {
     name: 'Menu',
     data() {
@@ -98,7 +99,6 @@ h2 {
 .gif-loading {
     width: 100px;
     height:100px;
-    /* margin-bottom: 50px; */
 }
 .fa-shopping-cart {
     font-size: 30px;
@@ -139,8 +139,8 @@ ul {
     padding-left: 15px;
     justify-content: center;
     justify-content: space-around;
-        background-color: white;
-            box-sizing: border-box;
+    background-color: white;
+    box-sizing: border-box;
 }
 .img-item {
     background-size: cover;

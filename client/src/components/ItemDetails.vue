@@ -27,12 +27,11 @@
                         <div class="top">
                             <p class="title">
                                 <div class="top-detail">
-
-                                <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </router-link>
-                                <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p></div>
-
+                                    <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </router-link>
+                                    <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p>
+                                </div>
                             </p>
                             <div class="rank">
                                 <div v-for="(start,idx) in rankOfMeal" :key="idx">
@@ -68,7 +67,7 @@
                                     <p style="text-transform: capitalize;"> {{comment.comment}}</p>
                                    
                                     <div class="rank">
-                                        <div v-for="(start,idx) in comment.rank" :key="idx">
+                                        <div v-for="(star ,idx) in comment.rank" :key="idx">
                                             <span >★</span>
                                         </div>
                                     </div>
@@ -113,10 +112,10 @@ import { LOAD_ITEMS_BY_IDS } from '../modules/ShopModule.js';
 import { UPDATE_CART } from '../modules/CartModule.js';
 import { UPDATE_ITEM } from '../modules/ShopModule.js';
 import swal from 'sweetalert'
+
 export default {
     data() {
         return {
-            // mealsIds: [],
             isProcessing: false,
             rank: 0,
             msg: '',
@@ -134,7 +133,6 @@ export default {
         }
     },
     created() {
-        
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
         console.log( this.itemId)
@@ -167,7 +165,6 @@ export default {
                     this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity, userName: this.$store.getters.loggedinUser.name });
                     this.isActive = false;
                 }
-         
             }
         },
         rankVal(val) {
@@ -226,8 +223,8 @@ export default {
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     padding: 9px;
-        align-items: center;
-            height: 41px;
+    align-items: center;
+    height: 41px;
 }
 .comment-top {
     display: flex;
@@ -253,8 +250,8 @@ select {
     color: gold;
     padding-left: 10px;
     margin: none;
-   
 }
+
 .fa-pencil {
     cursor: pointer;
     color: black;
@@ -282,9 +279,6 @@ select {
     margin-bottom: 5px;
     background-color: lightgreen;
     font-size: 15px;
-    /* margin: auto;
-    margin-top: 20px;
-    margin-top: none; */
 }
 .title {
     font-size: 30px;
@@ -293,7 +287,6 @@ select {
 .middle {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     justify-content: center;
     align-items: center;
     justify-content: space-around;
@@ -324,7 +317,6 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* margin: 5px; */
     width: 500px;
     border-radius: 5px;
     margin: inherit;
@@ -345,21 +337,17 @@ h2 {
 .price {
     border: 1px solid lightgray;
     padding-bottom: 40px;
-    /* padding-top: 20px; */
-    /* width: 80%; */
 }
 .left-side {
     display: flex;
     flex-direction: column;
     border: 1px solid gray;
     padding: 20px;
-    /* margin-left: 80px; */
     border-radius: 5px;
     justify-content: space-around;
     height: 650px;
 }
 .chef-details {
-    /* border: 1px solid lightgray; */
     padding-bottom: 40px;
     width: 65%;
     height: 400px;
@@ -379,7 +367,6 @@ li {
     cursor: pointer;
 }
 .top {
-    /* border-bottom: 1px solid lightgray; */
     margin-bottom: 60px;
     display: flex;
     flex-direction: column;
@@ -418,8 +405,6 @@ img {
     background-position: center;
     max-width: 20vw;
     max-height: 20vw;
-    /* width: 220px;
-    height: 200px; */
 }
 .right-side {
     color: black;
@@ -428,11 +413,11 @@ img {
     flex-direction: column;
     align-items: center;
 }
+
 .details {
     background-color: white;
     width: 90%;
     margin: 5px;
-
 }
 select {
     height: 40px;
@@ -440,7 +425,6 @@ select {
 }
 .details-container::after {
     background-color: white;
-
     opacity: 0.5;
     position: fixed;
     top: 0;
@@ -449,6 +433,7 @@ select {
     left: 0;
     z-index: -1;
 }
+
 .details-container {
     padding-top: 60px;
     width: 100%;
@@ -465,11 +450,13 @@ select {
     margin-bottom: 20px;
     margin-top: 50px;
 }
+
 .checkout-btn {
     background-color: green;
     border: none;
     height: 40px;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -478,15 +465,18 @@ form {
     justify-content: space-around;
     align-items: center;
 }
+
 .logo {
     width: 20%;
     height: 20%;
     margin-bottom: 50px;
     margin-left: -500px;
 }
+
 .name {
     margin: 0;
 }
+
 .title {
     margin: 10px;
     color: black;
@@ -496,15 +486,18 @@ input {
     padding: 5px;
     border-radius: 5px;
 }
+
 .buttom {
     padding: 10px;
     border-radius: 10px;
 }
+
 .right-side-title {
     color: black;
     font-size: 30px;
     margin: 0 auto;
 }
+
 .gif-loading {
     width: 100px;
     height:100px;

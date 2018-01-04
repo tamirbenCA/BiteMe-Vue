@@ -39,7 +39,6 @@ export default {
             var file = target.files
             UserService.uploadImage(file[0])
             .then(imgUrl => {
-                // console.log('photo uploaded')
                 this.newUser.imgUrl = imgUrl
                 }).catch(err => {
                     console.error('error adding photo:', err)
@@ -81,7 +80,7 @@ button{
     max-width:500px;
     width:100%;
     background-color: #b5f5b5;
-            margin-top: 174px;
+    margin-top: 174px;
 
     
 }

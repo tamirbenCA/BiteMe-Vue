@@ -2,7 +2,7 @@
   <div class="box">
     <p class="gt-start">Get Started With Our Best Sellers</p>
     <div class="imgs-container">
-      <div class="imgs-btm" v-for="meal in meals">
+      <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
         <div class="animated bounceInRight">
           <img class="img-btm" @click="showDetails(meal)" :src="meal.imgUrl" alt="">
           <div v-if="meal.isNew === true" class="icon-box">

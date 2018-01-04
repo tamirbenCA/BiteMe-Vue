@@ -4,12 +4,8 @@
         <div v-if="cartTotal === 0">
             <p class="title">No Items To Show</p>
         </div>
-        <!-- <div v-if="isCheckedOut && cartTotal === 0">
-                <img style="width:200px;height:200px" src="../assets/28ed52a553df9f994789b3739b5abf17.gif" alt="">
-            </div> -->
         <div class="box" v-else>
             <div class="header">
-                <!-- <div class="top-header"> -->
                 <div class="cnt-shop">
                     <i @click.stop="backToMenu" class="fa fa-hand-o-left" aria-hidden="true"></i>
                     <p style="margin:0">CONTINUE SHOPPING</p>
@@ -23,7 +19,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="cart"> -->
             <div class="item-container">
                 <div class="item" v-for="(item, idx) in cart" :key="idx">
                     <div class="item-back">
@@ -49,7 +44,6 @@
                 </div>
                 <div class="btm-cont">
                     <div class="date">
-                        <!-- <el-date-picker v-model="timeChosen" type="datetime" placeholder="Select date and time" :picker-options="pickerOptions1"> -->
                         <el-date-picker v-model="timeChosen" type="datetime" placeholder="Select date and time">
                         </el-date-picker>
                     </div>
@@ -80,28 +74,6 @@ export default {
             isActive: false,
             isCheckedOut: false,
             timeChosen: ''
-            // pickerOptions1: {
-            //     shortcuts: [{
-            //         text: 'Today',
-            //         onClick(picker) {
-            //             picker.$emit('pick', new Date());
-            //         }
-            //     }, {
-            //         text: 'Yesterday',
-            //         onClick(picker) {
-            //             const date = new Date();
-            //             date.setTime(date.getTime() - 3600 * 1000 * 24);
-            //             picker.$emit('pick', date);
-            //         }
-            //     }, {
-            //         text: 'A week ago',
-            //         onClick(picker) {
-            //             const date = new Date();
-            //             date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            //             picker.$emit('pick', date);
-            //         }
-            //     }]
-            // },
         };
 
     },
@@ -119,9 +91,6 @@ export default {
         checkout() {
 
             var loggedinUser = this.$store.getters.loggedinUser;
-            // console.log(loggedinUser)
-
-            // var loggedinUser = JSON.parse(localStorage.getItem('loggedinUser'));
             if (!loggedinUser) this.$router.push('/login');
             else {
                 if (this.timeChosen !== '') {
@@ -136,8 +105,6 @@ export default {
                 }
                 else {
                     swal({
-                        // title: "Thank You!!!!",
-                        // icon: "success",
                         text: "Enter date",
                     });
                 }
@@ -170,7 +137,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .btm-cont {
-    /* display: flex; */
     flex-direction: column;
 }
 
@@ -214,7 +180,6 @@ export default {
 
 .top-header {
     display: flex;
-    /* width: 250px; */
     justify-content: space-around;
     cursor: pointer;
 }
@@ -229,15 +194,12 @@ export default {
     display: flex;
     flex-direction: row;
     height: 150px;
-    /* border: 1px solid black; */
     box-shadow: 2px 3px 6px 2px black;
     margin-bottom: 50px;
     display: block;
 }
 
 .box {
-    /* border: 1px solid lightgray; */
-    /* height: 300px; */
     display: block;
     width: 900px;
     margin: auto;
@@ -266,8 +228,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     border-radius: 0 0 5px 5px;
-
-    /* font-weight:bold; */
 }
 
 .cart-header {
@@ -288,15 +248,8 @@ export default {
 }
 
 .item-container {
-    /* display: flex; */
     flex-direction: column;
-    /* justify-content: space-around; */
 }
-
-li {
-    /* background-color: white; */
-}
-
 
 .item-back {
     display: flex;
@@ -304,7 +257,6 @@ li {
     justify-content: space-between;
     background-color: white;
     align-items: center;
-    /* margin-left: none; */
 }
 
 .div {
@@ -317,9 +269,6 @@ li {
 select {
     border: 1px solid black;
     border-radius: 5px;
-    /* padding-left: 7px;
-    padding-right: 5px;
-    width: 22px; */
 }
 
 select:hover {

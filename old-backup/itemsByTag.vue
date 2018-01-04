@@ -6,14 +6,15 @@
         </div>
         <div class="items-container" v-else>
             <ul>
-                <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
+                <li v-for="(item, idx) in itemsToDisplay" :key="idx">
+               <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
-                                <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p style=" text-transform: capitalize;">{{item.seller.sellerName}}</p>
+                                <img class="chef" :src="seller[idx].imgUrl" />
+                                <p style=" text-transform: capitalize;">{{seller[idx].name}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -24,6 +25,9 @@
                                     <span class="star">★</span>
                                 </div>
                             </div>
+                            <!-- <p class="rank">{{item.rank}}
+                                <span class="star">★</span>
+                            </p> -->
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -34,23 +38,70 @@
 </template>
 
 <script>
+import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
 import TagsBar from './TagsBar.vue';
-import { LOAD_ITEMS } from '../modules/ShopModule.js';
+import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
 
 export default {
 
     data() {
         return {
             items: [],
-            pageReady: false,
-            sellerId: this.$route.params.sellerId
+            chefsIds: [],
+            pageReady: false
+        }
+    },
+    watch: {
+        '$route.params.tag'() {
+            var tag = this.$route.params.tag;
+            tag = tag.toLowerCase();
+            this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+                .then((items) => {
+                    items.forEach((item) =>
+                        this.chefsIds.push(item.seller.sellerId))
+                    //   console.log(' this.chefsIds', this.chefsIds)
+                    this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                        .then((items) => {
+                            //   console.log(items)
+                        })
+                })
+                .catch(err => { console.log('err', err) })
+        }
+    },
+    watch: {
+        '$route.params.tag'() {
+            this.pageReady = false;
+            var tag = this.$route.params.tag;
+            tag = tag.toLowerCase();
+            this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
+                .then((items) => {
+                    items.forEach((item) =>
+                        this.chefsIds.push(item.seller.sellerId))
+                    //   console.log(' this.chefsIds', this.chefsIds)
+                    this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                        .then((items) => {
+                            //   console.log(items)
+                            this.pageReady = true;
+
+                        })
+                })
+                .catch(err => { console.log('err', err) })
         }
     },
     created() {
-        this.$store.dispatch({ type: LOAD_ITEMS })
+        var tag = this.$route.params.tag;
+        tag = tag.toLowerCase();
+        this.$store.dispatch({ type: LOAD_ITEMS_BY_TAG, tag: tag })
             .then((items) => {
-                this.pageReady = true;
-            })
+                items.forEach((item) =>
+                    this.chefsIds.push(item.seller.sellerId))
+                // console.log(' this.chefsIds', this.chefsIds)
+                this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+                    .then((items) => {
+                        // console.log(items)
+                        this.pageReady = true;
+                    })
+            }).catch(err => { console.log('err', err) })
     },
     methods: {
         showDetails(item) {
@@ -59,7 +110,10 @@ export default {
     },
     computed: {
         itemsToDisplay() {
-            return (this.$store.getters.items).filter(item => item.seller.sellerId === this.sellerId)
+            return this.$store.getters.items
+        },
+        seller() {
+            return this.$store.getters.chefs
         }
     },
     components: {
@@ -75,16 +129,16 @@ export default {
     display: flex;
     flex-direction: row;
     color: gold;
+    /* width:150px; */
 }
-
 h1,
 h2 {
     font-weight: normal;
 }
 
 .gif-loading {
-    width: 100px;
-    height:100px;
+    width: 200px;
+    margin-bottom: 50px;
 }
 
 .chef-details {
@@ -130,8 +184,8 @@ ul {
 
 .item {
     cursor: pointer;
-    height: 280px;
-    width: 320px;
+    height: 350px;
+    width: 250px;
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     flex-direction: column;
@@ -151,7 +205,8 @@ ul {
     justify-content: center;
     justify-content: space-around;
     background-color: white;
-    box-sizing: border-box;
+        box-sizing: border-box;
+
 }
 
 .img-item {
