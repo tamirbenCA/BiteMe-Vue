@@ -123,15 +123,6 @@ h1 {
   margin-top: 30px;
 }
 
-img {
-  height: 400px;
-  width: 1150px;
-}
-
-slide {
-  height: 100px;
-  width: 900px;
-}
 
 .msg {
   background-color: lightgray;

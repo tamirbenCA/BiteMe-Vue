@@ -1,6 +1,6 @@
 <template>
     <section class="tags-bar">
-        <nav style="margin-top:50px;">
+        <!-- <nav style="margin-top:50px;"> -->
             <ul class="container-tags">
                 <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>
                     <button class="tag-btn">
@@ -9,7 +9,7 @@
 
                 </router-link>
             </ul>
-        </nav>
+        <!-- </nav> -->
     </section>
 </template>
 
@@ -88,10 +88,13 @@ li {
 }
 
 .tags-bar {
-    width: 70%;
+    /* width: 70%; */
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 50px;
+    align-items: center;
+    margin-top: 50px;
 }
+
 </style>
