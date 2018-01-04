@@ -76,7 +76,8 @@
             prop="date"
             label="Sched. Delivery Date"
             sortable
-            width="180">
+            width="180"
+            :formatter="formatter">
         </el-table-column>
         <el-table-column
             prop="sellers"
@@ -143,7 +144,8 @@ export default {
             var mapOrders = orders.map(order => {
                 return {
                     id: order._id,
-                    date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    // date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    date: order.deliveryDate,
                     sellers: order.sellers,
                     items: order.items,
                     isDelivered: order.isDelivered.toString()
