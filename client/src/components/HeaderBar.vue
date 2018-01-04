@@ -3,7 +3,7 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img style="height:130px;width:130px;margin-left:30px;"src="../assets/Byte-Me-Logo.png" />
+                    <img style="height:130px;width:150px;margin-left:30px;"src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
 
@@ -310,21 +310,6 @@ button {
     color: orange
 }
 
-
-
-
-
-
-
-
-
-
-/* .router-link-active {
-    color: gray;
-    /* color: lightgreen !important; */
-
-
-/* }  */
 
 .orders {
     display: flex;

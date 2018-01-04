@@ -53,11 +53,6 @@ export default {
   z-index: 999;
 }
 
-/* .icon-box{
-  width: 80px;
-  height: 80px;
-} */
-
 .white-bckg {
  background-color: white;
     top: -212px;
@@ -80,6 +75,7 @@ export default {
   height: 500px;
   justify-content: space-between;
   margin-left: 50px;
+  margin-top: 50px;
 }
 
 .imgs-btm {

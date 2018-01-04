@@ -286,7 +286,6 @@ select:hover {
 
 .title {
     height: 50px;
-    margin-top: 200px;
     margin-bottom: 50px;
     font-size: 40px;
 }

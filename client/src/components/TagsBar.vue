@@ -3,7 +3,7 @@
         <nav style="margin-top:50px;">
             <ul class="container-tags">
                 <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>
-                    <button style="text-transform: capitalize">
+                    <button class="tag-btn">
                         {{tag}}
                     </button>
 
@@ -43,6 +43,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.tag-btn{
+    text-transform: capitalize;
+    cursor: pointer;
+}
 button {
     border-radius: 5px;
     border: none;
