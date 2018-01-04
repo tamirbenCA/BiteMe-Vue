@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:3003'
+var URL = 'http://localhost:3003'
+if (process.env.NODE_ENV !== 'development') {
+    URL = ''
+}
+
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dl58rg6j8/image/upload'
 const CLOUDINARY_PRESET = 'rggusa2m'
 
@@ -51,7 +55,7 @@ function getItems() {
 
 function getSellerById(sellerId) {
     return axios
-        .get('http://127.0.0.1:3003/data/user/' + sellerId)
+        .get(`${URL}/data/user/${sellerId}`)
         .then(res => {
             return res.data
         })

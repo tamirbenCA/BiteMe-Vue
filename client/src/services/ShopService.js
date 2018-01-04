@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const URL = 'http://127.0.0.1:3003'
+var URL = 'http://127.0.0.1:3003'
+if (process.env.NODE_ENV !== 'development') {
+    URL = ''
+}
 
 function loadTags() {
     return axios.get(`${URL}/data/tags`)
