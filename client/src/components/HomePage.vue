@@ -1,8 +1,6 @@
 <template>
   <div class="box">
     <p class="gt-start">Get Started With Our Best Sellers</p>
-    <!-- <div class="imgs-btm" v-for="meal in meals"> -->
-    <!-- <img  @click="showDetails(meal)" :src="meal.imgUrl" alt=""> -->
     <div class="imgs-btm">
       <div class="animated bounceInRight">
         <img class="img-btm" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514928793/pexels-photo-566345_l9uouq.jpg" alt=""></div>

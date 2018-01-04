@@ -49,10 +49,8 @@ button {
     height: 40px;
     width: 80px;
     background-color: #a6cfd6;
-    /* font-weight: 600; */
     font-size:17px;
     color:#5a5454;
-    /* box-shadow: 1px 2px 2px 0px black; */
 }
 
 button:hover {
@@ -68,12 +66,10 @@ ul {
     margin-left: 400px;
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
 }
 
 li {
     width: 100px;
-    /* padding: 0 10px 0 10px; */
     border-right: none;
     cursor: pointer;
     text-transform: capitalize
@@ -93,6 +89,5 @@ li {
     flex-direction: row;
     justify-content: center;
     margin-bottom: 50px;
-    /* margin-top: 20px; */
 }
 </style>

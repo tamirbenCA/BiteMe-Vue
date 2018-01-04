@@ -22,18 +22,16 @@
             </div>
 
             <div class="top-page">
-                <!-- <div class="left-side" v-if="!isProcessing"> -->
                 <div class="cover">
                     <div class="left-side">
                         <div class="top">
                             <p class="title">
                                 <div class="top-detail">
-
-                                <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </router-link>
-                                <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p></div>
-
+                                    <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </router-link>
+                                    <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p>
+                                </div>
                             </p>
                             <div class="rank">
                                 <div v-for="(start,idx) in rankOfMeal" :key="idx">
@@ -51,7 +49,6 @@
                                     <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
                                 </select>
-                                <!-- <i class="fa fa-thumbs-up" aria-hidden="true" @click="addItem" style="font-size:30px"></i> -->
                             </div>
                         </div>
 
@@ -70,7 +67,7 @@
                                     <p style="text-transform: capitalize;"> {{comment.comment}}</p>
                                    
                                     <div class="rank">
-                                        <div v-for="(start,idx) in comment.rank" :key="idx">
+                                        <div v-for="(star ,idx) in comment.rank" :key="idx">
                                             <span >★</span>
                                         </div>
                                     </div>
@@ -82,7 +79,6 @@
                 </div>
                 <div class="middle">
                     <div class="chef-details" style="background-color:#ffffffa8">
-                        <!-- <h1 style="color:black"> About chef</h1> -->
                         <p style="font-size:20px; text-transform: capitalize;"> Meet {{chef.name}} </p>
                         <div><img class="chef" :src="chef.imgUrl" /></div>
 
@@ -119,12 +115,10 @@ import { UPDATE_ITEM } from '../modules/ShopModule.js';
 
 import swal from 'sweetalert'
 
-// import ShowMeals from './ShowMeals.vue';
 export default {
 
     data() {
         return {
-            // mealsIds: [],
             isProcessing: false,
             rank: 0,
             msg: '',
@@ -136,37 +130,25 @@ export default {
     },
     watch: {
         '$route.params.itemId'() {
-            // this.isProcessing = true;
-            // setTimeout(() => {
-            // this.mealsIds = [];
             this.itemId = this.$route.params.itemId;
             this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
-            // this.isProcessing = false;
-            // }, 500);
         }
 
     },
     created() {
         console.log( this.$store.getters.currItem)
-        // this.mealsIds = [];
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
-        // console.log(itemId)
         this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             .then((item) => {
-                // console.log('item', item.seller.commentsOnSellers)
                 item.seller.itemsForSale.forEach((item) =>
-                    // this.mealsIds.push(item))
                     mealsIds.push(item))
 
-                // this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: this.mealsIds })
                 this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: mealsIds })
                     .then((items) => {
-                        // console.log(items)
                         this.pageReady = true;
                     })
             })
-
     },
     methods: {
         addItem() {
@@ -187,10 +169,7 @@ export default {
                     this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity, userName: this.$store.getters.loggedinUser.name });
                     this.isActive = false;
                 }
-         
-
             }
-
         },
         rankVal(val) {
             this.rank = val
@@ -202,10 +181,6 @@ export default {
             this.$router.push('/itemdetails/' + item._id);
         },
         quantityChange({ quantity, item }) {
-            // console.log('imdddddddddddd')
-            // console.log('quantityquantity', quantity)
-            // console.log('itemitem', item)
-            // var currUser = this.user
             this.$store.commit({ type: UPDATE_CART, item, quantity });
             swal({
                 title: "Item added to cart",
@@ -232,13 +207,7 @@ export default {
                 if (this.chef._id === this.$store.getters.loggedinUser._id) return true;
             } else return false;
         }
-        // isProcessing(){
-        //     // if(this.isProcessing === false)
-        //     // return !this.isProcessing
-        // }
-
     },
-
 }
 </script>
 
@@ -260,10 +229,8 @@ export default {
     box-shadow: 1px 2px 6px 0px black;
     display: flex;
     padding: 9px;
-        align-items: center;
-            height: 41px;
-
-
+    align-items: center;
+    height: 41px;
 }
 
 .comment-top {
@@ -293,8 +260,6 @@ select {
     color: gold;
     padding-left: 10px;
     margin: none;
-   
-
 }
 
 .fa-pencil {
@@ -328,9 +293,6 @@ select {
     margin-bottom: 5px;
     background-color: lightgreen;
     font-size: 15px;
-    /* margin: auto;
-    margin-top: 20px;
-    margin-top: none; */
 }
 
 .title {
@@ -341,7 +303,6 @@ select {
 .middle {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     justify-content: center;
     align-items: center;
     justify-content: space-around;
@@ -378,7 +339,6 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* margin: 5px; */
     width: 500px;
     border-radius: 5px;
     margin: inherit;
@@ -402,8 +362,6 @@ h2 {
 .price {
     border: 1px solid lightgray;
     padding-bottom: 40px;
-    /* padding-top: 20px; */
-    /* width: 80%; */
 }
 
 .left-side {
@@ -411,14 +369,12 @@ h2 {
     flex-direction: column;
     border: 1px solid gray;
     padding: 20px;
-    /* margin-left: 80px; */
     border-radius: 5px;
     justify-content: space-around;
     height: 650px;
 }
 
 .chef-details {
-    /* border: 1px solid lightgray; */
     padding-bottom: 40px;
     width: 65%;
     height: 400px;
@@ -442,7 +398,6 @@ li {
 }
 
 .top {
-    /* border-bottom: 1px solid lightgray; */
     margin-bottom: 60px;
     display: flex;
     flex-direction: column;
@@ -487,8 +442,6 @@ img {
     background-position: center;
     max-width: 20vw;
     max-height: 20vw;
-    /* width: 220px;
-    height: 200px; */
 }
 
 .right-side {
@@ -500,13 +453,10 @@ img {
     align-items: center;
 }
 
-
-
 .details {
     background-color: white;
     width: 90%;
     margin: 5px;
-    /* border-radius: 10px; */
 }
 
 select {
@@ -516,9 +466,6 @@ select {
 
 .details-container::after {
     background-color: white;
-    /* background: url("../img/background.jpg"); */
-    /* background-repeat: no-repeat; */
-    /* content: ""; */
     opacity: 0.5;
     position: fixed;
     top: 0;
@@ -534,7 +481,6 @@ select {
     max-width: 900px;
     display: flex;
     flex-direction: column;
-    /* background-color: white; */
     justify-content: center;
     align-items: center;
     justify-content: space-between;
@@ -545,7 +491,6 @@ select {
     margin-bottom: 20px;
     margin-top: 50px;
 }
-
 
 .checkout-btn {
     background-color: green;
@@ -585,7 +530,6 @@ input {
 }
 
 .buttom {
-    /* background-color: lightgray; */
     padding: 10px;
     border-radius: 10px;
 }

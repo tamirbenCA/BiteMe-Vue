@@ -15,6 +15,7 @@ export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER = 'user/updateSeller';
+export const LOAD_TOP_MEALS = 'user/updateSeller';
 
 
 import ShopService from '../services/ShopService.js';

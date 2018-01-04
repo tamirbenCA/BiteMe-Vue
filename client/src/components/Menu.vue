@@ -9,7 +9,6 @@
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
-                            <!-- <img :src="item.item.img" /> -->
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
@@ -39,7 +38,6 @@
 
 import { LOAD_ITEMS } from '../modules/ShopModule.js';
 import TagsBar from './TagsBar.vue';
-// import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
 
 
 export default {
@@ -47,23 +45,13 @@ export default {
     data() {
         return {
             items: [],
-            // chefsIds: [],
             pageReady: false
         }
     },
     created() {
-        // debugger;
         this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
-                // items.forEach((item) =>
-                    // this.chefsIds.push(item.seller.sellerId))
-                // console.log(' this.chefsIds', this.chefsIds)
-                // this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
-                    // .then((items) => {
-                        // console.log(items)
-                        // console.log('bool', this.pageReady)
                         this.pageReady = true;
-                    // })
             })
     },
     methods: {
@@ -120,7 +108,6 @@ h2 {
 .gif-loading {
     width: 100px;
     height:100px;
-    /* margin-bottom: 50px; */
 }
 
 .fa-shopping-cart {
@@ -133,7 +120,6 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 100px;
-    /* padding-bottom: 10px; */
 }
 
 p {
@@ -150,8 +136,6 @@ ul {
     height: 350px;
     width: 250px;
     box-shadow: 0.5px 0.5px 2px 0px black;
-    /* border: 1px solid black; */
-    /* border-radius: 15px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -169,8 +153,8 @@ ul {
     padding-left: 15px;
     justify-content: center;
     justify-content: space-around;
-        background-color: white;
-            box-sizing: border-box;
+    background-color: white;
+    box-sizing: border-box;
 
 
 }
@@ -197,7 +181,6 @@ a {
     display: flex;
     flex-direction: row;
     color: gold;
-    /* width:150px; */
 }
 
 .star {

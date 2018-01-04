@@ -8,6 +8,10 @@
             element-loading-spinner="el-icon-loading"
             :data="sellersItems"
             :default-sort = "{prop: 'date', order: 'descending'}"
+            cell-style="background-color: #75b8ff33"
+            row-style="background-color: transparent"
+            header-row-style="background-color: transparent"
+            header-cell-style="background-color: #75b8ff33"
             border
             style="width: 100%"
             class="manage-orders-table">
@@ -45,9 +49,14 @@
         v-loading="loading2"
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
+        border
         :data="buyersItems"
         :default-sort = "{prop: 'date', order: 'descending'}"
         style="width: 100%"
+        cell-style="background-color: #75b8ff33"
+        row-style="background-color: transparent"
+        header-row-style="background-color: transparent"
+        header-cell-style="background-color: #75b8ff33"
         class="manage-orders-table">
         <el-table-column
             prop="date"
@@ -85,21 +94,8 @@ export default {
             loading2: true
         }
     },
-    // beforeRouteEnter(to, from, next) {
-    //     console.log('to', to)
-    //     console.log('from', from)
-    //     console.log('userId in store:', this.$store.getters.userId)
-    //     // if (to.params.userid === this.$store.getters.userId) {
-    //         // next()
-    //     // } else {
-    //         // console.log('in else')
-    //         // next(false)
-    //         // this.$router.push('/')
-    //         // }
-    // },
     created() {
         this.userId = this.$route.params.userid
-        // console.log('manage orders user id: ', this.userId)
         var p1 = this.$store.dispatch({type: LOAD_SELLERS_ITEMS, userId: this.userId});
         var p2 = this.$store.dispatch({type: LOAD_BUYERS_ITEMS, userId: this.userId});
         console.log(p1, p2)
@@ -158,7 +154,6 @@ export default {
     },
     methods: {
         deliverOrder(orderId) {
-            // console.log('order in delivery:', orderId)
             this.$store.dispatch({type: MARK_DELIVERED, orderId: orderId})
         }
     }
@@ -168,6 +163,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.manage-orders {
+    width: 960px;
+    margin: auto;
+}
+
 .manage-orders-table {
   text-align: left;
 }
@@ -176,8 +176,9 @@ export default {
   background-color: transparent !important
 }
 
-#app > section > div:nth-child(3) > input[type="text"] {
-  visibility: hidden;
+#app > div > div:nth-child(3) > div.el-table__header-wrapper > table > thead > tr {
+    background-color: #75b8ff33;
+
 }
 </style>
 
