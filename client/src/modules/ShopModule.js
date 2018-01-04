@@ -14,9 +14,7 @@ export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
 export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
-// export const UPDATE_SELLER = 'user/updateSeller';
 export const UPDATE_SELLER = 'shop/updateSeller';
-// export const LOAD_TOP_MEALS = 'user/loadTopMeals';
 export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
 
 const SET_ITEMS = 'shop/setItems';
@@ -42,10 +40,10 @@ const mutations = {
         console.log(payload)
         ShopService.addComment(payload.itemId, payload.comment,payload.quantity, payload.userName)
     },
-    [DELETE_SELLER](state, payload) {
-        console.log('payload._id44', payload.sellerId)
-        UserService.deleteSeller(payload.sellerId)
-    },
+    // [DELETE_SELLER](state, payload) {
+    //     console.log('payload._id44', payload.sellerId)
+    //     UserService.deleteSeller(payload.sellerId)
+    // },
     [LOAD_TAGS](state, payload) {
         state.tags = payload
     },
@@ -152,7 +150,6 @@ const actions = {
                 throw err;
             })
     },
-
     [LOAD_ITEMS_BY_IDS]({ commit }, { ids }) {
         return ShopService.getItemsByIds(ids)
             .then(items => {
@@ -176,7 +173,6 @@ const actions = {
                 throw err;
             })
     },
-
     [LOAD_ITEMS_BY_TAG]({ commit }, { tag }) {
         return UserService.getItemsByTag({ tag })
             .then(items => {
@@ -195,7 +191,6 @@ const actions = {
             })
 
     },
-
     [LOAD_SELLER]({ commit }, { itemId }) {
         console.log(itemId)
         return ShopService.getItemById(itemId, 'item')
@@ -209,7 +204,6 @@ const actions = {
                     })
             })
     },
-
     [LOAD_SELLERS_ITEMS]({ commit }, { userId }) {
         return ShopService.loadSellersItems(userId).then(items => {
             commit({ type: LOAD_SELLERS_ITEMS, items: items.data })
@@ -217,7 +211,6 @@ const actions = {
             console.error('promise in actions NOT GOOD')
         })
     },
-
     [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {
         return ShopService.loadBuyersItems(userId).then(items => {
             commit({type: LOAD_BUYERS_ITEMS, items: items.data})

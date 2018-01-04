@@ -7,42 +7,30 @@ function loadTags() {
 }
 
 function getItemById(itemId, collection) {
-    // console.log('itemId', itemId)
-    // console.log('collection', collection)
     return axios
         .get(`${URL}/data/${collection}/${itemId}`)
         .then(res => {
-            // console.log('resdata:', res.data)
             return res.data
         })
 }
 
-
-
 function getItemsByIds(itemsIds) {
-    // console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
         return getItemById(itemId, 'item')
             .then((res) => {
-                // console.log(res)
                 return res
             })
     })
     return Promise.all(items)
 }
 
-
-
 function getChefById(itemId) {
-    // console.log('itemId', itemId)
     return axios
         .get(`${URL}/data/user/${itemId}`)
         .then(res => {
-            // console.log('resdata:', res.data)
             return res.data
         })
 }
-
 
 function addComment(itemId, comment, rank, userName) {
     getItemById(itemId).then((item) => {
@@ -59,28 +47,21 @@ function addComment(itemId, comment, rank, userName) {
                 return res.data
             })
     })
-
 }
 
 
 function addOrder(order) {
-    console.log('order:', order)
     return axios
         .post(`${URL}/data/order/`,order)
         .then(res => {
-            console.log('resdata:', res.data)
             return res.data
         })
-
-
 }
 
 function getChefsByIds(itemsIds) {
-    // console.log(itemsIds)
     var items = itemsIds.map((itemId) => {
         return getChefById(itemId)
             .then((res) => {
-                // console.log(res)
                 return res
             })
     })
@@ -88,7 +69,6 @@ function getChefsByIds(itemsIds) {
 }
 
 function loadSellersItems(sellerId) {
-    // console.log('sellers id in service.loadSellers(): ', sellerId)
     return axios.get(`${URL}/data/user/${sellerId}/orders/asseller`)
 }
 
@@ -97,7 +77,6 @@ function loadBuyersItems(buyerId) {
 }
 
 function markDelivered(order) {
-    console.log('shop service:', order)
     return axios.put(`${URL}/data/order/${order._id}`, order)
 }
 
@@ -111,14 +90,12 @@ function saveItem(item) {
     
 }
 
-
 function getTopMeals(){
  var mealsIds = ["5a4d2fe4734d1d15f675a5a4","5a4d3050734d1d15f675a605","5a4d42c7734d1d15f675b6d5",
  "5a4d42de734d1d15f675b6e4","5a4d42ef734d1d15f675b6e5"]
       return axios
         .get(`${URL}/data/item/topMeals`,{params: {mealsIds}})
         .then(res => {
-            console.log('resdata:', res.data)
             return res.data
         })
 }

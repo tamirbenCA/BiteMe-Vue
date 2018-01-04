@@ -3,9 +3,11 @@ import ShopService from "../services/ShopService.js";
 
 export const SIGNUP = 'user/signup';
 export const SIGNIN = 'user/signin';
-export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
-export const TOGGLE_LIKE = 'user/toggleLike';
+// export const TOGGLE_LIKE = 'user/toggleLike';
+// export const SET_USER = 'user/setUser';
+// const TOGGLE_LIKE = 'user/toggleLike';
+const SET_USER = 'user/setUser';
 
 var STORAGE_KEY = 'loggedinUser';
 
@@ -19,14 +21,10 @@ export default {
             return !!state.loggedinUser
         },
         loggedinUser(state) {
-            // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser 
         },
         isAdmin(state) {
-            // console.log('state.loggedinUser',state.loggedinUser)
             return state.loggedinUser && state.loggedinUser.isAdmin
-            // isAdmin(state) {
-            //     return state.loggedinUser && state.loggedinUser.isAdmin
         },
         userId(state) {
             if (state.loggedinUser) {
@@ -42,18 +40,18 @@ export default {
         [SIGNOUT](state) {
             state.loggedinUser = null;
         },
-        [TOGGLE_LIKE](state, { carId }) {
-            if (!state.loggedinUser.likedCarIds) {
-                Vue.set(state.loggedinUser, 'likedCarIds', []);
-            }
-            var idxLike = state.loggedinUser.likedCarIds
-                .findIndex(likeCarId => likeCarId === carId);
-            if (idxLike === -1) {
-                state.loggedinUser.likedCarIds.push(carId)
-            } else {
-                state.loggedinUser.likedCarIds.splice(idxLike, 1)
-            }
-        }
+        // [TOGGLE_LIKE](state, { carId }) {
+        //     if (!state.loggedinUser.likedCarIds) {
+        //         Vue.set(state.loggedinUser, 'likedCarIds', []);
+        //     }
+        //     var idxLike = state.loggedinUser.likedCarIds
+        //         .findIndex(likeCarId => likeCarId === carId);
+        //     if (idxLike === -1) {
+        //         state.loggedinUser.likedCarIds.push(carId)
+        //     } else {
+        //         state.loggedinUser.likedCarIds.splice(idxLike, 1)
+        //     }
+        // }
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
@@ -96,15 +94,15 @@ export default {
                     // localStorage.clear(STORAGE_KEY)
                 })
         },
-        [TOGGLE_LIKE]({ commit, state }, { carId }) {
-            UserService
-                .toggleLike(state.loggedinUser._id, carId)
-                .then(_ => {
-                    commit({ type: TOGGLE_LIKED_BY_USER, carId })
-                    commit({ type: TOGGLE_LIKE, carId })
-                    saveToLocalStorage(state.loggedinUser)
-                })
-        }
+        // [TOGGLE_LIKE]({ commit, state }, { carId }) {
+        //     UserService
+        //         .toggleLike(state.loggedinUser._id, carId)
+        //         .then(_ => {
+        //             commit({ type: TOGGLE_LIKED_BY_USER, carId })
+        //             commit({ type: TOGGLE_LIKE, carId })
+        //             saveToLocalStorage(state.loggedinUser)
+        //         })
+        // }
     }
 }
 

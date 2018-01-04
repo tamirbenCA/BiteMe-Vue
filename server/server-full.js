@@ -18,7 +18,7 @@ const upload = require('./uploads');
 const app = express();
 
 const addRoutes = require('./routes');
-addRoutes(app);
+// addRoutes(app);
 
 var corsOptions = {
 	origin: /http:\/\/localhost:\d+/,
@@ -29,6 +29,7 @@ const serverRoot = 'mongodb://tamirben:tamirben@ds133127.mlab.com:33127/byte-me'
 const baseUrl = serverRoot + 'data';
 
 // app.use(express.static('uploads'));
+app.use(express.static('dist'));
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -458,7 +459,7 @@ app.get('/protected', requireLogin, function (req, res) {
 // Kickup our server 
 // Note: app.listen will not work with cors and the socket
 // app.listen(3003, function () {
-http.listen(3003, function () {
+http.listen(process.env.PORT|| 3003, function () {
 	console.log(`misterREST server is ready at ${baseUrl}`);
 	console.log(`GET (list): \t\t ${baseUrl}/{entity}`);
 	console.log(`GET (single): \t\t ${baseUrl}/{entity}/{id}`);
