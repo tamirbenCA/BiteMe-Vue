@@ -18,14 +18,20 @@
             class="manage-orders-table">
             <el-table-column
                 prop="date"
-                label="Order To-Date"
+                label="Sched. Delivery Date"
                 sortable
-                width="180">
+                width="180"
+                :formatter="formatter">
             </el-table-column>
             <el-table-column
                 prop="buyerName"
                 label="Buyer Name"
                 sortable
+                width="140">
+            </el-table-column>
+            <el-table-column
+                prop="buyerAddress"
+                label="Buyer Address"
                 width="180">
             </el-table-column>
             <el-table-column
@@ -68,9 +74,10 @@
         class="manage-orders-table">
         <el-table-column
             prop="date"
-            label="Order To-Date"
+            label="Sched. Delivery Date"
             sortable
-            width="180">
+            width="180"
+            :formatter="formatter">
         </el-table-column>
         <el-table-column
             prop="sellers"
@@ -115,8 +122,10 @@ export default {
             var mapOrders = orders.map(order => {
                 return {
                     id: order._id,
-                    date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    // date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    date: order.deliveryDate,
                     buyerName: order.buyer.buyerName,
+                    buyerAddress: order.buyer.buyerAddress,
                     items: order.items,
                     isDelivered: order.isDelivered
                 }
@@ -124,7 +133,7 @@ export default {
             mapOrders.forEach(mapOrder => {
                 var items = mapOrder.items
                     .filter(item => this.userId === item.seller.sellerId )
-                    .map(item => item.itemName)
+                    .map(item => item.itemName + ' X ' + item.qnty)
                     .toString()
                 mapOrder.items = items;
             })
@@ -135,7 +144,8 @@ export default {
             var mapOrders = orders.map(order => {
                 return {
                     id: order._id,
-                    date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    // date: new Date(order.deliveryDate).toLocaleString('en-GB'),
+                    date: order.deliveryDate,
                     sellers: order.sellers,
                     items: order.items,
                     isDelivered: order.isDelivered.toString()
@@ -143,7 +153,7 @@ export default {
             })
             mapOrders.forEach(mapOrder => {
                 var items = mapOrder.items
-                    .map(item => item.itemName)
+                    .map(item => item.itemName + ' X ' + item.qnty)
                     .toString()
                 mapOrder.items = items;
                 var sellers = mapOrder.sellers
@@ -163,6 +173,11 @@ export default {
     methods: {
         deliverOrder(orderId) {
             this.$store.dispatch({type: MARK_DELIVERED, orderId: orderId})
+        },
+        formatter(row, column) {
+            var d = new Date(row.date).toLocaleString('en-GB')
+            // console.log('line 177', d)
+            return d;
         }
     }
 

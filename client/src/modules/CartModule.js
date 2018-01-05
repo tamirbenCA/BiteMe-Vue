@@ -47,17 +47,18 @@ const mutations = {
 
 const actions = {
     [CHECKOUT]({ commit }, { data }) {
-        console.log('sellerssellerssellers', data.user)
+        // console.log('cartModule line 50', data)
         var sellers = data.cart.map((item) => {
             return item.seller
         })
         var items = data.cart.map((item) => {
-            return { itemId: item._id, itemName: item.name, seller: item.seller }
+            return { itemId: item._id, itemName: item.name, seller: item.seller, qnty: item.quantity }
         })
         var order = {
             buyer: {
                 buyerId: data.user._id,
-                buyerName: data.user.name
+                buyerName: data.user.name,
+                buyerAddress: (data.user.address.street) + ', ' + (data.user.address.city)
             },
             isDelivered: false,
             items: items,
@@ -65,6 +66,7 @@ const actions = {
             sellers: sellers,
             deliveryDate:data.deliveryDate
         }
+        // console.log('line 69:', order)
         ShopService.addOrder(order)
             .then(_ => {
                 commit(CHECKOUT_SUCCESS);
