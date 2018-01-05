@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="items-container" v-if="!pageReady">
-            <img class="gif-loading" src="../assets/loading.gif">
+            <img class="gif-loading" src="../assets/loading2.gif">
         </div>
         <div class="details-container" v-else>
             <div class="top-page">
@@ -27,18 +27,20 @@
                         <div class="price" style="background-color:#ffffffa8">
                             <p style="margin-bottom:10px"> Price: {{item.price}}$ </p>
                             <div class="price-btm">
-                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                    <option>0</option>
-                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                </select>
+                                <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
+                                <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
+                                <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                                                    <option>0</option>
+                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+
+                                                                </select> -->
                             </div>
                         </div>
                     </div>
                     <div class="comments">
                         <div class="comment-top">
                             <h1 style="font-size:30px">Reviews</h1>
-                            <i class="fa fa-commenting-o" aria-hidden="true" @click="addComment"></i>
                         </div>
                         <ul class="comments-box">
 
@@ -63,10 +65,11 @@
                                 <input class="msg" v-model="msg" type="text">
                                 <div class="rank-chef">
                                     Rank the meal
-                                    <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
+                                    <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
+                                    <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
                                         <option>0</option>
                                         <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -76,7 +79,7 @@
                 </div>
                 <div class="middle">
                     <div class="chef-details" style="background-color:#ffffffa8">
-                        <p style="font-size:20px; text-transform: capitalize;"> Meet {{chef.name}} </p>
+                        <p class="cf-name"> Meet {{chef.name}} </p>
                         <div><img class="chef" :src="chef.imgUrl" /></div>
 
                         <p class="about-chef"> {{chef.about}} </p>
@@ -86,7 +89,7 @@
                         <ul>
                             <li style="display: flex; justify-content: center;" v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
                                 <div class="more-item">
-                                    <div style="margin:10px;">{{meal.name}}</div>
+                                    <div class="cf-more-ml">{{meal.name}}</div>
                                     <div><img class="meal" :src="meal.imgUrl" /></div>
                                 </div>
 
@@ -120,6 +123,10 @@ export default {
             itemId: '',
             isActive: false,
             itemsPurch: {},
+            num1: 1,
+            prod: null,
+            // quantity: null,
+            num8:1
         }
     },
     watch: {
@@ -145,42 +152,49 @@ export default {
             })
     },
     methods: {
-        addItem() {
-            swal({
-                title: "Item added to cart",
-                icon: "success",
-            });
-        },
         addComment() {
             this.isActive = true;
             // console.log(this.isActive)
         },
         sendComment(itemId, comment) {
-            console.log(itemId, comment)
-            if (comment !== '') {
-                if (!this.$store.getters.loggedinUser.name) this.$router.push('/login');
-                else {
-                    this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.rank.quantity, userName: this.$store.getters.loggedinUser.name });
+            console.log(itemId, comment ,this.num8)
+             if (!this.$store.getters.loggedinUser) this.$router.push('/login');
+             else {
+              
+            if (comment === '') {
+                swal({
+                        title: "Please fill text",
+                        icon: "warning",
+                    });
+            }
+               else {
+                    this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.num8, userName: this.$store.getters.loggedinUser.name });
                     swal({
                         title: "Your message will be reviewed shortly",
                         icon: "success",
                     });
                     this.msg = '';
-                }
+                
             }
-        },
-        rankVal(val) {
-            this.rank = val
+            }
         },
         showDetails(item) {
             this.$router.push('/itemdetails/' + item._id);
         },
-        quantityChange({ quantity, item }) {
-            this.$store.commit({ type: UPDATE_CART, item, quantity });
-            swal({
-                title: "Item added to cart",
-                icon: "success",
-            });
+        quantityChange({ item }) {
+            console.log(this.num1 + 1, item)
+            this.quantity = this.num1 + 1;
+
+            // this.$store.commit({ type: UPDATE_CART, item, quantity:this.quantity });
+            // swal({
+            //     title: "Item added to cart",
+            //     icon: "success",
+            // });
+        },
+
+        addItem(item) {
+            console.log(item)
+            this.$store.commit({ type: UPDATE_CART, item, quantity: this.quantity });
         }
     },
     computed: {
@@ -208,10 +222,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.midal-btn{
+    cursor: pointer;
+}
+.fa-thumbs-o-up {
+    cursor: pointer;
+}
+
+.el-input-number .el-input__inner {
+    padding: none;
+}
+
+.cf-more-ml {
+    margin: 10px;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.cf-name {
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
 .top-detail {
     display: flex;
     flex-direction: row;
     align-items: center;
+      width:120px;
+    justify-content: space-around;
 }
 
 .cover {
@@ -221,7 +260,7 @@ export default {
 
 .cmt-div {
     width: 100%;
-    box-shadow: 1px 2px 6px 0px black;
+    /* box-shadow: 1px 2px 6px 0px black; */
     display: flex;
     padding: 9px;
     align-items: center;
@@ -234,14 +273,15 @@ export default {
     width: 200px;
     justify-content: space-around;
     margin: auto;
-    margin-bottom: 15px;
 }
 
 .price-btm {
     display: flex;
     justify-content: space-around;
-    width: 100px;
+    width: 200px;
     margin: auto;
+    align-items: center;
+    justify-content: space-between;
 }
 
 select {
@@ -259,7 +299,7 @@ select {
 
 .fa-pencil {
     cursor: pointer;
-    color: black;
+    color:#2c3e50;
 }
 
 .fa-commenting-o {
@@ -276,7 +316,7 @@ select {
     width: 493px;
     height: 245px;
     margin: auto;
-    box-shadow: 2px 2px 2px 0px black;
+    /* box-shadow: 2px 2px 2px 0px black; */
 }
 
 .midal-btn {
@@ -292,6 +332,7 @@ select {
 .title {
     font-size: 30px;
     font-weight: bold;
+  
 }
 
 .middle {
@@ -308,7 +349,7 @@ h2 {
 
 .comment {
     text-align: left;
-    color: black;
+
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -391,7 +432,7 @@ li {
 }
 
 .top {
-    margin-bottom: 60px;
+    margin-bottom: 35px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -438,7 +479,7 @@ img {
 }
 
 .right-side {
-    color: black;
+
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -469,6 +510,7 @@ select {
 
 .details-container {
     padding-top: 60px;
+    background-color: #c7b9b940;
     width: 100%;
     max-width: 900px;
     display: flex;
@@ -479,7 +521,7 @@ select {
     margin: auto;
     border: 1px solid lightgray;
     border-radius: 5px;
-    box-shadow: 2px 3px 8px 0px black;
+    /* box-shadow: 2px 3px 8px 0px black; */
     margin-bottom: 20px;
     margin-top: 50px;
 }
@@ -512,7 +554,6 @@ form {
 
 .title {
     margin: 10px;
-    color: black;
 }
 
 .msg {
@@ -530,14 +571,12 @@ form {
 }
 
 .right-side-title {
-    color: black;
     font-size: 30px;
     margin: 0 auto;
 }
 
 .gif-loading {
-    width: 100px;
-    height: 100px;
-    /* margin-bottom: 50px; */
+    width: 64px;
+    height: 64px;
 }
 </style>

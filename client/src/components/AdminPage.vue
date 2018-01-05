@@ -1,7 +1,7 @@
 <template>
 <section>
     <div v-if="!pageReady">
-        <img class="gif-loading" src="../assets/loading.gif">
+        <img class="gif-loading" src="../assets/loading2.gif">
     </div>
     <div v-else>
    <el-table
@@ -103,11 +103,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.gif-loading {
-    width: 100px;
-    height:100px;
-    /* margin-bottom: 50px; */
-}
+/* .gif-loading {
+    width: 200px;
+    height:200px;
+} */
 
 .cell {
     text-transform: capitalize;

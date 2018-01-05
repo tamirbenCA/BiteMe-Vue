@@ -3,44 +3,46 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img style="height:130px;width:150px;margin-left:30px;"src="../assets/Byte-Me-Logo.png" />
+                    <img style="height:130px;width:150px;margin-left:30px;" src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
 
         </div>
         <!-- <div class="header"> -->
-            <div class="btns-right">
-                <div>
+        <div class="btns-right">
+            <div class="btns-right-ttl">
+                <div class="btns-righ-btm">
+                    <input v-model="searchValue" type="text" @keyup="searchByte" autofocus>
+                </div>
+                <div class="btns-righ-top">
                     <router-link to="/meals" tag="button" @click.native="setTag" class="header-button">Meals</router-link>
                     <router-link to="/aboutus" tag="button" exact class="header-button">How it works</router-link>
                     <router-link to="/aboutus#our-mission" tag="button" class="header-button">Our mission</router-link>
                     <router-link to="/sellerslist" tag="button" class="header-button">Sellers List</router-link>
                     <router-link v-if="loggedUser" :to="`/manageorders/${userId}`" tag="button" class="header-button">Manage Orders</router-link>
                     <router-link v-if="loggedUser" :to="`/additem`" tag="button" class="header-button">Add New Item</router-link>
-                  <div>
-                <input  v-model="searchValue" type="text" @keyup="searchByte" autofocus>
-            </div>
                 </div>
-                <div style="display:flex;flex-direction:column;">
-                    <div>
-                        <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
-                        <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
-                        <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
-                    </div>
-                    <div>
-                        <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange">
-                            Hello {{loggedinUser.name}}
-                        </p>
-                        <p class="lgn-user" v-else>
-                            <router-link to="/admin" v-if="adminLogged" class="admin">
-                                Hello Admin
-                            </router-link>
-                        </p>
-                    </div>
-                </div>
-              
+
             </div>
-            
+        </div>
+        <div class="btns-left">
+            <div class="btns-left-top">
+                <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
+                <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
+                <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
+            </div>
+            <div class="btns-left-btm">
+                <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange;    margin-left:50px;">
+                    Hello {{loggedinUser.name}}
+                </p>
+                <p class="lgn-user" v-else>
+                    <router-link to="/admin" v-if="adminLogged" class="admin">
+                        Hello Admin
+                    </router-link>
+                </p>
+            </div>
+        </div>
+
         <!-- </div> -->
 
     </section>
@@ -115,7 +117,7 @@ export default {
                 var keyWord = this.searchValue.toLowerCase();
                 this.$router.push({ path: '/items', query: { tag: this.$store.getters.tag, term: keyWord } })
                 this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, keyWord })
-            }, 1000);
+            }, 400);
         },
         setTag() {
             this.$store.commit({ type: SET_TAG, tag: null })
@@ -127,19 +129,57 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btns-righ-btm {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 10px;
+}
+
+.btns-left-btm {
+    width: 150px;
+}
+
+.btns-left-top {
+    display: flex;
+    margin-top: 20px;
+}
+
+.btns-left {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
 /* .logo {
     margin-top: 180px;
 } */
 
-.btns-right {
+.btns-right-ttl {
     width: 100%;
-    margin-right: 50px;
-    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height:120px;
+    margin-top: 10px;
+}
+
+.btns-righ-top {
+    display: flex;
+    margin-left: -50px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btns-right {
+    width: 60%;
+    height: 90%;
     display: flex;
     justify-content: center;
     justify-content: space-around;
-    /* align-items: bottom; */
-    margin-left: 50px;
 }
 
 
@@ -153,15 +193,15 @@ img {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* margin-top: 20px; */
+    width: 20%;
+    /* margin-to: 20px; */
 }
 
 input {
-    margin-left: 40px;
+    /* margin-left: 15px; */
     border-radius: 5px;
+  
     /* height: 20px; */
-    margin-top: 30px;
-    margin-left: -30px;
 }
 
 
@@ -169,13 +209,9 @@ input {
 .lgn-user {
     text-transform: capitalize;
     display: flex;
-    width: 200px;
     font-size: 20px;
     text-align: right;
     display: column;
-    margin-top: 10px;
-    padding-left: 60px;
-    /* margin-left: 250px; */
 }
 
 .icons {
@@ -259,9 +295,11 @@ a {
     height: 150px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     background-color: rgb(38, 49, 60);
-    width:100%;
-
+    width: 100%;
+    max-width: 1650px;
 }
 
 input {
@@ -274,8 +312,8 @@ input {
     background-position: left center;
     outline: 0;
     height: 25px;
-    margin-right: 50px;
-    width: 400px;
+    /* margin-right: 50px; */
+    width: 300px;
     border: 1px solid #f1ece4;
 }
 
@@ -294,11 +332,12 @@ button {
 }
 
 .join-button {
-    background: linear-gradient(to right, #5cccde, #77cde0);
+    background: linear-gradient(to right, #7bb7c1, #64b0c1);
     border: 1px #3db2c5 solid;
     color: #f1ece4;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     height: 44px;
+    width:100px
 }
 
 .fa-shopping-cart {

@@ -1,20 +1,23 @@
 <template>
-  <div class="box" v-if="pageReady">
-    <p class="gt-start">Get Started With Our Best Sellers</p>
-    <div class="imgs-container">
-      <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
-        <div class="animated bounceInRight">
-          <img class="img-btm" @click="showDetails(meal)" :src="meal.imgUrl" alt="">
-          <div v-if="meal.isNew === true" class="icon-box">
-            <div class="white-bckg"></div>
-            <img class="new-icn" src="../assets/icons8-new-96.png">
-          </div>
+  <section class="fr-page-cnt">
+    <div class="box" v-if="pageReady">
+      <p class="gt-start">Get Started With Our Best Sellers</p>
+      <div class="imgs-container">
+        <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
+          <div class="animated bounceInRight">
+            <img class="img-btm" @click="showDetails(meal)" :src="meal.imgUrl" alt="">
+            <div v-if="meal.isNew === true" class="icon-box">
+              <div class="white-bckg"></div>
+              <img class="new-icn" src="../assets/icons8-new-96.png">
+            </div>
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
+
 <script>
 
 
@@ -60,28 +63,34 @@ export default {
 }
 
 .white-bckg {
- background-color: white;
-    top: -212px;
-    right: -210px;
-    height: 40px;
-    width: 51px;
-    position: relative;
+  background-color: white;
+  top: -212px;
+  right: -210px;
+  height: 40px;
+  width: 51px;
+  position: relative;
 }
 
 .gt-start {
   text-align: left;
   font-size: 30px;
   margin-bottom: 0;
-  margin-left: 50px;
+  color: #322f2f;
 }
 
 .box {
-  display: flex;
-  flex-direction: column;
+ display: flex;
+  flex-direction: column; 
   height: 500px;
   justify-content: space-between;
-  margin-left: 50px;
   margin-top: 50px;
+}
+
+.fr-page-cnt {
+  display: flex;
+  justify-content: center;
+ 
+ 
 }
 
 .imgs-btm {
@@ -124,15 +133,4 @@ h1 {
 }
 
 
-.msg {
-  background-color: lightgray;
-  color: #4a4848;
-  text-align: left;
-  line-height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 40px;
-  align-items: center;
-}
 </style>

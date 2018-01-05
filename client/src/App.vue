@@ -4,7 +4,11 @@
     <header-bar/>
     <router-view/>
     <footer>
-      <i class="fa fa-hand-peace-o" aria-hidden="true"></i> May & Ben <i class="fa fa-hand-peace-o" aria-hidden="true"></i></footer>
+      <div class="foot">
+        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>May & Ben
+        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -23,11 +27,15 @@ export default {
 </script>
 
 <style>
+body {
+  color: #322f2f;
+}
+
 body::after {
-  background: url("./assets/pexels-photo-616401.jpeg");
+  background: url("./assets/food-pot-kitchen-cooking.jpg");
   background-repeat: no-repeat;
   content: "";
-  opacity: 0.45;
+  opacity: 0.6;
   background-size: cover;
   position: fixed;
   top: 0;
@@ -37,17 +45,22 @@ body::after {
   z-index: -1;
 }
 
+
+.foot {
+  margin: 15px;
+}
+
 #app {
   text-align: center;
-  color: #2c3e50;
+  color: #322f2f;;
   min-height: 100vh;
- 
+
+  overflow: hidden;
 }
 
 body {
   font-family: "Lato";
-      margin: 0;
-
+  margin: 0;
 }
 
 

@@ -49,7 +49,7 @@ const mutations = {
     },
     [SET_ITEMS](state, { items }) {
         state.items = items;
-        console.log( state.items)
+        // console.log( state.items)
     },
     [LOAD_ITEM](state, payload) {
         state.currItem = payload.item;
@@ -94,17 +94,17 @@ const getters = {
 
 const actions = {
     [UPDATE_SELLER]({commit}, {sellerId}) {
-        console.log('inside action', sellerId)
+        // console.log('inside action', sellerId)
         UserService.getSellerById(sellerId)
         .then(seller => {
-            console.log('seller is:', seller)
+            // console.log('seller is:', seller)
             seller.isActive = !seller.isActive
             UserService.changeUserActivity(seller)
             return seller;
             })
             .then(updatedSeller => {
-                console.log('line 71, seller:', updatedSeller)
-                console.log('line 72, sellerId:', updatedSeller._id)
+                // console.log('line 71, seller:', updatedSeller)
+                // console.log('line 72, sellerId:', updatedSeller._id)
                 commit({type: UPDATE_SELLER, sellerId: updatedSeller._id})
                 })  
     },
@@ -130,7 +130,7 @@ const actions = {
     [LOAD_TOP_MEALS]({ commit }) {
         return ShopService.getTopMeals()
             .then(items => {
-                console.log(items)
+                // console.log(items)
                 commit({ type: SET_ITEMS, items })
                 return items
             })
@@ -192,13 +192,13 @@ const actions = {
 
     },
     [LOAD_SELLER]({ commit }, { itemId }) {
-        console.log(itemId)
+        // console.log(itemId)
         return ShopService.getItemById(itemId, 'item')
             .then(item => {
-                console.log(item.seller.sellerId)
+                // console.log(item.seller.sellerId)
                 return ShopService.getChefById(item.seller.sellerId)
                     .then(seller => {
-                        console.log(seller)
+                        // console.log(seller)
                         commit({ type: LOAD_SELLER, item, seller })
                         return { item: item, seller: seller }
                     })
@@ -231,7 +231,7 @@ const actions = {
         ShopService.getItemById(orderId, 'order')
         .then(order => {
             order.isDelivered = Date.now();
-            console.log('line 269:', order)
+            // console.log('line 269:', order)
             return ShopService.markDelivered(order)
         })
         .then(_ => {

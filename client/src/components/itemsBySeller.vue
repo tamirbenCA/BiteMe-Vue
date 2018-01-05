@@ -2,7 +2,7 @@
     <section>
         <tags-bar> </tags-bar>
         <div class="items-container" v-if="!pageReady">
-            <img class="gif-loading" src="../assets/loading.gif">
+            <img class="gif-loading" src="../assets/loading2.gif">
         </div>
         <div class="items-container" v-else>
             <ul>
@@ -82,10 +82,10 @@ h2 {
     font-weight: normal;
 }
 
-.gif-loading {
-    width: 100px;
-    height:100px;
-}
+/* .gif-loading {
+    width: 200px;
+    height:200px;
+} */
 
 .chef-details {
     display: flex;
@@ -132,7 +132,7 @@ ul {
     cursor: pointer;
     height: 280px;
     width: 320px;
-    box-shadow: 1px 2px 6px 0px black;
+    /* box-shadow: 1px 2px 6px 0px black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,6 +152,7 @@ ul {
     justify-content: space-around;
     background-color: white;
     box-sizing: border-box;
+    padding-bottom: 5px;
 }
 
 .img-item {

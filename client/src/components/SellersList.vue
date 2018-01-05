@@ -62,6 +62,7 @@ h1 {
 li {
     cursor: pointer;
     list-style: none;
+    /* box-shadow: 1px 1px 2px 0px black; */
 }
 
 p {

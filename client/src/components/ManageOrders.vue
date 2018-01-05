@@ -11,10 +11,10 @@
             height="200"
             :default-sort = "{prop: 'date', order: 'descending'}"
             style="width: 100%"
-            cell-style="background-color: #75b8ff33; text-transform: capitalize"
+            cell-style="background-color: rgba(117, 184, 255, 0.43); text-transform: capitalize;color: #322f2f;"
             row-style="background-color: transparent"
             header-row-style="background-color: transparent"
-            header-cell-style="background-color: #75b8ff33"
+            header-cell-style="background-color:rgba(117, 184, 255, 0.43);color: #322f2f;"
             class="manage-orders-table">
             <el-table-column
                 prop="date"
@@ -61,10 +61,10 @@
         height="200"
         :default-sort = "{prop: 'date', order: 'descending'}"
         style="width: 100%"
-        cell-style="background-color: #75b8ff33; text-transform: capitalize"
+        cell-style="background-color: rgba(117, 184, 255, 0.43); text-transform: capitalize;color: #322f2f;"
         row-style="background-color: transparent"
         header-row-style="background-color: transparent"
-        header-cell-style="background-color: #75b8ff33"
+        header-cell-style="background-color: rgba(117, 184, 255, 0.43);color: #322f2f;"
         class="manage-orders-table">
         <el-table-column
             prop="date"
@@ -171,9 +171,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
 .manage-orders {
     width: 960px;
     margin: auto;
+    margin-bottom: 50px;
 }
 
 .manage-orders-table {

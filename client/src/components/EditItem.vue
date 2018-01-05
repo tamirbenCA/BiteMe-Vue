@@ -155,7 +155,7 @@ form {
     margin: 50px auto;
     /* box-shadow: 1px 1px 4px 0px black; */
     justify-content: space-between;
-    height: 400px;
+    height: 500px;
     padding: 10px;
     /* margin-top: 200px; */
 }

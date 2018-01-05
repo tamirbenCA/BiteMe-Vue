@@ -27,10 +27,11 @@
                             <p style="text-transform: uppercase;">{{item.name}}</p>
                             <p style="text-transform: uppercase;">{{item.desc}}</p>
                             <div class="payment">
-                                <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
+                                 <el-input-number v-model="item.quantity" @change="quantityChange({quantity: item.quantity, item})" name="quantity" :min="1" :max="10"></el-input-number>
+                                <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
                                     <option value=""></option>
                                     <option v-for="n in 10">{{n}}</option>
-                                </select>
+                                </select> -->
                                 <span style="margin-top:5px;">X</span>
                                 <div style="font-size:25px">{{item.price}}$</div>
 
@@ -73,11 +74,13 @@ export default {
             items: [],
             isActive: false,
             isCheckedOut: false,
-            timeChosen: ''
+            timeChosen: '',
+            num1: null,
         };
 
     },
     created() {
+        console.log(this.$store.getters.cart)
     },
     computed: {
         cart() {
@@ -278,6 +281,8 @@ select:hover {
 .payment {
     display: flex;
     justify-content: space-around;
+        width: 300px;
+    align-items: center;
 }
 
 .fa-trash-o {
