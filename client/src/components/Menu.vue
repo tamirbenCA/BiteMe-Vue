@@ -1,7 +1,7 @@
 <template>
     <section>
         <tags-bar> </tags-bar>
-        <div class="items-container" v-if="!pageReady">
+        <div  v-if="!pageReady">
             <img class="gif-loading" src="../assets/loading2.gif">
         </div>
         <div class="items-container" v-else>
@@ -124,6 +124,8 @@ h2 {
     max-width: 1400px;
     margin: 0 auto;
     margin-bottom: 100px;
+    background-color: white;
+    
 }
 
 p {
@@ -131,8 +133,13 @@ p {
 }
 
 ul {
+    margin-left: 20px;
     list-style-type: none;
     padding: 0;
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    /* justify-content: center; */
 }
 
 .item {
@@ -173,6 +180,7 @@ ul {
 li {
     display: inline-block;
     margin: 0 10px;
+    margin-bottom: 20px;
 }
 
 a {

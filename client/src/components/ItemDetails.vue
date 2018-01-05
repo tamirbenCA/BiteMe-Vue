@@ -198,6 +198,7 @@ export default {
                swal({
                 title: "Item added to cart",
                 icon: "success",
+               
             });
             
         }
