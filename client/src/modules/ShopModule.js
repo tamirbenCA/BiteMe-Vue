@@ -48,8 +48,9 @@ const mutations = {
         state.tags = payload
     },
     [SET_ITEMS](state, { items }) {
-        state.items = items;
-        console.log( state.items)
+        state.items = ShopService.shuffleArr(items)
+        // state.items = items;
+        // console.log( state.items)
     },
     [LOAD_ITEM](state, payload) {
         state.currItem = payload.item;

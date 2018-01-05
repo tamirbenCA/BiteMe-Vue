@@ -115,7 +115,7 @@ export default {
                 var keyWord = this.searchValue.toLowerCase();
                 this.$router.push({ path: '/items', query: { tag: this.$store.getters.tag, term: keyWord } })
                 this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, keyWord })
-            }, 1000);
+            }, 400);
         },
         setTag() {
             this.$store.commit({ type: SET_TAG, tag: null })

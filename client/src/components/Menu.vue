@@ -48,7 +48,7 @@ export default {
     created() {
         this.$store.dispatch({ type: LOAD_ITEMS })
             .then((items) => {
-                        this.pageReady = true;
+                this.pageReady = true;
             })
     },
     methods: {
