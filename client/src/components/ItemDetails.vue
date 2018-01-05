@@ -195,6 +195,11 @@ export default {
         addItem(item) {
             console.log(item)
             this.$store.commit({ type: UPDATE_CART, item, quantity: this.quantity });
+               swal({
+                title: "Item added to cart",
+                icon: "success",
+            });
+            
         }
     },
     computed: {
