@@ -82,7 +82,7 @@ li {
     justify-content: flex-start;
     margin-bottom: 50px;
     align-items: center;
-    background-color: #ffffff6e;
+   background-color: #959898d6;
     justify-content: center;
 }
 
