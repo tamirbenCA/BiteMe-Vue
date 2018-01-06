@@ -1,10 +1,10 @@
 <template>
     <section>
         <tags-bar @resetTag="initPage"> </tags-bar>
-            <div class="items-container" v-if="!pageReady">
-                <img class="gif-loading" src="../assets/loading2.gif">
-            </div>
-            <div class="items-container" v-else>
+        <div class="items-container" v-if="!pageReady">
+            <img class="gif-loading" src="../assets/loading2.gif">
+        </div>
+        <div class="items-container" v-else>
             <ul>
                 <li class="animated pulse" v-for="(item, idx) in itemsToDisplay" :key="idx">
                     <div class="item">
@@ -13,16 +13,16 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p style="text-transform: capitalize">{{item.seller.sellerName}}</p>                            
+                                <p style="text-transform: capitalize">{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-                                <div class="rank">
-                                    <div v-for="(star,idx) in item.rank" :key="idx">
-                                        <span>★</span>
-                                    </div>
+                            <div class="rank">
+                                <div v-for="(star,idx) in item.rank" :key="idx">
+                                    <span>★</span>
                                 </div>
+                            </div>
                             <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
@@ -38,49 +38,49 @@ import TagsBar from './TagsBar.vue';
 
 export default {
 
-  data() {
-    return {
-        pageReady: false,
-    }
-  },
-  created() {
-    this.initPage()
-  },
-  methods: {
-    showDetails(item) {
-      this.$router.push('/itemdetails/' + item._id);
-    },
-    initPage() {
-        this.pageReady = false
-        var query = this.$route.query;
-        this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, query })
-            .then((items) => {
-                this.pageReady = true;
-            })
+    data() {
+        return {
+            pageReady: false,
         }
-  },
-  computed: {
-    itemsToDisplay() {
-      return this.$store.getters.items
     },
-    seller() {
-      return this.$store.getters.chefs
+    created() {
+        this.initPage()
+    },
+    methods: {
+        showDetails(item) {
+            this.$router.push('/itemdetails/' + item._id);
+        },
+        initPage() {
+            this.pageReady = false
+            var query = this.$route.query;
+            this.$store.dispatch({ type: LOAD_SEARCHED_ITMES, query })
+                .then((items) => {
+                    this.pageReady = true;
+                })
+        }
+    },
+    computed: {
+        itemsToDisplay() {
+            return this.$store.getters.items
+        },
+        seller() {
+            return this.$store.getters.chefs
+        }
+    },
+    components: {
+        TagsBar
     }
-  },
-  components: {
-    TagsBar
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 /* .gif-loading {
     width: 200px;
     height:200px;
   
 } */
+
 .rank {
     display: flex;
     flex-direction: row;
@@ -123,6 +123,8 @@ h2 {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+     display: flex;
+    justify-content: center;
 }
 
 p {
@@ -135,6 +137,7 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    /* justify-content: center; */
 }
 
 .item {

@@ -125,7 +125,8 @@ h2 {
     max-width: 1400px;
     margin: 0 auto;
     margin-bottom: 100px;
-    /* background-color: white; */
+    display: flex;
+    justify-content: center;
     margin-top: 100px;
 }
 
@@ -134,13 +135,14 @@ p {
 }
 
 ul {
+    margin: auto;
     margin-left: 20px;
     list-style-type: none;
     padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: center; */
+
 }
 
 .item {

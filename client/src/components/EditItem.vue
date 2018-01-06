@@ -152,7 +152,7 @@ body {
     color:lightgrey;
 }
 .delete-btn {
-    background-color: #d6a6a6;
+    background-color: #e26464;;
     color: white;
 }
 section {

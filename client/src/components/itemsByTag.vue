@@ -172,6 +172,8 @@ h2 {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+     display: flex;
+    justify-content: center;
 }
 
 p {
@@ -179,12 +181,13 @@ p {
 }
 
 ul {
+    margin: auto;
     list-style-type: none;
     padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
 }
 
 .item {

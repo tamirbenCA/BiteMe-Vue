@@ -117,6 +117,8 @@ h2 {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
    
 }
 
