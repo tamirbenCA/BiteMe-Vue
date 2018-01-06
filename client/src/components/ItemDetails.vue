@@ -486,9 +486,9 @@ img {
 .item {
     background-size: cover;
     background-position: center;
-    width: 400px;
-    height: 300px;
-    margin-top: 50px;
+    width: 70%;
+    height: 70%;
+    margin-top: 30px;
 }
 
 .meal {
