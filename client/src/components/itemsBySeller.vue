@@ -78,6 +78,7 @@ export default {
     justify-content: space-between;
     width: 100%;
 }
+
 .rank {
     display: flex;
     flex-direction: row;
@@ -90,6 +91,7 @@ h2 {
 }
 
 
+
 /* .gif-loading {
     width: 200px;
     height:200px;
@@ -98,7 +100,7 @@ h2 {
 .chef-details {
     display: flex;
     flex-direction: row;
-    width: 60px;
+    width: 20%;
     justify-content: space-between;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -167,8 +169,6 @@ ul {
     background-color: white;
     box-sizing: border-box;
     padding-bottom: 5px;
-      
-
 }
 
 .img-item {

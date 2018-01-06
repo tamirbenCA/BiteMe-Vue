@@ -98,14 +98,15 @@ h2 {
 .chef-details {
     display: flex;
     flex-direction: row;
-    width: 60px;
+       width: 20%;
+
     justify-content: space-between;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
 .name {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 15px;
 }
 

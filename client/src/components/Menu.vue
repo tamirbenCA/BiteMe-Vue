@@ -26,7 +26,7 @@
                                 </div>
 
                                 <p class="price">{{item.price}}$</p>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -91,14 +91,14 @@ h2 {
 .chef-details {
     display: flex;
     flex-direction: row;
-    width: 60px;
+    width: 20%;
     justify-content: space-between;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
 .name {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 15px;
 }
 
@@ -107,6 +107,7 @@ h2 {
     height: 24px;
     border-radius: 50px;
 }
+
 
 
 
@@ -142,7 +143,6 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
 }
 
 .item {
