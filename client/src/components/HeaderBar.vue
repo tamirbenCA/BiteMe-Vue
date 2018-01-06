@@ -144,7 +144,7 @@ export default {
 }
 
 .btns-left-btm {
-    width: 150px;
+    width: 180px;
     
 }
 
