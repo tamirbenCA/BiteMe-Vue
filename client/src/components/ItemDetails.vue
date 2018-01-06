@@ -30,7 +30,8 @@
                             <div class="price-btm">
 
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
-                                <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
+                                <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
                                                                                                                                 <option>0</option>
                                                                                                                                 <option v-for="(n, index) in 10" :key="index">{{n}}</option>
@@ -125,7 +126,7 @@ export default {
             itemId: '',
             isActive: false,
             itemsPurch: {},
-            num1: 1,
+            num1: 0,
             prod: null,
             // quantity: null,
             num8: 1
@@ -248,6 +249,10 @@ export default {
 }
 
 .fa-thumbs-o-up {
+    cursor: pointer;
+}
+
+.fa-plus{
     cursor: pointer;
 }
 
