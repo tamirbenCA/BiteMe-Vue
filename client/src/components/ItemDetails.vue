@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             <img class="item" :src="item.imgUrl" />
-                            <p style="text-transform: capitalize; margin:10px">{{item.desc}}</p>
+                            <p style="text-transform: capitalize; margin:10px;font-size:20px;">{{item.desc}}</p>
                         </div>
                         <div class="price" style="background-color:#ffffffa8">
                             <p style="margin-bottom:10px"> Price: {{item.price}}$ </p>

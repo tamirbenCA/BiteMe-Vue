@@ -332,7 +332,7 @@ button {
 }
 
 .join-button {
-    background: linear-gradient(to right, #7bb7c1, #64b0c1);
+   background: linear-gradient(to right, #597a7f, #5ea3b3);
     border: 1px #3db2c5 solid;
     color: #f1ece4;
     /* border-radius: 5px; */
