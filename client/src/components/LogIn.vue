@@ -79,7 +79,7 @@ input {
     max-width: 500px;
     width: 100%;
     background-color: #ffffff9e;
-    margin-top: 174px;
+    margin-top: 80px;
 }
 
 form {
