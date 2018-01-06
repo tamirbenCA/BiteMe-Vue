@@ -13,7 +13,7 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="seller[idx].imgUrl" />
-                                <p style=" text-transform: capitalize;margin-left:5px;">{{seller[idx].name}}</p>
+                                <p class="chef-nm">{{seller[idx].name}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -148,13 +148,17 @@ h2 {
 .chef-details {
     display: flex;
     flex-direction: row;
-        width: 20%;
-
+    width: 30%;
     justify-content: space-between;
     margin-bottom: 5px;
     margin-top: 5px;
 }
-
+.chef-nm {
+    text-transform: capitalize;
+    padding-left: 5px;
+    width: 71%;
+    text-align: left;
+}
 .name {
     text-transform: capitalize;
     font-size: 15px;
@@ -207,12 +211,12 @@ ul {
 }
 
 .item-footer {
-   height: 100px;
+    height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-     padding-left: 15px;
+    padding-left: 15px;
     padding-right: 15px;
     justify-content: center;
     justify-content: space-around;
