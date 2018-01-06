@@ -10,12 +10,13 @@
               <div class="white-bckg"></div>
               <img class="new-icn" src="../assets/icons8-new-96.png">
             </div>
-
+            <!-- hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii -->
           </div>
         </div>
       </div>
     </div>
   </section>
+  <!-- hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii -->
 </template>
 
 <script>
@@ -137,18 +138,16 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 50px;
-   
   }
-  .gt-start{
-        margin-left: 9px;
-
+  .gt-start {
+    margin-left: 9px;
   }
-  .box{
+  .box {
     height: 100%;
   }
 
-  .imgs-btm{
-    height:253px;
+  .imgs-btm {
+    height: 253px;
     margin-bottom: 50px;
   }
 }
