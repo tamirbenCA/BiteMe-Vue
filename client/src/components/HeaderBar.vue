@@ -171,7 +171,7 @@ export default {
 
 .btns-righ-top {
     display: flex;
-    margin-left: -50px;
+    margin-left: -45px;
     justify-content: space-between;
     width: 100%;
 }
