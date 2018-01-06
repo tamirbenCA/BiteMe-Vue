@@ -54,10 +54,10 @@ button {
     background-color: #a6cfd6;
     border-radius: 5px;
     width: 100px;
-    height:40px;
+    height: 40px;
     border: none;
-     font-size: 20px;
-     color:#5a5454;
+    font-size: 20px;
+    color: #5a5454;
 }
 
 
@@ -105,6 +105,9 @@ textarea {
         margin-top: 50px;
         margin-bottom: 200px;
     }
+
+    form {
+        width: 60%;
+    }
 }
-   
 </style>
