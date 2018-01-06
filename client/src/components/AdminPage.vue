@@ -108,7 +108,8 @@ export default {
    max-width: 1000px;
    width:100%;
    margin: auto;
-   margin-top: 30px;
+   margin-top: 50px;
+   margin-bottom: 50px;
 }
 
 .cell {
