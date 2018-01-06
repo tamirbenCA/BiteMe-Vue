@@ -125,7 +125,7 @@ h2 {
     margin: 0 auto;
     margin-bottom: 100px;
     background-color: white;
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 p {
