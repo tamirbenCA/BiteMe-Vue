@@ -155,7 +155,7 @@ ul {
 }
 
 .item-footer {
-    height: 150px;
+    height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;

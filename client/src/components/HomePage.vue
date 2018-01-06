@@ -10,13 +10,11 @@
               <div class="white-bckg"></div>
               <img class="new-icn" src="../assets/icons8-new-96.png">
             </div>
-            <!-- hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii -->
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii -->
 </template>
 
 <script>
