@@ -86,7 +86,7 @@ function markDelivered(order) {
 }
 
 function emptyItem() {
-    return {name: '', desc: '', imgUrl: '', tags: [], price: '', seller: {sellerName: '', sellerId: '', sellerImgUrl: ''}, rank: ''}
+    return {name: '', desc: '', imgUrl: '', tags: [], isActive: true, price: '', seller: {sellerName: '', sellerId: '', sellerImgUrl: ''}, rank: ''}
 }
 
 function saveItem(item) {
@@ -116,6 +116,16 @@ function shuffleArr(arr) {
     return arr;
 }
 
+function disableItem(item) {
+    // console.log('line 120', item)
+    return axios
+    .put(`${URL}/data/item/${item._id}`, item)
+    .then(res => {
+        console.log('resdata:', res.data)
+        return res.data
+    })
+}
+
 export default {
     loadTags,
     getItemById,
@@ -130,5 +140,6 @@ export default {
     addOrder,
     saveItem,
     getTopMeals,
-    shuffleArr    
+    shuffleArr,
+    disableItem
 }

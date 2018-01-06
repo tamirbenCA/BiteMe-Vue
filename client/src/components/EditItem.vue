@@ -1,7 +1,8 @@
 <template>
     <section>
 
-        <form @submit.prevent="submitItem">
+        <!-- <form @submit.prevent="submitItem"> -->
+        <form>
             <div style="text-align: left;">Name <input style="width: 78%;" type="text" v-model="itemToUpdate.name" autofocus></div>
 
             <div class="desc">Description
@@ -19,11 +20,11 @@
                     <label :for="tag">{{tag}}</label>
                 </span>
             </div>
-            <div class="btn">
-                <button>{{(itemId) ? 'Save' : 'Add'}}</button>
-                <router-link to="/">
-                    <button style="background-color:white; color:lightgrey">Reset</button>
-                </router-link>
+            <div class="btns">
+                <button class="btn add-btn" @click.prevent="submitItem">{{(itemId) ? 'Save' : 'Add'}}</button>
+                <router-link to="/" tag="button" class="btn reset-btn">Cancel</router-link>
+                <button v-if="itemId" class="btn delete-btn" @click.prevent="deleteItem">Delete</button>
+
             </div>
 
         </form>
@@ -34,7 +35,7 @@
 import swal from 'sweetalert'
 import UserService from '../services/UserService';
 import ShopService from '../services/ShopService';
-import { LOAD_TAGS, SET_TAG, SAVE_ITEM } from '../modules/ShopModule';
+import { LOAD_TAGS, SET_TAG, SAVE_ITEM, DISABLE_ITEM } from '../modules/ShopModule';
 
 
 export default {
@@ -63,7 +64,7 @@ export default {
                 })
         },
         submitItem() {
-            console.log('submiting form', this.itemToUpdate)
+            // console.log('submiting form', this.itemToUpdate)
             if (!this.itemToUpdate._id) {
                 console.log('getters:', this.$store.getters.loggedinUser._id)
                 var seller = this.$store.getters.loggedinUser;
@@ -81,6 +82,18 @@ export default {
                     console.log('error saving item', err)
                 })
         },
+        deleteItem() {
+            swal("Delete this item?", {
+                dangerMode: true,
+                buttons: true,
+                }).then((res) => {
+                    if (res) {
+                        this.itemToUpdate.isActive = false;
+                        this.$store.dispatch({type: DISABLE_ITEM, item: this.itemToUpdate})
+                            .then(_ => this.$router.push('/'))
+                    } else return;
+                })
+        }
     },
     created() {
         // this.itemToUpdate.seller = this.$store.getters.loggedinUser
@@ -107,7 +120,7 @@ body {
     align-items: center;
 }
 
-.btn {
+.btns {
     display: flex;
     flex-direction: row;
     width: 250px;
@@ -121,16 +134,27 @@ body {
     font-size: 50px;
 }
 
-button {
-    background-color: #a6cfd6;
+/* button { */
+.btn {
     border-radius: 5px;
     width: 100px;
     height: 36px;
     border: none;
     font-size: 20px;
+    margin: 0px 10px
+}
+.add-btn {
+    background-color: #a6cfd6;
     color: #5a5454;
 }
-
+.reset-btn {
+    background-color:#5a5454;
+    color:lightgrey;
+}
+.delete-btn {
+    background-color: #d6a6a6;
+    color: white;
+}
 section {
     font-size: 20px;
 }

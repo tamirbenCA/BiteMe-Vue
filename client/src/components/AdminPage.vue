@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         disableSeller(sellerId) {
-            console.log(sellerId)
+            // console.log(sellerId)
             this.$store.dispatch({ type: UPDATE_SELLER, sellerId })
         }
     },

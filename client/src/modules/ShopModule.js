@@ -17,6 +17,7 @@ export const LOAD_SELLERS = 'shop/loadChefs';
 export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER = 'shop/updateSeller';
 export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
+export const DISABLE_ITEM = 'shop/deleteItem';
 
 const SET_ITEMS = 'shop/setItems';
 
@@ -241,7 +242,11 @@ const actions = {
     },
     [SAVE_ITEM]({ commit }, { itemToUpdate }) {
         return ShopService.saveItem(itemToUpdate)
+    },
+    [DISABLE_ITEM]({ commit }, { item }) {
+        ShopService.disableItem(item)
     }
+
 }
 
 export default {

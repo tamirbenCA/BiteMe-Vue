@@ -76,9 +76,7 @@ function getSellers() {
         });
 }
 
-
 function deleteSeller(sellerId) {
-    console.log('70',sellerId)
     return axios
         .delete(`${URL}/data/user/sellerId`)
         .then(res => {
@@ -162,7 +160,7 @@ function changeUserActivity(seller){
     return axios
     .put(`${URL}/data/user/${seller._id}`, seller)
     .then(res => {
-        console.log('resdata:', res.data)
+        // console.log('resdata:', res.data)
         return res.data
     })
 }
