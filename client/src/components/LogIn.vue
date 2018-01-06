@@ -97,4 +97,14 @@ form>* {
 textarea {
     resize: none;
 }
+
+
+@media screen and (max-width: 480px) {
+    .form-box {
+        max-width: 440px;
+        margin-top: 50px;
+        margin-bottom: 200px;
+    }
+}
+   
 </style>

@@ -13,18 +13,21 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p style=" text-transform: capitalize;">{{item.seller.sellerName}}</p>
+                                <p style=" text-transform: capitalize;margin-left:5px">{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
 
-                            <div class="rank">
-                                <div v-for="(star,idx) in item.rank" :key="idx">
-                                    <span class="star">★</span>
+                            <div class="rnk-and-prc">
+                                <div class="rank">
+                                    <div v-for="(star,idx) in item.rank" :key="idx">
+                                        <span class="star">★</span>
+                                    </div>
                                 </div>
+
+                                <p class="price">{{item.price}}$</p>
                             </div>
-                            <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
                 </li>
@@ -70,7 +73,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.rnk-and-prc {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 .rank {
     display: flex;
     flex-direction: row;
@@ -81,6 +88,7 @@ h1,
 h2 {
     font-weight: normal;
 }
+
 
 /* .gif-loading {
     width: 200px;
@@ -119,7 +127,6 @@ h2 {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-   
 }
 
 p {
@@ -154,11 +161,14 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 15px;
+    padding-right: 15px;
     justify-content: center;
     justify-content: space-around;
     background-color: white;
     box-sizing: border-box;
     padding-bottom: 5px;
+      
+
 }
 
 .img-item {
@@ -183,5 +193,11 @@ a {
 
 select {
     height: 30px;
+}
+
+@media screen and (max-width: 480px) {
+    .items-container {
+        width: 79%;
+    }
 }
 </style>

@@ -26,7 +26,7 @@
                                 </div>
 
                                 <p class="price">{{item.price}}$</p>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </li>

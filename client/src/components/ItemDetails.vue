@@ -13,7 +13,7 @@
                                     <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </router-link>
-                                    <p style="text-transform: capitalize;" >{{item.name}}</p>
+                                    <p style="text-transform: capitalize;">{{item.name}}</p>
 
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <img class="item" :src="item.imgUrl" />
-                            <p style="text-transform: capitalize; margin:10px;font-size:20px;">{{item.desc}}</p>
+                            <p style="text-transform: capitalize; margin:18px;font-size:18px;">{{item.desc}}</p>
                         </div>
                         <div class="price" style="background-color:#ffffffa8">
                             <p style="margin-bottom:10px"> Price: {{item.price}}$ </p>
@@ -32,10 +32,10 @@
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
                                 <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                                    <option>0</option>
-                                                                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                                                                                                <option>0</option>
+                                                                                                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                                                                                </select> -->
+                                                                                                                            </select> -->
                             </div>
                         </div>
                     </div>
@@ -65,12 +65,13 @@
                                 <p>Add a comment</p>
                                 <input class="msg" v-model="msg" type="text">
                                 <div class="rank-chef">
-                                    Rank the meal
+                                    <p> Rank the meal</p>
+
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                                                        <option>0</option>
-                                                                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                                                    </select> -->
+                                                                                                    <option>0</option>
+                                                                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                                                                </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -229,6 +230,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.rank-chef {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+}
+
 .top-details-title {
     width: 200px;
     text-transform: capitalize;
@@ -263,7 +271,6 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-   
 }
 
 .el-input__inner {
@@ -608,6 +615,12 @@ form {
     .comments {
         width: 76%;
         margin-left: 57px;
+    }
+    .modal {
+        width: 90%;
+    }
+    .about-chef {
+        width: 90%;
     }
 }
 </style>

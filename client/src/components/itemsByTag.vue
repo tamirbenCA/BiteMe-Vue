@@ -7,28 +7,27 @@
         <div class="items-container" v-else>
             <ul>
                 <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-               <!-- {{item}} -->
+                    <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="seller[idx].imgUrl" />
-                                <p style=" text-transform: capitalize;">{{seller[idx].name}}</p>
+                                <p style=" text-transform: capitalize;margin-left:5px;">{{seller[idx].name}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
                             </div>
-
-                            <div class="rank">
-                                <div v-for="(star,idx) in item.rank" :key="idx">
-                                    <span class="star">★</span>
+                            <div class="rnk-and-prc">
+                                <div class="rank">
+                                    <div v-for="(star,idx) in item.rank" :key="idx">
+                                        <span class="star">★</span>
+                                    </div>
                                 </div>
+
+                                <p class="price">{{item.price}}$</p>
                             </div>
-                            <!-- <p class="rank">{{item.rank}}
-                                <span class="star">★</span>
-                            </p> -->
-                            <p class="price">{{item.price}}$</p>
                         </div>
                     </div>
                 </li>
@@ -124,13 +123,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.rnk-and-prc {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
 .rank {
     display: flex;
     flex-direction: row;
     color: gold;
-    /* width:150px; */
 }
+
 h1,
 h2 {
     font-weight: normal;
@@ -138,7 +142,7 @@ h2 {
 
 .gif-loading {
     width: 200px;
-    height:200px;
+    height: 200px;
     /* margin-bottom: 50px; */
 }
 
@@ -172,7 +176,7 @@ h2 {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-     display: flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -187,7 +191,6 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
 }
 
 .item {
@@ -209,13 +212,13 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 15px;
+     padding-left: 15px;
+    padding-right: 15px;
     justify-content: center;
     justify-content: space-around;
     background-color: white;
-        box-sizing: border-box;
-        padding-bottom: 5px;
-
+    box-sizing: border-box;
+    padding-bottom: 5px;
 }
 
 .img-item {
@@ -240,5 +243,11 @@ a {
 
 select {
     height: 30px;
+}
+
+@media screen and (max-width: 480px) {
+    .items-container {
+        width: 78%;
+    }
 }
 </style>

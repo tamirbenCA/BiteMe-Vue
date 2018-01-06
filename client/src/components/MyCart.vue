@@ -25,15 +25,15 @@
                         <img class="meal" :src="item.imgUrl" alt="">
                         <div class="item-info">
                             <p style="text-transform: uppercase;">{{item.name}}</p>
-                            <p style="text-transform: uppercase;">{{item.desc}}</p>
+                            <!-- <p style="text-transform: uppercase;">{{item.desc}}</p> -->
                             <div class="payment">
                                 <el-input-number v-model="item.quantity" @change="quantityChange({quantity: item.quantity, item})" name="quantity" :min="1" :max="10"></el-input-number>
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                        <option value=""></option>
-                                        <option v-for="n in 10">{{n}}</option>
-                                    </select> -->
+                                                    <option value=""></option>
+                                                    <option v-for="n in 10">{{n}}</option>
+                                                </select> -->
                                 <span style="margin-top:5px;">X</span>
-                                <div style="font-size:25px">{{item.price}}$</div>
+                                <div class="payment-price">{{item.price}}$</div>
 
                                 <i class="fa fa-trash-o" aria-hidden="true" @click.stop="deleteItem(item)"></i>
                             </div>
@@ -92,11 +92,11 @@ export default {
     },
     methods: {
         checkout() {
-            console.log(this.cartTotal,this.cart)
+            console.log(this.cartTotal, this.cart)
             var loggedinUser = this.$store.getters.loggedinUser;
             if (!loggedinUser) this.$router.push('/login');
             else {
-                if (this.timeChosen !== '' && this.timeChosen > Date.now() ) {
+                if (this.timeChosen !== '' && this.timeChosen > Date.now()) {
                     this.isCheckedOut = true;
                     this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart, deliveryDate: this.timeChosen.getTime() } });
                     swal({
@@ -139,6 +139,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.payment-price {
+    font-size: 25px;
+}
+
 .btm-cont {
     flex-direction: column;
 }
@@ -204,7 +208,7 @@ export default {
 
 .box {
     display: block;
-    width: 900px;
+    max-width: 900px;
     margin: auto;
     margin-bottom: 50px;
     margin-top: 20px;
@@ -293,5 +297,31 @@ select:hover {
     height: 50px;
     margin-bottom: 50px;
     font-size: 40px;
+}
+
+@media screen and (max-width: 480px) {
+    .box {
+        width: 90%;
+    }
+    .cart-header {
+        margin-right: 0;
+        width: 100%;
+    }
+    .div {
+        width: 0px;
+    }
+    .meal {
+        width: 100px;
+        height: 75px;
+    }
+    .item-back {
+        height: 100px;
+    }
+    .item {
+        height: 100px;
+    }
+    .payment-price {
+        font-size: 18px;
+    }
 }
 </style>
