@@ -1,5 +1,5 @@
 <template>
-<section>
+<section class="adm">
     <div v-if="!pageReady">
         <img class="gif-loading" src="../assets/loading2.gif">
     </div>
@@ -103,13 +103,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-/* .gif-loading {
-    width: 200px;
-    height:200px;
-} */
+.adm{
+   text-transform: capitalize;
+   max-width: 1000px;
+   width:100%;
+   margin: auto;
+   margin-top: 30px;
+}
 
 .cell {
     text-transform: capitalize;
+}
+
+@media screen and (max-width: 480px) {
+   
 }
 
 </style>

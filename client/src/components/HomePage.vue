@@ -79,8 +79,8 @@ export default {
 }
 
 .box {
- display: flex;
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   height: 500px;
   justify-content: space-between;
   margin-top: 50px;
@@ -89,8 +89,6 @@ export default {
 .fr-page-cnt {
   display: flex;
   justify-content: center;
- 
- 
 }
 
 .imgs-btm {
@@ -133,4 +131,25 @@ h1 {
 }
 
 
+@media screen and (max-width: 480px) {
+
+  .imgs-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+   
+  }
+  .gt-start{
+        margin-left: 9px;
+
+  }
+  .box{
+    height: 100%;
+  }
+
+  .imgs-btm{
+    height:253px;
+    margin-bottom: 50px;
+  }
+}
 </style>

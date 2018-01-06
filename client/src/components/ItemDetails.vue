@@ -31,10 +31,10 @@
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
                                 <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                    <option>0</option>
-                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                                                                <option>0</option>
+                                                                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                                </select> -->
+                                                                                            </select> -->
                             </div>
                         </div>
                     </div>
@@ -67,9 +67,9 @@
                                     Rank the meal
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                        <option>0</option>
-                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                    </select> -->
+                                                                    <option>0</option>
+                                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                                </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -126,7 +126,7 @@ export default {
             num1: 1,
             prod: null,
             // quantity: null,
-            num8:1
+            num8: 1
         }
     },
     watch: {
@@ -157,25 +157,25 @@ export default {
             // console.log(this.isActive)
         },
         sendComment(itemId, comment) {
-            console.log(itemId, comment ,this.num8)
-             if (!this.$store.getters.loggedinUser) this.$router.push('/login');
-             else {
-              
-            if (comment === '') {
-                swal({
+            console.log(itemId, comment, this.num8)
+            if (!this.$store.getters.loggedinUser) this.$router.push('/login');
+            else {
+
+                if (comment === '') {
+                    swal({
                         title: "Please fill text",
                         icon: "warning",
                     });
-            }
-               else {
+                }
+                else {
                     this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.num8, userName: this.$store.getters.loggedinUser.name });
                     swal({
                         title: "Your message will be reviewed shortly",
                         icon: "success",
                     });
                     this.msg = '';
-                
-            }
+
+                }
             }
         },
         showDetails(item) {
@@ -195,12 +195,12 @@ export default {
         addItem(item) {
             console.log(item)
             this.$store.commit({ type: UPDATE_CART, item, quantity: this.quantity });
-               swal({
+            swal({
                 title: "Item added to cart",
                 icon: "success",
-               
+
             });
-            
+
         }
     },
     computed: {
@@ -228,10 +228,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.midal-btn{
+.midal-btn {
     cursor: pointer;
 }
+
 .fa-thumbs-o-up {
     cursor: pointer;
 }
@@ -255,7 +255,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-      width:120px;
+    width: 120px;
     justify-content: space-around;
 }
 
@@ -305,7 +305,7 @@ select {
 
 .fa-pencil {
     cursor: pointer;
-    color:#2c3e50;
+    color: #2c3e50;
 }
 
 .fa-commenting-o {
@@ -317,12 +317,9 @@ select {
     border: 1px solid lightgray;
     border-radius: 5px;
     background-color: lightgray;
-    z-index: 1000;
-    display: block;
-    width: 493px;
+    width: 100%;
     height: 245px;
     margin: auto;
-    /* box-shadow: 2px 2px 2px 0px black; */
 }
 
 .midal-btn {
@@ -338,7 +335,6 @@ select {
 .title {
     font-size: 30px;
     font-weight: bold;
-  
 }
 
 .middle {
@@ -584,5 +580,23 @@ form {
 .gif-loading {
     width: 64px;
     height: 64px;
+}
+
+@media screen and (max-width: 480px) {
+    .top-page {
+        flex-wrap: wrap;
+    }
+
+    .middle {
+        margin-top: 45px;
+    }
+    .left-side {
+        margin-left: 70px;
+        margin-right: 75px;
+    }
+    .comments {
+        width: 76%;
+        margin-left: 57px;
+    }
 }
 </style>

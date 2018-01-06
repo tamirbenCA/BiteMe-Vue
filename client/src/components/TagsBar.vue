@@ -3,8 +3,8 @@
         <!-- <nav style="margin-top:50px;"> -->
         <ul class="container-tags">
             <router-link v-for="(tag, index) in tags" :key="index" @click.native="setTag(tag)" tag="li" :to="`/items?tag=${tag}`" exact>
-            <li>  {{tag}}</li>
-                  
+                <li> {{tag}}</li>
+
             </router-link>
         </ul>
         <!-- </nav> -->
@@ -46,7 +46,7 @@ export default {
 }
 
 li:hover {
-  color: rgb(111, 133, 154);
+    color: rgb(111, 133, 154);
 }
 
 * {
@@ -61,7 +61,7 @@ ul {
 
 li {
     width: 100px;
-       font-size: 18px;
+    font-size: 18px;
     border-right: none;
     cursor: pointer;
     text-transform: capitalize
@@ -84,5 +84,15 @@ li {
     align-items: center;
     background-color: #ffffff6e;
     justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+    .container-tags {
+        font-size: 5px;
+        flex-wrap: wrap;
+        padding-left: 22px;
+        height: 69px;
+        padding-top: 10px;
+    }
 }
 </style>

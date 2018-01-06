@@ -3,7 +3,7 @@
         <div class="top-bar">
             <div class="logo">
                 <router-link to="/" @click.native="setTag">
-                    <img style="height:130px;width:150px;margin-left:30px;" src="../assets/Byte-Me-Logo.png" />
+                    <img class="lg-img" src="../assets/Byte-Me-Logo.png" />
                 </router-link>
             </div>
 
@@ -28,16 +28,17 @@
         <div class="btns-left">
             <div class="btns-left-top">
                 <router-link to="/login" tag="button" class="join-button header-button" v-if="!loggedUser">Log In</router-link>
-                <button v-if="loggedUser" @click="logOut" class="header-button">Log Out</button>
+                <button v-if="loggedUser" @click="logOut" class="exit-button header-button">Log Out</button>
                 <i class="fa fa-shopping-basket" aria-hidden="true" @click="goToMyCart"></i>
             </div>
             <div class="btns-left-btm">
-                <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange;    margin-left:50px;">
+                <p class="lgn-user" v-if="loggedinUser && loggedinUser.name !== 'admin' " style="color:orange;  ">
                     Hello {{loggedinUser.name}}
                 </p>
                 <p class="lgn-user" v-else>
                     <router-link to="/admin" v-if="adminLogged" class="admin">
-                        Hello Admin
+                        <p class="adm-hello">Hello Admin</p>
+
                     </router-link>
                 </p>
             </div>
@@ -129,6 +130,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.adm-hello {
+    margin: 0;
+    width: 113px;
+    margin-left: -15px;
+}
+
 .btns-righ-btm {
     display: flex;
     justify-content: space-between;
@@ -151,19 +158,12 @@ export default {
     flex-direction: column;
 }
 
-
-
-
-/* .logo {
-    margin-top: 180px;
-} */
-
 .btns-right-ttl {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height:120px;
+    height: 120px;
     margin-top: 10px;
 }
 
@@ -200,7 +200,7 @@ img {
 input {
     /* margin-left: 15px; */
     border-radius: 5px;
-  
+
     /* height: 20px; */
 }
 
@@ -212,6 +212,7 @@ input {
     font-size: 20px;
     text-align: right;
     display: column;
+    margin-left: 50px;
 }
 
 .icons {
@@ -332,12 +333,12 @@ button {
 }
 
 .join-button {
-   background: linear-gradient(to right, #597a7f, #5ea3b3);
+    background: linear-gradient(to right, #597a7f, #5ea3b3);
     border: 1px #3db2c5 solid;
     color: #f1ece4;
     /* border-radius: 5px; */
     height: 44px;
-    width:100px
+    width: 100px
 }
 
 .fa-shopping-cart {
@@ -385,5 +386,85 @@ li {
     flex-direction: row;
     align-items: center;
     align-items: center;
+}
+
+.lg-img {
+
+    height: 130px;
+    width: 150px;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 480px) {
+    .lg-img {
+
+        height: 90px;
+        width: 100px;
+        margin-left: 0;
+        margin-top: -28px;
+    }
+
+    .logo {
+        margin-left: 0;
+        height: 90px;
+        width: 100px;
+    }
+    .header-button {
+        font-size: 12px;
+        width: 100px;
+        /* text-align: left; */
+    }
+
+    .btns-righ-btm {
+        margin-left: 15px;
+    }
+
+    .btns-left-top {
+        width: 366px;
+        height: 69px;
+        flex-direction: column-reverse;
+        margin-top: 0px;
+        margin-left: 10px;
+    }
+    .btns-righ-top {
+        width: 160%;
+        margin-left: -100px;
+    }
+    .btns-right-ttl {
+        margin-left: 18px;
+        margin-top: 30px;
+    }
+    .join-button {
+        height: 35px;
+        width: 46px;
+    }
+    .fa-shopping-basket {
+        font-size: 20px;
+        height: 28px;
+        margin-left: 8px;
+        height: 28px;
+        width: 30px;
+        margin-bottom: 4px;
+    }
+
+    .lgn-user {
+        font-size: 15px;
+        margin-top: -85px;
+        margin-left: -3px;
+    }
+    .btns-left-btm {
+        width: 100px;
+        height: 50px;
+    }
+
+    .exit-button {
+        width: 59px;
+        margin-left: -7px;
+    }
+
+    .adm-hello {
+        font-size: 15px;
+        margin-left: -45px;
+    }
 }
 </style>

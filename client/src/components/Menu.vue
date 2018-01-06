@@ -1,7 +1,7 @@
 <template>
     <section>
         <tags-bar> </tags-bar>
-        <div  v-if="!pageReady">
+        <div v-if="!pageReady">
             <img class="gif-loading" src="../assets/loading2.gif">
         </div>
         <div class="items-container" v-else>
@@ -77,13 +77,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.rnk-and-prc{
+.rnk-and-prc {
     display: flex;
     justify-content: space-between;
-    width:100%;
-    
+    width: 100%;
 }
+
 h1,
 h2 {
     font-weight: normal;
@@ -109,6 +108,8 @@ h2 {
     border-radius: 50px;
 }
 
+
+
 /* .gif-loading {
     width: 200px;
     height: 200px;
@@ -124,7 +125,7 @@ h2 {
     max-width: 1400px;
     margin: 0 auto;
     margin-bottom: 100px;
-    background-color: white;
+    /* background-color: white; */
     margin-top: 100px;
 }
 
@@ -137,7 +138,7 @@ ul {
     list-style-type: none;
     padding: 0;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     flex-wrap: wrap;
     /* justify-content: center; */
 }
@@ -162,7 +163,7 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 15px;
-     padding-right: 15px;
+    padding-right: 15px;
     justify-content: center;
     justify-content: space-around;
     background-color: white;
@@ -199,5 +200,12 @@ a {
 
 select {
     height: 30px;
+}
+
+@media screen and (max-width: 480px) {
+    .items-container {
+        padding-left: 35px;
+        margin-top: 0px;
+    }
 }
 </style>

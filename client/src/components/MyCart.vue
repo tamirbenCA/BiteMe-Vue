@@ -27,11 +27,11 @@
                             <p style="text-transform: uppercase;">{{item.name}}</p>
                             <p style="text-transform: uppercase;">{{item.desc}}</p>
                             <div class="payment">
-                                 <el-input-number v-model="item.quantity" @change="quantityChange({quantity: item.quantity, item})" name="quantity" :min="1" :max="10"></el-input-number>
+                                <el-input-number v-model="item.quantity" @change="quantityChange({quantity: item.quantity, item})" name="quantity" :min="1" :max="10"></el-input-number>
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                    <option value=""></option>
-                                    <option v-for="n in 10">{{n}}</option>
-                                </select> -->
+                                        <option value=""></option>
+                                        <option v-for="n in 10">{{n}}</option>
+                                    </select> -->
                                 <span style="margin-top:5px;">X</span>
                                 <div style="font-size:25px">{{item.price}}$</div>
 
@@ -92,7 +92,7 @@ export default {
     },
     methods: {
         checkout() {
-
+            console.log(this.cartTotal,this.cart)
             var loggedinUser = this.$store.getters.loggedinUser;
             if (!loggedinUser) this.$router.push('/login');
             else {
@@ -281,7 +281,7 @@ select:hover {
 .payment {
     display: flex;
     justify-content: space-around;
-        width: 300px;
+    width: 300px;
     align-items: center;
 }
 

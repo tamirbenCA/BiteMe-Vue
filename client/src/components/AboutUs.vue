@@ -93,4 +93,23 @@ export default {
   margin: 0 auto;
   margin-bottom: 100px;
 }
+
+
+@media screen and (max-width: 480px) {
+  .details {
+    width: 100%;
+  }
+  .how-work {
+    flex-direction: column;
+  }
+  .how-work-img {
+    width: 90%;
+    margin: auto;
+  }
+  .imgs {
+    flex-direction: column;
+    width: 90%;
+    height: 500px;
+  }
+}
 </style>

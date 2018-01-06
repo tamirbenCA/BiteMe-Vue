@@ -102,4 +102,11 @@ tr {
     display: flex;
     flex-direction: row;
 }
+
+@media screen and (max-width: 480px) {
+    .sellers {
+        flex-wrap: wrap;
+        padding-left: 3px;
+    }
+}
 </style>

@@ -422,9 +422,10 @@ app.put('/data/:objType/:id', function (req, res) {
 // Basic Login/Logout/Protected assets
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {
-		db.collection('user').findOne({ email: req.body.email, password: req.body.password }, function (err, user) {
+		db.collection('user').findOne({ email: req.body.email, password: req.body.password,isActive:true }, function (err, user) {
 			if (user) {
-				cl('Login Succesful');
+
+				cl('Login Succesful',user);
 				delete user.pass;
 				req.session.user = user;
 				res.json({ token: 'Beareloginr: puk115th@b@5t', user });

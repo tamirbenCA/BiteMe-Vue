@@ -2,13 +2,13 @@
     <section>
 
         <form @submit.prevent="submitItem">
-            <div style="text-align: left">Name <input type="text" v-model="itemToUpdate.name" autofocus></div>
+            <div style="text-align: left;">Name <input style="width: 78%;" type="text" v-model="itemToUpdate.name" autofocus></div>
 
             <div class="desc">Description
-                <textarea style="height: 24px" v-model="itemToUpdate.desc"></textarea>
+                <textarea style="height: 24px;width: 332px;" v-model="itemToUpdate.desc"></textarea>
             </div>
 
-            <div style="text-align: left">Price<input type="number" v-model.number="itemToUpdate.price"></div>
+            <div style="text-align: left">Price<input style="width: 50px;" type="number" v-model.number="itemToUpdate.price"></div>
 
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl" />
@@ -95,10 +95,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-body{
-    color:#5a5454;
+body {
+    color: #5a5454;
 }
+
 .desc {
     display: flex;
     flex-direction: row;
@@ -126,7 +126,7 @@ button {
     height: 36px;
     border: none;
     font-size: 20px;
-    color:#5a5454;
+    color: #5a5454;
 }
 
 section {
@@ -149,7 +149,8 @@ form {
     z-index: 10000;
     background-color: #ffffff9e;
     width: 100%;
-    width: 350px;
+    max-width: 500px;
+
     margin-right: 500px;
     border-radius: 5px;
     margin: 50px auto;
@@ -181,5 +182,11 @@ form>* {
 
 textarea {
     resize: none;
+}
+
+@media screen and (max-width: 480px) {
+    form {
+        width: 90%;
+    }
 }
 </style>

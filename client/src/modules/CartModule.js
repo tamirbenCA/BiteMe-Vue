@@ -47,7 +47,7 @@ const mutations = {
 
 const actions = {
     [CHECKOUT]({ commit }, { data }) {
-        // console.log('cartModule line 50', data)
+        console.log('cartModule line 50', data)
         var sellers = data.cart.map((item) => {
             return item.seller
         })
@@ -66,7 +66,7 @@ const actions = {
             sellers: sellers,
             deliveryDate:data.deliveryDate
         }
-        // console.log('line 69:', order)
+        console.log('line 69:', order)
         ShopService.addOrder(order)
             .then(_ => {
                 commit(CHECKOUT_SUCCESS);
