@@ -1,19 +1,19 @@
 import UserService from "../services/UserService.js";
 import ShopService from "../services/ShopService.js";
+import StorageService from "../services/StorageService.js";
 
 export const SIGNUP = 'user/signup';
 export const SIGNIN = 'user/signin';
 export const SIGNOUT = 'user/signout';
-// export const TOGGLE_LIKE = 'user/toggleLike';
 // export const SET_USER = 'user/setUser';
-// const TOGGLE_LIKE = 'user/toggleLike';
 const SET_USER = 'user/setUser';
 
 var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        loggedinUser: getUserFromStorage(),
+        // loggedinUser: getUserFromStorage(),
+        loggedinUser: StorageService.loadFromStorage(STORAGE_KEY),
         user: null,
     },
     getters: {
@@ -40,28 +40,16 @@ export default {
         [SIGNOUT](state) {
             state.loggedinUser = null;
         },
-        // [TOGGLE_LIKE](state, { carId }) {
-        //     if (!state.loggedinUser.likedCarIds) {
-        //         Vue.set(state.loggedinUser, 'likedCarIds', []);
-        //     }
-        //     var idxLike = state.loggedinUser.likedCarIds
-        //         .findIndex(likeCarId => likeCarId === carId);
-        //     if (idxLike === -1) {
-        //         state.loggedinUser.likedCarIds.push(carId)
-        //     } else {
-        //         state.loggedinUser.likedCarIds.splice(idxLike, 1)
-        //     }
-        // }
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
-            // console.log('Sign Up action', signupDetails)
             return new Promise((resolve, reject) => {
                 UserService
                     .signup(signupDetails)
                     .then(res => {
                         commit({ type: SET_USER, user: res.user })
-                        saveToLocalStorage(res.user)
+                        // saveToLocalStorage(res.user)
+                        StorageService.saveToStorage(STORAGE_KEY, res.user)
                     })
                     .catch(err => {
                         console.log(err)
@@ -74,9 +62,9 @@ export default {
                 UserService
                     .login(signinDetails)
                     .then(res => {
-                        // console.log('res686868', res)
                         commit({ type: SET_USER, user: res.user });
-                        saveToLocalStorage(res.user)
+                        // saveToLocalStorage(res.user)
+                        StorageService.saveToStorage(STORAGE_KEY, res.user)
                         resolve();
                     })
                     .catch(err => {
@@ -90,29 +78,21 @@ export default {
                 .logout()
                 .then(_ => {
                     commit({ type: SIGNOUT })
-                    saveToLocalStorage(null);
+                    StorageService.clearStorage(STORAGE_KEY)
+                    // saveToLocalStorage(null);
                     // localStorage.clear(STORAGE_KEY)
                 })
         },
-        // [TOGGLE_LIKE]({ commit, state }, { carId }) {
-        //     UserService
-        //         .toggleLike(state.loggedinUser._id, carId)
-        //         .then(_ => {
-        //             commit({ type: TOGGLE_LIKED_BY_USER, carId })
-        //             commit({ type: TOGGLE_LIKE, carId })
-        //             saveToLocalStorage(state.loggedinUser)
-        //         })
-        // }
     }
 }
 
 
-function getUserFromStorage() {
-    var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
-    // console.log('GETTING FROM STORAGE', loggedinUser);
-    return loggedinUser;
-}
+// function getUserFromStorage() {
+//     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
+//     // console.log('GETTING FROM STORAGE', loggedinUser);
+//     return loggedinUser;
+// }
 
-function saveToLocalStorage(user) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
-}
+// function saveToLocalStorage(user) {
+//     localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+// }

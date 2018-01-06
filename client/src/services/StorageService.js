@@ -7,8 +7,12 @@ function saveToStorage(key, val) {
     localStorage[key] = JSON.stringify(val);
 }
 
+function clearStorage(key) {
+    localStorage.removeItem(key)
+}
+
 export default {
     loadFromStorage,
-    saveToStorage
-
+    saveToStorage,
+    clearStorage
 }

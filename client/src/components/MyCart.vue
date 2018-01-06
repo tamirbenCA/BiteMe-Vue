@@ -96,7 +96,7 @@ export default {
             var loggedinUser = this.$store.getters.loggedinUser;
             if (!loggedinUser) this.$router.push('/login');
             else {
-                if (this.timeChosen !== '') {
+                if (this.timeChosen !== '' && this.timeChosen > Date.now() ) {
                     this.isCheckedOut = true;
                     this.$store.dispatch({ type: CHECKOUT, data: { user: loggedinUser, cartTotal: this.cartTotal, cart: this.cart, deliveryDate: this.timeChosen.getTime() } });
                     swal({
@@ -108,7 +108,7 @@ export default {
                 }
                 else {
                     swal({
-                        text: "Enter date",
+                        text: "Chose valid date",
                     });
                 }
             }

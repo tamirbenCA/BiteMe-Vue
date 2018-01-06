@@ -34,7 +34,7 @@
 import swal from 'sweetalert'
 import UserService from '../services/UserService';
 import ShopService from '../services/ShopService';
-import { LOAD_TAGS, SET_TAG } from '../modules/ShopModule';
+import { LOAD_TAGS, SET_TAG, SAVE_ITEM } from '../modules/ShopModule';
 
 
 export default {
@@ -71,9 +71,11 @@ export default {
                 this.itemToUpdate.seller.sellerName = seller.name;
                 this.itemToUpdate.seller.sellerImgUrl = seller.imgUrl;
             }
-            ShopService.saveItem(this.itemToUpdate)
+            // ShopService.saveItem(this.itemToUpdate)
+            this.$store.dispatch({type: SAVE_ITEM, itemToUpdate : this.itemToUpdate})
                 .then(_ => {
-                    this.$router.push('/')
+                    // this.$router.push('/')
+                    this.$router.go(-1)
                 })
                 .catch(err => {
                     console.log('error saving item', err)
@@ -83,7 +85,7 @@ export default {
     created() {
         // this.itemToUpdate.seller = this.$store.getters.loggedinUser
         this.$store.dispatch({ type: LOAD_TAGS })
-        console.log('tags:')
+        // console.log('tags:')
         if (!this.itemId) return;
         ShopService.getItemById(this.itemId, 'item')
             .then(item => {
