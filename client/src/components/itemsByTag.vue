@@ -7,7 +7,6 @@
         <div class="items-container" v-else>
             <ul>
                 <li v-for="(item, idx) in itemsToDisplay" :key="idx">
-                    <!-- {{item}} -->
                     <div class="item">
                         <div class="img-item" @click="showDetails(item)" v-bind:style="{backgroundImage : 'url(\'' + item.imgUrl + '\')'}">
                         </div>

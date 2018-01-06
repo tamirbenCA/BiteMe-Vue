@@ -91,12 +91,6 @@ h2 {
 }
 
 
-
-/* .gif-loading {
-    width: 200px;
-    height:200px;
-} */
-
 .chef-details {
     display: flex;
     flex-direction: row;
@@ -107,7 +101,7 @@ h2 {
 }
 
 .name {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 15px;
 }
 

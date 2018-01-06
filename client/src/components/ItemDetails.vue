@@ -33,10 +33,10 @@
                                 <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i>
                                 <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                                                <option>0</option>
-                                                                                                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                        <option>0</option>
+                                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                                                                                            </select> -->
+                                    </select> -->
                             </div>
                         </div>
                     </div>
@@ -70,9 +70,9 @@
 
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                                                                    <option>0</option>
-                                                                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                                                                </select> -->
+                                            <option>0</option>
+                                            <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                        </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -128,7 +128,6 @@ export default {
             itemsPurch: {},
             num1: 0,
             prod: null,
-            // quantity: null,
             num8: 1
         }
     },
@@ -252,7 +251,7 @@ export default {
     cursor: pointer;
 }
 
-.fa-plus{
+.fa-plus {
     cursor: pointer;
 }
 
