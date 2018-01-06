@@ -2,10 +2,6 @@
     <div class="manage-orders">
         <h1>Manage Orders</h1>
         <h2>Items sold</h2>
-<<<<<<< HEAD
-        <el-table :data="sellersItems" v-loading="loading2" element-loading-text="Loading..." element-loading-spinner="el-icon-loading" border height="200" :default-sort="{prop: 'date', order: 'descending'}" style="width: 100%" cell-style="background-color: rgba(117, 184, 255, 0.43); text-transform: capitalize;color: #322f2f;" row-style="background-color: transparent" header-row-style="background-color: transparent" header-cell-style="background-color:rgba(117, 184, 255, 0.43);color: #322f2f;" class="manage-orders-table">
-            <el-table-column prop="date" label="Sched. Delivery Date" sortable width="180" :formatter="formatter">
-=======
         <el-table
             :data="sellersItems"
             v-loading="loading2"
@@ -26,7 +22,6 @@
                 sortable
                 width="180"
                 :formatter="formatter">
->>>>>>> ce7fbdf163ac7a12ff0ac95d74a1b80d98155512
             </el-table-column>
             <el-table-column prop="buyerName" label="Buyer Name" sortable width="140">
             </el-table-column>
@@ -45,16 +40,6 @@
         </el-table>
 
         <h2>Items bought</h2>
-<<<<<<< HEAD
-        <el-table :data="buyersItems" v-loading="loading2" element-loading-text="Loading..." element-loading-spinner="el-icon-loading" border height="200" :default-sort="{prop: 'date', order: 'descending'}" style="width: 100%" cell-style="background-color: rgba(117, 184, 255, 0.43); text-transform: capitalize;color: #322f2f;" row-style="background-color: transparent" header-row-style="background-color: transparent" header-cell-style="background-color: rgba(117, 184, 255, 0.43);color: #322f2f;" class="manage-orders-table">
-            <el-table-column prop="date" label="Sched. Delivery Date" sortable width="180" :formatter="formatter">
-            </el-table-column>
-            <el-table-column prop="sellers" label="Sellers Name" sortable width="180">
-            </el-table-column>
-            <el-table-column prop="items" label="Items Name" width="300">
-            </el-table-column>
-            <el-table-column prop="isDelivered" label="Shipped" width="300">
-=======
             <el-table
             :data="buyersItems"
             v-loading="loading2"
@@ -90,7 +75,6 @@
             <el-table-column
                 prop="isDelivered"
                 label="Shipped">
->>>>>>> ce7fbdf163ac7a12ff0ac95d74a1b80d98155512
             </el-table-column>
         </el-table>
     </div>

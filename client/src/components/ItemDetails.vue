@@ -8,14 +8,15 @@
                 <div class="cover">
                     <div class="left-side">
                         <div class="top">
-                            <p class="title">
+                            <div class="title">
                                 <div class="top-detail">
                                     <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </router-link>
-                                    <p style="text-transform: capitalize; font-size:25px;">{{item.name}}</p>
+                                    <p style="text-transform: capitalize;" >{{item.name}}</p>
+
                                 </div>
-                            </p>
+                            </div>
                             <div class="rank">
                                 <div v-for="(start,idx) in rankOfMeal" :key="idx">
                                     <span>★</span>
@@ -31,10 +32,10 @@
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
                                 <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                <option>0</option>
-                                                                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                                                                                    <option>0</option>
+                                                                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                                                            </select> -->
+                                                                                                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -67,9 +68,9 @@
                                     Rank the meal
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                                    <option>0</option>
-                                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                                </select> -->
+                                                                                        <option>0</option>
+                                                                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                                                    </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -228,6 +229,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.top-details-title {
+    width: 200px;
+    text-transform: capitalize;
+    font-size: 25px;
+}
+
 .midal-btn {
     cursor: pointer;
 }
@@ -255,8 +262,12 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 120px;
     justify-content: space-around;
+   
+}
+
+.el-input__inner {
+    width: 104px;
 }
 
 .cover {
@@ -482,7 +493,7 @@ img {
 
 .right-side {
 
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;

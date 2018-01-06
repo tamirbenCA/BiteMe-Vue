@@ -114,7 +114,7 @@ app.get('/data/items', function (req, res) {
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find({ $or: [queryName, queryDesc] }).toArray((err, objs) => {
+		collection.find({ $or: [queryName, queryDesc], isActive:true }).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
@@ -230,10 +230,12 @@ app.get('/data/item/topMeals', function (req, res) {
 app.get('/data/:objType', function (req, res) {
 	const objType = req.params.objType;
 	var query = getBasicQueryObj(req);
+	console.log('2323232323232',query)
 	dbConnect().then(db => {
 		const collection = db.collection(objType);
 
-		collection.find(query).toArray((err, objs) => {
+		// collection.find(query).toArray((err, objs) => {
+			collection.find({isActive:true}).toArray((err, objs) => {
 			if (err) {
 				cl('Cannot get you a list of ', err)
 				res.json(404, { error: 'not found' })
