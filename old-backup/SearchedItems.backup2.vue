@@ -31,7 +31,7 @@
 <script>
 import { LOAD_ITEMS_BY_TAG } from '../modules/ShopModule';
 import TagsBar from './TagsBar.vue';
-import { LOAD_CHEFS_BY_IDS } from '../modules/ShopModule.js';
+import { LOAD_SELLERS_BY_IDS } from '../modules/ShopModule.js';
 
 export default {
 
@@ -51,7 +51,7 @@ export default {
           items.forEach((item) =>
             this.chefsIds.push(item.seller.sellerId))
           // console.log(' this.chefsIds', this.chefsIds)
-          this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+          this.$store.dispatch({ type: LOAD_SELLERS_BY_IDS, ids: this.chefsIds })
             .then((items) => {
               // console.log(items)
             })
@@ -67,7 +67,7 @@ export default {
         items.forEach((item) =>
           this.chefsIds.push(item.seller.sellerId))
         // console.log(' this.chefsIds', this.chefsIds)
-        this.$store.dispatch({ type: LOAD_CHEFS_BY_IDS, ids: this.chefsIds })
+        this.$store.dispatch({ type: LOAD_SELLERS_BY_IDS, ids: this.chefsIds })
           .then((items) => {
             // console.log(items)
           })

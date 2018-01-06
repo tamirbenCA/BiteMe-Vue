@@ -2,6 +2,7 @@ export const LOAD_TAGS = 'shop/loadTags';
 export const LOAD_ITEMS = 'shop/loadItems';
 export const LOAD_ITEMS_BY_TAG = 'shop/loadItemsByTag';
 export const SET_TAG = 'shop/setTag';
+export const SAVE_ITEM = 'shop/saveItem';
 export const LOAD_ITEM = 'shop/loadItem';
 export const LOAD_SELLER = 'shop/loadSeller';
 export const LOAD_SELLERS_ITEMS = 'shop/toApproveItems';
@@ -9,10 +10,10 @@ export const LOAD_BUYERS_ITEMS = 'shop/orderStatusItems';
 export const LOAD_SEARCHED_ITMES = 'shop/searchedItems';
 export const APPROVE_ITEM = 'shop/approveItem'
 export const LOAD_ITEMS_BY_IDS = 'shop/loadItemsByIds'
-export const LOAD_CHEFS_BY_IDS = 'shop/loadChefsByIds'
+export const LOAD_SELLERS_BY_IDS = 'shop/loadChefsByIds'
 export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
-export const DELETE_SELLER = 'shop/deleteSeller';
+// export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER = 'shop/updateSeller';
 export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
@@ -163,9 +164,8 @@ const actions = {
                 throw err;
             })
     },
-
-    [LOAD_CHEFS_BY_IDS]({ commit }, { ids }) {
-        return ShopService.getChefsByIds(ids)
+    [LOAD_SELLERS_BY_IDS]({ commit }, { ids }) {
+        return ShopService.getSellersByIds(ids)
             .then(items => {
                 commit({ type: SET_CHEFS, items })
                 return items
@@ -191,7 +191,6 @@ const actions = {
             .then(item => {
                 commit({ type: LOAD_ITEM, item })
             })
-
     },
     [LOAD_SELLER]({ commit }, { itemId }) {
         // console.log(itemId)
@@ -240,6 +239,9 @@ const actions = {
             commit({type: MARK_DELIVERED, orderId})
         })
     },
+    [SAVE_ITEM]({ commit }, { itemToUpdate }) {
+        return ShopService.saveItem(itemToUpdate)
+    }
 }
 
 export default {

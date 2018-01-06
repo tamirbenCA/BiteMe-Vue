@@ -63,7 +63,7 @@ function addOrder(order) {
         })
 }
 
-function getChefsByIds(itemsIds) {
+function getSellersByIds(itemsIds) {
     var items = itemsIds.map((itemId) => {
         return getChefById(itemId)
             .then((res) => {
@@ -123,7 +123,7 @@ export default {
     loadSellersItems,
     loadBuyersItems,
     getItemsByIds,
-    getChefsByIds,
+    getSellersByIds,
     addComment,
     markDelivered,
     emptyItem,
