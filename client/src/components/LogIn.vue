@@ -4,7 +4,7 @@
             <p style="font-size:30px">Log in</p>
             <input v-model="user.email" type="text" placeholder="Email">
             <input v-model="user.password" type="password" placeholder="Password">
-            <button>submit</button>
+            <button style="cursor:pointer">submit</button>
             <p>Don't have an account?
                 <router-link to="/join">Click here</router-link>
             </p>

@@ -145,17 +145,19 @@ export default {
 
 .btns-left-btm {
     width: 150px;
+    
 }
 
 .btns-left-top {
     display: flex;
-    margin-top: 20px;
+   
 }
 
 .btns-left {
     width: 20%;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .btns-right-ttl {
