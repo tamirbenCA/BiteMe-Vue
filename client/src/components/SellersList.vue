@@ -1,5 +1,5 @@
 <template>
-    <section class="sellers-container">
+    <section class="sellers-container" v-if="pageReady">
 
         <div>
             <p style="font-size:40px;">OUR SELLERS</p>
@@ -26,6 +26,8 @@ export default {
     name: 'HeaderBar',
     data() {
         return {
+            pageReady: false
+
         }
     },
     methods: {
@@ -36,6 +38,7 @@ export default {
     created() {
         this.$store.dispatch({ type: LOAD_SELLERS })
             .then((items) => {
+                this.pageReady = true;
             })
     },
     computed: {
