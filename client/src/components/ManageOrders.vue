@@ -65,12 +65,17 @@
                 prop="sellers"
                 label="Sellers Name"
                 sortable
-                width="180">
+                width="140">
             </el-table-column>
             <el-table-column
                 prop="items"
                 label="Items Name"
-                width="450">
+                width="400">
+            </el-table-column>
+            <el-table-column
+                prop="totalSum"
+                label="Total Cost"
+                width="130">
             </el-table-column>
             <el-table-column
                 prop="isDelivered"
@@ -129,7 +134,8 @@ export default {
                     date: order.deliveryDate,
                     sellers: order.sellers,
                     items: order.items,
-                    isDelivered: order.isDelivered.toString()
+                    isDelivered: order.isDelivered.toString(),
+                    totalSum: '$' + order.totalSum
                 }
             })
             mapOrders.forEach(mapOrder => {
