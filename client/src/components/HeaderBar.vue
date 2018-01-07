@@ -413,7 +413,7 @@ li {
     }
     .header-button {
         font-size: 12px;
-        width: 100px;
+        width: 150px;
         /* text-align: left; */
     }
 

@@ -146,10 +146,12 @@ body {
 .add-btn {
     background-color: #a6cfd6;
     color: #5a5454;
+    cursor: pointer;
 }
 .reset-btn {
     background-color:#5a5454;
     color:lightgrey;
+    cursor: pointer;
 }
 .delete-btn {
     background-color: #e26464;;
