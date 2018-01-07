@@ -323,5 +323,9 @@ select:hover {
     .payment-price {
         font-size: 18px;
     }
+    .cnt-shop{
+        padding-left: 5px;
+        width:40%;
+    }
 }
 </style>

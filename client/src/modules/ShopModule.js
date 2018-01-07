@@ -27,7 +27,6 @@ import UserService from '../services/UserService';
 const state = {
     items: [],
     chefs: [],
-    tags: [],
     currentItem: null,
     tag: null,
     currItem: {},

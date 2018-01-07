@@ -30,12 +30,13 @@
                             <div class="price-btm">
 
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
-                                <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i>
+                                <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                                                                                <option>0</option>
-                                                                                                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                <option>0</option>
+                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                                                                                            </select> -->
+                                            </select> -->
                             </div>
                         </div>
                     </div>
@@ -69,9 +70,9 @@
 
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                                                                    <option>0</option>
-                                                                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                                                                </select> -->
+                                                    <option>0</option>
+                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -125,9 +126,8 @@ export default {
             itemId: '',
             isActive: false,
             itemsPurch: {},
-            num1: 1,
+            num1: 0,
             prod: null,
-            // quantity: null,
             num8: 1
         }
     },
@@ -248,6 +248,10 @@ export default {
 }
 
 .fa-thumbs-o-up {
+    cursor: pointer;
+}
+
+.fa-plus {
     cursor: pointer;
 }
 
@@ -486,9 +490,9 @@ img {
 .item {
     background-size: cover;
     background-position: center;
-    width: 400px;
-    height: 300px;
-    margin-top: 50px;
+    width: 70%;
+    height: 70%;
+    margin-top: 30px;
 }
 
 .meal {
@@ -614,13 +618,20 @@ form {
     }
     .comments {
         width: 76%;
-        margin-left: 57px;
+        margin-left: 45px;
     }
     .modal {
-        width: 90%;
+        width: 100%;
     }
     .about-chef {
         width: 90%;
+    }
+    .msg {
+        width: 308px;
+    }
+    .item {
+        width: 100%;
+        height: 100%;
     }
 }
 </style>

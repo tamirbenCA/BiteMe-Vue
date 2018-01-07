@@ -13,7 +13,7 @@
                         <div class="item-footer">
                             <div class="chef-details">
                                 <img class="chef" :src="item.seller.sellerImgUrl" />
-                                <p style=" text-transform: capitalize;margin-left:5px">{{item.seller.sellerName}}</p>
+                                <p class="chef-nm">{{item.seller.sellerName}}</p>
                             </div>
                             <div class="name">
                                 <p>{{item.name}}</p>
@@ -78,6 +78,7 @@ export default {
     justify-content: space-between;
     width: 100%;
 }
+
 .rank {
     display: flex;
     flex-direction: row;
@@ -90,22 +91,23 @@ h2 {
 }
 
 
-/* .gif-loading {
-    width: 200px;
-    height:200px;
-} */
-
 .chef-details {
     display: flex;
     flex-direction: row;
-    width: 60px;
+    width: 30%;
     justify-content: space-between;
     margin-bottom: 5px;
     margin-top: 5px;
 }
+.chef-nm {
+    text-transform: capitalize;
+    padding-left: 5px;
+    width: 71%;
+    text-align: left;
+}
 
 .name {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 15px;
 }
 
@@ -167,8 +169,6 @@ ul {
     background-color: white;
     box-sizing: border-box;
     padding-bottom: 5px;
-      
-
 }
 
 .img-item {
