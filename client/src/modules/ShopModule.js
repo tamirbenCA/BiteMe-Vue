@@ -31,6 +31,7 @@ const state = {
     tag: null,
     currItem: {},
     tags: [],
+    comments: [],
     currSeller: null,
     sellersItems: null,
     buyersItems: null,
@@ -39,7 +40,11 @@ const state = {
 const mutations = {
     [UPDATE_ITEM](state, payload) {
         console.log(payload)
-        ShopService.addComment(payload.itemId, payload.comment,payload.quantity, payload.userName)
+        var updatedItem = ShopService.addComment(payload.itemId, payload.comment, payload.quantity, payload.userName)
+            .then(updatedItem => {
+                state.currItem = updatedItem;
+                console.log(updatedItem)
+            })
     },
     // [DELETE_SELLER](state, payload) {
     //     console.log('payload._id44', payload.sellerId)
@@ -71,10 +76,10 @@ const mutations = {
     [LOAD_SEARCHED_ITMES](state, { items }) {
         state.searchedItems = items;
     },
-    [SET_TAG](state, {tag}) {
+    [SET_TAG](state, { tag }) {
         state.tag = tag;
     },
-    [MARK_DELIVERED](state, {orderId}) {
+    [MARK_DELIVERED](state, { orderId }) {
         var orderIdx = state.sellersItems.findIndex(item => item._id === orderId)
         state.sellersItems[orderIdx].isDelivered = Date.now();
     },
@@ -88,6 +93,7 @@ const getters = {
     tag: state => state.tag,
     items: state => state.items,
     currItem: state => state.currItem,
+    comments: state => state.currItem.comments,
     currSeller: state => state.currSeller,
     sellersItems: state => state.sellersItems,
     buyersItems: state => state.buyersItems,
@@ -96,20 +102,20 @@ const getters = {
 }
 
 const actions = {
-    [UPDATE_SELLER]({commit}, {sellerId}) {
+    [UPDATE_SELLER]({ commit }, { sellerId }) {
         // console.log('inside action', sellerId)
         UserService.getSellerById(sellerId)
-        .then(seller => {
-            // console.log('seller is:', seller)
-            seller.isActive = !seller.isActive
-            UserService.changeUserActivity(seller)
-            return seller;
+            .then(seller => {
+                // console.log('seller is:', seller)
+                seller.isActive = !seller.isActive
+                UserService.changeUserActivity(seller)
+                return seller;
             })
             .then(updatedSeller => {
                 // console.log('line 71, seller:', updatedSeller)
                 // console.log('line 72, sellerId:', updatedSeller._id)
-                commit({type: UPDATE_SELLER, sellerId: updatedSeller._id})
-                })  
+                commit({ type: UPDATE_SELLER, sellerId: updatedSeller._id })
+            })
     },
     [LOAD_TAGS]({ commit, payload }) {
         ShopService.loadTags()
@@ -214,30 +220,30 @@ const actions = {
     },
     [LOAD_BUYERS_ITEMS]({ commit }, { userId }) {
         return ShopService.loadBuyersItems(userId).then(items => {
-            commit({type: LOAD_BUYERS_ITEMS, items: items.data})
-        })        
+            commit({ type: LOAD_BUYERS_ITEMS, items: items.data })
+        })
     },
     [LOAD_SEARCHED_ITMES]({ commit }, { keyWord }) {
         var tag = this.getters.tag
-        return UserService.getItemsByTag({tag, keyWord})
-        .then(items => {
-            commit({ type: SET_ITEMS, items })
-        })
-        .catch(err => {
-            commit(SET_ITEMS, [])
-            throw err;
-        })
+        return UserService.getItemsByTag({ tag, keyWord })
+            .then(items => {
+                commit({ type: SET_ITEMS, items })
+            })
+            .catch(err => {
+                commit(SET_ITEMS, [])
+                throw err;
+            })
     },
-    [MARK_DELIVERED]({ commit }, {orderId}) {
+    [MARK_DELIVERED]({ commit }, { orderId }) {
         ShopService.getItemById(orderId, 'order')
-        .then(order => {
-            order.isDelivered = Date.now();
-            // console.log('line 269:', order)
-            return ShopService.markDelivered(order)
-        })
-        .then(_ => {
-            commit({type: MARK_DELIVERED, orderId})
-        })
+            .then(order => {
+                order.isDelivered = Date.now();
+                // console.log('line 269:', order)
+                return ShopService.markDelivered(order)
+            })
+            .then(_ => {
+                commit({ type: MARK_DELIVERED, orderId })
+            })
     },
     [SAVE_ITEM]({ commit }, { itemToUpdate }) {
         return ShopService.saveItem(itemToUpdate)

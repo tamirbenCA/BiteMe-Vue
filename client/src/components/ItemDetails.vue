@@ -33,10 +33,10 @@
                                 <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i>
                                 <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                <option>0</option>
-                                                <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                        <option>0</option>
+                                                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                            </select> -->
+                                                    </select> -->
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         </div>
                         <ul class="comments-box">
 
-                            <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
+                            <li class="comment" v-for="(comment, idx)  in comments" :key="idx">
                                 <div class="cmt-div">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <p style="text-transform: capitalize;">{{comment.userName}} ,</p>
@@ -64,15 +64,15 @@
 
                             <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
                                 <p>Add a comment</p>
-                                <input class="msg" v-model="msg" type="text">
+                                <input class="msg" v-model="msg" @keydown="checkUser" type="text">
                                 <div class="rank-chef">
                                     <p> Rank the meal</p>
 
-                                    <el-input-number v-model="num8" controls-position="right" :min="1" :max="10"></el-input-number>
+                                    <el-input-number v-model="num8" controls-position="right" :min="1" :max="5"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                    <option>0</option>
-                                                    <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                </select> -->
+                                                            <option>0</option>
+                                                            <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                        </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -154,9 +154,19 @@ export default {
             })
     },
     methods: {
+        checkUser() {
+            if (!this.$store.getters.loggedinUser) {
+                swal({
+                    title: "You must log in to comment",
+                    icon: "warning",
+                }).then(_ => this.$router.push('/login'))
+
+            }
+
+
+        },
         addComment() {
             this.isActive = true;
-            // console.log(this.isActive)
         },
         sendComment(itemId, comment) {
             console.log(itemId, comment, this.num8)
@@ -172,7 +182,7 @@ export default {
                 else {
                     this.$store.commit({ type: UPDATE_ITEM, itemId, comment, quantity: this.num8, userName: this.$store.getters.loggedinUser.name });
                     swal({
-                        title: "Your message will be reviewed shortly",
+                        title: "Thank you for reviewing",
                         icon: "success",
                     });
                     this.msg = '';
@@ -186,12 +196,6 @@ export default {
         quantityChange({ item }) {
             console.log(this.num1 + 1, item)
             this.quantity = this.num1 + 1;
-
-            // this.$store.commit({ type: UPDATE_CART, item, quantity:this.quantity });
-            // swal({
-            //     title: "Item added to cart",
-            //     icon: "success",
-            // });
         },
 
         addItem(item) {
@@ -208,6 +212,9 @@ export default {
     computed: {
         item() {
             return this.$store.getters.currItem
+        },
+        comments() {
+            return this.$store.getters.comments
         },
         chef() {
             return this.$store.getters.currSeller

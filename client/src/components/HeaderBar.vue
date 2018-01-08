@@ -154,10 +154,10 @@ export default {
 }
 
 .btns-left {
-    width: 20%;
+    width: 15%;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    /* margin-top: 10px; */
 }
 
 .btns-right-ttl {
