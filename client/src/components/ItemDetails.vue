@@ -46,7 +46,7 @@
                         </div>
                         <ul class="comments-box">
 
-                            <li class="comment" v-for="(comment, idx)  in comments" :key="idx">
+                            <li class="comment" v-for="(comment, idx)  in item.comments" :key="idx">
                                 <div class="cmt-div">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <p style="text-transform: capitalize;">{{comment.userName}} ,</p>
@@ -160,10 +160,7 @@ export default {
                     title: "You must log in to comment",
                     icon: "warning",
                 }).then(_ => this.$router.push('/login'))
-
             }
-
-
         },
         addComment() {
             this.isActive = true;
@@ -213,9 +210,9 @@ export default {
         item() {
             return this.$store.getters.currItem
         },
-        comments() {
-            return this.$store.getters.comments
-        },
+        // comments() {
+        //     return this.$store.getters.comments
+        // },
         chef() {
             return this.$store.getters.currSeller
         },
