@@ -145,12 +145,10 @@ export default {
 
 .btns-left-btm {
     width: 180px;
-    
 }
 
 .btns-left-top {
     display: flex;
-   
 }
 
 .btns-left {
@@ -403,9 +401,9 @@ li {
 @media screen and (max-width: 480px) {
     .lg-img {
 
-        height: 90px;
-        width: 100px;
-        margin-left: 0;
+        height: 70px;
+        width: 85px;
+        margin-left: -10px;
         margin-top: -28px;
     }
 
@@ -424,18 +422,22 @@ li {
         margin-left: 15px;
     }
 
+    .btns-left {
+        width: 20%;
+    }
     .btns-left-top {
         /* width: 366px; */
         height: 69px;
+        align-items: center;
         /* flex-direction: column-reverse; */
         margin-top: 0px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         display: flex;
         justify-content: space-between;
     }
     .btns-righ-top {
         width: 160%;
-        margin-left: -100px;
+        margin-left: -80px;
     }
     .btns-right-ttl {
         margin-left: 18px;
@@ -456,7 +458,7 @@ li {
 
     .lgn-user {
         font-size: 15px;
-        margin-top: -85px;
+        margin-top: -80px;
         margin-left: -3px;
     }
     .btns-left-btm {
