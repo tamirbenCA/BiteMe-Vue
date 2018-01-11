@@ -149,7 +149,7 @@ export default {
 
 .btns-left-top {
     display: flex;
-   
+
     align-items: center;
 }
 
@@ -427,9 +427,10 @@ li {
 
         height: 69px;
         align-items: center;
-        /* flex-direction: column-reverse; */
+
         margin-top: 0px;
-        /* margin-left: 10px; */
+        margin-top: 15px;
+
         display: flex;
         justify-content: space-between;
     }
@@ -444,7 +445,7 @@ li {
     }
     .join-button {
         height: 35px;
-        width: 46px;
+        width: 47px;
     }
     .fa-shopping-basket {
         font-size: 20px;
