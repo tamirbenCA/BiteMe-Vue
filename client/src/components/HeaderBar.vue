@@ -438,6 +438,7 @@ li {
     .btns-righ-top {
         width: 160%;
         margin-left: -80px;
+        align-items: flex-start;
     }
     .btns-right-ttl {
         margin-left: 18px;
