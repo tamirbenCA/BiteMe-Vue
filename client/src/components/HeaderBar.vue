@@ -310,7 +310,7 @@ input {
     padding-left: 55px;
     border: 1px solid #f5f5f5;
     font-size: 13px;
-    background-image: url('../assets/search logo.png');
+    background-image: url('../assets/search-logo.png');
     background-repeat: no-repeat;
     background-position: left center;
     outline: 0;
