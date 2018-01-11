@@ -149,15 +149,16 @@ export default {
 
 .btns-left-top {
     display: flex;
+   
+    align-items: center;
 }
 
 .btns-left {
     width: 12%;
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: 140px;
     justify-content: space-around;
-    /* margin-top: 10px; */
 }
 
 .btns-right-ttl {
@@ -200,10 +201,7 @@ img {
 }
 
 input {
-    /* margin-left: 15px; */
     border-radius: 5px;
-
-    /* height: 20px; */
 }
 
 
@@ -214,7 +212,7 @@ input {
     font-size: 20px;
     text-align: right;
     display: column;
-    margin: 0;
+    margin-top: 0;
     margin-left: 30px;
 }
 
@@ -426,7 +424,7 @@ li {
         width: 20%;
     }
     .btns-left-top {
-        /* width: 366px; */
+
         height: 69px;
         align-items: center;
         /* flex-direction: column-reverse; */
