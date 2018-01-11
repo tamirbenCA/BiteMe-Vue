@@ -177,5 +177,9 @@ h1 {
     height: 253px;
     margin-bottom: 50px;
   }
+
+  .box-top {
+    width: 100%;
+  }
 }
 </style>
