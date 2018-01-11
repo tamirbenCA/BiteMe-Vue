@@ -73,6 +73,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.gif-loading {
+    width: 100px;
+    height: 100px;
+}
+
 .rnk-and-prc {
     display: flex;
     justify-content: space-between;
@@ -99,6 +104,7 @@ h2 {
     margin-bottom: 5px;
     margin-top: 5px;
 }
+
 .chef-nm {
     text-transform: capitalize;
     padding-left: 5px;

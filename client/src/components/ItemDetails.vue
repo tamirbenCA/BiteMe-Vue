@@ -30,13 +30,14 @@
                             <div class="price-btm">
 
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
-                                <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i>
+                                <button class="add-btn" @click="addItem(item)">Add To Cart</button>
+                                <!-- <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
                                 <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                        <option>0</option>
-                                                        <option v-for="(n, index) in 10" :key="index">{{n}}</option>
+                                                                    <option>0</option>
+                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
 
-                                                    </select> -->
+                                                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -70,9 +71,9 @@
 
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="5"></el-input-number>
                                     <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                            <option>0</option>
-                                                            <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                        </select> -->
+                                                                        <option>0</option>
+                                                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
+                                                                    </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -234,6 +235,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.add-btn {
+    border: none;
+    background-color: #b9ababab;
+    color: #2f2c2cab;
+    margin-left: 10px;
+    cursor: pointer;
+    height:38px;
+    width:100px;
+}
+
 .rank-chef {
     display: flex;
     align-items: center;
@@ -310,7 +321,7 @@ export default {
 .price-btm {
     display: flex;
     justify-content: space-around;
-    width: 200px;
+    width: 250px;
     margin: auto;
     align-items: center;
     justify-content: space-between;
@@ -332,6 +343,7 @@ select {
 .fa-pencil {
     cursor: pointer;
     color: #2c3e50;
+    margin-right: 7px;
 }
 
 .fa-commenting-o {
@@ -397,12 +409,12 @@ h2 {
 
 .comments {
     padding: 10px;
-    border: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     display: flex;
     flex-direction: column;
     width: 50%;
     width: 500px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     margin: inherit;
 }
 
@@ -429,9 +441,10 @@ h2 {
 .left-side {
     display: flex;
     flex-direction: column;
-    border: 1px solid gray;
+    border-top: 1px solid gray;
     padding: 20px;
-    border-radius: 5px;
+    margin-bottom: 31px;
+    /* border-radius: 5px; */
     justify-content: space-around;
     height: 650px;
 }
@@ -604,8 +617,8 @@ form {
 }
 
 .gif-loading {
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
 }
 
 @media screen and (max-width: 480px) {

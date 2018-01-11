@@ -154,9 +154,11 @@ export default {
 }
 
 .btns-left {
-    width: 15%;
+    width: 12%;
     display: flex;
     flex-direction: column;
+    height: 100px;
+    justify-content: space-around;
     /* margin-top: 10px; */
 }
 
@@ -195,7 +197,7 @@ img {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 20%;
+    width: 10%;
     /* margin-to: 20px; */
 }
 
@@ -214,7 +216,8 @@ input {
     font-size: 20px;
     text-align: right;
     display: column;
-    margin-left: 50px;
+    margin: 0;
+    margin-left: 30px;
 }
 
 .icons {
@@ -394,7 +397,7 @@ li {
 
     height: 130px;
     width: 150px;
-    margin-left: 20px;
+    /* margin-left: 10px; */
 }
 
 @media screen and (max-width: 480px) {
@@ -422,11 +425,13 @@ li {
     }
 
     .btns-left-top {
-        width: 366px;
+        /* width: 366px; */
         height: 69px;
-        flex-direction: column-reverse;
+        /* flex-direction: column-reverse; */
         margin-top: 0px;
         margin-left: 10px;
+        display: flex;
+        justify-content: space-between;
     }
     .btns-righ-top {
         width: 160%;

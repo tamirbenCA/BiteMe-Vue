@@ -84,6 +84,11 @@ export default {
     width: 100%;
 }
 
+.gif-loading {
+    width: 100px;
+    height: 100px;
+}
+
 .rank {
     display: flex;
     flex-direction: row;
@@ -111,6 +116,7 @@ h2 {
     width: 71%;
     text-align: left;
 }
+
 .name {
     text-transform: capitalize;
     font-size: 15px;

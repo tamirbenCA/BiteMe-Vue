@@ -3,7 +3,7 @@
 
         <!-- <form @submit.prevent="submitItem"> -->
         <form>
-            <div style="text-align: left;">Name <input style="width: 78%;" type="text" v-model="itemToUpdate.name" autofocus></div>
+            <div class="inp">Name <input type="text" v-model="itemToUpdate.name" autofocus></div>
 
             <div class="desc">Description
                 <textarea style="height: 24px;width: 332px;" v-model="itemToUpdate.desc"></textarea>
@@ -14,7 +14,7 @@
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl" />
             <div>
-                Tags
+                
                 <span v-for="(tag, index) in tags" :key="index">
                     <input style="margin:10px" type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
                     <label :for="tag">{{tag}}</label>
@@ -73,7 +73,7 @@ export default {
                 this.itemToUpdate.seller.sellerImgUrl = seller.imgUrl;
             }
             // ShopService.saveItem(this.itemToUpdate)
-            this.$store.dispatch({type: SAVE_ITEM, itemToUpdate : this.itemToUpdate})
+            this.$store.dispatch({ type: SAVE_ITEM, itemToUpdate: this.itemToUpdate })
                 .then(_ => {
                     // this.$router.push('/')
                     this.$router.go(-1)
@@ -86,13 +86,13 @@ export default {
             swal("Delete this item?", {
                 dangerMode: true,
                 buttons: true,
-                }).then((res) => {
-                    if (res) {
-                        this.itemToUpdate.isActive = false;
-                        this.$store.dispatch({type: DISABLE_ITEM, item: this.itemToUpdate})
-                            .then(_ => this.$router.push('/'))
-                    } else return;
-                })
+            }).then((res) => {
+                if (res) {
+                    this.itemToUpdate.isActive = false;
+                    this.$store.dispatch({ type: DISABLE_ITEM, item: this.itemToUpdate })
+                        .then(_ => this.$router.push('/'))
+                } else return;
+            })
         }
     },
     created() {
@@ -112,6 +112,12 @@ export default {
 <style scoped>
 body {
     color: #5a5454;
+}
+
+.inp {
+    margin-top: 16px;
+    width: 78%;
+    text-align: left;
 }
 
 .desc {
@@ -134,7 +140,9 @@ body {
     font-size: 50px;
 }
 
+
 /* button { */
+
 .btn {
     border-radius: 5px;
     width: 100px;
@@ -143,20 +151,25 @@ body {
     font-size: 20px;
     margin: 0px 10px
 }
+
 .add-btn {
     background-color: #a6cfd6;
     color: #5a5454;
     cursor: pointer;
 }
+
 .reset-btn {
-    background-color:#5a5454;
-    color:lightgrey;
+    background-color: #5a5454;
+    color: lightgrey;
     cursor: pointer;
 }
+
 .delete-btn {
-    background-color: #e26464;;
+    background-color: #e26464;
+    ;
     color: white;
 }
+
 section {
     font-size: 20px;
 }
