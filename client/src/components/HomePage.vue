@@ -8,7 +8,7 @@
           <i class="fa fa-search" aria-hidden="true"></i>
         </router-link>
       </div>
-      <p class="box-head">Home Cooked Meals All The Way To Your Home</p>
+      <p class="box-head">Home Cooked Meals All The Way To Your Table</p>
       <p class="gt-start">Get Started With Our Best Sellers</p>
       <div class="imgs-container">
         <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
@@ -78,6 +78,7 @@ export default {
   background-color: rgba(38, 49, 60, 0.81);
   height: 70px;
   margin-top: -50px;
+  
 }
 
 .fa-search {
