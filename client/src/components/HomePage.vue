@@ -1,6 +1,14 @@
 <template>
   <section class="fr-page-cnt">
+
     <div class="box" v-if="pageReady">
+      <div class="box-top">
+        <router-link class="rtl" to="/meals">
+          Explore The Marketplace
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </router-link>
+      </div>
+      <p class="box-head">Home Cooked Meals All The Way To Your Table</p>
       <p class="gt-start">Get Started With Our Best Sellers</p>
       <div class="imgs-container">
         <div class="imgs-btm" v-for="(meal, idx) in meals" :key="idx">
@@ -42,6 +50,7 @@ export default {
     }
   },
   methods: {
+
     showDetails(meal) {
       this.$router.push('/itemdetails/' + meal._id);
     }
@@ -51,6 +60,40 @@ export default {
 </script>
 
 <style>
+.box-head {
+  font-size: 30px;
+}
+
+.animated bounceInRight {
+  height: 270px;
+}
+
+.box-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 30%;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: rgba(38, 49, 60, 0.81);
+  height: 70px;
+  margin-top: -50px;
+  
+}
+
+.fa-search {
+  color: white;
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.rtl {
+  text-decoration: none;
+  font-size: 25px;
+  margin-bottom: 0;
+  color: white;
+}
+
 .new-icn {
   position: relative;
   top: -270px;
@@ -71,8 +114,8 @@ export default {
 }
 
 .gt-start {
-  text-align: left;
-  font-size: 30px;
+  /* text-align: left; */
+  font-size: 24px;
   margin-bottom: 0;
   color: #322f2f;
 }
@@ -80,7 +123,7 @@ export default {
 .box {
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 530px;
   justify-content: space-between;
   margin-top: 50px;
 }
@@ -98,6 +141,7 @@ export default {
 .imgs-container {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 .img-btm:hover {
@@ -147,6 +191,10 @@ h1 {
   .imgs-btm {
     height: 253px;
     margin-bottom: 50px;
+  }
+
+  .box-top {
+    width: 100%;
   }
 }
 </style>

@@ -18,7 +18,7 @@
 
       <br>
       <div class="imgs">
-        <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514234179/Ben_h2kuyh.png" />
+        <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1515667674/Untitled_m5qloq.png" />
         <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/v1514704865/FB_IMG_1475170769079_zjibhn.jpg" />
         <!-- <img class="partner" src="http://res.cloudinary.com/dl58rg6j8/image/upload/c_scale,w_300/v1514379263/Moshiko_nm44c7.png" /> -->
       </div>
@@ -58,9 +58,9 @@ export default {
 }
 
 
-.how-work-img {
+/* .how-work-img {
   width: 60%;
-}
+} */
 
 .how-work {
   width: 100%;

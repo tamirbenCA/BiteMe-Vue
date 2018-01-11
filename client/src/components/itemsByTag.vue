@@ -140,11 +140,9 @@ h2 {
 }
 
 .gif-loading {
-    width: 200px;
-    height: 200px;
-    /* margin-bottom: 50px; */
+    width: 100px;
+    height: 100px;
 }
-
 .chef-details {
     display: flex;
     flex-direction: row;

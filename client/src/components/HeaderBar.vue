@@ -145,19 +145,20 @@ export default {
 
 .btns-left-btm {
     width: 180px;
-    
 }
 
 .btns-left-top {
     display: flex;
-   
+
+    align-items: center;
 }
 
 .btns-left {
-    width: 20%;
+    width: 12%;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    height: 140px;
+    justify-content: space-around;
 }
 
 .btns-right-ttl {
@@ -195,15 +196,12 @@ img {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 20%;
+    width: 10%;
     /* margin-to: 20px; */
 }
 
 input {
-    /* margin-left: 15px; */
     border-radius: 5px;
-
-    /* height: 20px; */
 }
 
 
@@ -214,7 +212,8 @@ input {
     font-size: 20px;
     text-align: right;
     display: column;
-    margin-left: 50px;
+    margin-top: 0;
+    margin-left: 30px;
 }
 
 .icons {
@@ -394,15 +393,15 @@ li {
 
     height: 130px;
     width: 150px;
-    margin-left: 20px;
+    /* margin-left: 10px; */
 }
 
 @media screen and (max-width: 480px) {
     .lg-img {
 
-        height: 90px;
-        width: 100px;
-        margin-left: 0;
+        height: 70px;
+        width: 85px;
+        margin-left: -10px;
         margin-top: -28px;
     }
 
@@ -421,16 +420,24 @@ li {
         margin-left: 15px;
     }
 
+    .btns-left {
+        width: 20%;
+    }
     .btns-left-top {
-        width: 366px;
+
         height: 69px;
-        flex-direction: column-reverse;
+        align-items: center;
+
         margin-top: 0px;
-        margin-left: 10px;
+        margin-top: 15px;
+
+        display: flex;
+        justify-content: space-between;
     }
     .btns-righ-top {
         width: 160%;
-        margin-left: -100px;
+        margin-left: -80px;
+        align-items: flex-start;
     }
     .btns-right-ttl {
         margin-left: 18px;
@@ -438,7 +445,7 @@ li {
     }
     .join-button {
         height: 35px;
-        width: 46px;
+        width: 47px;
     }
     .fa-shopping-basket {
         font-size: 20px;
@@ -451,7 +458,7 @@ li {
 
     .lgn-user {
         font-size: 15px;
-        margin-top: -85px;
+        margin-top: -80px;
         margin-left: -3px;
     }
     .btns-left-btm {

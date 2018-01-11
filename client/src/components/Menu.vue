@@ -118,10 +118,10 @@ h2 {
 
 
 
-/* .gif-loading {
-    width: 200px;
-    height: 200px;
-} */
+.gif-loading {
+    width: 100px;
+    height: 100px;
+}
 
 .fa-shopping-cart {
     font-size: 30px;
