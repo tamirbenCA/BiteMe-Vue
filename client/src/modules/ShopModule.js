@@ -15,7 +15,7 @@ export const UPDATE_ITEM = 'shop/updateItem';
 export const LOAD_SELLERS = 'shop/loadChefs';
 // export const DELETE_SELLER = 'shop/deleteSeller';
 export const MARK_DELIVERED = 'shop/markDelivered'
-export const UPDATE_SELLER = 'shop/updateSeller';
+export const UPDATE_SELLER_STATUS = 'shop/updateSeller';
 export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
 export const DISABLE_ITEM = 'shop/deleteItem';
 
@@ -83,7 +83,7 @@ const mutations = {
         var orderIdx = state.sellersItems.findIndex(item => item._id === orderId)
         state.sellersItems[orderIdx].isDelivered = Date.now();
     },
-    [UPDATE_SELLER](state, { sellerId }) {
+    [UPDATE_SELLER_STATUS](state, { sellerId }) {
         var sellerInState = (state.items).find(item => item._id === sellerId)
         sellerInState.isActive = !sellerInState.isActive
     }
@@ -102,7 +102,7 @@ const getters = {
 }
 
 const actions = {
-    [UPDATE_SELLER]({ commit }, { sellerId }) {
+    [UPDATE_SELLER_STATUS]({ commit }, { sellerId }) {
         // console.log('inside action', sellerId)
         UserService.getSellerById(sellerId)
             .then(seller => {
@@ -114,7 +114,7 @@ const actions = {
             .then(updatedSeller => {
                 // console.log('line 71, seller:', updatedSeller)
                 // console.log('line 72, sellerId:', updatedSeller._id)
-                commit({ type: UPDATE_SELLER, sellerId: updatedSeller._id })
+                commit({ type: UPDATE_SELLER_STATUS, sellerId: updatedSeller._id })
             })
     },
     [LOAD_TAGS]({ commit, payload }) {

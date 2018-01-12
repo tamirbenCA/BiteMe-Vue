@@ -13,12 +13,11 @@
 
             <input type="file" @change="addPhoto" />
             <img v-if="itemToUpdate.imgUrl" :src="itemToUpdate.imgUrl" />
-            <div>
-                
-                <span v-for="(tag, index) in tags" :key="index">
+            <div class="tags-container">
+                <div v-for="(tag, index) in tags" :key="index">
                     <input style="margin:10px" type="checkbox" :id="tag" :value="tag" v-model="itemToUpdate.tags">
                     <label :for="tag">{{tag}}</label>
-                </span>
+                </div>
             </div>
             <div class="btns">
                 <button class="btn add-btn" @click.prevent="submitItem">{{(itemId) ? 'Save' : 'Add'}}</button>
@@ -114,6 +113,12 @@ body {
     color: #5a5454;
 }
 
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .inp {
     margin-top: 16px;
     width: 78%;
@@ -149,24 +154,22 @@ body {
     height: 36px;
     border: none;
     font-size: 20px;
-    margin: 0px 10px
+    margin: 0px 10px;
+    cursor: pointer;
 }
 
 .add-btn {
     background-color: #a6cfd6;
     color: #5a5454;
-    cursor: pointer;
 }
 
 .reset-btn {
     background-color: #5a5454;
     color: lightgrey;
-    cursor: pointer;
 }
 
 .delete-btn {
     background-color: #e26464;
-    ;
     color: white;
 }
 

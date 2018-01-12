@@ -28,8 +28,7 @@
 
 <script>
 import swal from 'sweetalert'
-import { LOAD_SELLERS, UPDATE_SELLER } from '../modules/ShopModule.js';
-// import { UPDATE_SELLER } from '../modules/UserModule.js';
+import { LOAD_SELLERS, UPDATE_SELLER_STATUS } from '../modules/ShopModule.js';
 
 export default {
     name: 'HeaderBar',
@@ -41,7 +40,7 @@ export default {
     methods: {
         disableSeller(sellerId) {
             // console.log(sellerId)
-            this.$store.dispatch({ type: UPDATE_SELLER, sellerId })
+            this.$store.dispatch({ type: UPDATE_SELLER_STATUS, sellerId })
         }
     },
     created() {
