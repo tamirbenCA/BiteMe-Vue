@@ -18,6 +18,7 @@ export const MARK_DELIVERED = 'shop/markDelivered'
 export const UPDATE_SELLER_STATUS = 'shop/updateSeller';
 export const LOAD_TOP_MEALS = 'shop/loadTopMeals';
 export const DISABLE_ITEM = 'shop/deleteItem';
+export const UPDATE_SELLER_ITEMS = 'shop/updateSellerItems';
 
 const SET_ITEMS = 'shop/setItems';
 
@@ -86,6 +87,9 @@ const mutations = {
     [UPDATE_SELLER_STATUS](state, { sellerId }) {
         var sellerInState = (state.items).find(item => item._id === sellerId)
         sellerInState.isActive = !sellerInState.isActive
+    },
+    [UPDATE_SELLER_ITEMS](state, { seller }) {
+        state.loggedinUser = seller;
     }
 }
 const getters = {
@@ -250,6 +254,14 @@ const actions = {
     },
     [DISABLE_ITEM]({ commit }, { item }) {
         ShopService.disableItem(item)
+    },
+    [UPDATE_SELLER_ITEMS]({ commit }, { itemId }) {
+        var sellerToUpdate = this.getters.loggedinUser;
+        sellerToUpdate.itemsForSale.push(itemId)
+        return ShopService.updateSellerItems(sellerToUpdate)
+            .then(seller => {
+                commit({type: UPDATE_SELLER_ITEMS}, seller)
+            })
     }
 
 }

@@ -117,13 +117,18 @@ function shuffleArr(arr) {
 }
 
 function disableItem(item) {
-    // console.log('line 120', item)
     return axios
         .put(`${URL}/data/item/${item._id}`, item)
         .then(res => {
-            console.log('resdata:', res.data)
             return res.data
         })
+}
+
+function updateSellerItems (sellerToUpdate) {
+    return axios.put(`${URL}/data/user/${sellerToUpdate._id}`, sellerToUpdate)
+        .then(res => {
+            return res.data
+        }) 
 }
 
 export default {
@@ -141,5 +146,6 @@ export default {
     saveItem,
     getTopMeals,
     shuffleArr,
-    disableItem
+    disableItem,
+    updateSellerItems
 }
