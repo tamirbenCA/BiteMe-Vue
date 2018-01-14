@@ -5,8 +5,8 @@ import StorageService from "../services/StorageService.js";
 export const SIGNUP = 'user/signup';
 export const SIGNIN = 'user/signin';
 export const SIGNOUT = 'user/signout';
-// export const SET_USER = 'user/setUser';
-const SET_USER = 'user/setUser';
+export const SET_USER = 'user/setUser';
+export const UPDATE_SELLER_ITEMS = 'user/updateSellerItems';
 
 var STORAGE_KEY = 'loggedinUser';
 
@@ -35,11 +35,12 @@ export default {
     mutations: {
         [SET_USER](state, { user }) {
             state.loggedinUser = user;
+            StorageService.saveToStorage(STORAGE_KEY, user)
             console.log('state.loggedinUser', state.loggedinUser)
         },
         [SIGNOUT](state) {
             state.loggedinUser = null;
-        },
+        }
     },
     actions: {
         [SIGNUP]({ commit }, { signupDetails }) {
@@ -49,7 +50,7 @@ export default {
                     .then(res => {
                         commit({ type: SET_USER, user: res.user })
                         // saveToLocalStorage(res.user)
-                        StorageService.saveToStorage(STORAGE_KEY, res.user)
+                        // StorageService.saveToStorage(STORAGE_KEY, res.user)
                     })
                     .catch(err => {
                         console.log(err)
@@ -64,7 +65,7 @@ export default {
                     .then(res => {
                         commit({ type: SET_USER, user: res.user });
                         // saveToLocalStorage(res.user)
-                        StorageService.saveToStorage(STORAGE_KEY, res.user)
+                        // StorageService.saveToStorage(STORAGE_KEY, res.user)
                         resolve();
                     })
                     .catch(err => {
@@ -83,16 +84,18 @@ export default {
                     // localStorage.clear(STORAGE_KEY)
                 })
         },
+        [UPDATE_SELLER_ITEMS]({ commit }, { itemId }) {
+            var sellerToUpdate = this.getters.loggedinUser;
+            if (itemId !== undefined) {
+                console.log('updating the items in seller')
+                sellerToUpdate.itemsForSale.push(itemId)
+                return ShopService.updateSellerItems(sellerToUpdate)
+                .then(user => {
+                    console.log('commiting')
+                    commit({type: SET_USER, user })
+                })
+            }
+            // } else return Promise.resolve();
+        }
     }
 }
-
-
-// function getUserFromStorage() {
-//     var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
-//     // console.log('GETTING FROM STORAGE', loggedinUser);
-//     return loggedinUser;
-// }
-
-// function saveToLocalStorage(user) {
-//     localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
-// }

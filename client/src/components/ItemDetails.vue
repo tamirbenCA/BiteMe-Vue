@@ -10,7 +10,7 @@
                         <div class="top">
                             <div class="title">
                                 <div class="top-detail">
-                                    <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsChef">
+                                    <router-link :to="`/item/${itemId}/edit`" v-if="loggedinUserIsSeller">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </router-link>
                                     <p style="text-transform: capitalize;">{{item.name}}</p>
@@ -31,13 +31,6 @@
 
                                 <el-input-number v-model="num1" @change="quantityChange({item})" :max="10"></el-input-number>
                                 <button class="add-btn" @click="addItem(item)">Add To Cart</button>
-                                <!-- <i class="fa fa-plus" @click="addItem(item)" aria-hidden="true"></i> -->
-                                <!-- <i class="fa fa-thumbs-o-up" @click="addItem(item)" aria-hidden="true"></i> -->
-                                <!-- <select @change="quantityChange({quantity: +$event.target.value, item})" name="quantity" :value="item.quantity">
-                                                                    <option>0</option>
-                                                                    <option v-for="(n, index) in 10" :key="index">{{n}}</option>
-
-                                                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -66,14 +59,10 @@
                             <form class="form-signin" novalidate @submit.prevent="sendComment(item._id,msg)">
                                 <p>Add a comment</p>
                                 <input class="msg" v-model="msg" @keydown="checkUser" type="text">
-                                <div class="rank-chef">
+                                <div class="rank-seller">
                                     <p> Rank the meal</p>
 
                                     <el-input-number v-model="num8" controls-position="right" :min="1" :max="5"></el-input-number>
-                                    <!-- <select style="margin-left:5px" @change="rankVal({quantity: +$event.target.value})">
-                                                                        <option>0</option>
-                                                                        <option v-for="(n, index) in 5" :key="index">{{n}}</option>
-                                                                    </select> -->
                                 </div>
                                 <button class="midal-btn">Send</button>
                             </form>
@@ -82,14 +71,14 @@
                     </div>
                 </div>
                 <div class="middle">
-                    <div class="chef-details" style="background-color:#ffffffa8">
-                        <p class="cf-name"> Meet {{chef.name}} </p>
-                        <div><img class="chef" :src="chef.imgUrl" /></div>
+                    <div class="seller-details" style="background-color:#ffffffa8">
+                        <p class="cf-name"> Meet {{seller.name}} </p>
+                        <div><img class="seller" :src="seller.imgUrl" /></div>
 
-                        <p class="about-chef"> {{chef.about}} </p>
+                        <p class="about-seller"> {{seller.about}} </p>
                     </div>
                     <div class="right-side">
-                        <h3 style="font-size:20px;">See more of {{chef.name}}'s yummi meals </h3>
+                        <h3 style="font-size:20px;">See more of {{seller.name}}'s yummi meals </h3>
                         <ul>
                             <li style="display: flex; justify-content: center;" v-for="(meal, idx)  in meals" :key="idx" @click="showDetails(meal)">
                                 <div class="more-item">
@@ -134,7 +123,6 @@ export default {
     },
     watch: {
         '$route.params.itemId'() {
-
             this.itemId = this.$route.params.itemId;
             this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
         }
@@ -142,10 +130,8 @@ export default {
     created() {
         var mealsIds = [];
         this.itemId = this.$route.params.itemId;
-        // console.log( this.itemId)
         this.$store.dispatch({ type: LOAD_SELLER, itemId: this.itemId })
             .then((item) => {
-                //  console.log(item)
                 item.seller.itemsForSale.forEach((item) =>
                     mealsIds.push(item))
                 this.$store.dispatch({ type: LOAD_ITEMS_BY_IDS, ids: mealsIds })
@@ -214,7 +200,7 @@ export default {
         // comments() {
         //     return this.$store.getters.comments
         // },
-        chef() {
+        seller() {
             return this.$store.getters.currSeller
         },
         meals() {
@@ -223,9 +209,18 @@ export default {
         rankOfMeal() {
             return Math.round(this.$store.getters.currItem.rank)
         },
-        loggedinUserIsChef() {
+        loggedinUserIsSeller() {
+                console.log('cmp itemdetails inside loggeninUserIsSeller computed')
             if (this.$store.getters.loggedinUser) {
-                if (this.chef._id === this.$store.getters.loggedinUser._id) return true;
+                console.log('loggedinUser')
+                console.log(this.$store.getters.loggedinUser)
+                console.log('sellet')
+                console.log(this.seller._id)
+                if (this.seller._id === this.$store.getters.loggedinUser._id) {
+
+                console.log('inside the if statement')
+                 return true;
+                }
             } else return false;
         }
 
@@ -245,7 +240,7 @@ export default {
     width:100px;
 }
 
-.rank-chef {
+.rank-seller {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -397,7 +392,7 @@ h2 {
     background-color: #99a9bf;
 }
 
-.about-chef {
+.about-seller {
     word-wrap: break-word;
 }
 
@@ -449,7 +444,7 @@ h2 {
     height: 650px;
 }
 
-.chef-details {
+.seller-details {
     padding-bottom: 40px;
     width: 65%;
     height: 400px;
@@ -497,7 +492,7 @@ img {
     width: 40%;
 }
 
-.chef {
+.seller {
     background-size: cover;
     background-position: center;
     width: 60%;
@@ -640,7 +635,7 @@ form {
     .modal {
         width: 100%;
     }
-    .about-chef {
+    .about-seller {
         width: 90%;
     }
     .msg {

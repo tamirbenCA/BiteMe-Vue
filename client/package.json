@@ -13,6 +13,7 @@
     "animate.css": "^3.5.2",
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
+    "element-table-wrapper": "^2.0.2",
     "element-ui": "^2.0.10",
     "fontawesome": "^4.7.2",
     "js-datepicker": "^2.1.5",

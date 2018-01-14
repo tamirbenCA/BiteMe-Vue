@@ -1,7 +1,6 @@
 <template>
     <section>
 
-        <!-- <form @submit.prevent="submitItem"> -->
         <form>
             <div class="inp">Name <input type="text" v-model="itemToUpdate.name" autofocus></div>
 
@@ -34,7 +33,9 @@
 import swal from 'sweetalert'
 import UserService from '../services/UserService';
 import ShopService from '../services/ShopService';
-import { LOAD_TAGS, SET_TAG, SAVE_ITEM, DISABLE_ITEM, UPDATE_SELLER_ITEMS } from '../modules/ShopModule';
+// import { LOAD_TAGS, SET_TAG, SAVE_ITEM, DISABLE_ITEM, UPDATE_SELLER_ITEMS } from '../modules/ShopModule';
+import { LOAD_TAGS, SET_TAG, SAVE_ITEM, DISABLE_ITEM } from '../modules/ShopModule';
+import { UPDATE_SELLER_ITEMS } from '../modules/UserModule';
 
 
 export default {
@@ -64,19 +65,17 @@ export default {
         },
         submitItem() {
             // console.log('submiting form', this.itemToUpdate)
+            var seller = this.$store.getters.loggedinUser;
             if (!this.itemToUpdate._id) {
-                console.log('getters:', this.$store.getters.loggedinUser._id)
-                var seller = this.$store.getters.loggedinUser;
+                // console.log('getters:', this.$store.getters.loggedinUser._id)
                 this.itemToUpdate.seller.sellerId = seller._id;
                 this.itemToUpdate.seller.sellerName = seller.name;
                 this.itemToUpdate.seller.sellerImgUrl = seller.imgUrl;
             }
             this.$store.dispatch({ type: SAVE_ITEM, itemToUpdate: this.itemToUpdate })
                 .then(res => {
-                    console.log('res:', res.data)
                     this.$store.dispatch({ type: UPDATE_SELLER_ITEMS, itemId: res.data._id})
                     }).then (_=> {
-                        // this.$router.push('/')
                         this.$router.go(-1)
                     })
                 .catch(err => {

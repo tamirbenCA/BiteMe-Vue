@@ -395,6 +395,7 @@ app.put('/data/:objType/:id', function (req, res) {
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	const newObj = req.body;
+	const idHolder = newObj._id
 	delete newObj._id;
 	var query = getBasicQueryObj(req)
 
@@ -413,7 +414,10 @@ app.put('/data/:objType/:id', function (req, res) {
 					res.json(500, { error: 'Update failed' })
 				} else {
 					console.log('err',err)					
-					if (result.modifiedCount) res.json(newObj);
+					if (result.modifiedCount) {
+						newObj._id = idHolder
+						res.json(newObj);
+					}
 					else res.json(403, { error: 'Cannot update' })
 				}
 				db.close();
