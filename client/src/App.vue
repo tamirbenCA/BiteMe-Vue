@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-
-    <header-bar/>
-    <router-view/>
-    <footer>
-      <div class="foot">
-        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>May & Ben
-        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+    <div>
+      <header-bar/>
+      <router-view/>
       </div>
+      <footer>
+        <div class="foot">
+          <i class="fa fa-hand-peace-o" aria-hidden="true"></i>May & Ben
+          <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+        </div>
     </footer>
   </div>
 </template>
@@ -54,15 +55,17 @@ body::after {
   text-align: center;
   color: #322f2f;;
   min-height: 100vh;
-
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* flex: 1; */
+  justify-content: space-between;
 }
 
 body {
   font-family: "Lato";
   margin: 0;
 }
-
 
 .top-page {
   display: flex;
