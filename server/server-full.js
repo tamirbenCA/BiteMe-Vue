@@ -425,6 +425,44 @@ app.put('/data/:objType/:id', function (req, res) {
 	});
 });
 
+
+app.put('/data/:objType/:id', function (req, res) {
+	
+	const objType = req.params.objType;
+	const objId = req.params.id;
+	const newObj = req.body;
+	const idHolder = newObj._id
+	delete newObj._id;
+	var query = getBasicQueryObj(req)
+
+	cl('~~~~~~~~~~~~~~~')
+	cl(`Requested to UPDATE the ${objType} with id: ${objId}`);	
+	cl('query:', query)
+	cl('newObj:', newObj)
+	cl('~~~~~~~~~~~~~~~')
+	
+	dbConnect().then((db) => {
+		const collection = db.collection(objType);
+		collection.updateOne(query, newObj,
+			(err, result) => {
+				if (err) {
+					cl('Cannot Update', err)
+					res.json(500, { error: 'Update failed' })
+				} else {
+					console.log('err',err)					
+					if (result.modifiedCount) {
+						newObj._id = idHolder
+						console.log('hiiiiiiiii',newObj)
+						res.json(newObj);
+					}
+					else res.json(403, { error: 'Cannot update' })
+				}
+				db.close();
+			});
+	});
+});
+
+
 // Basic Login/Logout/Protected assets
 app.post('/login', function (req, res) {
 	dbConnect().then((db) => {

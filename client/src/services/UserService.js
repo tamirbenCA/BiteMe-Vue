@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ShopService from '../services/ShopService';
 
 var URL = 'http://localhost:3003'
 if (process.env.NODE_ENV !== 'development') {
@@ -167,6 +168,7 @@ function changeUserActivity(seller){
 
 
 
+
 function uploadImage(file) {
     var formData = new FormData()
     formData.append('file', file)
@@ -199,5 +201,6 @@ export default {
     getSellers,
     deleteSeller,
     changeUserActivity,
-    getSellerById
+    getSellerById,
+   
 } 

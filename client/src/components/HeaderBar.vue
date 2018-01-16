@@ -445,7 +445,7 @@ li {
     }
     .join-button {
         height: 35px;
-        width: 47px;
+        width: 60px;
     }
     .fa-shopping-basket {
         font-size: 20px;

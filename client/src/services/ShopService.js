@@ -27,6 +27,27 @@ function getItemsByIds(itemsIds) {
     return Promise.all(items)
 }
 
+
+function changeUserMealsActivity(mealsIds) {
+    console.log(mealsIds)
+    getItemsByIds(mealsIds)
+        .then(items => {
+            items.map(item => {
+                item.isActive = !item.isActive
+                console.log(item)
+                return axios
+                    .put(`${URL}/data/item/${item._id}`, item)
+                    .then(res => {
+                        console.log('resdata:', res.data)
+
+                    })
+            }
+            )
+        })
+
+}
+
+
 function getChefById(itemId) {
     return axios
         .get(`${URL}/data/user/${itemId}`)
@@ -124,11 +145,11 @@ function disableItem(item) {
         })
 }
 
-function updateSellerItems (sellerToUpdate) {
+function updateSellerItems(sellerToUpdate) {
     return axios.put(`${URL}/data/user/${sellerToUpdate._id}`, sellerToUpdate)
         .then(res => {
             return res.data
-        }) 
+        })
 }
 
 export default {
@@ -147,5 +168,6 @@ export default {
     getTopMeals,
     shuffleArr,
     disableItem,
-    updateSellerItems
+    updateSellerItems,
+    changeUserMealsActivity,
 }

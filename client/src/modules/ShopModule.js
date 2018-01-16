@@ -107,7 +107,9 @@ const actions = {
         // console.log('inside action', sellerId)
         UserService.getSellerById(sellerId)
             .then(seller => {
-                // console.log('seller is:', seller)
+
+                console.log('seller is:', seller.itemsForSale)
+                ShopService.changeUserMealsActivity(seller.itemsForSale)
                 seller.isActive = !seller.isActive
                 UserService.changeUserActivity(seller)
                 return seller;
