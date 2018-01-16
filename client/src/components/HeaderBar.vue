@@ -214,6 +214,8 @@ input {
     display: column;
     margin-top: 0;
     margin-left: 30px;
+            margin-bottom: 10px;
+
 }
 
 .icons {
@@ -400,7 +402,7 @@ li {
     .lg-img {
 
         height: 70px;
-        width: 85px;
+        width: 80px;
         margin-left: -10px;
         margin-top: -28px;
     }
@@ -458,7 +460,7 @@ li {
 
     .lgn-user {
         font-size: 15px;
-        margin-top: -80px;
+        margin-top: -90px;
         margin-left: -3px;
     }
     .btns-left-btm {
